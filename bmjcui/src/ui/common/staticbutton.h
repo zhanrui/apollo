@@ -2,7 +2,7 @@
 #define STATICBUTTON_H
 
 #include <QPushButton>
-#include "common.h"
+#include "src/common/common.h"
 
 class StaticButton : public QWidget
 {

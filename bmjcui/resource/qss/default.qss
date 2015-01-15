@@ -2,9 +2,28 @@ MainWindow#mainwindow{
       background: #B22222;  
 }
 
-MainWidget#mainwidget{
+MainWindow > MainWidget{
       background: #FFFFFF;
-      background-image: url(:image/main/background);
+      background-image: url(:image/main/background.png);
       background-repeat:no-repeat;
 }
+
+CommonWidget#testbutton{
+      background-image: url(:image/common/title/min.png);
+      background-repeat:no-repeat;
+}
+
+CommonWidget#testbutton:pressed{
+      background-image: url(:image/common/title/min.png);
+      background-position:-27 0;
+      background-repeat:no-repeat;
+}
+
+CommonWidget#testbutton:pressed{
+      background-image: url(:image/common/title/min.png);
+      background-position:0 0;
+      background-repeat:no-repeat;
+}
+
+
 

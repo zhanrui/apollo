@@ -5,6 +5,7 @@
 BaseStyleWidget::BaseStyleWidget(QWidget *parent) :
     QWidget(parent)
 {
+
 }
 
 void BaseStyleWidget::paintEvent(QPaintEvent *)

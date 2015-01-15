@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "src/ui/common/shadowwidget.h"
 
+
 class MainWidget;
 class OpacityWidget;
 

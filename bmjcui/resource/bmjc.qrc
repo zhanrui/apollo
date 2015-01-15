@@ -1,6 +1,12 @@
 <RCC>
     <qresource prefix="/">
         <file alias="qss/default">qss/default.qss</file>
-        <file alias="image/main/background">image/main/background.png</file>
+        <file>image/main/background.png</file>
+        <file>image/common/title/notes.png</file>
+        <file>image/common/title/min.png</file>
+        <file>image/common/title/logo.png</file>
+        <file>image/common/title/dropdown.png</file>
+        <file>image/common/title/description.png</file>
+        <file>image/common/title/close.png</file>
     </qresource>
 </RCC>

@@ -1,6 +1,6 @@
 
 #include "mainwindow.h"
-#include "src/ui/common/opacitywidget.h"
+
 #include "src/ui/main/mainwidget.h"
 #include <QApplication>
 #include <QFile>
@@ -27,7 +27,7 @@ void MainWindow::initUI()
 {
     this->setFixedSize(900, 600);
     this->setWindowTitle(tr("保密检查工具"));    
-    //this->setWindowIcon(QIcon(":/main/Logo"));
+    this->setWindowIcon(QIcon(":image/common/title/logo"));
     mainWidget = new MainWidget(this);
     mainWidget->setObjectName("mainwidget");
     //mainWidget->setStyleSheet("background-color:blue;");

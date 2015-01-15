@@ -1,4 +1,7 @@
 #include "mainwidget.h"
+#include <QLabel>
+#include <QHBoxLayout>
+
 
 MainWidget::MainWidget(QWidget *parent) :BaseStyleWidget(parent)
 {
@@ -16,6 +19,9 @@ MainWidget::~MainWidget()
 void MainWidget::initUI()
 {
     this->setFixedSize(900, 600);
+    mainTitleWidget= new MainTitleWidget(this);
+
+
 
 
 }
