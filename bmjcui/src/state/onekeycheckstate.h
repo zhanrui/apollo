@@ -6,6 +6,8 @@
 class OneKeyCheckState : public QObject
 {
     Q_OBJECT
+   Q_CLASSINFO("D-Bus Interface", "bmjc.onekeycheck")
+
 public:
     explicit OneKeyCheckState(QObject *parent = 0);
     ~OneKeyCheckState();
@@ -13,7 +15,7 @@ public:
 signals:
 
 public slots:
-   //void startCheck();
+   void actionSlot(const QString & qs);
    //void cancelCheck();
 
 private:

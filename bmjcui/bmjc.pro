@@ -9,8 +9,11 @@ QT       += core gui dbus widgets multimedia multimediawidgets
 TARGET = bmjc
 TEMPLATE = app
 
+#DBUS_ADAPTORS += src/state/onekeycheck.xml
+#DBUS_INTERFACES += src/state/onekeycheck.xml
 
-SOURCES += main.cpp \
+
+SOURCES += \
     src/common/animbuttongroupwidget.cpp \
     src/common/animbuttonwidget.cpp \
     src/common/basestylewidget.cpp \
@@ -37,7 +40,9 @@ SOURCES += main.cpp \
     src/main/common/shadowwidget.cpp \
     src/main/common/videowidget.cpp \
     src/main/mainwindow.cpp \
-    src/state/onekeycheckstate.cpp
+    src/state/onekeycheckstate.cpp \
+    src/main.cpp \
+    src/util/toolutil.cpp
 
 RESOURCES += \
     resource/bmjc.qrc
@@ -71,7 +76,11 @@ HEADERS += \
     src/main/common/scorewidget.h \
     src/main/common/shadowwidget.h \
     src/main/common/videowidget.h \
-    src/state/onekeycheckstate.h
+    src/state/onekeycheckstate.h \
+    src/util/toolutil.h
+
+DISTFILES += \
+    src/state/onekeycheck.xml
 
 
 

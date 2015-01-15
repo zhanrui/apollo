@@ -9,6 +9,7 @@
 #include <QParallelAnimationGroup>
 #include <QLabel>
 #include <QIcon>
+#include <QDBusInterface>
 
 MainWindow::MainWindow(QWidget *parent) :
     ShadowWidget(parent)
@@ -16,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     this->initUI();
     this->initAnim();
     this->initConnect();
+
+
 }
 
 void MainWindow::initUI()
