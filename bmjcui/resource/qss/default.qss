@@ -2,3 +2,9 @@ MainWindow#mainwindow{
       background: #B22222;  
 }
 
+MainWidget#mainwidget{
+      background: #FFFFFF;
+      background-image: url(:image/main/background);
+      background-repeat:no-repeat;
+}
+

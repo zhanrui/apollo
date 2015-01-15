@@ -7,7 +7,7 @@
 
 #ifndef TOOLUTIL_H
 #define TOOLUTIL_H
-
+#include <QString>
 
 class ToolUtil
 {
@@ -15,6 +15,7 @@ public:
     ToolUtil();
     ~ToolUtil();
     static void getSystemBasicInfo();
+    static void sendMessage(const QString & messages);
 };
 
 #endif // TOOLUTIL_H

@@ -7,9 +7,10 @@
 #include <QDebug>
 #include <QDBusInterface>
 
-#include <src/main/mainwindow.h>
+#include <src/ui/main/mainwindow.h>
 #include <src/state/onekeycheckstate.h>
 #include <src/util/toolutil.h>
+#include <src/util/interfacefortool.h>
 
 int main(int argc, char *argv[])
 {
@@ -38,22 +39,27 @@ int main(int argc, char *argv[])
     }
 
 
-    //Init In Other Thread
-    OneKeyCheckState  oneKeyCheckState;
-    if(! connection.registerObject("/bmjc/onekeycheck", &oneKeyCheckState, QDBusConnection::ExportAllSlots)){
+    //Init State In Other Thread
+    QThread thread ;
+    InterfaceForTool  interfaceForTool;
+    if(! connection.registerObject("/bmjc/ui", &interfaceForTool, QDBusConnection::ExportAllSlots)){
            qDebug() << "connection.lastError().message()";
            exit(1);
     }
-    QThread thread ;
+    interfaceForTool.moveToThread(&thread);
+
+    OneKeyCheckState  oneKeyCheckState;    
     oneKeyCheckState.moveToThread(&thread);
+
+
     thread.start();
 
     ToolUtil::getSystemBasicInfo();
 
     //Init MainWindow
-   // MainWindow w;
-    //w.setObjectName("mainwindow");
-   // w.show();
+   MainWindow w;
+   w.setObjectName("mainwindow");
+   w.show();
 
 
 

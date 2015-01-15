@@ -2,8 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QWidget>
-#include "common/shadowwidget.h"
+#include "src/ui/common/shadowwidget.h"
 
+class MainWidget;
+class OpacityWidget;
 
 class MainWindow : public ShadowWidget
 {
@@ -19,6 +21,9 @@ private slots:
     void showMenu();
     void showMin();
 
+public:
+    MainWidget   *mainWidget;
+    OpacityWidget *m_grayWidget;
 
 };
 
