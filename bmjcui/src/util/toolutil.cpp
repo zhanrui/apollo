@@ -1,9 +1,9 @@
 /****************************************************************************
 **
-** This Class is for call the Tools ( for example : check the system info , check file ,check Virus
+** This Class is for call the Tools ( for example : check the system info ,
+*check file ,check Virus
 **
 ****************************************************************************/
-
 
 #include "toolutil.h"
 #include <QDebug>
@@ -17,18 +17,12 @@
 #include <QJsonObject>
 #include <QString>
 
-ToolUtil::ToolUtil()
+ToolUtil::ToolUtil() {}
+
+ToolUtil::~ToolUtil() {}
+
+void ToolUtil::getSystemBasicInfo()
 {
-
-}
-
-ToolUtil::~ToolUtil()
-{
-
-}
-
-void ToolUtil::getSystemBasicInfo(){
-
     QJsonObject json;
     json.insert("functionname", QString("Qt"));
 
@@ -37,23 +31,20 @@ void ToolUtil::getSystemBasicInfo(){
 
     json.insert("parameters", parameters);
 
-
     QJsonDocument document;
     document.setObject(json);
     QByteArray byte_array = document.toJson(QJsonDocument::Compact);
     QString json_str(byte_array);
 
-
     ToolUtil::sendMessage(json_str);
-
 }
 
-void ToolUtil::sendMessage(const QString & messages){
-    QDBusInterface iface( "com.example.bmjc", "/bmjc/ui", "bmjc.ui",QDBusConnection::sessionBus());
+void ToolUtil::sendMessage(const QString& messages)
+{
+    QDBusInterface iface("com.example.bmjc", "/bmjc/ui", "bmjc.ui", QDBusConnection::sessionBus());
     if (!iface.isValid()) {
-          qDebug() << qPrintable(QDBusConnection::sessionBus().lastError().message());
-         exit(1);
-     }
-     iface.call("updateFromTool",messages);
+        qDebug() << qPrintable(QDBusConnection::sessionBus().lastError().message());
+        exit(1);
+    }
+    iface.call("updateFromTool", messages);
 }
-
