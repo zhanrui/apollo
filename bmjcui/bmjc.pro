@@ -19,33 +19,28 @@ RESOURCES += \
 
 HEADERS += \
     src/state/onekeycheckstate.h \
-    src/ui/common/shadowwidget.h \
+    src/common/common.h \
+    src/ui/base/basestylewidget.h \
+    src/ui/base/commonwidget.h \
+    src/ui/base/shadowwidget.h \
+    src/ui/base/staticbutton.h \
+    src/ui/main/maintitlewidget.h \
     src/ui/main/mainwidget.h \
     src/ui/main/mainwindow.h \
     src/util/interfacefortool.h \
     src/util/toolutil.h \
-    src/ui/common/basestylewidget.h \
-    src/ui/main/maintitlewidget.h \
-    src/common/common.h \
-    src/ui/common/commonwidget.h \
-    src/ui/common/staticbutton.h
+    src/ui/common/sysbuttongroup.h
 
 SOURCES += \
     src/state/onekeycheckstate.cpp \
-    src/ui/common/shadowwidget.cpp \
+    src/ui/base/basestylewidget.cpp \
+    src/ui/base/commonwidget.cpp \
+    src/ui/base/shadowwidget.cpp \
+    src/ui/base/staticbutton.cpp \
+    src/ui/main/maintitlewidget.cpp \
     src/ui/main/mainwidget.cpp \
     src/ui/main/mainwindow.cpp \
     src/util/interfacefortool.cpp \
     src/util/toolutil.cpp \
     src/main.cpp \
-    src/ui/common/basestylewidget.cpp \
-    src/ui/main/maintitlewidget.cpp \
-    src/ui/common/commonwidget.cpp \
-    src/ui/common/staticbutton.cpp
-
-
-
-
-
-
-
+    src/ui/common/sysbuttongroup.cpp

@@ -3,15 +3,17 @@
 
 #include <QWidget>
 #include <QComboBox>
-#include <src/ui/common/basestylewidget.h>
-#include <src/ui/main/maintitlewidget.h>
+#include <src/ui/base/basestylewidget.h>
 
-class MainWidget : public BaseStyleWidget
-{
+
+class QLabel;
+class MainTitleWidget;
+class MainWidget : public BaseStyleWidget {
     Q_OBJECT
 public:
-    explicit MainWidget(QWidget *parent = 0);
+    explicit MainWidget(QWidget* parent = 0);
     ~MainWidget();
+
 private:
     void initUI();
     void initConnect();
@@ -22,7 +24,12 @@ signals:
 public slots:
 
 public:
-    MainTitleWidget   *mainTitleWidget;
+    QWidget* mainTitleWidget;
+    QLabel* logoLabel;
+    QLabel* textLabel;
+    QLabel* biglogoLabel;
+    QLabel* statusLabel;
+
 
 };
 

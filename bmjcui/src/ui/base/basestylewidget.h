@@ -5,14 +5,13 @@
 
 #include <QWidget>
 
-class BaseStyleWidget : public QWidget
-{
+class BaseStyleWidget : public QWidget {
     Q_OBJECT
 public:
-    explicit BaseStyleWidget(QWidget *parent = 0);
+    explicit BaseStyleWidget(QWidget* parent = 0);
 
 protected:
-    virtual void paintEvent(QPaintEvent *);
+    virtual void paintEvent(QPaintEvent*);
 };
 
 #endif // BASESTYLEWIDGET_H

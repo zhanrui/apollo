@@ -2,6 +2,7 @@
 #include "mainwindow.h"
 
 #include "src/ui/main/mainwidget.h"
+#include "src/ui/common/sysbuttongroup.h"
 #include <QApplication>
 #include <QFile>
 #include <QStackedWidget>
@@ -26,6 +27,11 @@ void MainWindow::initUI()
     this->setWindowIcon(QIcon(":image/common/title/logo"));
     mainWidget = new MainWidget(this);
     mainWidget->setObjectName("mainwidget");
+
+    sysButtonGroup = new SysButtonGroup(this);
+    sysButtonGroup->raise();
+    sysButtonGroup->move(840,1);
+
     // mainWidget->setStyleSheet("background-color:blue;");
     // mainWidget->setGeometry(rect());
     // mainWidget->move(50,50);
@@ -44,6 +50,8 @@ void MainWindow::initUI()
 
 void MainWindow::initConnect()
 {
+    connect(sysButtonGroup->minButton, SIGNAL(click()), this, SLOT(showMinimized()));
+    connect(sysButtonGroup->closeButton, SIGNAL(click()), this, SLOT(closeWidget()));
 }
 
 void MainWindow::initAnim() {}

@@ -8,5 +8,7 @@
         <file>image/common/title/dropdown.png</file>
         <file>image/common/title/description.png</file>
         <file>image/common/title/close.png</file>
+        <file>image/main/status.png</file>
+        <file>image/main/biglogo.png</file>
     </qresource>
 </RCC>

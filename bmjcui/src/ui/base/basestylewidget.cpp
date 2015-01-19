@@ -2,13 +2,12 @@
 #include <QStyleOption>
 #include <QPainter>
 
-BaseStyleWidget::BaseStyleWidget(QWidget *parent) :
-    QWidget(parent)
+BaseStyleWidget::BaseStyleWidget(QWidget* parent)
+    : QWidget(parent)
 {
-
 }
 
-void BaseStyleWidget::paintEvent(QPaintEvent *)
+void BaseStyleWidget::paintEvent(QPaintEvent*)
 {
     QStyleOption opt;
     opt.init(this);

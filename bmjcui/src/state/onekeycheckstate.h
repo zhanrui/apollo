@@ -3,20 +3,18 @@
 
 #include <QObject>
 
-class OneKeyCheckState : public QObject
-{
+class OneKeyCheckState : public QObject {
     Q_OBJECT
 
-
 public:
-    explicit OneKeyCheckState(QObject *parent = 0);
+    explicit OneKeyCheckState(QObject* parent = 0);
     ~OneKeyCheckState();
 
 signals:
 
 public slots:
-   void actionSlot(const QString & qs);
-   //void cancelCheck();
+    void actionSlot(const QString& qs);
+    //void cancelCheck();
 
 private:
     bool m_isSelected;
