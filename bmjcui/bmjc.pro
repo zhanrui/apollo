@@ -6,6 +6,8 @@
 
 QT       += core gui dbus widgets multimedia multimediawidgets
 
+CONFIG += qt debug
+
 TARGET = bmjc
 TEMPLATE = app
 

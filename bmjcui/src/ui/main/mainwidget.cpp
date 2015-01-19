@@ -9,6 +9,7 @@
 MainWidget::MainWidget(QWidget* parent)
     : BaseStyleWidget(parent)
 {
+    //setWindowFlags( Qt::Window | Qt::FramelessWindowHint);
     this->initUI();
     this->initAnim();
     this->initConnect();

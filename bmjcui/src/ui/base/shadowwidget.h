@@ -2,9 +2,9 @@
 #define SHADOWWIDGET_H
 
 #include <QWidget>
-#include <QDialog>
+#include <QWindow>
 
-class ShadowWidget : public QDialog {
+class ShadowWidget : public QWidget {
     Q_OBJECT
 public:
     explicit ShadowWidget(QWidget* parent = 0);
@@ -13,8 +13,7 @@ protected:
     void mousePressEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
-    //供子类继承
-    virtual void paintEvent(QPaintEvent* event);
+
 
 private:
     QPoint m_movePoint; //移动的距离

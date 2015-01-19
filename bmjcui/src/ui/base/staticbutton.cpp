@@ -2,6 +2,7 @@
 #include <QPainter>
 #include <QEvent>
 #include <QMouseEvent>
+#include <QDebug>
 
 StaticButton::StaticButton(QWidget* parent)
     : QWidget(parent)
@@ -120,8 +121,12 @@ void StaticButton::mouseReleaseEvent(QMouseEvent* e)
     }
 
     if (rect().contains(e->pos())) {
-        if (this->isEnabled())
-            emit buttonClicked();
+        qDebug()<<"StaticButton Clicked";
+        if (this->isEnabled()){
+             qDebug()<<"this  isEnabled";
+             emit buttonClicked();
+        }
+
         setButtonStatus(BUTTON_ENTER);
         e->accept();
     } else {
