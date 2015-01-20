@@ -3,11 +3,17 @@
 
 #include <QWidget>
 #include <QComboBox>
+#include <QList>
 #include <src/ui/base/basestylewidget.h>
 
 
 class QLabel;
 class MainTitleWidget;
+class CommonWidget;
+class StaticButton;
+class QParallelAnimationGroup;
+
+
 class MainWidget : public BaseStyleWidget {
     Q_OBJECT
 public:
@@ -22,6 +28,8 @@ private:
 signals:
 
 public slots:
+    void toolbarSwitchLeft();
+    void toolbarSwitchRight();
 
 public:
     QWidget* mainTitleWidget;
@@ -29,6 +37,31 @@ public:
     QLabel* textLabel;
     QLabel* biglogoLabel;
     QLabel* statusLabel;
+
+    StaticButton* toleft;
+    StaticButton* toright;
+    QLabel* version;
+    QLabel* line;
+
+    CommonWidget* toolbar1;
+    StaticButton *onekeychecklogo;
+    QLabel* onekeychecktext;
+    StaticButton *commonchecklogo;
+    QLabel* commonchecktext;
+    StaticButton *deepchecklogo;
+    QLabel* deepchecktext;
+
+
+    StaticButton *filechecklogo;
+    QLabel* filechecktext;
+    StaticButton *tjchecklogo;
+    QLabel* tjchecktext;
+    StaticButton *toollogo;
+    QLabel* tooltext;
+
+    QList<QWidget*> * buttonlist;
+
+    QParallelAnimationGroup*  toolbarSwitchAnimation;
 
 
 };

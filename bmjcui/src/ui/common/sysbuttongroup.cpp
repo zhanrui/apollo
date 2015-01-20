@@ -6,10 +6,10 @@ SysButtonGroup::SysButtonGroup(QWidget *parent) :
 {
     QHBoxLayout *hLayout = new QHBoxLayout;
 
-    minButton = new StaticButton(":image/common/title/min",3);
+    minButton = new StaticButton(":image/common/title/min",3,this);
     //connect(minButton, SIGNAL(buttonClicked()), this, SIGNAL(showMin()));
 
-    closeButton = new StaticButton(":image/common/title/close",3);
+    closeButton = new StaticButton(":image/common/title/close",3,this);
     //connect(closeButton, SIGNAL(buttonClicked()), this, SIGNAL(closeWidget()));
 
     hLayout->addWidget(minButton);

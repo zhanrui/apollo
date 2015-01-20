@@ -31,7 +31,9 @@ HEADERS += \
     src/ui/main/mainwindow.h \
     src/util/interfacefortool.h \
     src/util/toolutil.h \
-    src/ui/common/sysbuttongroup.h
+    src/ui/common/sysbuttongroup.h \
+    src/ui/base/opacitywidget.h \
+    src/ui/base/faderwidget.h
 
 SOURCES += \
     src/state/onekeycheckstate.cpp \
@@ -45,4 +47,6 @@ SOURCES += \
     src/util/interfacefortool.cpp \
     src/util/toolutil.cpp \
     src/main.cpp \
-    src/ui/common/sysbuttongroup.cpp
+    src/ui/common/sysbuttongroup.cpp \
+    src/ui/base/opacitywidget.cpp \
+    src/ui/base/faderwidget.cpp

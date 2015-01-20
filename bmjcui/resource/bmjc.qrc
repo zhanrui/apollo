@@ -10,5 +10,21 @@
         <file>image/common/title/close.png</file>
         <file>image/main/status.png</file>
         <file>image/main/biglogo.png</file>
+        <file>image/main/commonchecklogo.png</file>
+        <file>image/main/commonchecktext.png</file>
+        <file>image/main/deepchecklogo.png</file>
+        <file>image/main/deepchecktext.png</file>
+        <file>image/main/filechecklogo.png</file>
+        <file>image/main/filechecktext.png</file>
+        <file>image/main/line.png</file>
+        <file>image/main/onekeychecklogo.png</file>
+        <file>image/main/onekeychecktext.png</file>
+        <file>image/main/tjchecklogo.png</file>
+        <file>image/main/tjchecktext.png</file>
+        <file>image/main/toleft.png</file>
+        <file>image/main/toollogo.png</file>
+        <file>image/main/tooltext.png</file>
+        <file>image/main/toright.png</file>
+        <file>image/main/version.png</file>
     </qresource>
 </RCC>
