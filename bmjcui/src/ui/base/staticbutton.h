@@ -27,12 +27,17 @@ protected:
     void mouseReleaseEvent(QMouseEvent* e);
     void changeEvent(QEvent* e);
 
+public slots:
+    void select();
+    void unselect();
+
 private:
     QPixmap m_currentPix;
     QList<QPixmap> m_pixList;
     int m_num;
     QCursor m_preCursor;
     bool m_isCursor;
+    bool isSelected;
 };
 
 #endif // STATICBUTTON_H

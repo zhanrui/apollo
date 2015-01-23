@@ -26,5 +26,42 @@
         <file>image/main/tooltext.png</file>
         <file>image/main/toright.png</file>
         <file>image/main/version.png</file>
+        <file>image/common/returnbtn.png</file>
+        <file>image/onekeycheck/onekeychecklogo.png</file>
+        <file>image/onekeycheck/description.png</file>
+        <file>image/onekeycheck/background.png</file>
+        <file>image/onekeycheck/startcheckbtn.png</file>
+        <file>image/onekeycheck/leftbutton/deviceconnectionbtn_default.png</file>
+        <file>image/onekeycheck/leftbutton/deviceconnectionbtn_noproblem.png</file>
+        <file>image/onekeycheck/leftbutton/deviceconnectionbtn_problem.png</file>
+        <file>image/onekeycheck/leftbutton/deviceconnectionbtn_running.png</file>
+        <file>image/onekeycheck/leftbutton/filecheckbtn_default.png</file>
+        <file>image/onekeycheck/leftbutton/filecheckbtn_noproblem.png</file>
+        <file>image/onekeycheck/leftbutton/filecheckbtn_problem.png</file>
+        <file>image/onekeycheck/leftbutton/filecheckbtn_running.png</file>
+        <file>image/onekeycheck/leftbutton/netbrowserbtn_default.png</file>
+        <file>image/onekeycheck/leftbutton/netbrowserbtn_noproblem.png</file>
+        <file>image/onekeycheck/leftbutton/netbrowserbtn_problem.png</file>
+        <file>image/onekeycheck/leftbutton/netbrowserbtn_running.png</file>
+        <file>image/onekeycheck/leftbutton/securitythreatbtn_default.png</file>
+        <file>image/onekeycheck/leftbutton/securitythreatbtn_noproblem.png</file>
+        <file>image/onekeycheck/leftbutton/securitythreatbtn_problem.png</file>
+        <file>image/onekeycheck/leftbutton/securitythreatbtn_running.png</file>
+        <file>image/onekeycheck/leftbutton/systemsecuritybtn_problem.png</file>
+        <file>image/onekeycheck/leftbutton/systemsecuritybtn_running.png</file>
+        <file>image/onekeycheck/leftbutton/tjcheckbtn_default.png</file>
+        <file>image/onekeycheck/leftbutton/tjcheckbtn_noproblem.png</file>
+        <file>image/onekeycheck/leftbutton/tjcheckbtn_problem.png</file>
+        <file>image/onekeycheck/leftbutton/tjcheckbtn_running.png</file>
+        <file>image/onekeycheck/leftbutton/usbcheckbtn_default.png</file>
+        <file>image/onekeycheck/leftbutton/usbcheckbtn_noproblem.png</file>
+        <file>image/onekeycheck/leftbutton/usbcheckbtn_problem.png</file>
+        <file>image/onekeycheck/leftbutton/usbcheckbtn_running.png</file>
+        <file>font/方正兰亭细黑.TTF</file>
+        <file>image/onekeycheck/hline.png</file>
+        <file>image/onekeycheck/vline.png</file>
+        <file>image/onekeycheck/leftbutton/systemsecuritybtn_noproblem.png</file>
+        <file>image/onekeycheck/leftbutton/systemsecuritybtn_default.png</file>
+        <file>image/onekeycheck/resulttable/headerbackground.png</file>
     </qresource>
 </RCC>

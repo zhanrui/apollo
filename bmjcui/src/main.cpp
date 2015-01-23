@@ -1,4 +1,5 @@
 
+
 #include <QApplication>
 #include <QFile>
 #include <QThread>
@@ -6,6 +7,8 @@
 #include <QDBusConnection>
 #include <QDebug>
 #include <QDBusInterface>
+#include <QFontDatabase>
+#include <QTextCodec>
 
 #include <src/state/onekeycheckstate.h>
 #include <src/util/toolutil.h>
@@ -16,6 +19,10 @@
 int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
+
+    int returnvalue = QFontDatabase::addApplicationFont(":font/方正兰亭细黑.TTF");
+
+    qDebug()<< "Font Load Result"<<returnvalue;
 
     //Init QSS
     QFile qss(":qss/default");

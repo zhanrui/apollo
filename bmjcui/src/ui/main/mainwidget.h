@@ -43,7 +43,7 @@ public:
     QLabel* version;
     QLabel* line;
 
-    CommonWidget* toolbar1;
+    CommonWidget* toolbar;
     StaticButton *onekeychecklogo;
     QLabel* onekeychecktext;
     StaticButton *commonchecklogo;

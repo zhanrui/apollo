@@ -5,14 +5,14 @@
 #include "src/ui/base/shadowwidget.h"
 
 class MainWidget;
-class OpacityWidget;
+class OneKeyCheckWidget;
+class QParallelAnimationGroup;
+
 class SysButtonGroup;
 
 class QThread;
 class InterfaceForTool;
 class OneKeyCheckState;
-
-class QPushButton;
 
 class MainWindow : public ShadowWidget {
     Q_OBJECT
@@ -24,28 +24,33 @@ private:
     void initDBus();
     void initConnect();
     void initAnim();
-
+    void switchWidgetToLeft(QWidget* currentWidget,  QWidget* showWidget);
+    void switchWidgetToRight(QWidget* currentWidget,  QWidget* showWidget);
 
 public slots:
 
-    void showMenu();
     void showMin();
     void closeWidget();
-
+    void maintoonekeycheck();
+    void onekeychecktomain();
 
 public:
 
     //Widgets
     MainWidget* mainWidget;
-    OpacityWidget* m_grayWidget;
+    OneKeyCheckWidget* oneKeyCheckWidget;
+
+    QParallelAnimationGroup*  widgetSwitchAnimation;
+
+
     SysButtonGroup* sysButtonGroup;
 
     //Init State In Other Thread
     QThread* statethread;
     InterfaceForTool* interfaceForTool;
     OneKeyCheckState* oneKeyCheckState;
-    //TestButton
-     QPushButton *closeButton;
+
+
 };
 
 #endif // MAINWINDOW_H

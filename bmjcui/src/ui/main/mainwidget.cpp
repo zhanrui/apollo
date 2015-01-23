@@ -59,25 +59,25 @@ void MainWidget::initUI()
     toright = new StaticButton(":image/main/toright", 3, this);
     toright->move(807, 324);
 
-    toolbar1 = new CommonWidget(this);
-    toolbar1->setFixedSize(700, 200);
-    toolbar1->move(100, 300);
+    toolbar = new CommonWidget(this);
+    toolbar->setFixedSize(700, 200);
+    toolbar->move(100, 300);
 
-    onekeychecklogo = new StaticButton(":image/main/onekeychecklogo", 3, toolbar1);
+    onekeychecklogo = new StaticButton(":image/main/onekeychecklogo", 3, toolbar);
     onekeychecklogo->move(37, 9);
-    onekeychecktext = new QLabel(toolbar1);
+    onekeychecktext = new QLabel(toolbar);
     onekeychecktext->setPixmap(QPixmap(":image/main/onekeychecktext"));
     onekeychecktext->move(77, 171);
 
-    commonchecklogo = new StaticButton(":image/main/commonchecklogo", 3, toolbar1);
+    commonchecklogo = new StaticButton(":image/main/commonchecklogo", 3, toolbar);
     commonchecklogo->move(271, 9);
-    commonchecktext = new QLabel(toolbar1);
+    commonchecktext = new QLabel(toolbar);
     commonchecktext->setPixmap(QPixmap(":image/main/commonchecktext"));
     commonchecktext->move(316, 171);
 
-    deepchecklogo = new StaticButton(":image/main/deepchecklogo", 3, toolbar1);
+    deepchecklogo = new StaticButton(":image/main/deepchecklogo", 3, toolbar);
     deepchecklogo->move(500, 9);
-    deepchecktext = new QLabel(toolbar1);
+    deepchecktext = new QLabel(toolbar);
     deepchecktext->setPixmap(QPixmap(":image/main/onekeychecktext"));
     deepchecktext->move(550, 171);
 
@@ -85,21 +85,21 @@ void MainWidget::initUI()
     //toolbar2->setFixedSize(700, 200);
     //toolbar2->move(100, 300);
 
-    filechecklogo = new StaticButton(":image/main/filechecklogo", 3, toolbar1);
+    filechecklogo = new StaticButton(":image/main/filechecklogo", 3, toolbar);
     filechecklogo->move(37 + 700, 9);
-    filechecktext = new QLabel(toolbar1);
+    filechecktext = new QLabel(toolbar);
     filechecktext->setPixmap(QPixmap(":image/main/filechecktext"));
     filechecktext->move(77 + 700, 171);
 
-    tjchecklogo = new StaticButton(":image/main/tjchecklogo", 3, toolbar1);
+    tjchecklogo = new StaticButton(":image/main/tjchecklogo", 3, toolbar);
     tjchecklogo->move(271 + 700, 9);
-    tjchecktext = new QLabel(toolbar1);
+    tjchecktext = new QLabel(toolbar);
     tjchecktext->setPixmap(QPixmap(":image/main/tjchecktext"));
     tjchecktext->move(316 + 700, 171);
 
-    toollogo = new StaticButton(":image/main/toollogo", 3, toolbar1);
+    toollogo = new StaticButton(":image/main/toollogo", 3, toolbar);
     toollogo->move(500 + 700, 9);
-    tooltext = new QLabel(toolbar1);
+    tooltext = new QLabel(toolbar);
     tooltext->setPixmap(QPixmap(":image/main/tooltext"));
     tooltext->move(550 + 700, 171);
 

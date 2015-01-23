@@ -33,7 +33,10 @@ HEADERS += \
     src/util/toolutil.h \
     src/ui/common/sysbuttongroup.h \
     src/ui/base/opacitywidget.h \
-    src/ui/base/faderwidget.h
+    src/ui/base/faderwidget.h \
+    src/ui/onekeycheck/onekeycheckwidget.h \
+    src/ui/onekeycheck/tabbutton.h \
+    src/ui/onekeycheck/mydelegate.h
 
 SOURCES += \
     src/state/onekeycheckstate.cpp \
@@ -46,7 +49,16 @@ SOURCES += \
     src/ui/main/mainwindow.cpp \
     src/util/interfacefortool.cpp \
     src/util/toolutil.cpp \
-    src/main.cpp \
     src/ui/common/sysbuttongroup.cpp \
     src/ui/base/opacitywidget.cpp \
-    src/ui/base/faderwidget.cpp
+    src/ui/base/faderwidget.cpp \
+    src/ui/onekeycheck/onekeycheckwidget.cpp \
+    src/main.cpp \
+    src/ui/onekeycheck/tabbutton.cpp \
+    src/ui/onekeycheck/mydelegate.cpp
+
+copyotherfile.commands = $(COPY_DIR) $$PWD/otherfile $$OUT_PWD
+first.depends = $(first) copyotherfile
+export(first.depends)
+export(copyotherfile.commands)
+QMAKE_EXTRA_TARGETS += first copyotherfile

@@ -1,9 +1,18 @@
+MainWindow {
+      background: #FFFFFF;
 
+}
 
 MainWindow > MainWidget{
       background: #FFFFFF;
       background-image: url(:image/main/background.png);
       background-repeat:no-repeat;
+}
+
+MainWindow > OneKeyCheckWidget{
+    background: #FFFFFF;
+    background-image: url(:image/onekeycheck/background.png);
+    background-repeat:no-repeat;
 }
 
 CommonWidget#testbutton{
@@ -22,6 +31,144 @@ CommonWidget#testbutton:pressed{
       background-position:0 0;
       background-repeat:no-repeat;
 }
+
+OneKeyCheckWidget > QLabel#descriptiontitle{
+      font-family: "方正兰亭细黑_GBK";
+      font-size: 28px ;
+      color:#FFFFFF
+}
+
+OneKeyCheckWidget > QLabel#description{
+      font-family: "方正兰亭细黑_GBK";
+      font-size: 14.45px ;
+      color:#FFFFFF
+}
+
+QTableView::item
+{
+      border-right: 1px solid #CACACA;
+}
+
+ QTableView {
+     alternate-background-color:#8A8787;
+     selection-background-color:#FFFFFF;
+     selection-color:#8A8787;
+     font-family: "方正兰亭细黑_GBK";
+     font-size: 12px ;
+     color:#8A8787;
+     border: none;
+ }
+QHeaderView::section
+{
+    font-family: "方正兰亭细黑_GBK";
+    font-size: 12px ;
+    font-weight: 900;
+    color:#8A8787;
+    border-bottom: 0px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 1px solid #CACACA;
+    background-image: url(:image/onekeycheck/resulttable/headerbackground.png);
+}
+
+
+QScrollBar:horizontal {
+     border: 0px solid grey;
+     background: #F8F8F8;
+     height: 13px;
+
+ }
+ QScrollBar::handle:horizontal {
+     background: #e0dede;
+     height: 9px;
+     border: 2px solid #F8F8F8;
+     border-radius:5px
+ }
+ QScrollBar::add-line:horizontal {
+     border: 0px solid grey;
+     background: #F8F8F8;
+     width: 0px;
+     height: 0px;
+     subcontrol-position: right;
+     subcontrol-origin: margin;
+ }
+
+ QScrollBar::sub-line:horizontal {
+     border: 0px solid grey;
+     background: #F8F8F8;
+     width: 0px;
+     height: 0px;
+     subcontrol-position: left;
+     subcontrol-origin: margin;
+ }
+
+ QScrollBar:left-arrow:horizontal, QScrollBar::right-arrow:horizontal {
+     border: 0px solid grey;
+     width: 0px;
+     height: 0px;
+     background: #F8F8F8;
+ }
+
+ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+     background: none;
+ }
+
+QScrollBar:vertical {
+     border: 0px solid grey;
+     background: #F8F8F8;
+     width: 13px;
+ }
+ QScrollBar::handle:vertical {
+     background: #e0dede;
+     width: 9px;
+     border: 2px solid #F8F8F8;
+     border-radius:5px
+ }
+
+ QScrollBar::add-line:vertical {
+     border: 0px solid grey;
+     background: #F8F8F8;
+     width: 0px;
+     height: 0px;
+     subcontrol-position: right;
+     subcontrol-origin: margin;
+ }
+
+ QScrollBar::sub-line:vertical {
+     border: 0px solid grey;
+     background: #F8F8F8;
+     width: 0px;
+     height: 0px;
+     subcontrol-position: left;
+     subcontrol-origin: margin;
+ }
+
+ QScrollBar:left-arrow:vertical, QScrollBar::right-arrow:vertical {
+     border: 0px solid grey;
+     width: 0px;
+     height: 0px;
+     background: #F8F8F8;
+ }
+
+ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: none;
+ }
+
+ QTableView::corner{
+    background: #F8F8F8;
+    border: 0px solid grey;
+ }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -7,6 +7,7 @@
 StaticButton::StaticButton(QWidget* parent)
     : QWidget(parent)
     , m_isCursor(false)
+    , isSelected(false)
 {
     this->setAttribute(Qt::WA_TranslucentBackground);
 }
@@ -15,6 +16,7 @@ StaticButton::StaticButton(const QString& icon, int num, QWidget* parent)
     : QWidget(parent)
     , m_num(num)
     , m_isCursor(false)
+    , isSelected(false)
 {
     this->setAttribute(Qt::WA_TranslucentBackground);
     QPixmap pixmap(icon);
@@ -28,6 +30,7 @@ StaticButton::StaticButton(const QString& icon, bool isDivision, int num, QWidge
     : QWidget(parent)
     , m_num(num)
     , m_isCursor(false)
+    , isSelected(false)
 {
     this->setAttribute(Qt::WA_TranslucentBackground);
     if (isDivision)
@@ -146,5 +149,22 @@ void StaticButton::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
 
-    painter.drawPixmap(rect(), m_currentPix);
+    if(isSelected){
+         painter.drawPixmap(rect(), m_pixList.at(2));
+    }else{
+         painter.drawPixmap(rect(), m_currentPix);
+    }
+
 }
+void StaticButton::select()
+{
+    isSelected = true;
+    update();
+}
+
+void StaticButton::unselect()
+{
+    isSelected = false;
+    update();
+}
+
