@@ -6,14 +6,22 @@
 
 #ifndef TOOLUTIL_H
 #define TOOLUTIL_H
+#include <QObject>
 #include <QString>
 
-class ToolUtil {
+class QDBusInterface;
+class ToolUtil : public QObject {
+    Q_OBJECT
 public:
-    ToolUtil();
+    explicit ToolUtil(QObject* parent = 0);
     ~ToolUtil();
-    static void getSystemBasicInfo();
-    static void sendMessage(const QString& messages);
+public slots:
+    void startOneKeyCheck();
+    void cancelOneKeyCheck();
+    void getSystemBasicInfo();
+    void sendMessage(const QString& messages);
+public :
+ QDBusInterface *iface;
 };
 
 #endif // TOOLUTIL_H

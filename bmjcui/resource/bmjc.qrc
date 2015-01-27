@@ -63,5 +63,8 @@
         <file>image/onekeycheck/leftbutton/systemsecuritybtn_noproblem.png</file>
         <file>image/onekeycheck/leftbutton/systemsecuritybtn_default.png</file>
         <file>image/onekeycheck/resulttable/headerbackground.png</file>
+        <file>image/onekeycheck/progressbar_front.png</file>
+        <file>image/onekeycheck/progressbar_background.png</file>
+        <file>image/onekeycheck/cancelcheckbtn.png</file>
     </qresource>
 </RCC>

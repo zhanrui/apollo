@@ -12,12 +12,16 @@
 #include <QAbstractItemView>
 #include <QStyledItemDelegate>
 #include <QItemDelegate>
-
-
+#include <QFrame>
+#include <QDateTime>
+#include <QTimer>
+#include <QTime>
+#include <QDebug>
 
 OneKeyCheckWidget::OneKeyCheckWidget(QWidget* parent)
     : BaseStyleWidget(parent)
 {
+
     initModel();
     initUI();
     initConnect();
@@ -34,17 +38,37 @@ void OneKeyCheckWidget::initUI()
     returnbtn->move(0, 0);
     startcheckbtn = new StaticButton(":image/onekeycheck/startcheckbtn", 3, this);
     startcheckbtn->move(703, 60);
+    cancelcheckbtn = new StaticButton(":image/onekeycheck/cancelcheckbtn", 3, this);
+    cancelcheckbtn->move(739, 74);
+    cancelcheckbtn->hide();
     onekeychecklogo = new QLabel(this);
     onekeychecklogo->setPixmap(QPixmap(":image/onekeycheck/onekeychecklogo"));
     onekeychecklogo->move(40, 55);
     descriptiontitle = new QLabel(this);
-    descriptiontitle->setText("请至少选择一项检查");
+    descriptiontitle->setText("一键检查");
     descriptiontitle->setObjectName("descriptiontitle");
     descriptiontitle->move(130, 69);
     description = new QLabel(this);
-    description->setText("经常检查，让电脑保持最安全状态");
+    description->setText("一般检查项目包含设备信息，以及基本安全信息");
     description->setObjectName("description");
     description->move(133, 109);
+
+    progressbar_background = new QLabel(this);
+    progressbar_background->setPixmap(QPixmap(":image/onekeycheck/progressbar_background"));
+    progressbar_background->move(0, 147);
+    progressbar_background->hide();
+
+    progressbar_front = new QLabel(this);
+    progressbar_front->setPixmap(QPixmap(":image/onekeycheck/progressbar_front"));
+    progressbar_front->move(-895, 147);
+    progressbar_front->hide();
+
+    checkingElapsedTime = new QLabel(this);
+    checkingElapsedTime->move(584, 82);
+    checkingElapsedTime->setObjectName("checkingelapsedtime");
+    checkingElapsedTime->setText("已用时：00:00:00");
+    checkingElapsedTime->hide();
+    checkingElapsedTimer = new QTimer(this);
 
     //hline = new QLabel(this);
     //hline->setPixmap(QPixmap(":image/onekeycheck/hline"));
@@ -59,18 +83,25 @@ void OneKeyCheckWidget::initUI()
     int x = 1;
     deviceconnectionbtn = new TabButton(":image/onekeycheck/leftbutton/deviceconnectionbtn", this);
     deviceconnectionbtn->move(x, start);
+    deviceconnectionbtn->setEnabled(false);
     netbrowserbtn = new TabButton(":image/onekeycheck/leftbutton/netbrowserbtn", this);
     netbrowserbtn->move(x, start + (between)*1);
+    netbrowserbtn->setEnabled(false);
     systemsecuritybtn = new TabButton(":image/onekeycheck/leftbutton/systemsecuritybtn", this);
     systemsecuritybtn->move(x, start + (between)*2);
+    systemsecuritybtn->setEnabled(false);
     securitythreatbtn = new TabButton(":image/onekeycheck/leftbutton/securitythreatbtn", this);
     securitythreatbtn->move(x, start + (between)*3);
+    securitythreatbtn->setEnabled(false);
     usbcheckbtn = new TabButton(":image/onekeycheck/leftbutton/usbcheckbtn", this);
     usbcheckbtn->move(x, start + (between)*4);
+    usbcheckbtn->setEnabled(false);
     filecheckbtn = new TabButton(":image/onekeycheck/leftbutton/filecheckbtn", this);
     filecheckbtn->move(x, start + (between)*5);
+    filecheckbtn->setEnabled(false);
     tjcheckbtn = new TabButton(":image/onekeycheck/leftbutton/tjcheckbtn", this);
     tjcheckbtn->move(x, start + (between)*6);
+    tjcheckbtn->setEnabled(false);
 
     for (int i = 0; i < 7; i++) {
         QLabel* hline = new QLabel(this);
@@ -87,39 +118,91 @@ void OneKeyCheckWidget::initUI()
     checkresult->horizontalHeader()->setFixedHeight(36);
     checkresult->setGridStyle(Qt::NoPen);
 
-
     checkresult->setShowGrid(false);
     checkresult->setEditTriggers(QAbstractItemView::NoEditTriggers);
     checkresult->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     checkresult->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-    //checkresult->setItemDelegate(new QItemDelegate(checkresult));
+    checkresult->setItemDelegate(new MyDelegate(checkresult));
+    checkresult->setSelectionBehavior(QAbstractItemView::SelectRows);
+    checkresult->setSelectionMode(QAbstractItemView::NoSelection);
+    checkresult->setFrameShape(QFrame::NoFrame);
 
-    checkresult->setModel(filecheckmodel);
+    checkresult->setModel(cpumodel);
+    checkresult->hide();
 }
 void OneKeyCheckWidget::initConnect()
 {
+    connect(startcheckbtn, SIGNAL(buttonClicked()), this, SLOT(startCheck()));
+    connect(cancelcheckbtn, SIGNAL(buttonClicked()), this, SLOT(cancelCheck()));
+    connect(checkingElapsedTimer, SIGNAL(timeout()), this, SLOT(updateCheckingElapsedTime()));
+
 }
 void OneKeyCheckWidget::initModel()
 {
-    filecheckmodel = new QStandardItemModel(this);
-    //filecheck->setHeaderData(0, Qt::Horizontal, "姓名");
-    //filecheck->setHeaderData(1, Qt::Horizontal, "性别");
-
+    cpumodel = new QStandardItemModel(this);
     QStandardItem* nameHead = new QStandardItem("姓名");
-
     QStandardItem* sexHead = new QStandardItem("性别");
+    cpumodel->setHorizontalHeaderItem(0, nameHead);
+    cpumodel->setHorizontalHeaderItem(1, sexHead);
+}
 
-    filecheckmodel->setHorizontalHeaderItem(0, nameHead);
-    filecheckmodel->setHorizontalHeaderItem(1, sexHead);
+void OneKeyCheckWidget::startCheck()
+{
+    startcheckbtn->hide();
+    cancelcheckbtn->show();
+    progressbar_background->show();
+    progressbar_front->show();
+    descriptiontitle->setText("正在检查。。。");
+    descriptiontitle->adjustSize();
+    description->setText("还未检查出可疑问题");
+    description->adjustSize();
 
-    QStandardItem* name = new QStandardItem("李磊");
-    QStandardItem* sex = new QStandardItem("男");
+    checkingElapsedTime->show();
+    checkingElapsedTime->setText("已用时：00:00:00");
+    checkingElapsedTime->adjustSize();
+    checkingStartTime = (QDateTime::currentDateTime()).toTime_t();
+    checkingElapsedTimer->start(1000);
 
-    //sex->setCheckState( !section.hidden ? Qt::Checked : Qt::Unchecked );
-    //visibilityItem->setData( QVariant::fromValue( section ), Qt::UserRole + 1 );
-    //visibilityItem->setData("hello",);
-    //filecheckmodel->appendRow(QList<QStandardItem*>() << name << sex);
-    filecheckmodel->insertRows(0, 14);
-    //tjcheck = new QStandardItemModel(this);
-    //thcheck = new QStandardItemModel(this);
+    deviceconnectionbtn->setEnabled(true);
+    deviceconnectionbtn->changeToRunning();
+    netbrowserbtn->setEnabled(true);
+    netbrowserbtn->changeToRunning();
+    systemsecuritybtn->setEnabled(true);
+    systemsecuritybtn->changeToRunning();
+    securitythreatbtn->setEnabled(true);
+    securitythreatbtn->changeToRunning();
+    usbcheckbtn->setEnabled(true);
+    usbcheckbtn->changeToRunning();
+    filecheckbtn->setEnabled(true);
+    filecheckbtn->changeToRunning();
+    tjcheckbtn->setEnabled(true);
+    tjcheckbtn->changeToRunning();
+}
+
+
+void OneKeyCheckWidget::cancelCheck()
+{
+    startcheckbtn->show();
+    cancelcheckbtn->hide();
+    progressbar_background->hide();
+    progressbar_front->hide();
+
+    descriptiontitle->setText("检查已取消");
+    descriptiontitle->adjustSize();
+    description->setText("还未检查出可疑问题");
+    description->adjustSize();
+    checkingElapsedTime->hide();
+    checkingElapsedTime->setText("");
+    checkingElapsedTimer->stop();
+
+
+}
+
+
+void OneKeyCheckWidget::updateCheckingElapsedTime()
+{
+    qDebug() << "updateCheckingElapsedTime";
+    unsigned int timedifference = (QDateTime::currentDateTime()).toTime_t() - checkingStartTime;
+    checkingElapsedTime->setText("已用时：" + (QTime(0, 0)).addSecs(timedifference).toString("hh:mm:ss"));
+
 }

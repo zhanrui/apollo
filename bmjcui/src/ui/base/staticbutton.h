@@ -38,6 +38,7 @@ private:
     QCursor m_preCursor;
     bool m_isCursor;
     bool isSelected;
+    bool isDisable;
 };
 
 #endif // STATICBUTTON_H

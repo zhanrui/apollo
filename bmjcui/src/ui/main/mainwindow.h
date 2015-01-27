@@ -9,6 +9,7 @@ class OneKeyCheckWidget;
 class QParallelAnimationGroup;
 
 class SysButtonGroup;
+class ToolUtil;
 
 class QThread;
 class InterfaceForTool;
@@ -48,6 +49,7 @@ public:
     //Init State In Other Thread
     QThread* statethread;
     InterfaceForTool* interfaceForTool;
+    ToolUtil* toolUtil;
     OneKeyCheckState* oneKeyCheckState;
 
 

@@ -44,10 +44,28 @@ OneKeyCheckWidget > QLabel#description{
       color:#FFFFFF
 }
 
+OneKeyCheckWidget > QLabel#checkingelapsedtime{
+      font-family: "方正兰亭细黑_GBK";
+      font-size: 14.45px ;
+      color:#FFFFFF
+}
+
+
+
 QTableView::item
 {
       border-right: 1px solid #CACACA;
 }
+
+QTableView::item:focus
+{
+      border-bottom: none;
+      border-top: none;
+      border-left: none;
+      border-right: 1px solid #CACACA;
+      background-image: url(:image/onekeycheck/resulttable/headerbackground.png);
+}
+
 
  QTableView {
      alternate-background-color:#8A8787;
@@ -57,7 +75,11 @@ QTableView::item
      font-size: 12px ;
      color:#8A8787;
      border: none;
+     outline: 0;
  }
+
+
+
 QHeaderView::section
 {
     font-family: "方正兰亭细黑_GBK";

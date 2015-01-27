@@ -61,10 +61,17 @@ void MainWindow::initUI()
 
 void MainWindow::initConnect()
 {
+    //Init System
     connect(sysButtonGroup->minButton, SIGNAL(buttonClicked()), this, SLOT(showMin()));
     connect(sysButtonGroup->closeButton, SIGNAL(buttonClicked()), this, SLOT(closeWidget()));
+
+    //Main Sub Navi
     connect(mainWidget->onekeychecklogo, SIGNAL(buttonClicked()), this, SLOT(maintoonekeycheck()));
     connect(oneKeyCheckWidget->returnbtn, SIGNAL(buttonClicked()), this, SLOT(onekeychecktomain()));
+
+    //OneKeyCheck
+     connect(oneKeyCheckWidget->startcheckbtn, SIGNAL(buttonClicked()), toolUtil, SLOT(startOneKeyCheck()));
+     connect(oneKeyCheckWidget->cancelcheckbtn, SIGNAL(buttonClicked()), toolUtil, SLOT(cancelOneKeyCheck()));
 }
 
 void MainWindow::initAnim() {}
@@ -76,7 +83,7 @@ void MainWindow::maintoonekeycheck()
 
 void MainWindow::onekeychecktomain()
 {
-    switchWidgetToRight(oneKeyCheckWidget , mainWidget);
+    switchWidgetToRight(oneKeyCheckWidget, mainWidget);
 }
 
 void MainWindow::switchWidgetToLeft(QWidget* currentWidget, QWidget* showWidget)
@@ -143,18 +150,20 @@ void MainWindow::initDBus()
                  "Please check your system settings and try again.\n");
     }
 
-    if (!connection.registerService("com.example.bmjc")) {
+    if (!connection.registerService("com.bmjc.ui")) {
         qDebug() << connection.lastError().message();
     }
 
     //Init State In Other Thread
     statethread = new QThread(this);
+    statethread->start();
     interfaceForTool = new InterfaceForTool();
     if (!connection.registerObject("/bmjc/ui", interfaceForTool, QDBusConnection::ExportAllSlots)) {
         qDebug() << "connection.lastError().message()";
     }
     interfaceForTool->moveToThread(statethread);
-    oneKeyCheckState = new OneKeyCheckState();
-    oneKeyCheckState->moveToThread(statethread);
-    statethread->start();
+    toolUtil = new ToolUtil();
+    toolUtil->moveToThread(statethread);
+    connect(statethread, SIGNAL(finished()), interfaceForTool, SLOT(deleteLater()));
+    connect(statethread, SIGNAL(finished()), toolUtil, SLOT(deleteLater()));
 }

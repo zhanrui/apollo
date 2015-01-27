@@ -79,8 +79,8 @@ void StaticButton::setButtonStatus(BUTTONSTATUS status)
         default:
             break;
         }
-    } else if (m_num == 4)
-        m_currentPix = m_pixList.at(3);
+    } else
+        m_currentPix = m_pixList.at(0);
     update();
 }
 

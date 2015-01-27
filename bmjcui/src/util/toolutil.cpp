@@ -8,7 +8,6 @@
 #include "toolutil.h"
 #include <QDebug>
 #include <QDBusInterface>
-#include <QDebug>
 #include <QDBusMessage>
 #include <QJsonDocument>
 #include <QJsonArray>
@@ -17,9 +16,26 @@
 #include <QJsonObject>
 #include <QString>
 
-ToolUtil::ToolUtil() {}
+
+ToolUtil::ToolUtil(QObject* parent)
+    : QObject(parent)
+{
+    iface = new QDBusInterface("com.bmjc.ui", "/bmjc/ui", "bmjc.ui", QDBusConnection::sessionBus(),this);
+    if (!iface->isValid()) {
+        qDebug() << qPrintable(QDBusConnection::sessionBus().lastError().message());
+        exit(1);
+    }
+}
 
 ToolUtil::~ToolUtil() {}
+
+void ToolUtil::startOneKeyCheck()
+{
+}
+void ToolUtil::cancelOneKeyCheck()
+{
+}
+
 
 void ToolUtil::getSystemBasicInfo()
 {
@@ -41,10 +57,6 @@ void ToolUtil::getSystemBasicInfo()
 
 void ToolUtil::sendMessage(const QString& messages)
 {
-    QDBusInterface iface("com.example.bmjc", "/bmjc/ui", "bmjc.ui", QDBusConnection::sessionBus());
-    if (!iface.isValid()) {
-        qDebug() << qPrintable(QDBusConnection::sessionBus().lastError().message());
-        exit(1);
-    }
-    iface.call("updateFromTool", messages);
+
+    iface->call("updateFromTool", messages);
 }

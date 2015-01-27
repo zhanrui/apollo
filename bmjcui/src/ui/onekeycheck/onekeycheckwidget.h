@@ -23,8 +23,10 @@ private:
 signals:
 
 public slots:
-    //void toolbarSwitchLeft();
-    //void toolbarSwitchRight();
+
+    void startCheck();
+    void cancelCheck();
+    void updateCheckingElapsedTime();
 
 public:
 
@@ -36,24 +38,27 @@ public:
     TabButton* filecheckbtn;
     TabButton* tjcheckbtn;
 
-    QStandardItemModel * deviceconnectionmodel;
-    QStandardItemModel * netbrowsermodel;
-    QStandardItemModel * systemsecuritymodel;
-    QStandardItemModel * securitythreatmodel;
-    QStandardItemModel * usbcheckmodel;
-    QStandardItemModel * filecheckmodel;
-    QStandardItemModel * tjcheckmodel;
+    QStandardItemModel * cpumodel ;
 
     QTableView *    checkresult ;
 
     StaticButton* returnbtn;
     StaticButton* startcheckbtn;
+    StaticButton* cancelcheckbtn;
 
     QLabel* onekeychecklogo;
     QLabel* descriptiontitle;
     QLabel* description;
+
+    QLabel* progressbar_background;
+    QLabel* progressbar_front;
+    QLabel* checkingElapsedTime;
+
+    QTimer *checkingElapsedTimer;
     //QLabel* vline;
     //QLabel* hline;
+
+    unsigned int checkingStartTime;
 };
 
 #endif // ONEKEYCHECKWIDGET_H

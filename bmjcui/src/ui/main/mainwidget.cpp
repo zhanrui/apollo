@@ -78,7 +78,7 @@ void MainWidget::initUI()
     deepchecklogo = new StaticButton(":image/main/deepchecklogo", 3, toolbar);
     deepchecklogo->move(500, 9);
     deepchecktext = new QLabel(toolbar);
-    deepchecktext->setPixmap(QPixmap(":image/main/onekeychecktext"));
+    deepchecktext->setPixmap(QPixmap(":image/main/deepchecktext"));
     deepchecktext->move(550, 171);
 
     //toolbar2 = new CommonWidget(this);

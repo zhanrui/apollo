@@ -2,17 +2,17 @@
 #define MYDELEGATE_H
 
 #include <QObject>
-#include <QItemDelegate>
-class MyDelegate  : public QItemDelegate
+#include <QStyledItemDelegate>
+class MyDelegate  : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
     explicit MyDelegate(QObject *parent = 0);
     ~MyDelegate();
+    void paint(QPainter *painter,
+               const QStyleOptionViewItem &option, const QModelIndex &index) const;
     // painting
-protected:
-    void drawDisplay(QPainter *painter, const QStyleOptionViewItem &option,
-                     const QRect &rect, const QString &text) const;
+
 
 };
 

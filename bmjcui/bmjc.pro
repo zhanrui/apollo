@@ -36,7 +36,8 @@ HEADERS += \
     src/ui/base/faderwidget.h \
     src/ui/onekeycheck/onekeycheckwidget.h \
     src/ui/onekeycheck/tabbutton.h \
-    src/ui/onekeycheck/mydelegate.h
+    src/ui/onekeycheck/mydelegate.h \
+    src/util/modelutil.h
 
 SOURCES += \
     src/state/onekeycheckstate.cpp \
@@ -55,7 +56,8 @@ SOURCES += \
     src/ui/onekeycheck/onekeycheckwidget.cpp \
     src/main.cpp \
     src/ui/onekeycheck/tabbutton.cpp \
-    src/ui/onekeycheck/mydelegate.cpp
+    src/ui/onekeycheck/mydelegate.cpp \
+    src/util/modelutil.cpp
 
 copyotherfile.commands = $(COPY_DIR) $$PWD/otherfile $$OUT_PWD
 first.depends = $(first) copyotherfile
