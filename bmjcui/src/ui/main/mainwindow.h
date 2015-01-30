@@ -14,6 +14,7 @@ class ToolUtil;
 class QThread;
 class InterfaceForTool;
 class OneKeyCheckState;
+class TaskScene;
 
 class MainWindow : public ShadowWidget {
     Q_OBJECT
@@ -35,24 +36,28 @@ public slots:
     void maintoonekeycheck();
     void onekeychecktomain();
 
-public:
+    void progressUpdate(const QString& scenename, const QString& functionname, const int currentcompletion, const QString& currentstatus);
+    void errorUpdate(const QString& scenename, const QString& functionname, const QString& errordescrition);
+    void dataUpdate(const QString& scenename, const QString& functionname, const QVariantList& result);
 
-    //Widgets
+public:
+   //Common Widgets
+    SysButtonGroup* sysButtonGroup;
+
+    //Window Widgets
     MainWidget* mainWidget;
     OneKeyCheckWidget* oneKeyCheckWidget;
 
+    //Animation
     QParallelAnimationGroup*  widgetSwitchAnimation;
-
-
-    SysButtonGroup* sysButtonGroup;
 
     //Init State In Other Thread
     QThread* statethread;
     InterfaceForTool* interfaceForTool;
     ToolUtil* toolUtil;
-    OneKeyCheckState* oneKeyCheckState;
 
-
+    //SceneMap
+     QMap<QString,QList<TaskScene *> >*  sceneMap;
 };
 
 #endif // MAINWINDOW_H

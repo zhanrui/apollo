@@ -1,8 +1,10 @@
 #include "onekeycheckwidget.h"
 #include "src/ui/base/basestylewidget.h"
 #include "src/ui/base/staticbutton.h"
+#include "src/ui/base/taskscene.h"
 #include "src/ui/onekeycheck/tabbutton.h"
 #include "src/ui/onekeycheck/mydelegate.h"
+#include "src/common/globals.h"
 #include <QLabel>
 #include <QStandardItemModel>
 #include <QTableView>
@@ -20,6 +22,7 @@
 
 OneKeyCheckWidget::OneKeyCheckWidget(QWidget* parent)
     : BaseStyleWidget(parent)
+    , TaskScene()
 {
 
     initModel();
@@ -135,7 +138,6 @@ void OneKeyCheckWidget::initConnect()
     connect(startcheckbtn, SIGNAL(buttonClicked()), this, SLOT(startCheck()));
     connect(cancelcheckbtn, SIGNAL(buttonClicked()), this, SLOT(cancelCheck()));
     connect(checkingElapsedTimer, SIGNAL(timeout()), this, SLOT(updateCheckingElapsedTime()));
-
 }
 void OneKeyCheckWidget::initModel()
 {
@@ -179,7 +181,6 @@ void OneKeyCheckWidget::startCheck()
     tjcheckbtn->changeToRunning();
 }
 
-
 void OneKeyCheckWidget::cancelCheck()
 {
     startcheckbtn->show();
@@ -194,15 +195,35 @@ void OneKeyCheckWidget::cancelCheck()
     checkingElapsedTime->hide();
     checkingElapsedTime->setText("");
     checkingElapsedTimer->stop();
-
-
 }
-
 
 void OneKeyCheckWidget::updateCheckingElapsedTime()
 {
     qDebug() << "updateCheckingElapsedTime";
     unsigned int timedifference = (QDateTime::currentDateTime()).toTime_t() - checkingStartTime;
     checkingElapsedTime->setText("已用时：" + (QTime(0, 0)).addSecs(timedifference).toString("hh:mm:ss"));
+}
+
+QString OneKeyCheckWidget::getSupportedScene()
+{
+    return SCENE_ONEKEYCHECK;
+}
+QList<QString> OneKeyCheckWidget::getSupportedFunctions()
+{
+    return QList<QString>() << FUNC_HDINFO << FUNC_VMINFO << FUNC_NCINFO
+                            << FUNC_NADEV << FUNC_PRIDEV << FUNC_BTDEV
+                            << FUNC_PATCH << FUNC_SERVICE << FUNC_PROCESS
+                            << FUNC_OTHERPDT << FUNC_SWITHTIME << FUNC_SECSOFT
+                            << FUNC_USBCOMCHECK << FUNC_FILECOMCHECK
+                            << FUNC_NETRECCOMCHECK << FUNC_TROJANCHECK;
+}
+
+void OneKeyCheckWidget::progressUpdate(const QString& functionname, const int currentcompletion, const QString& currentstatus){
+
+}
+void OneKeyCheckWidget::errorUpdate( const QString& functionname, const QString& errordescrition){
+
+}
+void OneKeyCheckWidget::dataUpdate( const QString& functionname, const QVariantList& result){
 
 }

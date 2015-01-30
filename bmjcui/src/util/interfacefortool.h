@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QVariantList>
 
 class InterfaceForTool : public QObject {
     Q_OBJECT
@@ -12,7 +13,10 @@ public:
     ~InterfaceForTool();
 
 signals:
-    void systemInfoUpdate(const QString& qs);
+
+    void progressUpdate(const QString& scenename, const QString& functionname, const int currentcompletion, const QString& currentstatus);
+    void errorUpdate(const QString& scenename, const QString& functionname, const QString& errordescrition);
+    void dataUpdate(const QString& scenename, const QString& functionname, const QVariantList& result);
 
 public slots:
     void updateFromTool(const QString& messages);

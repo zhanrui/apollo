@@ -6,7 +6,7 @@
 
 QT       += core gui dbus widgets multimedia multimediawidgets
 
-CONFIG += qt debug
+CONFIG += qt debug c++11
 
 TARGET = bmjc
 TEMPLATE = app
@@ -37,7 +37,11 @@ HEADERS += \
     src/ui/onekeycheck/onekeycheckwidget.h \
     src/ui/onekeycheck/tabbutton.h \
     src/ui/onekeycheck/mydelegate.h \
-    src/util/modelutil.h
+    src/util/modelutil.h \
+    src/common/globals.h \
+    src/ui/base/taskscene.h \
+    src/state/common/checktask.h \
+    src/state/common/checktaskgroup.h
 
 SOURCES += \
     src/state/onekeycheckstate.cpp \
@@ -57,7 +61,11 @@ SOURCES += \
     src/main.cpp \
     src/ui/onekeycheck/tabbutton.cpp \
     src/ui/onekeycheck/mydelegate.cpp \
-    src/util/modelutil.cpp
+    src/util/modelutil.cpp \
+    src/common/globals.cpp \
+    src/ui/base/taskscene.cpp \
+    src/state/common/checktask.cpp \
+    src/state/common/checktaskgroup.cpp
 
 copyotherfile.commands = $(COPY_DIR) $$PWD/otherfile $$OUT_PWD
 first.depends = $(first) copyotherfile

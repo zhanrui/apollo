@@ -49,6 +49,7 @@ void MainWindow::initUI()
     oneKeyCheckWidget->setObjectName("onekeycheckwidget");
     oneKeyCheckWidget->hide();
 
+
     widgetSwitchAnimation = new QParallelAnimationGroup(this);
 
     sysButtonGroup = new SysButtonGroup(this);
@@ -167,3 +168,14 @@ void MainWindow::initDBus()
     connect(statethread, SIGNAL(finished()), interfaceForTool, SLOT(deleteLater()));
     connect(statethread, SIGNAL(finished()), toolUtil, SLOT(deleteLater()));
 }
+
+void MainWindow::progressUpdate(const QString& scenename, const QString& functionname, const int currentcompletion, const QString& currentstatus){
+
+}
+void MainWindow::errorUpdate(const QString& scenename, const QString& functionname, const QString& errordescrition){
+
+}
+void MainWindow::dataUpdate(const QString& scenename, const QString& functionname, const QVariantList& result){
+
+}
+
