@@ -4,27 +4,54 @@
 #include <QObject>
 class CheckTask;
 class CheckTaskGroup;
-
+class MainWindow;
+class InterfaceForTool;
+class ToolUtil;
 
 class OneKeyCheckState : public QObject {
     Q_OBJECT
 
 public:
-    explicit OneKeyCheckState(QObject* parent = 0);
+    explicit OneKeyCheckState(QObject* parent , MainWindow* mainwindow, InterfaceForTool* interfaceForTool,
+                              ToolUtil* toolUtil);
     ~OneKeyCheckState();
+    void inittasks(ToolUtil* toolUtil);
+    void initConStateGroup();
+    void initConInterfaceTask( InterfaceForTool* interfaceForTool);
 
 signals:
-    void startSig();// To Task
-    void stopSig();// To Task
+    void errorFindSig();// To UI
+    void completeSig();// To UI
+
+    //void progressUpdateSig(const int completeunit ,const QString & status);
+    void completerateUpdateSig(const int completerate ,const QString & status);// To UI
+
+    void dataCountUpdateSig(const int totalproblems ,const int totalinfomations );// To UI
+    void startSig();// To Task/Group
+    void stopSig();// To Task/Group
+    void disableSig();// To Task/Group
 public slots:
-   // void startexcute();
-  //  void stopexcute();
+    //Call UI
+    void startexcute();
+    void stopexcute();
+    void disablescene();
+    //From Task
+
+    void progressUpdate(const int completeunit ,const QString & status);
+    void dataCountUpdate(const int totalproblems ,const int totalinfomations);
 
 private:
-    bool complete;
-    int completerate;
+    bool enabled;
+    bool start;
+
+    QString currentstatus;
+    bool errorfind;
+
     int totalproblems;
     int totalinfomations;
+
+    int totalcompleteunit;
+    int currentcompleteunit;
 
 public:
     CheckTaskGroup* deviceConnection;
@@ -60,12 +87,12 @@ public:
 
     CheckTaskGroup* netRecordsCheck;
     CheckTask* netRecordsRoutineCheck;
-    CheckTask* netRecordsDepthCheck;
+   // CheckTask* netRecordsDepthCheck;
 
     CheckTaskGroup* fileCheck;
     CheckTask* fileRoutineCheck;
-    CheckTask* deletedFileRecovery;
-    CheckTask* fileFragmentsCheck;
+   // CheckTask* deletedFileRecovery;
+   // CheckTask* fileFragmentsCheck;
 
     CheckTaskGroup* trojanCheck;
     //CheckTask*	networkWeapon

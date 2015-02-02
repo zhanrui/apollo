@@ -1,7 +1,7 @@
 #include "checktaskgroup.h"
 #include "checktask.h"
 #include <QList>
-CheckTaskGroup::CheckTaskGroup(const QString& scenename, const int weight, const QList<CheckTask*> & tasks, QObject* parent)
+CheckTaskGroup::CheckTaskGroup(QObject* parent,const QString& scenename, const int weight, const QList<CheckTask*> & tasks)
     : QObject(parent)
 {
 
@@ -10,13 +10,14 @@ CheckTaskGroup::CheckTaskGroup(const QString& scenename, const int weight, const
     this->scenename = scenename;
 
     this->start = false;
-    this->completerate = 0;
 
     currentstatus = QString();
     errorfind = false;
 
     totalproblems = 0;
     totalinfomations = 0;
+    totalcompleteunit=0;
+    currentcompleteunit=0;
     initConnect(tasks);
 }
 
@@ -41,7 +42,7 @@ void CheckTaskGroup::startexcute()
 {
     if (this->enabled) {
         this->start = true;
-        this->completerate = 0;
+        this->currentcompleteunit = 0;
         currentstatus.clear();
         errorfind = false;
         totalproblems = 0;
@@ -65,9 +66,10 @@ void CheckTaskGroup::progressUpdate(const int completeuint,const QString & statu
 
    this->currentcompleteunit +=completeuint;
    this->currentstatus = status;
-   emit progressUpdateSig(completeuint,status);
+   emit progressUpdateSig(completeuint*weight,status);
    emit completerateUpdateSig(currentcompleteunit/totalcompleteunit,status);
    if(this->currentcompleteunit == this->totalcompleteunit ){
+        this->start = false;
         emit completeSig();
    }
 }

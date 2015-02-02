@@ -36,9 +36,6 @@ public slots:
     void maintoonekeycheck();
     void onekeychecktomain();
 
-    void progressUpdate(const QString& scenename, const QString& functionname, const int currentcompletion, const QString& currentstatus);
-    void errorUpdate(const QString& scenename, const QString& functionname, const QString& errordescrition);
-    void dataUpdate(const QString& scenename, const QString& functionname, const QVariantList& result);
 
 public:
    //Common Widgets

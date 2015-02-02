@@ -71,8 +71,8 @@ void MainWindow::initConnect()
     connect(oneKeyCheckWidget->returnbtn, SIGNAL(buttonClicked()), this, SLOT(onekeychecktomain()));
 
     //OneKeyCheck
-     connect(oneKeyCheckWidget->startcheckbtn, SIGNAL(buttonClicked()), toolUtil, SLOT(startOneKeyCheck()));
-     connect(oneKeyCheckWidget->cancelcheckbtn, SIGNAL(buttonClicked()), toolUtil, SLOT(cancelOneKeyCheck()));
+     //connect(oneKeyCheckWidget->startcheckbtn, SIGNAL(buttonClicked()), toolUtil, SLOT(startOneKeyCheck()));
+     //connect(oneKeyCheckWidget->cancelcheckbtn, SIGNAL(buttonClicked()), toolUtil, SLOT(cancelOneKeyCheck()));
 }
 
 void MainWindow::initAnim() {}
@@ -169,13 +169,5 @@ void MainWindow::initDBus()
     connect(statethread, SIGNAL(finished()), toolUtil, SLOT(deleteLater()));
 }
 
-void MainWindow::progressUpdate(const QString& scenename, const QString& functionname, const int currentcompletion, const QString& currentstatus){
 
-}
-void MainWindow::errorUpdate(const QString& scenename, const QString& functionname, const QString& errordescrition){
-
-}
-void MainWindow::dataUpdate(const QString& scenename, const QString& functionname, const QVariantList& result){
-
-}
 

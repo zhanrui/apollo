@@ -111,96 +111,29 @@ ToolUtil::ToolUtil(QObject* parent)
 
 ToolUtil::~ToolUtil() {}
 
-void ToolUtil::startOneKeyCheck()
+void ToolUtil::stopTask(const QString& scenename, const QString& taskname)
 {
-    //getDeviceConnectionInfo(SCENE_ONEKEYCHECK);
-    //getSystemSecurityInfo(SCENE_ONEKEYCHECK);
-    //getSecurityThreatInfo(SCENE_ONEKEYCHECK);
+    QJsonObject json;
+    json.insert("action", ACTION_STOP);
+    json.insert("scenename", scenename);
+    json.insert("functionname", taskname);
+    sendMessage(json);
 }
 
-
-
-
-void ToolUtil::cancelOneKeyCheck()
-{
-     //cancelFunction(SCENE_ONEKEYCHECK);
-}
-
-
-void ToolUtil:: startCommonCheck(bool systeminfo, bool deviceconnect,
-                      bool systemsecurity, bool systemthreat,
-                      bool usbcheck, bool netrecord){
-
-//    if(systeminfo)getSystemInfo(SCENE_COMMONCHECK);
-//    if(deviceconnect)getDeviceConnectionInfo(SCENE_COMMONCHECK);
-//    if(systemsecurity)getSystemSecurityInfo(SCENE_COMMONCHECK);
-//    if(systemthreat)getSecurityThreatInfo(SCENE_COMMONCHECK);
-//    if(systeminfo)getSystemInfo(SCENE_COMMONCHECK);
-
-
-}
-void ToolUtil::cancelCommonCheck(){
-    //cancelFunction(SCENE_COMMONCHECK);
-}
-
-void ToolUtil::getSystemInfo(const QString& sceneName)
-{
-        startFunctionWithoutParameter(sceneName, FUNC_OSINFO);
-        startFunctionWithoutParameter(sceneName, FUNC_CPUINFO);
-        startFunctionWithoutParameter(sceneName, FUNC_BIOSINFO);
-        startFunctionWithoutParameter(sceneName, FUNC_MBINFO);
-        startFunctionWithoutParameter(sceneName, FUNC_MEMINFO);
-        startFunctionWithoutParameter(sceneName, FUNC_GCINFO);
-}
-
-void ToolUtil::getDeviceConnectionInfo(const QString& sceneName)
-{
-        startFunctionWithoutParameter(sceneName, FUNC_HDINFO);
-        startFunctionWithoutParameter(sceneName, FUNC_VMINFO);
-        startFunctionWithoutParameter(sceneName, FUNC_NCINFO);
-        startFunctionWithoutParameter(sceneName, FUNC_NADEV);
-        startFunctionWithoutParameter(sceneName, FUNC_PRIDEV);
-        startFunctionWithoutParameter(sceneName, FUNC_BTDEV);
-}
-
-void ToolUtil::getSystemSecurityInfo(const QString& sceneName)
-{
-        startFunctionWithoutParameter(sceneName, FUNC_PATCH);
-        startFunctionWithoutParameter(sceneName, FUNC_SERVICE);
-        startFunctionWithoutParameter(sceneName, FUNC_PROCESS);
-        startFunctionWithoutParameter(sceneName, FUNC_OTHERPDT);
-        startFunctionWithoutParameter(sceneName, FUNC_SWITHTIME);
-        startFunctionWithoutParameter(sceneName, FUNC_SECSOFT);
-}
-
-void ToolUtil::getSecurityThreatInfo(const QString& sceneName)
-{
-        startFunctionWithoutParameter(sceneName, FUNC_SECPLCY);
-        startFunctionWithoutParameter(sceneName, FUNC_OPENPORT);
-        startFunctionWithoutParameter(sceneName, FUNC_SHARINFO);
-        startFunctionWithoutParameter(sceneName, FUNC_NETSOFT);
-        startFunctionWithoutParameter(sceneName, FUNC_GRPINFO);
-        startFunctionWithoutParameter(sceneName, FUNC_USERINFO);
-        startFunctionWithoutParameter(sceneName, FUNC_EVELOG);
-        startFunctionWithoutParameter(sceneName, FUNC_USRAUTH);
-
-}
-
-void ToolUtil::cancelFunction(const QString& sceneName)
-{
-       QJsonObject json;
-       json.insert("action", ACTION_STOP);
-       json.insert("scenename", sceneName);
-       sendMessage(json);
-}
-
-void ToolUtil::startFunctionWithoutParameter(const QString& sceneName, const QString& functionName)
+void ToolUtil::startTask(const QString& scenename, const QString& taskname, QMap<QString, QString>& parameters)
 {
     QJsonObject json;
     json.insert("action", ACTION_RUN);
-    json.insert("scenename", sceneName);
-    json.insert("functionname", functionName);
-    json.insert("parameters", QJsonObject());
+    json.insert("scenename", scenename);
+    json.insert("functionname", taskname);
+    QJsonObject parametersJson;
+
+    QMap<QString, QString>::Iterator it;
+    for (it = parameters.begin(); it != parameters.end(); ++it) {
+        parametersJson.insert(it.key() ,it.value());
+    }
+
+    json.insert("parameters", parametersJson);
     sendMessage(json);
 }
 

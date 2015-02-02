@@ -82,18 +82,9 @@ public:
     explicit ToolUtil(QObject* parent = 0);
     ~ToolUtil();
 public slots:
-    void startOneKeyCheck();
-    void cancelOneKeyCheck();
-    void startCommonCheck(bool systeminfo, bool deviceconnect,
-                          bool systemsecurity, bool systemthread,
-                          bool usbcheck, bool netrecord);
-    void cancelCommonCheck();
-    void getSystemInfo(const QString& sceneName);
-    void getDeviceConnectionInfo(const QString& sceneName);
-    void getSystemSecurityInfo(const QString& sceneName);
-    void getSecurityThreatInfo(const QString& sceneName);
-    void cancelFunction(const QString& sceneName);
-    void startFunctionWithoutParameter(const QString& sceneName, const QString& functionName);
+    void stopTask(const QString& scenename, const QString& taskname);
+    void startTask(const QString& scenename, const QString& taskname, QMap<QString, QString>& parameters);
+
     void sendMessage(const QJsonObject& json);
 
 public:

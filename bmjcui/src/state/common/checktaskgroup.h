@@ -10,7 +10,7 @@ class CheckTask;
 class CheckTaskGroup : public QObject {
     Q_OBJECT
 public:
-    explicit CheckTaskGroup(const QString& scenename, const int weight,const QList<CheckTask*>& taskslist,QObject* parent = 0);
+    explicit CheckTaskGroup(QObject* parent,const QString& scenename, const int weight,const QList<CheckTask*>& taskslist);
 
     ~CheckTaskGroup();
     void initConnect(const QList<CheckTask*> & tasks);
@@ -42,7 +42,6 @@ public:
 
 
     bool start;
-    int completerate;
 
     QString currentstatus;
     bool errorfind;

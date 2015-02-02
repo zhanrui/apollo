@@ -4,6 +4,8 @@
 #include <QMap>
 
 #include <QObject>
+class ToolUtil;
+
 
 class CheckTask : public QObject {
 
@@ -11,6 +13,7 @@ Q_OBJECT
 
 public:
     CheckTask(QObject* parent, const QString & tname, const QString & sname, bool bCheck, int weight );
+    CheckTask(QObject* parent,ToolUtil* tool, const QString & tname, const QString & sname, bool bCheck, int weight );
     ~CheckTask();
 public slots:
     //Call From UI/Goup/State
