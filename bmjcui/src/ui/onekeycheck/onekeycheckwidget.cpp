@@ -22,7 +22,6 @@
 
 OneKeyCheckWidget::OneKeyCheckWidget(QWidget* parent)
     : BaseStyleWidget(parent)
-    , TaskScene()
 {
 
     initModel();
@@ -199,7 +198,7 @@ void OneKeyCheckWidget::cancelCheck()
 
 void OneKeyCheckWidget::updateCheckingElapsedTime()
 {
-    qDebug() << "updateCheckingElapsedTime";
+   //qDebug() << "updateCheckingElapsedTime";
     unsigned int timedifference = (QDateTime::currentDateTime()).toTime_t() - checkingStartTime;
     checkingElapsedTime->setText("已用时：" + (QTime(0, 0)).addSecs(timedifference).toString("hh:mm:ss"));
 }
@@ -218,12 +217,26 @@ QList<QString> OneKeyCheckWidget::getSupportedFunctions()
                             << FUNC_NETRECCOMCHECK << FUNC_TROJANCHECK;
 }
 
-void OneKeyCheckWidget::progressUpdate(const QString& functionname, const int currentcompletion, const QString& currentstatus){
-
+void OneKeyCheckWidget::completerateUpdate(const int completerate, const QString& status)
+{
+    qDebug() << completerate;
+    progressbar_front->move(-895 + 900 * completerate / 100, 147);
+    descriptiontitle->setText(status);
+    descriptiontitle->adjustSize();
 }
-void OneKeyCheckWidget::errorUpdate( const QString& functionname, const QString& errordescrition){
 
-}
-void OneKeyCheckWidget::dataUpdate( const QString& functionname, const QVariantList& result){
-
+void OneKeyCheckWidget::dataCountUpdate(const int totalproblems, const int totalinfomations)
+{
+    QString qs;
+    if (totalproblems > 0)
+        qs.append("已发现问题") .append( QString::number(totalproblems)) .append("条");
+    if (qs.size() > 0 && totalinfomations > 0 )
+        qs.append(",");
+    if (totalinfomations > 0)
+        qs.append("发现信息") .append(totalinfomations) .append( "条");
+    if (qs.size() > 0)
+        qs.append(".");
+    if (qs.size() > 0)
+        description->setText(qs);
+    description->adjustSize();
 }

@@ -1,6 +1,7 @@
 #include "mainwidget.h"
 #include "src/ui/main/maintitlewidget.h"
 #include "src/ui/base/staticbutton.h"
+#include "src/ui/common/taskbutton.h"
 #include "src/ui/base/commonwidget.h"
 #include "src/ui/base/faderwidget.h"
 #include <QLabel>
@@ -70,6 +71,7 @@ void MainWidget::initUI()
     onekeychecktext->move(77, 171);
 
     commonchecklogo = new StaticButton(":image/main/commonchecklogo", 3, toolbar);
+    //commonchecklogo = new TaskButton(":image/main/commonchecklogo",  toolbar);
     commonchecklogo->move(271, 9);
     commonchecktext = new QLabel(toolbar);
     commonchecktext->setPixmap(QPixmap(":image/main/commonchecktext"));

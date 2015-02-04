@@ -16,8 +16,8 @@ public:
     void initConnect(const QList<CheckTask*> & tasks);
 public slots:
     //Call From State/UI
-    void startexcute();
-    void stopexcute();
+    void startexecute();
+    void stopexecute();
     void disablegroup();
     //From Task
 

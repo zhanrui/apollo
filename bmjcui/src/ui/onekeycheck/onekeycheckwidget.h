@@ -9,7 +9,7 @@ class QLabel;
 class TabButton;
 
 
-class OneKeyCheckWidget : public BaseStyleWidget,public TaskScene
+class OneKeyCheckWidget : public BaseStyleWidget
 {
     Q_OBJECT
 public:
@@ -17,10 +17,6 @@ public:
     ~OneKeyCheckWidget();
     QString getSupportedScene();
     QList<QString> getSupportedFunctions();
-    void progressUpdate( const QString& functionname, const int currentcompletion, const QString& currentstatus);
-    void errorUpdate( const QString& functionname, const QString& errordescrition);
-    void dataUpdate(const QString& functionname, const QVariantList& result);
-
 
 private:
     void initUI();
@@ -34,6 +30,8 @@ public slots:
     void startCheck();
     void cancelCheck();
     void updateCheckingElapsedTime();
+    void completerateUpdate(const int completerate, const QString& status);
+    void dataCountUpdate(const int totalproblems ,const int totalinfomations);
 
 public:
 

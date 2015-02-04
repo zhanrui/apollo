@@ -3,6 +3,7 @@
 #include "src/ui/base/staticbutton.h"
 class QString;
 class TabButton : public StaticButton {
+    Q_OBJECT
 public:
     explicit TabButton(const QString& icon, QWidget* parent = 0);
     ~TabButton();

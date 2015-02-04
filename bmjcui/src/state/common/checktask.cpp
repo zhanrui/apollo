@@ -46,10 +46,10 @@ CheckTask::CheckTask(QObject* parent, ToolUtil* toolUtil, const QString& tasknam
     this->totalinfomations = 0;
 
     this->parameters = QMap<QString, QString>();
-    connect(this, SIGNAL(startSig(QString&, const QString&, const QMap<QString, QString>&)),
-            toolUtil, SLOT(startTask(QString&, const QString&, const QMap<QString, QString>&)));
-    connect(this, SIGNAL(stopSig(QString&, const QString&)),
-            toolUtil, SLOT(stopTask(QString&, const QString&)));
+    connect(this, SIGNAL(startTaskSig(const QString&, const QString&, const QMap<QString, QString>&)),
+            toolUtil, SLOT(startTask(const QString&, const QString&, const QMap<QString, QString>&)));
+    connect(this, SIGNAL(stopTaskSig(const QString&, const QString&)),
+            toolUtil, SLOT(stopTask(const QString&, const QString&)));
 }
 
 CheckTask::~CheckTask()

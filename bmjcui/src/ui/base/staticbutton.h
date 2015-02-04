@@ -4,6 +4,8 @@
 #include <QPushButton>
 #include "src/common/common.h"
 
+class QLabel;
+
 class StaticButton : public QWidget {
     Q_OBJECT
 public:
@@ -39,6 +41,7 @@ private:
     bool m_isCursor;
     bool isSelected;
     bool isDisable;
+
 };
 
 #endif // STATICBUTTON_H

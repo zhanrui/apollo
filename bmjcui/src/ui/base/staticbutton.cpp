@@ -3,6 +3,7 @@
 #include <QEvent>
 #include <QMouseEvent>
 #include <QDebug>
+#include <QLabel>
 
 StaticButton::StaticButton(QWidget* parent)
     : QWidget(parent)

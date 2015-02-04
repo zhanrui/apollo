@@ -6,6 +6,7 @@
 
 class MainWidget;
 class OneKeyCheckWidget;
+class DeviceConnectRpt;
 class QParallelAnimationGroup;
 
 class SysButtonGroup;
@@ -14,7 +15,6 @@ class ToolUtil;
 class QThread;
 class InterfaceForTool;
 class OneKeyCheckState;
-class TaskScene;
 
 class MainWindow : public ShadowWidget {
     Q_OBJECT
@@ -33,9 +33,6 @@ public slots:
 
     void showMin();
     void closeWidget();
-    void maintoonekeycheck();
-    void onekeychecktomain();
-
 
 public:
    //Common Widgets
@@ -44,6 +41,7 @@ public:
     //Window Widgets
     MainWidget* mainWidget;
     OneKeyCheckWidget* oneKeyCheckWidget;
+    DeviceConnectRpt* okcDeviceConnectRpt;
 
     //Animation
     QParallelAnimationGroup*  widgetSwitchAnimation;
@@ -52,9 +50,9 @@ public:
     QThread* statethread;
     InterfaceForTool* interfaceForTool;
     ToolUtil* toolUtil;
+    OneKeyCheckState* oneKeyCheckState;
 
     //SceneMap
-     QMap<QString,QList<TaskScene *> >*  sceneMap;
 };
 
 #endif // MAINWINDOW_H

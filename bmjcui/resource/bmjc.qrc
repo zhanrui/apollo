@@ -66,5 +66,27 @@
         <file>image/onekeycheck/progressbar_front.png</file>
         <file>image/onekeycheck/progressbar_background.png</file>
         <file>image/onekeycheck/cancelcheckbtn.png</file>
+        <file>image/detailreport/tableheaderseperate.png</file>
+        <file>image/detailreport/running_movie.gif</file>
+        <file>image/detailreport/background.png</file>
+        <file>image/detailreport/deviceconnect/adapterDeviceBtn_noproblem.png</file>
+        <file>image/detailreport/deviceconnect/adapterDeviceBtn_problem.png</file>
+        <file>image/detailreport/deviceconnect/adapterDeviceBtn_running.png</file>
+        <file>image/detailreport/deviceconnect/blueToothDeviceBtn_noproblem.png</file>
+        <file>image/detailreport/deviceconnect/blueToothDeviceBtn_problem.png</file>
+        <file>image/detailreport/deviceconnect/blueToothDeviceBtn_running.png</file>
+        <file>image/detailreport/deviceconnect/hardDiskInfoBtn_noproblem.png</file>
+        <file>image/detailreport/deviceconnect/hardDiskInfoBtn_problem.png</file>
+        <file>image/detailreport/deviceconnect/hardDiskInfoBtn_running.png</file>
+        <file>image/detailreport/deviceconnect/netConfigBtn_noproblem.png</file>
+        <file>image/detailreport/deviceconnect/netConfigBtn_problem.png</file>
+        <file>image/detailreport/deviceconnect/netConfigBtn_running.png</file>
+        <file>image/detailreport/deviceconnect/printDeviceBtn_noproblem.png</file>
+        <file>image/detailreport/deviceconnect/printDeviceBtn_problem.png</file>
+        <file>image/detailreport/deviceconnect/printDeviceBtn_running.png</file>
+        <file>image/detailreport/deviceconnect/virtualMachineInfoBtn_noproblem.png</file>
+        <file>image/detailreport/deviceconnect/virtualMachineInfoBtn_problem.png</file>
+        <file>image/detailreport/deviceconnect/virtualMachineInfoBtn_running.png</file>
+        <file>image/detailreport/returnbtn.png</file>
     </qresource>
 </RCC>

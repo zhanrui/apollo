@@ -38,7 +38,7 @@ void CheckTaskGroup::initConnect(const QList<CheckTask*> & tasks)
     }
 }
 //Call From State/UI
-void CheckTaskGroup::startexcute()
+void CheckTaskGroup::startexecute()
 {
     if (this->enabled) {
         this->start = true;
@@ -50,7 +50,7 @@ void CheckTaskGroup::startexcute()
     }
     emit startSig();
 }
-void CheckTaskGroup::stopexcute()
+void CheckTaskGroup::stopexecute()
 {
     this->start = false;
     emit stopSig();
@@ -67,7 +67,7 @@ void CheckTaskGroup::progressUpdate(const int completeuint,const QString & statu
    this->currentcompleteunit +=completeuint;
    this->currentstatus = status;
    emit progressUpdateSig(completeuint*weight,status);
-   emit completerateUpdateSig(currentcompleteunit/totalcompleteunit,status);
+   emit completerateUpdateSig(currentcompleteunit*100/totalcompleteunit,status);
    if(this->currentcompleteunit == this->totalcompleteunit ){
         this->start = false;
         emit completeSig();

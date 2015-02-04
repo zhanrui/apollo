@@ -4,11 +4,15 @@
 #include "src/ui/main/mainwidget.h"
 #include "src/ui/onekeycheck/onekeycheckwidget.h"
 #include "src/ui/common/sysbuttongroup.h"
+#include "src/ui/detailreport/deviceconnectrpt.h"
 #include "src/ui/base/staticbutton.h"
+#include "src/ui/onekeycheck/tabbutton.h"
 #include <src/state/onekeycheckstate.h>
 #include <src/util/toolutil.h>
 #include <src/util/interfacefortool.h>
 #include <src/ui/main/mainwindow.h>
+#include <src/ui/common/taskbutton.h>
+#include <src/common/common.h>
 #include <QApplication>
 #include <QFile>
 #include <QStackedWidget>
@@ -29,10 +33,10 @@ MainWindow::MainWindow(QWidget* parent)
 {
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
-    this->initDBus();
     this->initUI();
     this->initAnim();
     this->initConnect();
+    this->initDBus();
 }
 
 void MainWindow::initUI()
@@ -49,6 +53,9 @@ void MainWindow::initUI()
     oneKeyCheckWidget->setObjectName("onekeycheckwidget");
     oneKeyCheckWidget->hide();
 
+    okcDeviceConnectRpt = new DeviceConnectRpt(this);
+    okcDeviceConnectRpt->setObjectName("okcDeviceConnectRpt");
+    okcDeviceConnectRpt->hide();
 
     widgetSwitchAnimation = new QParallelAnimationGroup(this);
 
@@ -67,25 +74,29 @@ void MainWindow::initConnect()
     connect(sysButtonGroup->closeButton, SIGNAL(buttonClicked()), this, SLOT(closeWidget()));
 
     //Main Sub Navi
-    connect(mainWidget->onekeychecklogo, SIGNAL(buttonClicked()), this, SLOT(maintoonekeycheck()));
-    connect(oneKeyCheckWidget->returnbtn, SIGNAL(buttonClicked()), this, SLOT(onekeychecktomain()));
+    connect(mainWidget->onekeychecklogo, &StaticButton::buttonClicked,
+            [=]() {   switchWidgetToLeft(mainWidget, oneKeyCheckWidget); });
+    connect(oneKeyCheckWidget->returnbtn, &StaticButton::buttonClicked,
+            [=]() {  switchWidgetToRight(oneKeyCheckWidget, mainWidget); });
+    connect(oneKeyCheckWidget->deviceconnectionbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToLeft(oneKeyCheckWidget, okcDeviceConnectRpt); });
+    connect(okcDeviceConnectRpt->returnbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToRight(okcDeviceConnectRpt, oneKeyCheckWidget); });
+
+    connect(oneKeyCheckWidget->cancelcheckbtn, &StaticButton::buttonClicked,
+            [=]() {
+        for(TaskButton* taskbtn:okcDeviceConnectRpt->taskbtnlist ){
+            if(taskbtn->taskstatus != TASK_PROBLEM)
+                taskbtn->changeToNoProblem();
+        }
+    });
 
     //OneKeyCheck
-     //connect(oneKeyCheckWidget->startcheckbtn, SIGNAL(buttonClicked()), toolUtil, SLOT(startOneKeyCheck()));
-     //connect(oneKeyCheckWidget->cancelcheckbtn, SIGNAL(buttonClicked()), toolUtil, SLOT(cancelOneKeyCheck()));
+    //connect(oneKeyCheckWidget->startcheckbtn, SIGNAL(buttonClicked()), toolUtil, SLOT(startOneKeyCheck()));
+    //connect(oneKeyCheckWidget->cancelcheckbtn, SIGNAL(buttonClicked()), toolUtil, SLOT(cancelOneKeyCheck()));
 }
 
 void MainWindow::initAnim() {}
-
-void MainWindow::maintoonekeycheck()
-{
-    switchWidgetToLeft(mainWidget, oneKeyCheckWidget);
-}
-
-void MainWindow::onekeychecktomain()
-{
-    switchWidgetToRight(oneKeyCheckWidget, mainWidget);
-}
 
 void MainWindow::switchWidgetToLeft(QWidget* currentWidget, QWidget* showWidget)
 {
@@ -165,9 +176,12 @@ void MainWindow::initDBus()
     interfaceForTool->moveToThread(statethread);
     toolUtil = new ToolUtil();
     toolUtil->moveToThread(statethread);
+
+    oneKeyCheckState = new OneKeyCheckState(0, this, interfaceForTool, toolUtil);
+    oneKeyCheckState->moveToThread(statethread);
+
+    connect(sysButtonGroup->closeButton, SIGNAL(buttonClicked()), toolUtil, SLOT(stopAll()));
     connect(statethread, SIGNAL(finished()), interfaceForTool, SLOT(deleteLater()));
     connect(statethread, SIGNAL(finished()), toolUtil, SLOT(deleteLater()));
+    connect(statethread, SIGNAL(finished()), oneKeyCheckState, SLOT(deleteLater()));
 }
-
-
-

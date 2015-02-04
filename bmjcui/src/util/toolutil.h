@@ -83,8 +83,8 @@ public:
     ~ToolUtil();
 public slots:
     void stopTask(const QString& scenename, const QString& taskname);
-    void startTask(const QString& scenename, const QString& taskname, QMap<QString, QString>& parameters);
-
+    void startTask(const QString& scenename, const QString& taskname, const QMap<QString, QString>& parameters);
+    void stopAll();
     void sendMessage(const QJsonObject& json);
 
 public:

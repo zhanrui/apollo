@@ -120,7 +120,7 @@ void ToolUtil::stopTask(const QString& scenename, const QString& taskname)
     sendMessage(json);
 }
 
-void ToolUtil::startTask(const QString& scenename, const QString& taskname, QMap<QString, QString>& parameters)
+void ToolUtil::startTask(const QString& scenename, const QString& taskname, const QMap<QString, QString>& parameters)
 {
     QJsonObject json;
     json.insert("action", ACTION_RUN);
@@ -128,16 +128,25 @@ void ToolUtil::startTask(const QString& scenename, const QString& taskname, QMap
     json.insert("functionname", taskname);
     QJsonObject parametersJson;
 
-    QMap<QString, QString>::Iterator it;
-    for (it = parameters.begin(); it != parameters.end(); ++it) {
-        parametersJson.insert(it.key() ,it.value());
+    QMapIterator<QString, QString> i(parameters);
+    while (i.hasNext()) {
+        i.next();
+        parametersJson.insert(i.key(), i.value());
     }
 
     json.insert("parameters", parametersJson);
     sendMessage(json);
 }
 
+void ToolUtil::stopAll()
+{
+    QJsonObject json;
+    json.insert("action", "stopall");
+    sendMessage(json);
+}
+
 void ToolUtil::sendMessage(const QJsonObject& json)
 {
-    iface->call("reveiveFromUI", QString((QJsonDocument(json)).toJson(QJsonDocument::Compact)));
+    qDebug() << json;
+    //iface->call("reveiveFromUI", QString((QJsonDocument(json)).toJson(QJsonDocument::Compact)));
 }

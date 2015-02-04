@@ -15,6 +15,12 @@ MainWindow > OneKeyCheckWidget{
     background-repeat:no-repeat;
 }
 
+MainWindow >DeviceConnectRpt{
+    background: #F4F4F4;
+    background-image: url(:image/detailreport/background.png);
+    background-repeat:no-repeat;
+}
+
 CommonWidget#testbutton{
       background-image: url(:image/common/title/min.png);
       background-repeat:no-repeat;

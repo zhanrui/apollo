@@ -2,8 +2,18 @@
 #define COMMON_H
 
 #define ANIM_LINE_WIDTH 3
+
+
 typedef enum {
-    BUTTON_FIRST,
+    TASK_DEFAULT,
+    TASK_RUNNING,
+    TASK_NOPROBLEM,
+    TASK_PROBLEM
+} TASKSTAUS;
+
+
+typedef enum {
+    BUTTON_DEFAULT,
     BUTTON_SCALED,
     BUTTON_ENTER,
     BUTTON_LEAVE,

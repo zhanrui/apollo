@@ -12,8 +12,7 @@ class MainTitleWidget;
 class CommonWidget;
 class StaticButton;
 class QParallelAnimationGroup;
-
-
+class TaskButton;
 class MainWidget : public BaseStyleWidget {
     Q_OBJECT
 public:
@@ -47,6 +46,7 @@ public:
     StaticButton *onekeychecklogo;
     QLabel* onekeychecktext;
     StaticButton *commonchecklogo;
+    //TaskButton * commonchecklogo;
     QLabel* commonchecktext;
     StaticButton *deepchecklogo;
     QLabel* deepchecktext;

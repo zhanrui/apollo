@@ -18,6 +18,7 @@ public:
     void inittasks(ToolUtil* toolUtil);
     void initConStateGroup();
     void initConInterfaceTask( InterfaceForTool* interfaceForTool);
+    void initConUIState(MainWindow * mainwindow);
 
 signals:
     void errorFindSig();// To UI
