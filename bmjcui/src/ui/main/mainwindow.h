@@ -6,7 +6,10 @@
 
 class MainWidget;
 class OneKeyCheckWidget;
+class BasicInfoRpt;
 class DeviceConnectRpt;
+class NetRecordRpt;
+class SystemSecurityRpt;
 class QParallelAnimationGroup;
 
 class SysButtonGroup;
@@ -15,6 +18,7 @@ class ToolUtil;
 class QThread;
 class InterfaceForTool;
 class OneKeyCheckState;
+class BaseReport;
 
 class MainWindow : public ShadowWidget {
     Q_OBJECT
@@ -41,8 +45,11 @@ public:
     //Window Widgets
     MainWidget* mainWidget;
     OneKeyCheckWidget* oneKeyCheckWidget;
+    BasicInfoRpt* okcBasicInfoRpt;
     DeviceConnectRpt* okcDeviceConnectRpt;
-
+    NetRecordRpt* okcNetRecordRpt;
+    SystemSecurityRpt* okcSystemSecurityRpt;
+    QList<BaseReport*> okcReports;
     //Animation
     QParallelAnimationGroup*  widgetSwitchAnimation;
 

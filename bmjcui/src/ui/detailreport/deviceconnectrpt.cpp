@@ -3,16 +3,20 @@
 #include <QStandardItemModel>
 #include <QTableView>
 #include <QHeaderView>
+#include <QVariantMap>
+#include <QVariant>
+#include <QLabel>
 
 #include "src/ui/common/taskbutton.h"
 #include "src/ui/base/staticbutton.h"
 #include "src/ui/onekeycheck/mydelegate.h"
-
-DeviceConnectRpt::DeviceConnectRpt(QWidget* parent)
-    : BaseStyleWidget(parent)
+#include "src/util/modelutil.h"
+#include "src/ui/detailreport/basereport.h"
+DeviceConnectRpt::DeviceConnectRpt(QWidget* parent, const QString& title)
+    : BaseStyleWidget(parent),BaseReport()
 {
+    initUI(title);
     initModel();
-    initUI();
     initConnection();
     selectHardDiskInfo();
 }
@@ -21,9 +25,19 @@ DeviceConnectRpt::~DeviceConnectRpt()
 {
 }
 
-void DeviceConnectRpt::initUI()
+void DeviceConnectRpt::initUI(const QString& titletext)
 {
     this->setFixedSize(900, 600);
+
+    QLabel* title = new QLabel(titletext, this);
+    title->adjustSize();
+    title->move(900 / 2 - title->width() / 2, 17);
+
+    QLabel* icon = new QLabel(this);
+    icon->setPixmap(QPixmap(":image/detailreport/logo"));
+    icon->adjustSize();
+    icon->move(900 / 2 - title->width() / 2 - 3 - icon->width(), 12);
+
     returnbtn = new StaticButton(":image/detailreport/returnbtn", 3, this);
     returnbtn->move(0, 0);
 
@@ -39,45 +53,65 @@ void DeviceConnectRpt::initUI()
     printDeviceBtn->move(27 + 142 * 4, 60);
     blueToothDeviceBtn = new TaskButton(":image/detailreport/deviceconnect/blueToothDeviceBtn", this);
     blueToothDeviceBtn->move(27 + 142 * 5, 60);
-    taskbtnlist = QList<TaskButton*>();
+
     taskbtnlist << hardDiskInfoBtn << virtualMachineInfoBtn << netConfigBtn << adapterDeviceBtn << printDeviceBtn << blueToothDeviceBtn;
 
-    checkresult = new QTableView(this);
-    checkresult->setMinimumWidth(900);
-    checkresult->setMinimumHeight(447);
-    checkresult->move(0, 153);
-    checkresult->verticalHeader()->hide();
-    checkresult->horizontalHeader()->setHighlightSections(false);
-    checkresult->horizontalHeader()->setFixedHeight(36);
-    checkresult->setGridStyle(Qt::NoPen);
+    hardDiskInfoView = new QTableView(this);
+    //hardDiskInfoView->setModel(hardDiskInfoMod);
+    initViewDetail(hardDiskInfoView);
 
-    checkresult->setShowGrid(false);
-    checkresult->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    checkresult->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
-    checkresult->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-    checkresult->setItemDelegate(new MyDelegate(checkresult));
-    checkresult->setSelectionBehavior(QAbstractItemView::SelectRows);
-    checkresult->setSelectionMode(QAbstractItemView::NoSelection);
-    checkresult->setFrameShape(QFrame::NoFrame);
+    virtualMachineInfoView = new QTableView(this);
+    //virtualMachineInfoView->setModel(virtualMachineInfoMod);
+    initViewDetail(virtualMachineInfoView);
 
-    checkresult->setModel(hardDiskInfoMod);
-    checkresult->hide();
+    netConfigView = new QTableView(this);
+    //netConfigView->setModel(netConfigMod);
+    initViewDetail(netConfigView);
+
+    adapterDeviceView = new QTableView(this);
+    //adapterDeviceView->setModel(adapterDeviceMod);
+    initViewDetail(adapterDeviceView);
+
+    printDeviceView = new QTableView(this);
+    //printDeviceView->setModel(printDeviceMod);
+    initViewDetail(printDeviceView);
+
+    blueToothDeviceView = new QTableView(this);
+    //blueToothDeviceView->setModel(blueToothDeviceMod);
+    initViewDetail(blueToothDeviceView);
+
+
+    viewlist << hardDiskInfoView << virtualMachineInfoView << netConfigView
+             << adapterDeviceView << printDeviceView << blueToothDeviceView;
 }
+
+void DeviceConnectRpt::initViewDetail(QTableView* view)
+{
+    view->setMinimumWidth(900);
+    view->setMinimumHeight(447);
+    view->move(0, 153);
+    initViewStyle(view);
+}
+
 void DeviceConnectRpt::initModel()
 {
 
     hardDiskInfoMod = new QStandardItemModel(this);
-    hardDiskInfoMod->setHorizontalHeaderLabels(QStringList() << "");
+    ModelUtil::initHardDiskModel(hardDiskInfoMod, hardDiskInfoView);
+    hardDiskInfoView->setColumnWidth(0, 200);
     virtualMachineInfoMod = new QStandardItemModel(this);
-    virtualMachineInfoMod->setHorizontalHeaderLabels(QStringList() << "");
+    ModelUtil::initVMModel(virtualMachineInfoMod, virtualMachineInfoView);
     netConfigMod = new QStandardItemModel(this);
-    netConfigMod->setHorizontalHeaderLabels(QStringList() << "");
+    ModelUtil::initNetConfigModel(netConfigMod, netConfigView);
     adapterDeviceMod = new QStandardItemModel(this);
-    adapterDeviceMod->setHorizontalHeaderLabels(QStringList() << "");
+    ModelUtil::initNetworkAdapterModel(adapterDeviceMod, adapterDeviceView);
     printDeviceMod = new QStandardItemModel(this);
-    printDeviceMod->setHorizontalHeaderLabels(QStringList() << "");
+    ModelUtil::initPrinterModel(printDeviceMod, printDeviceView);
     blueToothDeviceMod = new QStandardItemModel(this);
-    blueToothDeviceMod->setHorizontalHeaderLabels(QStringList() << "");
+    ModelUtil::initBlueToothModel(blueToothDeviceMod, blueToothDeviceView);
+
+    modellist << hardDiskInfoMod << virtualMachineInfoMod << netConfigMod
+              << adapterDeviceMod << printDeviceMod << blueToothDeviceMod;
 }
 
 void DeviceConnectRpt::initConnection()
@@ -92,63 +126,68 @@ void DeviceConnectRpt::initConnection()
 
 void DeviceConnectRpt::addHardDiskInfo(const QVariantList& result)
 {
+    ModelUtil::addHardDiskInfo(hardDiskInfoMod, result);
 }
 void DeviceConnectRpt::addVirtualMachineInfo(const QVariantList& result)
 {
+    ModelUtil::addVMInfo(virtualMachineInfoMod, result);
 }
 void DeviceConnectRpt::addNetConfig(const QVariantList& result)
 {
+    ModelUtil::addNetConfig(netConfigMod, result);
 }
 void DeviceConnectRpt::addAdapterDevice(const QVariantList& result)
 {
+    ModelUtil::addNetworkAdapterDevice(adapterDeviceMod, result);
 }
 void DeviceConnectRpt::addPrintDevice(const QVariantList& result)
 {
+    ModelUtil::addPrinterDevice(printDeviceMod, result);
 }
 void DeviceConnectRpt::addBlueToothDevice(const QVariantList& result)
 {
-}
-
-void DeviceConnectRpt::unselectAllTaskbtn()
-{
-    for (TaskButton* task : taskbtnlist) {
-        task->unselect();
-    }
+    ModelUtil::addBlueToothDevice(blueToothDeviceMod, result);
 }
 
 void DeviceConnectRpt::selectHardDiskInfo()
 {
     unselectAllTaskbtn();
+    hideAllView();
     hardDiskInfoBtn->select();
-    checkresult->setModel(hardDiskInfoMod);
+    hardDiskInfoView->show();
 }
 void DeviceConnectRpt::selectVirtualMachineInfo()
 {
     unselectAllTaskbtn();
+    hideAllView();
     virtualMachineInfoBtn->select();
-    checkresult->setModel(virtualMachineInfoMod);
+    virtualMachineInfoView->show();
 }
 void DeviceConnectRpt::selectNetConfig()
 {
     unselectAllTaskbtn();
+    hideAllView();
     netConfigBtn->select();
-    checkresult->setModel(netConfigMod);
+    netConfigView->show();
 }
 void DeviceConnectRpt::selectAdapterDevice()
 {
     unselectAllTaskbtn();
+    hideAllView();
     adapterDeviceBtn->select();
-    checkresult->setModel(adapterDeviceMod);
+    adapterDeviceView->show();
 }
 void DeviceConnectRpt::selectPrintDevice()
 {
     unselectAllTaskbtn();
+    hideAllView();
     printDeviceBtn->select();
-    checkresult->setModel(printDeviceMod);
+    printDeviceView->show();
 }
 void DeviceConnectRpt::selectBlueToothDevice()
 {
     unselectAllTaskbtn();
+    hideAllView();
     blueToothDeviceBtn->select();
-    checkresult->setModel(blueToothDeviceMod);
+    blueToothDeviceView->show();
 }

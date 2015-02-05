@@ -15,10 +15,17 @@ MainWindow > OneKeyCheckWidget{
     background-repeat:no-repeat;
 }
 
-MainWindow >DeviceConnectRpt{
+MainWindow >DeviceConnectRpt, MainWindow >NetRecordRpt,MainWindow >BasicInfoRpt{
     background: #F4F4F4;
     background-image: url(:image/detailreport/background.png);
     background-repeat:no-repeat;
+}
+
+DeviceConnectRpt > QLabel,NetRecordRpt > QLabel,BasicInfoRpt > QLabel {
+      font-family: "方正兰亭细黑_GBK";
+      font-size: 14.5px ;
+      color:#FFFFFF;
+       font-weight: 900;
 }
 
 CommonWidget#testbutton{
@@ -69,7 +76,7 @@ QTableView::item:focus
       border-top: none;
       border-left: none;
       border-right: 1px solid #CACACA;
-      background-image: url(:image/onekeycheck/resulttable/headerbackground.png);
+      background-image: url(:image/detailreport/resulttable/headerbackground.png);
 }
 
 
@@ -92,11 +99,17 @@ QHeaderView::section
     font-size: 12px ;
     font-weight: 900;
     color:#8A8787;
-    border-bottom: 0px;
-    border-top: 0px;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
     border-left: 0px;
-    border-right: 1px solid #CACACA;
-    background-image: url(:image/onekeycheck/resulttable/headerbackground.png);
+    border-right: 1px;
+    border-image: url(:image/detailreport/resulttable/headerseperate.png);
+    background-image: url(:image/detailreport/resulttable/headerbackground.png);
+}
+QHeaderView{
+    border-bottom: 1px solid #DFDFDF;
+    border-top: 1px solid #DFDFDF;
+    background-image: url(:image/detailreport/resulttable/headerbackground.png);
 }
 
 

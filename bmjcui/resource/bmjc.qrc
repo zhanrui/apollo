@@ -63,10 +63,9 @@
         <file>image/onekeycheck/leftbutton/systemsecuritybtn_noproblem.png</file>
         <file>image/onekeycheck/leftbutton/systemsecuritybtn_default.png</file>
         <file>image/onekeycheck/resulttable/headerbackground.png</file>
-        <file>image/onekeycheck/progressbar_front.png</file>
+        <file>image/onekeycheck/progressbar_front.gif</file>
         <file>image/onekeycheck/progressbar_background.png</file>
         <file>image/onekeycheck/cancelcheckbtn.png</file>
-        <file>image/detailreport/tableheaderseperate.png</file>
         <file>image/detailreport/running_movie.gif</file>
         <file>image/detailreport/background.png</file>
         <file>image/detailreport/deviceconnect/adapterDeviceBtn_noproblem.png</file>
@@ -88,5 +87,30 @@
         <file>image/detailreport/deviceconnect/virtualMachineInfoBtn_problem.png</file>
         <file>image/detailreport/deviceconnect/virtualMachineInfoBtn_running.png</file>
         <file>image/detailreport/returnbtn.png</file>
+        <file>image/detailreport/resulttable/headerbackground.png</file>
+        <file>image/detailreport/resulttable/headerseperate.png</file>
+        <file>image/detailreport/logo.png</file>
+        <file>image/onekeycheck/leftbutton/basicinfobtn_default.png</file>
+        <file>image/onekeycheck/leftbutton/basicinfobtn_noproblem.png</file>
+        <file>image/onekeycheck/leftbutton/basicinfobtn_problem.png</file>
+        <file>image/onekeycheck/leftbutton/basicinfobtn_running.png</file>
+        <file>image/detailreport/basicinfo/biosInfoBtn_noproblem.png</file>
+        <file>image/detailreport/basicinfo/biosInfoBtn_problem.png</file>
+        <file>image/detailreport/basicinfo/biosInfoBtn_running.png</file>
+        <file>image/detailreport/basicinfo/cpuInfoBtn_noproblem.png</file>
+        <file>image/detailreport/basicinfo/cpuInfoBtn_problem.png</file>
+        <file>image/detailreport/basicinfo/cpuInfoBtn_running.png</file>
+        <file>image/detailreport/basicinfo/graphicsCardInfoBtn_noproblem.png</file>
+        <file>image/detailreport/basicinfo/graphicsCardInfoBtn_problem.png</file>
+        <file>image/detailreport/basicinfo/graphicsCardInfoBtn_running.png</file>
+        <file>image/detailreport/basicinfo/memoryInfoBtn_noproblem.png</file>
+        <file>image/detailreport/basicinfo/memoryInfoBtn_problem.png</file>
+        <file>image/detailreport/basicinfo/memoryInfoBtn_running.png</file>
+        <file>image/detailreport/basicinfo/motherBoardInfoBtn_noproblem.png</file>
+        <file>image/detailreport/basicinfo/motherBoardInfoBtn_problem.png</file>
+        <file>image/detailreport/basicinfo/motherBoardInfoBtn_running.png</file>
+        <file>image/detailreport/basicinfo/osInfoBtn_noproblem.png</file>
+        <file>image/detailreport/basicinfo/osInfoBtn_problem.png</file>
+        <file>image/detailreport/basicinfo/osInfoBtn_running.png</file>
     </qresource>
 </RCC>

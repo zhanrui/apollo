@@ -4,7 +4,9 @@
 #include "src/common/globals.h"
 #include "src/ui/main/mainwindow.h"
 #include "src/ui/onekeycheck/onekeycheckwidget.h"
-
+#include "src/ui/common/taskbutton.h"
+#include "src/ui/detailreport/deviceconnectrpt.h"
+#include "src/ui/detailreport/netrecordrpt.h"
 #include "src/ui/base/staticbutton.h"
 #include "src/ui/onekeycheck/tabbutton.h"
 #include "src/util/interfacefortool.h"
@@ -119,35 +121,67 @@ void OneKeyCheckState::initConStateGroup()
 void OneKeyCheckState::initConUIState(MainWindow* mainwindow)
 {
     OneKeyCheckWidget* okc = mainwindow->oneKeyCheckWidget;
+
     connect(okc->startcheckbtn, SIGNAL(buttonClicked()), this, SLOT(startexcute()));
     connect(okc->cancelcheckbtn, SIGNAL(buttonClicked()), this, SLOT(stopexcute()));
     connect(this, SIGNAL(completerateUpdateSig(const int, const QString&)), okc, SLOT(completerateUpdate(const int, const QString&)));
     connect(this, SIGNAL(dataCountUpdateSig(const int, const int)), okc, SLOT(dataCountUpdate(const int, const int)));
 
+    connect(deviceConnection, SIGNAL(errorFindSig()), okc->deviceconnectionbtn, SLOT(changeToProblem()));
+    connect(deviceConnection, SIGNAL(completeSig()), okc->deviceconnectionbtn, SLOT(changeToNoProblem()));
 
-    connect(deviceConnection, SIGNAL(errorFindSig()),  okc -> deviceconnectionbtn, SLOT(changeToProblem()));
-    connect(deviceConnection, SIGNAL(completeSig()), okc -> deviceconnectionbtn, SLOT(changeToNoProblem()));
+    connect(systemSecurity, SIGNAL(errorFindSig()), okc->systemsecuritybtn, SLOT(changeToProblem()));
+    connect(systemSecurity, SIGNAL(completeSig()), okc->systemsecuritybtn, SLOT(changeToNoProblem()));
 
-    connect(systemSecurity, SIGNAL(errorFindSig()), okc -> systemsecuritybtn, SLOT(changeToProblem()));
-    connect(systemSecurity, SIGNAL(completeSig()), okc -> systemsecuritybtn, SLOT(changeToNoProblem()));
+    connect(securityThreat, SIGNAL(errorFindSig()), okc->securitythreatbtn, SLOT(changeToProblem()));
+    connect(securityThreat, SIGNAL(completeSig()), okc->securitythreatbtn, SLOT(changeToNoProblem()));
 
-    connect(securityThreat, SIGNAL(errorFindSig()), okc -> securitythreatbtn, SLOT(changeToProblem()));
-    connect(securityThreat, SIGNAL(completeSig()), okc -> securitythreatbtn, SLOT(changeToNoProblem()));
+    connect(usbCheck, SIGNAL(errorFindSig()), okc->usbcheckbtn, SLOT(changeToProblem()));
+    connect(usbCheck, SIGNAL(completeSig()), okc->usbcheckbtn, SLOT(changeToNoProblem()));
 
-    connect(usbCheck, SIGNAL(errorFindSig()), okc -> usbcheckbtn, SLOT(changeToProblem()));
-    connect(usbCheck, SIGNAL(completeSig()), okc -> usbcheckbtn, SLOT(changeToNoProblem()));
+    connect(netRecordsCheck, SIGNAL(errorFindSig()), okc->netbrowserbtn, SLOT(changeToProblem()));
+    connect(netRecordsCheck, SIGNAL(completeSig()), okc->netbrowserbtn, SLOT(changeToNoProblem()));
 
-    connect(netRecordsCheck, SIGNAL(errorFindSig()), okc -> netbrowserbtn, SLOT(changeToProblem()));
-    connect(netRecordsCheck, SIGNAL(completeSig()), okc -> netbrowserbtn, SLOT(changeToNoProblem()));
+    connect(netRecordsCheck, SIGNAL(errorFindSig()), okc->netbrowserbtn, SLOT(changeToProblem()));
+    connect(netRecordsCheck, SIGNAL(completeSig()), okc->netbrowserbtn, SLOT(changeToNoProblem()));
 
-    connect(netRecordsCheck, SIGNAL(errorFindSig()), okc -> netbrowserbtn, SLOT(changeToProblem()));
-    connect(netRecordsCheck, SIGNAL(completeSig()), okc -> netbrowserbtn, SLOT(changeToNoProblem()));
+    connect(fileCheck, SIGNAL(errorFindSig()), okc->filecheckbtn, SLOT(changeToProblem()));
+    connect(fileCheck, SIGNAL(completeSig()), okc->filecheckbtn, SLOT(changeToNoProblem()));
 
-    connect(fileCheck, SIGNAL(errorFindSig()), okc -> filecheckbtn, SLOT(changeToProblem()));
-    connect(fileCheck, SIGNAL(completeSig()), okc -> filecheckbtn, SLOT(changeToNoProblem()));
+    connect(trojanCheck, SIGNAL(errorFindSig()), okc->tjcheckbtn, SLOT(changeToProblem()));
+    connect(trojanCheck, SIGNAL(completeSig()), okc->tjcheckbtn, SLOT(changeToNoProblem()));
 
-    connect(trojanCheck, SIGNAL(errorFindSig()), okc -> tjcheckbtn, SLOT(changeToProblem()));
-    connect(trojanCheck, SIGNAL(completeSig()), okc -> tjcheckbtn, SLOT(changeToNoProblem()));
+    DeviceConnectRpt* okcDeviceConnectRpt = mainwindow->okcDeviceConnectRpt;
+    connect(hardDiskInfo, &CheckTask::completeSig, okcDeviceConnectRpt->hardDiskInfoBtn, &TaskButton::changeToNoProblem);
+    connect(hardDiskInfo, &CheckTask::errorFindSig, okcDeviceConnectRpt->hardDiskInfoBtn, &TaskButton::changeToProblem);
+    connect(hardDiskInfo, &CheckTask::dataUpdateSig, okcDeviceConnectRpt, &DeviceConnectRpt::addHardDiskInfo);
+
+    connect(virtualMachineInfo, &CheckTask::completeSig, okcDeviceConnectRpt->virtualMachineInfoBtn, &TaskButton::changeToNoProblem);
+    connect(virtualMachineInfo, &CheckTask::errorFindSig, okcDeviceConnectRpt->virtualMachineInfoBtn, &TaskButton::changeToProblem);
+    connect(virtualMachineInfo, &CheckTask::dataUpdateSig, okcDeviceConnectRpt, &DeviceConnectRpt::addVirtualMachineInfo);
+
+    connect(netConfig, &CheckTask::completeSig, okcDeviceConnectRpt->netConfigBtn, &TaskButton::changeToNoProblem);
+    connect(netConfig, &CheckTask::errorFindSig, okcDeviceConnectRpt->netConfigBtn, &TaskButton::changeToProblem);
+    connect(netConfig, &CheckTask::dataUpdateSig, okcDeviceConnectRpt, &DeviceConnectRpt::addNetConfig);
+
+    connect(adapterDevice, &CheckTask::completeSig, okcDeviceConnectRpt->adapterDeviceBtn, &TaskButton::changeToNoProblem);
+    connect(adapterDevice, &CheckTask::errorFindSig, okcDeviceConnectRpt->adapterDeviceBtn, &TaskButton::changeToProblem);
+    connect(adapterDevice, &CheckTask::dataUpdateSig, okcDeviceConnectRpt, &DeviceConnectRpt::addAdapterDevice);
+
+    connect(printDevice, &CheckTask::completeSig, okcDeviceConnectRpt->printDeviceBtn, &TaskButton::changeToNoProblem);
+    connect(printDevice, &CheckTask::errorFindSig, okcDeviceConnectRpt->printDeviceBtn, &TaskButton::changeToProblem);
+    connect(printDevice, &CheckTask::dataUpdateSig, okcDeviceConnectRpt, &DeviceConnectRpt::addPrintDevice);
+
+    connect(blueToothDevice, &CheckTask::completeSig, okcDeviceConnectRpt->blueToothDeviceBtn, &TaskButton::changeToNoProblem);
+    connect(blueToothDevice, &CheckTask::errorFindSig, okcDeviceConnectRpt->blueToothDeviceBtn, &TaskButton::changeToProblem);
+    connect(blueToothDevice, &CheckTask::dataUpdateSig, okcDeviceConnectRpt, &DeviceConnectRpt::addBlueToothDevice);
+
+    NetRecordRpt* okcNetRecordRpt = mainwindow->okcNetRecordRpt;
+
+   // connect(netRecordsRoutineCheck, &CheckTask::completeSig, okcDeviceConnectRpt->blueToothDeviceBtn, &TaskButton::changeToNoProblem);
+   // connect(netRecordsRoutineCheck, &CheckTask::errorFindSig, okcDeviceConnectRpt->blueToothDeviceBtn, &TaskButton::changeToProblem);
+    connect(netRecordsRoutineCheck, &CheckTask::dataUpdateSig, okcNetRecordRpt, &NetRecordRpt::addNetRecordsInfo);
+
 }
 //Call UI
 void OneKeyCheckState::startexcute()

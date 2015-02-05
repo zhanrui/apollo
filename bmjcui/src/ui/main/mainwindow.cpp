@@ -4,7 +4,11 @@
 #include "src/ui/main/mainwidget.h"
 #include "src/ui/onekeycheck/onekeycheckwidget.h"
 #include "src/ui/common/sysbuttongroup.h"
+#include "src/ui/detailreport/basicinforpt.h"
 #include "src/ui/detailreport/deviceconnectrpt.h"
+#include "src/ui/detailreport/netrecordrpt.h"
+#include "src/ui/detailreport/basereport.h"
+#include "src/ui/detailreport/systemsecurityrpt.h"
 #include "src/ui/base/staticbutton.h"
 #include "src/ui/onekeycheck/tabbutton.h"
 #include <src/state/onekeycheckstate.h>
@@ -27,6 +31,7 @@
 #include <QDBusConnection>
 #include <QDBusError>
 #include <QPushButton>
+#include <QStandardItemModel>
 
 MainWindow::MainWindow(QWidget* parent)
     : ShadowWidget(parent)
@@ -53,9 +58,24 @@ void MainWindow::initUI()
     oneKeyCheckWidget->setObjectName("onekeycheckwidget");
     oneKeyCheckWidget->hide();
 
-    okcDeviceConnectRpt = new DeviceConnectRpt(this);
+    okcBasicInfoRpt = new BasicInfoRpt(this, "一键检查——基本信息");
+    okcBasicInfoRpt->setObjectName("okcBaiscInfo");
+    okcBasicInfoRpt->hide();
+
+    okcDeviceConnectRpt = new DeviceConnectRpt(this, "一键检查——设备连接信息");
     okcDeviceConnectRpt->setObjectName("okcDeviceConnectRpt");
     okcDeviceConnectRpt->hide();
+
+    okcNetRecordRpt = new NetRecordRpt(this, "一键检查——上网记录检查");
+    okcNetRecordRpt->setObjectName("okcNetRecordRpt");
+    okcNetRecordRpt->hide();
+
+    okcSystemSecurityRpt = new SystemSecurityRpt(this, "一键检查——系统安全检查");
+    okcSystemSecurityRpt->setObjectName("SystemSecurityRpt");
+    okcSystemSecurityRpt->hide();
+
+    okcReports = QList<BaseReport*>();
+    okcReports << okcBasicInfoRpt << okcDeviceConnectRpt << okcNetRecordRpt << okcSystemSecurityRpt;
 
     widgetSwitchAnimation = new QParallelAnimationGroup(this);
 
@@ -78,17 +98,49 @@ void MainWindow::initConnect()
             [=]() {   switchWidgetToLeft(mainWidget, oneKeyCheckWidget); });
     connect(oneKeyCheckWidget->returnbtn, &StaticButton::buttonClicked,
             [=]() {  switchWidgetToRight(oneKeyCheckWidget, mainWidget); });
+
     connect(oneKeyCheckWidget->deviceconnectionbtn, &TabButton::buttonClicked,
             [=]() { switchWidgetToLeft(oneKeyCheckWidget, okcDeviceConnectRpt); });
     connect(okcDeviceConnectRpt->returnbtn, &TabButton::buttonClicked,
             [=]() { switchWidgetToRight(okcDeviceConnectRpt, oneKeyCheckWidget); });
 
+    connect(oneKeyCheckWidget->netbrowserbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToLeft(oneKeyCheckWidget, okcNetRecordRpt); });
+    connect(okcNetRecordRpt->returnbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToRight(okcNetRecordRpt, oneKeyCheckWidget); });
+
+    connect(oneKeyCheckWidget->basicinfobtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToLeft(oneKeyCheckWidget, okcBasicInfoRpt); });
+    connect(okcBasicInfoRpt->returnbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToRight(okcBasicInfoRpt, oneKeyCheckWidget); });
+
+    connect(oneKeyCheckWidget->systemsecuritybtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToLeft(oneKeyCheckWidget, okcSystemSecurityRpt); });
+    connect(okcSystemSecurityRpt->returnbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToRight(okcSystemSecurityRpt, oneKeyCheckWidget); });
+
     connect(oneKeyCheckWidget->cancelcheckbtn, &StaticButton::buttonClicked,
             [=]() {
-        for(TaskButton* taskbtn:okcDeviceConnectRpt->taskbtnlist ){
-            if(taskbtn->taskstatus != TASK_PROBLEM)
-                taskbtn->changeToNoProblem();
+        for(BaseReport* baserpt:okcReports){
+            for(TaskButton* taskbtn:baserpt->taskbtnlist ){
+                if(taskbtn->taskstatus != TASK_PROBLEM)
+                    taskbtn->changeToNoProblem();
+            }
         }
+
+    });
+
+    connect(oneKeyCheckWidget->startcheckbtn, &StaticButton::buttonClicked,
+            [=]() {
+        for(BaseReport* baserpt:okcReports){
+            for(TaskButton* taskbtn:baserpt->taskbtnlist ){
+                taskbtn->changeToRunning();
+            }
+            for(QStandardItemModel* model:baserpt->modellist ){
+               model->removeRows(0,model->rowCount());
+            }
+        }
+
     });
 
     //OneKeyCheck

@@ -4,20 +4,25 @@
 #include <QWidget>
 
 #include <QList>
+#include <QLabel>
+#include <QString>
 #include <src/ui/base/basestylewidget.h>
+#include <src/ui/detailreport/basereport.h>
 class TaskButton;
 class StaticButton;
 class QTableView;
 class QStandardItemModel;
-class DeviceConnectRpt : public BaseStyleWidget {
+
+class DeviceConnectRpt : public BaseStyleWidget , public BaseReport{
     Q_OBJECT
 public:
-    explicit DeviceConnectRpt(QWidget* parent = 0);
+    explicit DeviceConnectRpt(QWidget* parent ,const QString & title);
     ~DeviceConnectRpt();
-    void initUI();
+    void initUI(const QString & title);
     void initModel();
     void initConnection();
-    void unselectAllTaskbtn();
+
+    void initViewDetail(QTableView* view);
 
 public slots:
     void addHardDiskInfo(const QVariantList& result);
@@ -34,9 +39,8 @@ public slots:
     void selectPrintDevice();
     void selectBlueToothDevice();
 
-
-
 public:
+
     TaskButton* hardDiskInfoBtn;
     TaskButton* virtualMachineInfoBtn;
     TaskButton* netConfigBtn;
@@ -44,7 +48,7 @@ public:
     TaskButton* printDeviceBtn;
     TaskButton* blueToothDeviceBtn;
 
-    QList<TaskButton*> taskbtnlist;
+
 
     QStandardItemModel* hardDiskInfoMod;
     QStandardItemModel* virtualMachineInfoMod;
@@ -53,11 +57,18 @@ public:
     QStandardItemModel* printDeviceMod;
     QStandardItemModel* blueToothDeviceMod;
 
-    QTableView* checkresult;
 
-    StaticButton* returnbtn;
-    StaticButton* startcheckbtn;
-    StaticButton* cancelcheckbtn;
+
+    QTableView* hardDiskInfoView;
+    QTableView* virtualMachineInfoView;
+    QTableView* netConfigView;
+    QTableView* adapterDeviceView;
+    QTableView* printDeviceView;
+    QTableView* blueToothDeviceView;
+
+
+
+
 };
 
 #endif // DEVICECONNECTRPT_H

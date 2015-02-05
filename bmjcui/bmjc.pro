@@ -44,7 +44,10 @@ HEADERS += \
     src/state/common/checktaskgroup.h \
     src/ui/common/taskbutton.h \
     src/ui/detailreport/deviceconnectrpt.h \
-    src/ui/detailreport/systemsecurityrpt.h
+    src/ui/detailreport/systemsecurityrpt.h \
+    src/ui/detailreport/netrecordrpt.h \
+    src/ui/detailreport/basicinforpt.h \
+    src/ui/detailreport/basereport.h
 
 SOURCES += \
     src/state/onekeycheckstate.cpp \
@@ -71,7 +74,10 @@ SOURCES += \
     src/state/common/checktaskgroup.cpp \
     src/ui/common/taskbutton.cpp \
     src/ui/detailreport/deviceconnectrpt.cpp \
-    src/ui/detailreport/systemsecurityrpt.cpp
+    src/ui/detailreport/systemsecurityrpt.cpp \
+    src/ui/detailreport/netrecordrpt.cpp \
+    src/ui/detailreport/basicinforpt.cpp \
+    src/ui/detailreport/basereport.cpp
 
 copyotherfile.commands = $(COPY_DIR) $$PWD/otherfile $$OUT_PWD
 first.depends = $(first) copyotherfile

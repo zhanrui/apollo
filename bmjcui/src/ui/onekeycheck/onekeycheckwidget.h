@@ -35,6 +35,7 @@ public slots:
 
 public:
 
+    TabButton* basicinfobtn;
     TabButton* deviceconnectionbtn;
     TabButton* netbrowserbtn;
     TabButton* systemsecuritybtn;
@@ -42,6 +43,8 @@ public:
     TabButton* usbcheckbtn;
     TabButton* filecheckbtn;
     TabButton* tjcheckbtn;
+
+    QList< TabButton*> tabbuttonlist;
 
     QStandardItemModel * cpumodel ;
 

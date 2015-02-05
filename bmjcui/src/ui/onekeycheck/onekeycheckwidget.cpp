@@ -5,6 +5,7 @@
 #include "src/ui/onekeycheck/tabbutton.h"
 #include "src/ui/onekeycheck/mydelegate.h"
 #include "src/common/globals.h"
+#include "src/common/common.h"
 #include <QLabel>
 #include <QStandardItemModel>
 #include <QTableView>
@@ -19,6 +20,8 @@
 #include <QTimer>
 #include <QTime>
 #include <QDebug>
+#include <QMovie>
+
 
 OneKeyCheckWidget::OneKeyCheckWidget(QWidget* parent)
     : BaseStyleWidget(parent)
@@ -61,8 +64,13 @@ void OneKeyCheckWidget::initUI()
     progressbar_background->hide();
 
     progressbar_front = new QLabel(this);
-    progressbar_front->setPixmap(QPixmap(":image/onekeycheck/progressbar_front"));
-    progressbar_front->move(-895, 147);
+    QMovie* movie = new QMovie(":image/onekeycheck/progressbar_front");
+    movie->setParent(this);
+    movie->start();
+    progressbar_front->setMovie(movie);
+
+    //progressbar_front->setPixmap(QPixmap(":image/onekeycheck/progressbar_front"));
+    progressbar_front->move(-900, 147);
     progressbar_front->hide();
 
     checkingElapsedTime = new QLabel(this);
@@ -81,28 +89,35 @@ void OneKeyCheckWidget::initUI()
     vline->move(192, 153);
 
     int start = 153;
-    int between = 57;
+    int between = 56;
     int x = 1;
+
+
+    basicinfobtn    = new TabButton(":image/onekeycheck/leftbutton/basicinfobtn", this);
+    basicinfobtn->move(x, start);
+    basicinfobtn->setEnabled(false);
+
     deviceconnectionbtn = new TabButton(":image/onekeycheck/leftbutton/deviceconnectionbtn", this);
-    deviceconnectionbtn->move(x, start);
+    deviceconnectionbtn->move(x, start + (between)*1);
     deviceconnectionbtn->setEnabled(false);
+
     netbrowserbtn = new TabButton(":image/onekeycheck/leftbutton/netbrowserbtn", this);
-    netbrowserbtn->move(x, start + (between)*1);
+    netbrowserbtn->move(x, start + (between)*2);
     netbrowserbtn->setEnabled(false);
     systemsecuritybtn = new TabButton(":image/onekeycheck/leftbutton/systemsecuritybtn", this);
-    systemsecuritybtn->move(x, start + (between)*2);
+    systemsecuritybtn->move(x, start + (between)*3);
     systemsecuritybtn->setEnabled(false);
     securitythreatbtn = new TabButton(":image/onekeycheck/leftbutton/securitythreatbtn", this);
-    securitythreatbtn->move(x, start + (between)*3);
+    securitythreatbtn->move(x, start + (between)*4);
     securitythreatbtn->setEnabled(false);
     usbcheckbtn = new TabButton(":image/onekeycheck/leftbutton/usbcheckbtn", this);
-    usbcheckbtn->move(x, start + (between)*4);
+    usbcheckbtn->move(x, start + (between)*5);
     usbcheckbtn->setEnabled(false);
     filecheckbtn = new TabButton(":image/onekeycheck/leftbutton/filecheckbtn", this);
-    filecheckbtn->move(x, start + (between)*5);
+    filecheckbtn->move(x, start + (between)*6);
     filecheckbtn->setEnabled(false);
     tjcheckbtn = new TabButton(":image/onekeycheck/leftbutton/tjcheckbtn", this);
-    tjcheckbtn->move(x, start + (between)*6);
+    tjcheckbtn->move(x, start + (between)*7);
     tjcheckbtn->setEnabled(false);
 
     for (int i = 0; i < 7; i++) {
@@ -110,6 +125,10 @@ void OneKeyCheckWidget::initUI()
         hline->setPixmap(QPixmap(":image/onekeycheck/hline"));
         hline->move(0, start + (between) * (i + 1));
     }
+
+    tabbuttonlist = QList<TabButton*>();
+    tabbuttonlist <<basicinfobtn<< deviceconnectionbtn << netbrowserbtn << systemsecuritybtn
+                  << securitythreatbtn << usbcheckbtn << filecheckbtn << tjcheckbtn;
 
     checkresult = new QTableView(this);
     checkresult->setMinimumWidth(707);
@@ -164,20 +183,10 @@ void OneKeyCheckWidget::startCheck()
     checkingStartTime = (QDateTime::currentDateTime()).toTime_t();
     checkingElapsedTimer->start(1000);
 
-    deviceconnectionbtn->setEnabled(true);
-    deviceconnectionbtn->changeToRunning();
-    netbrowserbtn->setEnabled(true);
-    netbrowserbtn->changeToRunning();
-    systemsecuritybtn->setEnabled(true);
-    systemsecuritybtn->changeToRunning();
-    securitythreatbtn->setEnabled(true);
-    securitythreatbtn->changeToRunning();
-    usbcheckbtn->setEnabled(true);
-    usbcheckbtn->changeToRunning();
-    filecheckbtn->setEnabled(true);
-    filecheckbtn->changeToRunning();
-    tjcheckbtn->setEnabled(true);
-    tjcheckbtn->changeToRunning();
+    for(TabButton* btn: tabbuttonlist){
+        btn->setEnabled(true);
+        btn->changeToRunning();
+    }
 }
 
 void OneKeyCheckWidget::cancelCheck()
@@ -194,11 +203,17 @@ void OneKeyCheckWidget::cancelCheck()
     checkingElapsedTime->hide();
     checkingElapsedTime->setText("");
     checkingElapsedTimer->stop();
+
+    for(TabButton* btn: tabbuttonlist){
+       if(btn->taskstaus != TASK_PROBLEM)
+       btn->changeToNoProblem();
+    }
+
 }
 
 void OneKeyCheckWidget::updateCheckingElapsedTime()
 {
-   //qDebug() << "updateCheckingElapsedTime";
+    //qDebug() << "updateCheckingElapsedTime";
     unsigned int timedifference = (QDateTime::currentDateTime()).toTime_t() - checkingStartTime;
     checkingElapsedTime->setText("已用时：" + (QTime(0, 0)).addSecs(timedifference).toString("hh:mm:ss"));
 }
@@ -229,11 +244,11 @@ void OneKeyCheckWidget::dataCountUpdate(const int totalproblems, const int total
 {
     QString qs;
     if (totalproblems > 0)
-        qs.append("已发现问题") .append( QString::number(totalproblems)) .append("条");
-    if (qs.size() > 0 && totalinfomations > 0 )
+        qs.append("已发现问题").append(QString::number(totalproblems)).append("条");
+    if (qs.size() > 0 && totalinfomations > 0)
         qs.append(",");
     if (totalinfomations > 0)
-        qs.append("发现信息") .append(totalinfomations) .append( "条");
+        qs.append("发现信息").append(totalinfomations).append("条");
     if (qs.size() > 0)
         qs.append(".");
     if (qs.size() > 0)

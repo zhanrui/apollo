@@ -33,6 +33,7 @@ TaskButton::TaskButton(const QString& icon, QWidget* parent)
     running_mousepressstatus->hide();
 
     QMovie* movie = new QMovie(":image/detailreport/running_movie");
+    movie->setParent(this);
     running_movie = new QLabel(this);
     running_movie->setMovie(movie);
     running_movie->move((pixmap_running.width() / 3) / 2 - 40, 50);

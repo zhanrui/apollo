@@ -1,6 +1,7 @@
 #ifndef TABBUTTON_H
 #define TABBUTTON_H
 #include "src/ui/base/staticbutton.h"
+#include "src/common/common.h"
 class QString;
 class TabButton : public StaticButton {
     Q_OBJECT
@@ -14,6 +15,7 @@ public slots:
     void changeToDefault();
 public:
     QString iconname;
+    TASKSTAUS taskstaus;
 };
 
 #endif // TABBUTTON_H
