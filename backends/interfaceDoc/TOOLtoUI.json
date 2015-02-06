@@ -1,0 +1,210 @@
+#progressreport example
+{
+	"scenename":"###",   			#待李工确定后会告知咱们准确的名称	
+	"functionname":"###",			#根据trello中划分的模块定的函数名	
+	"resulttype":"progressreport",		
+	"result":{
+		"currentcompletion":"30",	#when number is 100, assume this is finished
+		"currentstatus":"checking xxx file ... ",		
+	}
+}									#针对运行时间比较长的操作，需要阶段性的返回执行百分之几，比如“含敏感字的文件检索”以及“木马检索”，
+									#UI（前台）传递命令的时候，会吧要检索的路径传过来，
+									#后台程序在指定路径下进行检索，可以根据已经检索过的文件数/目录下总文件数,进行阶段性的返回进度情况
+									#一旦返回100%的进度信息，前台即认为任务已经执行完毕。
+								
+#errorreport example
+{
+	"scenename":"###",   
+	"functionname":"###",	
+	"resulttype":"errorreport",		#when error , assume this is finished
+	"result":{
+		"errordescrition":"could not find....",		
+	}                              #后台遇到抛出异常的情况，可以把友好的异常信息反馈到前台，前台即认为任务执行完了。
+}
+
+#datareport example
+{
+	"scenename":"###",   
+	"functionname":"###",
+	"resulttype":"datareport",
+	"result":[{"System":"Linux",
+                   "Node":"localhost.localdomain",
+                   "###":"###"}]
+}
+                                   #线下需要把自己相应的模块内信息进行汉化，整理后汇总交给李工，进行画面显示整理
+								   #例如：
+                                   #"系统类型(System)":"Linux",
+                                   #"主机名(Node)":"localhost.localdomain",
+                                   ###
+
+	
+-----------------------------------------------------------------------------------------------------------------------------------
+#M1.基本信息
+	#M1-1.操作系统
+	1.报文	
+			{
+			"scenename":"###",   
+			"functionname":"###",
+			"resulttype":"datareport",
+			"result:"[{'node': 'localhost.localdomain', 'uname': ('Linux', 'localhost.localdomain', '3.12.11-201.nk.1.i686.PAE', '#1 SMP Sun Jun 8 19:40:47 CST 2014', 'i686', 'i686'), 'system': 'Linux', 'machine': 'i686', 'platform': 'Linux-3.12.11-201.nk.1.i686.PAE-i686-with-redhat-6.0', 'version': '#1 SMP Sun Jun 8 19:40:47 CST 2014', 'architecture': ('32bit', 'ELF'), 'processor': 'i686'}]
+			}
+	2.解释
+	  #	platform 			获取操作系统名称及版本号   
+    #	version			  获取操作系统版本号   
+    #	architecture 	获取操作系统的位数  
+    #	machine 			计算机类型
+    #	node 					计算机的网络名称
+    #	processor 		计算机处理器信息
+    #	system 				获取操作系统类型
+    #	unam          综合信息
+	#M1-2.CPU信息
+		1.报文	
+			{
+			"scenename":"###",   
+			"functionname":"###",
+			"resulttype":"datareport",
+			"result":[{'cacheSize': ' 3072 KB', 'vendorId': ' GenuineIntel', 'modelName': ' Intel(R) Core(TM) i5-4210U CPU @ 1.70GHz', 'cpuMHz': ' 2394.469'}]
+			}
+		2.翻译
+		#	vendorId			生产厂商
+		#	modelName			名称
+		#	cacheSize			缓存大小(K)
+		#	CPU MHz				CPU MHz
+	
+	#M1-3.BIOS信息
+	1.报文	
+			{
+			"scenename":"###",   
+			"functionname":"###",
+			"resulttype":"datareport",
+			"result":[{'BioVersion': '6.00', 'BioVendor': 'Phoenix Technologies LTD', 'BioRelease': '07/02/2012'}]
+			}
+	2.解释
+		 #   BioVendor		    BIOS产商
+		 #   BioVersion		    BIOS版本
+		 #   BioRelease		    发布日期
+	#M1-4.主板信息
+	1.报文
+	{
+		"scenename":"###",   
+		"functionname":"###",
+		"resulttype":"datareport",
+		"result":[{'BioVendor': '', 'BoaVendor': '', 'BioRelease': '', 'BioVersion': '', 'BoaSerial': '', 'BoaProduct': ''}]
+	}
+    2.翻译：#BoaProduct		主板型号
+			#BoaVendor		主板产商
+			#BoaSerial		序列号
+			#BioVendor		BIOS产商
+			#BioVersion		BIOS版本
+			#BioRelease		发布日期
+	#M1-5.内存信息
+	1.报文
+	{
+		"scenename":"###",   
+		"functionname":"###",
+		"resulttype":"datareport",
+		"result":[{'Memnum': '', 'MemInfo': '', 'MemProduct': '', 'MemSerial': '', 'MemSlot': '', 'MemWidth': '', 'MemVendor': '', 'MemSize': ''}]
+	}
+    2.翻译：#Memnum         内存条个数
+			#MemInfo        内存条信息
+			#MemWidth       数据宽度
+			#MemSlot 		插槽号
+			#MemProduct		内存型号
+			#MemVendor		制造商
+			#MemSerial		序列号
+			#MemSize 		内存大小
+	#M1-6.显卡信息
+	1.报文
+	{
+		"scenename":"###",   
+		"functionname":"###",
+		"resulttype":"datareport",
+		"result":[{'Vga_num': '1', 'Vga_product': 'VMware SVGA II Adapter (prog-if 00 [VGA controller])', 'Vga_businfo': 'pci@0000:00:0f.0', 'Vga_vendor': '', 'Vga_Drive': 'vmwgfx'}]
+	}
+    2.翻译：#Vga_product    显卡型号
+			#Vga_vendor     显卡产商
+			#Vga_businfo    显卡总线地址
+			#Vga_Drive      显卡驱动		
+-----------------------------------------------------------------------------------------------------------------------------------
+#M2.设备连接信息
+	#M2-1.硬盘信息
+	#M2-2.虚拟机信息
+	#M2-3.网络配置
+	#M2-4.网卡设备
+	#M2-5.打印机设备
+	#M2-6.蓝牙设备
+-----------------------------------------------------------------------------------------------------------------------------------
+#M3.系统安全信息
+	#M3-1.未安装补丁
+	#M3-2.系统服务
+	1.报文
+	{
+		"scenename":"###",   
+		"functionname":"###",
+		"resulttype":"datareport",
+		"result":[{'UNITFILE': 'proc-sys-fs-binfmt_misc.automount', 'STATE': 'static'},
+				  {'UNITFILE': 'NetworkManager-wait-online.service', 'STATE': 'disabled'},
+				  {'UNITFILE': 'NetworkManager-wait-online.service', 'STATE': 'enabled'},]
+	}
+    2.翻译：#UNITFILE      单元名               
+			#STATE         状态	
+	#M3-3.系统进程
+	1.报文
+	{
+		"scenename":"###",   
+		"functionname":"###",
+		"resulttype":"datareport",
+		"result":[{"TTY": "none", "UID": "root", "CMD": "/usr/lib/systemd/systemd", "PID": "2", "STIME": "09:01", "TIME": "00:00:02", "PPID": "0"},
+				  {"TTY": "none", "UID": "xiangyang", "CMD": "/usr/lib/systemd/systemd", "PID": "1", "STIME": "09:01", "TIME": "00:00:02", "PPID": "0"},
+				  {"TTY": "none", "UID": "root", "CMD": "/usr/lib/systemd/systemd", "PID": "1", "STIME": "09:01", "TIME": "00:00:02", "PPID": "0"}]
+	}
+    2.翻译：#UID           用户ID               
+			#PID           进程ID
+            #PPID          父进程ID
+            #STIME         开始时间
+            #TTY           终端名称
+            #TIME          进程执行时间，进程启动所占用CPU时间
+			#CMD           命令行输入
+	#M3-4.外连产品
+	#M3-5.开关机时间
+	1.报文
+	{
+		"scenename":"###",   
+		"functionname":"###",
+		"resulttype":"datareport",
+		"result":[{'HOSTNAME': 'localhost.localdomain', 'TYPE': 'boot', 'TIME': 'Thu Feb  5  15:20'},
+				  {'HOSTNAME': 'localhost.localdomain', 'TYPE': 'shutdown', 'TIME': 'Thu Feb  2  15:20'}]
+	}
+    2.翻译：#TYPE          类型               
+			#TIME          时间
+            #HOSTNAME      主机名
+	#M3-6.安全软件
+-----------------------------------------------------------------------------------------------------------------------------------
+#M4.安全隐患信息
+	#M4-1.安全策略
+	#M4-2.开放端口
+	#M4-3.共享信息
+	#M4-4.上网软件
+	#M4-5.组信息
+	#M4-6.用户信息
+	#M4-7.数据库信息
+	#M4-8.事件日志
+	#M4-9.用户认证
+-----------------------------------------------------------------------------------------------------------------------------------
+#M5.USB设备记录
+	#M5-1.USB常规检查
+	#M5-2.USB深度检查
+-----------------------------------------------------------------------------------------------------------------------------------
+#M6.上网记录
+	#M6-1.上网记录常规检查
+	#M6-2.上网记录深度检查
+-----------------------------------------------------------------------------------------------------------------------------------
+#M7.文件检查
+	#M7-1.文件常规检查
+	#M7-2.已删除文件恢复
+	#M7-3.文件碎片检查
+-----------------------------------------------------------------------------------------------------------------------------------
+#M8.木马检查
+	#M8-1.网络武器
+	#M8-2.威胁文档
+-----------------------------------------------------------------------------------------------------------------------------------

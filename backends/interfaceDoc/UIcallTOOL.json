@@ -1,0 +1,22 @@
+{
+	"action":"run",		
+	"scenename":"onekeycheck",
+	"functionname":"systeminfocheck",	
+		
+	"parameters":{
+		"parameter1":"S",
+		"parameter2":"S",
+		"parameter3":"S"
+	}
+}
+
+{
+	"action":"stop"	
+	"scenename":"onekeycheck"
+	"functionname":"systeminfocheck",		
+}
+
+{
+	"action":"stopall"
+}
+	
