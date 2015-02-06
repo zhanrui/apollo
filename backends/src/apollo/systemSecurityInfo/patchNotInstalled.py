@@ -1,11 +1,11 @@
 #! /usr/bin/python
 #-*-coding:utf-8-*- 
-from apollo import commHandler
 from common.utils.log import log4py
 from time import sleep
-class PatchNotInstalled(commHandler.CommHandler):
+from apollo.commHandler import CommHandler
+class PatchNotInstalled(CommHandler):
     def __init__(self):
-        commHandler.CommHandler.__init__(self)
+        CommHandler.__init__(self)
         pass 
     def getPatchNotInstalled(self):
         sleep(10)

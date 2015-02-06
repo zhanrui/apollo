@@ -9,13 +9,13 @@ Created on 2015年2月4日
 '''
 import binascii
 import os
-import re
-from apollo import commHandler  
+import re 
 from common.utils.log import log4py
+from apollo.commHandler import CommHandler
 
-class MotherboardInfo(commHandler.CommHandler):
+class MotherboardInfo(CommHandler):
     def __init__(self):
-        #commHandler.CommHandler.__init__(self)
+        CommHandler.__init__(self)
         pass 
         
     def ctoascii(self,buf):

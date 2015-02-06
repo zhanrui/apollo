@@ -1,11 +1,11 @@
 #! /usr/bin/python
 #-*-coding:utf-8-*- 
 import os
-from apollo import commHandler
 from common.utils.log import log4py
-class SystemService(commHandler.CommHandler):
+from apollo.commHandler import CommHandler
+class SystemService(CommHandler):
     def __init__(self):
-        commHandler.CommHandler.__init__(self)
+        CommHandler.__init__(self)
         pass 
     def getSystemService(self):
         hw = os.popen('systemctl list-unit-files')

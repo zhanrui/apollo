@@ -1,11 +1,11 @@
 #! /usr/bin/python
 #-*-coding:utf-8-*- 
-from apollo import commHandler
 import os
 from common.utils.log import log4py
-class TimeSwitchMachine(commHandler.CommHandler):
+from apollo.commHandler import CommHandler
+class TimeSwitchMachine(CommHandler):
     def __init__(self):
-        commHandler.CommHandler.__init__(self)
+        CommHandler.__init__(self)
         pass 
     def getTimeSwitchMachine(self):
         hw = os.popen('hostname')

@@ -10,14 +10,12 @@ Created on 2015年2月4日
 import re
 import os
 import binascii
-from apollo import commHandler 
 from common.utils.log import log4py
+from apollo.commHandler import CommHandler
 
-
-class MemoryInfo(commHandler.CommHandler):
-    
+class MemoryInfo(CommHandler):    
     def __init__(self):
-        commHandler.CommHandler.__init__(self)
+        CommHandler.__init__(self)
         pass 
     
     def ctoascii(self,buf):

@@ -1,11 +1,11 @@
 #! /usr/bin/python
 #-*-coding:utf-8-*- 
 import os
-from apollo import commHandler
 from common.utils.log import log4py
-class SystemProcess(commHandler.CommHandler):
+from apollo.commHandler import CommHandler
+class SystemProcess(CommHandler):
     def __init__(self):
-        commHandler.CommHandler.__init__(self)
+        CommHandler.__init__(self)
         pass 
     def getProcessInfo(self):
         hw = os.popen('ps -ef')

@@ -10,18 +10,14 @@ Created on 2015年2月4日
 import os
 import re
 import binascii
-from apollo import commHandler
 from common.utils.log import log4py
+from apollo.commHandler import CommHandler
 
-class GraphicsCardInfo(commHandler.CommHandler):
-    '''
-    classdocs
-    '''
+class GraphicsCardInfo(CommHandler):
     def __init__(self):
-        commHandler.CommHandler.__init__(self)
+        CommHandler.__init__(self)
         pass 
-
-      
+    
     def ctoascii(self,buf):
         ch = str(buf)
         asci = binascii.b2a_hex(ch)
