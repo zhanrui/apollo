@@ -1,4 +1,4 @@
-#include "netrecordrpt.h"
+#include "netrecordcommonrpt.h"
 
 #include <QStandardItemModel>
 #include <QTableView>
@@ -12,11 +12,11 @@
 #include "src/ui/onekeycheck/mydelegate.h"
 #include "src/util/modelutil.h"
 #include "src/ui/detailreport/basereport.h"
-NetRecordRpt::~NetRecordRpt()
+NetRecordCommonRpt::~NetRecordCommonRpt()
 {
 }
 
-NetRecordRpt::NetRecordRpt(QWidget* parent, const QString& title)
+NetRecordCommonRpt::NetRecordCommonRpt(QWidget* parent, const QString& title)
     : BaseStyleWidget(parent)  , BaseReport()
 {
     initUI(title);
@@ -24,7 +24,7 @@ NetRecordRpt::NetRecordRpt(QWidget* parent, const QString& title)
     netRecordsView->show();
 }
 
-void NetRecordRpt::initUI(const QString& titletext)
+void NetRecordCommonRpt::initUI(const QString& titletext)
 {
     this->setFixedSize(900, 600);
 
@@ -45,7 +45,7 @@ void NetRecordRpt::initUI(const QString& titletext)
     viewlist << netRecordsView;
 }
 
-void NetRecordRpt::initModel()
+void NetRecordCommonRpt::initModel()
 {
 
     netRecordsMod = new QStandardItemModel(this);
@@ -53,7 +53,7 @@ void NetRecordRpt::initModel()
     modellist << netRecordsMod;
 }
 
-void NetRecordRpt::initViewDetail(QTableView* view)
+void NetRecordCommonRpt::initViewDetail(QTableView* view)
 {
     view->setMinimumWidth(900);
     view->setMinimumHeight(554);
@@ -61,7 +61,7 @@ void NetRecordRpt::initViewDetail(QTableView* view)
     initViewStyle(view);
 }
 
-void NetRecordRpt::addNetRecordsInfo(const QVariantList& result)
+void NetRecordCommonRpt::addNetRecordsInfo(const QVariantList& result)
 {
     ModelUtil::addIntenetHistoryCheckModel(netRecordsMod, result);
 }

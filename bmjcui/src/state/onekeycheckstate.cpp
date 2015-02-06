@@ -6,7 +6,10 @@
 #include "src/ui/onekeycheck/onekeycheckwidget.h"
 #include "src/ui/common/taskbutton.h"
 #include "src/ui/detailreport/deviceconnectrpt.h"
-#include "src/ui/detailreport/netrecordrpt.h"
+#include "src/ui/detailreport/netrecordcommonrpt.h"
+#include "src/ui/detailreport/systemsecurityrpt.h"
+#include "src/ui/detailreport/securitythreatrpt.h"
+#include "src/ui/detailreport/basicinforpt.h"
 #include "src/ui/base/staticbutton.h"
 #include "src/ui/onekeycheck/tabbutton.h"
 #include "src/util/interfacefortool.h"
@@ -44,6 +47,17 @@ OneKeyCheckState::~OneKeyCheckState()
 
 void OneKeyCheckState::inittasks(ToolUtil* toolUtil)
 {
+
+    operatingSystemInfo = new CheckTask(this, toolUtil, FUNC_OSINFO, SCENE_ONEKEYCHECK, false, 1);
+    cpuInfo = new CheckTask(this, toolUtil, FUNC_CPUINFO, SCENE_ONEKEYCHECK, false, 1);
+    biosInfo = new CheckTask(this, toolUtil, FUNC_BIOSINFO, SCENE_ONEKEYCHECK, false, 1);
+    motherboardInfo = new CheckTask(this, toolUtil, FUNC_MBINFO, SCENE_ONEKEYCHECK, false, 1);
+    memoryInfo = new CheckTask(this, toolUtil, FUNC_MEMINFO, SCENE_ONEKEYCHECK, false, 1);
+    graphicsCardInfo = new CheckTask(this, toolUtil, FUNC_GCINFO, SCENE_ONEKEYCHECK, false, 1);
+    basicInfo = new CheckTaskGroup(this, SCENE_ONEKEYCHECK, 1,
+                                   QList<CheckTask*>() << operatingSystemInfo << cpuInfo
+                                                       << biosInfo << motherboardInfo << memoryInfo
+                                                       << graphicsCardInfo);
 
     hardDiskInfo = new CheckTask(this, toolUtil, FUNC_HDINFO, SCENE_ONEKEYCHECK, false, 1);
     virtualMachineInfo = new CheckTask(this, toolUtil, FUNC_VMINFO, SCENE_ONEKEYCHECK, false, 1);
@@ -105,7 +119,7 @@ void OneKeyCheckState::inittasks(ToolUtil* toolUtil)
 void OneKeyCheckState::initConStateGroup()
 {
     QList<CheckTaskGroup*> taskGroups;
-    taskGroups << deviceConnection << trojanCheck << fileCheck << netRecordsCheck
+    taskGroups << basicInfo << deviceConnection << trojanCheck << fileCheck << netRecordsCheck
                << usbCheck << securityThreat << systemSecurity << deviceConnection;
     for (CheckTaskGroup* taskGroup : taskGroups) {
         connect(this, SIGNAL(startSig()), taskGroup, SLOT(startexecute()));
@@ -126,6 +140,9 @@ void OneKeyCheckState::initConUIState(MainWindow* mainwindow)
     connect(okc->cancelcheckbtn, SIGNAL(buttonClicked()), this, SLOT(stopexcute()));
     connect(this, SIGNAL(completerateUpdateSig(const int, const QString&)), okc, SLOT(completerateUpdate(const int, const QString&)));
     connect(this, SIGNAL(dataCountUpdateSig(const int, const int)), okc, SLOT(dataCountUpdate(const int, const int)));
+
+    connect(basicInfo, SIGNAL(errorFindSig()), okc->basicinfobtn, SLOT(changeToProblem()));
+    connect(basicInfo, SIGNAL(completeSig()), okc->basicinfobtn, SLOT(changeToNoProblem()));
 
     connect(deviceConnection, SIGNAL(errorFindSig()), okc->deviceconnectionbtn, SLOT(changeToProblem()));
     connect(deviceConnection, SIGNAL(completeSig()), okc->deviceconnectionbtn, SLOT(changeToNoProblem()));
@@ -150,6 +167,31 @@ void OneKeyCheckState::initConUIState(MainWindow* mainwindow)
 
     connect(trojanCheck, SIGNAL(errorFindSig()), okc->tjcheckbtn, SLOT(changeToProblem()));
     connect(trojanCheck, SIGNAL(completeSig()), okc->tjcheckbtn, SLOT(changeToNoProblem()));
+    //Basic Info
+    BasicInfoRpt* okcBasicInfoRpt = mainwindow->okcBasicInfoRpt;
+    connect(operatingSystemInfo, &CheckTask::completeSig, okcBasicInfoRpt->osInfoBtn, &TaskButton::changeToNoProblem);
+    connect(operatingSystemInfo, &CheckTask::errorFindSig, okcBasicInfoRpt->osInfoBtn, &TaskButton::changeToProblem);
+    connect(operatingSystemInfo, &CheckTask::dataUpdateSig, okcBasicInfoRpt, &BasicInfoRpt::addOSInfo);
+
+    connect(cpuInfo, &CheckTask::completeSig, okcBasicInfoRpt->cpuInfoBtn, &TaskButton::changeToNoProblem);
+    connect(cpuInfo, &CheckTask::errorFindSig, okcBasicInfoRpt->cpuInfoBtn, &TaskButton::changeToProblem);
+    connect(cpuInfo, &CheckTask::dataUpdateSig, okcBasicInfoRpt, &BasicInfoRpt::addCpuInfo);
+
+    connect(biosInfo, &CheckTask::completeSig, okcBasicInfoRpt->biosInfoBtn, &TaskButton::changeToNoProblem);
+    connect(biosInfo, &CheckTask::errorFindSig, okcBasicInfoRpt->biosInfoBtn, &TaskButton::changeToProblem);
+    connect(biosInfo, &CheckTask::dataUpdateSig, okcBasicInfoRpt, &BasicInfoRpt::addBiosInfo);
+
+    connect(motherboardInfo, &CheckTask::completeSig, okcBasicInfoRpt->motherBoardInfoBtn, &TaskButton::changeToNoProblem);
+    connect(motherboardInfo, &CheckTask::errorFindSig, okcBasicInfoRpt->motherBoardInfoBtn, &TaskButton::changeToProblem);
+    connect(motherboardInfo, &CheckTask::dataUpdateSig, okcBasicInfoRpt, &BasicInfoRpt::addMotherBoardInfo);
+
+    connect(memoryInfo, &CheckTask::completeSig, okcBasicInfoRpt->memoryInfoBtn, &TaskButton::changeToNoProblem);
+    connect(memoryInfo, &CheckTask::errorFindSig, okcBasicInfoRpt->memoryInfoBtn, &TaskButton::changeToProblem);
+    connect(memoryInfo, &CheckTask::dataUpdateSig, okcBasicInfoRpt, &BasicInfoRpt::addMemoryInfo);
+
+    connect(graphicsCardInfo, &CheckTask::completeSig, okcBasicInfoRpt->graphicsCardInfoBtn, &TaskButton::changeToNoProblem);
+    connect(graphicsCardInfo, &CheckTask::errorFindSig, okcBasicInfoRpt->graphicsCardInfoBtn, &TaskButton::changeToProblem);
+    connect(graphicsCardInfo, &CheckTask::dataUpdateSig, okcBasicInfoRpt, &BasicInfoRpt::addGraphicsCardInfo);
 
     DeviceConnectRpt* okcDeviceConnectRpt = mainwindow->okcDeviceConnectRpt;
     connect(hardDiskInfo, &CheckTask::completeSig, okcDeviceConnectRpt->hardDiskInfoBtn, &TaskButton::changeToNoProblem);
@@ -176,11 +218,29 @@ void OneKeyCheckState::initConUIState(MainWindow* mainwindow)
     connect(blueToothDevice, &CheckTask::errorFindSig, okcDeviceConnectRpt->blueToothDeviceBtn, &TaskButton::changeToProblem);
     connect(blueToothDevice, &CheckTask::dataUpdateSig, okcDeviceConnectRpt, &DeviceConnectRpt::addBlueToothDevice);
 
-    NetRecordRpt* okcNetRecordRpt = mainwindow->okcNetRecordRpt;
+    NetRecordCommonRpt* okcNetRecordRpt = mainwindow->okcNetRecordRpt;
 
-   // connect(netRecordsRoutineCheck, &CheckTask::completeSig, okcDeviceConnectRpt->blueToothDeviceBtn, &TaskButton::changeToNoProblem);
-   // connect(netRecordsRoutineCheck, &CheckTask::errorFindSig, okcDeviceConnectRpt->blueToothDeviceBtn, &TaskButton::changeToProblem);
-    connect(netRecordsRoutineCheck, &CheckTask::dataUpdateSig, okcNetRecordRpt, &NetRecordRpt::addNetRecordsInfo);
+    // connect(netRecordsRoutineCheck, &CheckTask::completeSig, okcDeviceConnectRpt->blueToothDeviceBtn, &TaskButton::changeToNoProblem);
+    // connect(netRecordsRoutineCheck, &CheckTask::errorFindSig, okcDeviceConnectRpt->blueToothDeviceBtn, &TaskButton::changeToProblem);
+    connect(netRecordsRoutineCheck, &CheckTask::dataUpdateSig, okcNetRecordRpt, &NetRecordCommonRpt::addNetRecordsInfo);
+
+    SystemSecurityRpt* okcSystemSecurityRpt = mainwindow->okcSystemSecurityRpt;
+
+
+
+    //CheckTask* systemService;
+    //CheckTask* systemProcess;
+    //CheckTask* evenProduct;
+    //CheckTask* timeSwitchMachine;
+    //CheckTask* securitySoftware;
+
+    connect(patchNotInstalled, &CheckTask::completeSig, okcSystemSecurityRpt->patchNotInstalledBtn, &TaskButton::changeToNoProblem);
+    connect(patchNotInstalled, &CheckTask::errorFindSig, okcSystemSecurityRpt->patchNotInstalledBtn, &TaskButton::changeToProblem);
+    connect(patchNotInstalled, &CheckTask::dataUpdateSig, okcSystemSecurityRpt, &SystemSecurityRpt::addPatchNotInstalled);
+
+    //connect(systemService, &CheckTask::completeSig, okcSystemSecurityRpt->patchNotInstalledBtn, &TaskButton::changeToNoProblem);
+    //connect(systemService, &CheckTask::errorFindSig, okcSystemSecurityRpt->patchNotInstalledBtn, &TaskButton::changeToProblem);
+    //connect(systemService, &CheckTask::dataUpdateSig, okcSystemSecurityRpt, &SystemSecurityRpt::addPatchNotInstalled);
 
 }
 //Call UI
@@ -231,6 +291,31 @@ void OneKeyCheckState::dataCountUpdate(const int totalproblems, const int totali
 };
 void OneKeyCheckState::initConInterfaceTask(InterfaceForTool* interfaceForTool)
 {
+
+    //Basic Info
+    connect(interfaceForTool, SIGNAL(o_cpu_progress(const int, const QString&)), cpuInfo, SLOT(progressUpdate(const int, const QString&)));
+    connect(interfaceForTool, SIGNAL(o_cpu_error(const QString&)), cpuInfo, SLOT(errorUpdate(const QString&)));
+    connect(interfaceForTool, SIGNAL(o_cpu_data(const QVariantList&)), cpuInfo, SLOT(dataUpdate(const QVariantList&)));
+
+    connect(interfaceForTool, SIGNAL(o_os_progress(const int, const QString&)), operatingSystemInfo, SLOT(progressUpdate(const int, const QString&)));
+    connect(interfaceForTool, SIGNAL(o_os_error(const QString&)), operatingSystemInfo, SLOT(errorUpdate(const QString&)));
+    connect(interfaceForTool, SIGNAL(o_os_data(const QVariantList&)), operatingSystemInfo, SLOT(dataUpdate(const QVariantList&)));
+
+    connect(interfaceForTool, SIGNAL(o_bios_progress(const int, const QString&)), biosInfo, SLOT(progressUpdate(const int, const QString&)));
+    connect(interfaceForTool, SIGNAL(o_bios_error(const QString&)), biosInfo, SLOT(errorUpdate(const QString&)));
+    connect(interfaceForTool, SIGNAL(o_bios_data(const QVariantList&)), biosInfo, SLOT(dataUpdate(const QVariantList&)));
+
+    connect(interfaceForTool, SIGNAL(o_mb_progress(const int, const QString&)), motherboardInfo, SLOT(progressUpdate(const int, const QString&)));
+    connect(interfaceForTool, SIGNAL(o_mb_error(const QString&)), motherboardInfo, SLOT(errorUpdate(const QString&)));
+    connect(interfaceForTool, SIGNAL(o_mb_data(const QVariantList&)), motherboardInfo, SLOT(dataUpdate(const QVariantList&)));
+
+    connect(interfaceForTool, SIGNAL(o_mem_progress(const int, const QString&)), memoryInfo, SLOT(progressUpdate(const int, const QString&)));
+    connect(interfaceForTool, SIGNAL(o_mem_error(const QString&)), memoryInfo, SLOT(errorUpdate(const QString&)));
+    connect(interfaceForTool, SIGNAL(o_mem_data(const QVariantList&)), memoryInfo, SLOT(dataUpdate(const QVariantList&)));
+
+    connect(interfaceForTool, SIGNAL(o_gc_progress(const int, const QString&)), graphicsCardInfo, SLOT(progressUpdate(const int, const QString&)));
+    connect(interfaceForTool, SIGNAL(o_gc_error(const QString&)), graphicsCardInfo, SLOT(errorUpdate(const QString&)));
+    connect(interfaceForTool, SIGNAL(o_gc_data(const QVariantList&)), graphicsCardInfo, SLOT(dataUpdate(const QVariantList&)));
 
     //设备连接信息
     connect(interfaceForTool, SIGNAL(o_hd_progress(const int, const QString&)), hardDiskInfo, SLOT(progressUpdate(const int, const QString&)));

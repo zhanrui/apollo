@@ -15,13 +15,23 @@ MainWindow > OneKeyCheckWidget{
     background-repeat:no-repeat;
 }
 
-MainWindow >DeviceConnectRpt, MainWindow >NetRecordRpt,MainWindow >BasicInfoRpt{
+MainWindow >DeviceConnectRpt,
+MainWindow >BasicInfoRpt,
+MainWindow >DeviceConnectRpt,
+MainWindow >SecurityThreatRpt,
+MainWindow >SystemSecurityRpt
+{
     background: #F4F4F4;
     background-image: url(:image/detailreport/background.png);
     background-repeat:no-repeat;
 }
 
-DeviceConnectRpt > QLabel,NetRecordRpt > QLabel,BasicInfoRpt > QLabel {
+DeviceConnectRpt > QLabel,
+NetRecordRpt > QLabel,
+BasicInfoRpt > QLabel ,
+SecurityThreatRpt >QLabel,
+SystemSecurityRpt>QLabel
+{
       font-family: "方正兰亭细黑_GBK";
       font-size: 14.5px ;
       color:#FFFFFF;

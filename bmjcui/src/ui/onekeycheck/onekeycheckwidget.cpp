@@ -171,6 +171,7 @@ void OneKeyCheckWidget::startCheck()
     startcheckbtn->hide();
     cancelcheckbtn->show();
     progressbar_background->show();
+    progressbar_front->move(-900, 147);
     progressbar_front->show();
     descriptiontitle->setText("正在检查。。。");
     descriptiontitle->adjustSize();
@@ -234,7 +235,7 @@ QList<QString> OneKeyCheckWidget::getSupportedFunctions()
 
 void OneKeyCheckWidget::completerateUpdate(const int completerate, const QString& status)
 {
-    qDebug() << completerate;
+    qDebug() << "completerate::"<<completerate;
     progressbar_front->move(-895 + 900 * completerate / 100, 147);
     descriptiontitle->setText(status);
     descriptiontitle->adjustSize();

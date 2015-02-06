@@ -6,9 +6,10 @@
 #include "src/ui/common/sysbuttongroup.h"
 #include "src/ui/detailreport/basicinforpt.h"
 #include "src/ui/detailreport/deviceconnectrpt.h"
-#include "src/ui/detailreport/netrecordrpt.h"
+#include "src/ui/detailreport/netrecordcommonrpt.h"
 #include "src/ui/detailreport/basereport.h"
 #include "src/ui/detailreport/systemsecurityrpt.h"
+#include "src/ui/detailreport/securitythreatrpt.h"
 #include "src/ui/base/staticbutton.h"
 #include "src/ui/onekeycheck/tabbutton.h"
 #include <src/state/onekeycheckstate.h>
@@ -66,16 +67,21 @@ void MainWindow::initUI()
     okcDeviceConnectRpt->setObjectName("okcDeviceConnectRpt");
     okcDeviceConnectRpt->hide();
 
-    okcNetRecordRpt = new NetRecordRpt(this, "一键检查——上网记录检查");
+    okcNetRecordRpt = new NetRecordCommonRpt(this, "一键检查——上网记录检查");
     okcNetRecordRpt->setObjectName("okcNetRecordRpt");
     okcNetRecordRpt->hide();
 
     okcSystemSecurityRpt = new SystemSecurityRpt(this, "一键检查——系统安全检查");
-    okcSystemSecurityRpt->setObjectName("SystemSecurityRpt");
+    okcSystemSecurityRpt->setObjectName("okcSystemSecurityRpt");
     okcSystemSecurityRpt->hide();
 
+    okcSecurityThreatRpt = new SecurityThreatRpt(this, "一键检查——安全威胁检查");
+    okcSecurityThreatRpt->setObjectName("okcSecurityThreatRpt");
+    okcSecurityThreatRpt->hide();
+
     okcReports = QList<BaseReport*>();
-    okcReports << okcBasicInfoRpt << okcDeviceConnectRpt << okcNetRecordRpt << okcSystemSecurityRpt;
+    okcReports << okcBasicInfoRpt << okcDeviceConnectRpt << okcNetRecordRpt
+               << okcSystemSecurityRpt<<okcSecurityThreatRpt;
 
     widgetSwitchAnimation = new QParallelAnimationGroup(this);
 
@@ -118,6 +124,11 @@ void MainWindow::initConnect()
             [=]() { switchWidgetToLeft(oneKeyCheckWidget, okcSystemSecurityRpt); });
     connect(okcSystemSecurityRpt->returnbtn, &TabButton::buttonClicked,
             [=]() { switchWidgetToRight(okcSystemSecurityRpt, oneKeyCheckWidget); });
+
+    connect(oneKeyCheckWidget->securitythreatbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToLeft(oneKeyCheckWidget, okcSecurityThreatRpt); });
+    connect(okcSecurityThreatRpt->returnbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToRight(okcSecurityThreatRpt, oneKeyCheckWidget); });
 
     connect(oneKeyCheckWidget->cancelcheckbtn, &StaticButton::buttonClicked,
             [=]() {

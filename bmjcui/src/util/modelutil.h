@@ -50,14 +50,23 @@ public:
     static void addSecuritySoftware(QStandardItemModel* model, const QVariantList& result);
     //System Security Info
     static void initSecurityStrategyModel(QStandardItemModel* model, QTableView* view);
+    static void addSecurityStrategy(QStandardItemModel* model, const QVariantList& result);
     static void initOpenPortModel(QStandardItemModel* model, QTableView* view);
+    static void addOpenPort(QStandardItemModel* model, const QVariantList& result);
     static void initSharedInfoModel(QStandardItemModel* model, QTableView* view);
+    static void addSharedInfo(QStandardItemModel* model, const QVariantList& result);
     static void initInternetToolModel(QStandardItemModel* model, QTableView* view);
+    static void addInternetTool(QStandardItemModel* model, const QVariantList& result);
     static void initUserGroupInfoModel(QStandardItemModel* model, QTableView* view);
+    static void addUserGroupInfo(QStandardItemModel* model, const QVariantList& result);
     static void initUserInfoModel(QStandardItemModel* model, QTableView* view);
+    static void addUserInfo(QStandardItemModel* model, const QVariantList& result);
     static void initDataBaseInfoModel(QStandardItemModel* model, QTableView* view);
+    static void addDataBaseInfo(QStandardItemModel* model, const QVariantList& result);
     static void initEventLogModel(QStandardItemModel* model, QTableView* view);
-    static void initAuthenticatioInfonModel(QStandardItemModel* model, QTableView* view);
+    static void addEventLog(QStandardItemModel* model, const QVariantList& result);
+    static void initAuthenticatioInfoModel(QStandardItemModel* model, QTableView* view);
+    static void addAuthenticatioInfo(QStandardItemModel* model, const QVariantList& result);
     //System Usb Check Info
     static void initUsbCheckModel(QStandardItemModel* model, QTableView* view);
     //System Usb Check Info

@@ -99,14 +99,15 @@
 #include <QJsonObject>
 #include <QString>
 #include "src/common/globals.h"
+#include  <unistd.h>
 
 ToolUtil::ToolUtil(QObject* parent)
     : QObject(parent)
 {
-    //iface = new QDBusInterface(TOOL_SERVICE_NAME, "/bmjc/backend", "bmjc.backend", QDBusConnection::sessionBus(), this);
-    //if (!iface->isValid()) {
-    //    qDebug() << qPrintable(QDBusConnection::sessionBus().lastError().message());
-    //}
+    iface = new QDBusInterface(TOOL_SERVICE, "/bmjc/backend", "bmjc.backend", QDBusConnection::sessionBus(), this);
+    if (!iface->isValid()) {
+        qDebug() << qPrintable(QDBusConnection::sessionBus().lastError().message());
+    }
 }
 
 ToolUtil::~ToolUtil() {}
@@ -135,6 +136,10 @@ void ToolUtil::startTask(const QString& scenename, const QString& taskname, cons
     }
 
     json.insert("parameters", parametersJson);
+
+    //if(taskname.contains("cpu"))
+    //nanosleep(20000);
+    //sleep(10);
     sendMessage(json);
 }
 
@@ -148,5 +153,5 @@ void ToolUtil::stopAll()
 void ToolUtil::sendMessage(const QJsonObject& json)
 {
     qDebug() << json;
-    //iface->call("reveiveFromUI", QString((QJsonDocument(json)).toJson(QJsonDocument::Compact)));
+    iface->call("reveiveFromUI", QString((QJsonDocument(json)).toJson(QJsonDocument::Compact)));
 }

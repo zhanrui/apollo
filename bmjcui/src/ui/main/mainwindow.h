@@ -8,8 +8,10 @@ class MainWidget;
 class OneKeyCheckWidget;
 class BasicInfoRpt;
 class DeviceConnectRpt;
-class NetRecordRpt;
+class NetRecordCommonRpt;
 class SystemSecurityRpt;
+class SecurityThreatRpt;
+
 class QParallelAnimationGroup;
 
 class SysButtonGroup;
@@ -47,8 +49,9 @@ public:
     OneKeyCheckWidget* oneKeyCheckWidget;
     BasicInfoRpt* okcBasicInfoRpt;
     DeviceConnectRpt* okcDeviceConnectRpt;
-    NetRecordRpt* okcNetRecordRpt;
+    NetRecordCommonRpt* okcNetRecordRpt;
     SystemSecurityRpt* okcSystemSecurityRpt;
+    SecurityThreatRpt* okcSecurityThreatRpt;
     QList<BaseReport*> okcReports;
     //Animation
     QParallelAnimationGroup*  widgetSwitchAnimation;

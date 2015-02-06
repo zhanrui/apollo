@@ -31,13 +31,13 @@ void MyDelegate:: paint(QPainter *painter,
 
     const QWidget *widget =option.widget;
     if(widget){
-        qDebug()<<"widget";
+        //qDebug()<<"widget";
     } else {
-         qDebug()<<"QApplication";
+         //qDebug()<<"QApplication";
     }
 
     QStyle *style = widget ? widget->style() : QApplication::style();
-    qDebug()<< style;
+    //qDebug()<< style;
     style->drawControl(QStyle::CE_ItemViewItem, &opt, painter, widget);
 
 }

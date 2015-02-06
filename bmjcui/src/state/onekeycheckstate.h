@@ -55,6 +55,15 @@ private:
     int currentcompleteunit;
 
 public:
+
+    CheckTaskGroup* basicInfo;
+    CheckTask* operatingSystemInfo;
+    CheckTask* cpuInfo;
+    CheckTask* biosInfo;
+    CheckTask* motherboardInfo;
+    CheckTask* memoryInfo;
+    CheckTask* graphicsCardInfo;
+
     CheckTaskGroup* deviceConnection;
     CheckTask* hardDiskInfo;
     CheckTask* virtualMachineInfo;

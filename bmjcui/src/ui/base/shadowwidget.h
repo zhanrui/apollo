@@ -15,6 +15,7 @@ protected:
     void mouseMoveEvent(QMouseEvent* event);
 
 
+
 private:
     QPoint m_movePoint; //移动的距离
     bool m_mousePress; //按下鼠标左键

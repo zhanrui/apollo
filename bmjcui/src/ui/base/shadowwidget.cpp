@@ -44,3 +44,6 @@ void ShadowWidget::mouseMoveEvent(QMouseEvent* event)
         move(movePpos - m_movePoint);
     }
 }
+
+
+

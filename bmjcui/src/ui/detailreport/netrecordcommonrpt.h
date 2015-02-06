@@ -12,11 +12,11 @@ class TaskButton;
 class StaticButton;
 class QTableView;
 class QStandardItemModel;
-class NetRecordRpt : public BaseStyleWidget , public BaseReport{
+class NetRecordCommonRpt : public BaseStyleWidget , public BaseReport{
     Q_OBJECT
 public:
-    explicit NetRecordRpt(QWidget* parent, const QString& title);
-    ~NetRecordRpt();
+    explicit NetRecordCommonRpt(QWidget* parent, const QString& title);
+    ~NetRecordCommonRpt();
 
     void initUI(const QString& title);
     void initModel();
