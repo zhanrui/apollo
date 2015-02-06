@@ -11,8 +11,7 @@ import re
 import binascii
 from apollo import commHandler
 from common.utils.log import log4py
-class BiosInfo(commHandler.CommHandler):
-   
+class BiosInfo(commHandler.CommHandler):   
     def __init__(self):
         commHandler.CommHandler.__init__(self)
         pass
@@ -58,7 +57,7 @@ class BiosInfo(commHandler.CommHandler):
                tmp = re.findall("Release Date: (.*)",bios)
                if tmp:
                    BioRelease = tmp[0]
-           biostdic['BioVendor']=self.strip(BioVendor)  # bios 
+           biostdic['BioVendor']=self.strip(BioVendor)
            biostdic['BioVersion']=self.strip(BioVersion)
            biostdic['BioRelease'] = self.strip(BioRelease)
            bioslist.append(biostdic)
@@ -77,6 +76,7 @@ if __name__ == "__main__":
             progReportMsg=objectTemp.orgProgReportMsg("100", "check the BiosInfo completed.")
             objectTemp.sendMsgToUI(progReportMsg)
     except Exception,e: 
+        print e
         log4py.error("检查bios信息出错."  )
         errReportMsg=objectTemp.orgErrReportMsg("check the BiosInfo error.")
         objectTemp.sendMsgToUI(errReportMsg)          

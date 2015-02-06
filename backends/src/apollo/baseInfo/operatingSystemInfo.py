@@ -9,24 +9,20 @@ Created on 2015年2月4日
 import platform
 from apollo import commHandler
 from common.utils.log import log4py
-
-class OperatingSystemInfo(commHandler.CommHandler):
-    
+class OperatingSystemInfo(commHandler.CommHandler):    
     def __init__(self):
         commHandler.CommHandler.__init__(self)
         pass
     def getOperatingSystemInfo(self):
         oplist = []
-        opdic = {}
-        opdic['platform'] = platform.platform() #    '''获取操作系统名称及版本号'''    
-        opdic['version'] = platform.version()  # '''获取操作系统版本号'''    
-        opdic['architecture'] = platform.architecture()  #  '''获取操作系统的位数'''    
-        opdic['machine'] = platform.machine()   # '''计算机类型'''
-        opdic['node'] = platform.node() #'''计算机的网络名称'''
-        opdic['processor'] = platform.processor()   #   '''计算机处理器信息'''
-        opdic['system'] = platform.system()  #  '''获取操作系统类型'''
-        opdic['uname'] = platform.uname()   # '''汇总信息'''
-        oplist.append(opdic)
+        oplist.append( {'platform':platform.platform()}) #    '''获取操作系统名称及版本号'''    
+        oplist.append({'version': platform.version()}) # '''获取操作系统版本号'''    
+        oplist.append({'architecture':platform.architecture()}) #  '''获取操作系统的位数'''    
+        oplist.append({'machine':platform.machine()})  # '''计算机类型'''
+        oplist.append({'node':platform.node()}) #'''计算机的网络名称'''
+        oplist.append({'processor':platform.processor()})  #   '''计算机处理器信息'''
+        oplist.append({'system':platform.system()}) #  '''获取操作系统类型'''
+        oplist.append({'uname':platform.uname() }) # '''汇总信息'''
         return oplist
          
     
@@ -39,6 +35,7 @@ if __name__ == "__main__":
         progReportMsg=objectTemp.orgProgReportMsg("100", "check the OperatingSystemInfo completed.")
         objectTemp.sendMsgToUI(progReportMsg)
     except Exception,e: 
-        objectTemp.sendMsgToUI(errReportMsg) 
+        print e
+        log4py.error("检查操作系统信息出错." ) 
         errReportMsg=objectTemp.orgErrReportMsg("check the OperatingSystemInfo error.")
         objectTemp.sendMsgToUI(errReportMsg)   

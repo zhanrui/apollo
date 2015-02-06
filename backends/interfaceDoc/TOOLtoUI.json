@@ -131,6 +131,21 @@
 	#M2-2.虚拟机信息
 	#M2-3.网络配置
 	#M2-4.网卡设备
+	1.报文
+	{
+		"scenename":"###",   
+		"functionname":"###",
+		"resulttype":"datareport",
+		"result":[{'NetSerial': '00:50:56:25:b3:c2', 'NetVendor': 'pcnet32', 'NetDrive': 'pcnet32', 'NetProduct': 'Advanced}]
+	}	
+	2.解释 	
+	#   NetProduct          网卡型号
+	#   NetVendor           制造商
+	#   NetLogicalname      设备名称
+	#   NetSerial           MAC地址
+	#   NetIp               IP地址
+	#   NetDrive            网卡驱动
+ 
 	#M2-5.打印机设备
 	#M2-6.蓝牙设备
 -----------------------------------------------------------------------------------------------------------------------------------

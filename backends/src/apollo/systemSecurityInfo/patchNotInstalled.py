@@ -2,16 +2,18 @@
 #-*-coding:utf-8-*- 
 from apollo import commHandler
 from common.utils.log import log4py
+from time import sleep
 class PatchNotInstalled(commHandler.CommHandler):
     def __init__(self):
         commHandler.CommHandler.__init__(self)
         pass 
     def getPatchNotInstalled(self):
+        sleep(10)
         return ""
 if __name__ == "__main__":    
     objectTemp=PatchNotInstalled()
     try:
-        raise Exception        
+#         raise Exception        
         dataReportMsg=objectTemp.orgDataReportMsg(objectTemp.getPatchNotInstalled())
         objectTemp.sendMsgToUI(dataReportMsg)
         

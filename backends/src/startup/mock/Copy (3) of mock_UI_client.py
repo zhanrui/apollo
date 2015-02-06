@@ -6,7 +6,7 @@ class MockClient:
     def mockRun(self):
         strRun={"action":"run",
                 "scenename":"onekeycheck",
-                "functionname":"patchNotInstalled",
+                "functionname":"systemProcess",
                 "parameters":{"parameter1":"S",
                               "parameter2":"S",
                               "parameter3":"S"}}

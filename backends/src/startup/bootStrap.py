@@ -3,12 +3,15 @@
 import gobject
 import dbus.service
 import dbus.mainloop.glib
-from startup import msgHandler
-from common.utils.log import log4py
+import sys
+import os
 SERVICE_NAME="com.bmjc.backend"
 OBJECT_PATH="/bmjc/backend"
 INTERFACE="bmjc.backend"
 mainloop=None
+sys.path.append(os.path.dirname(os.getcwd()))
+from common.utils.log import log4py
+import msgHandler
 class BootStrap(dbus.service.Object):        
     @dbus.service.method(INTERFACE,in_signature='s')
     def reveiveFromUI(self,jsonMsg):         

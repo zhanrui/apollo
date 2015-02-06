@@ -3,8 +3,9 @@
 import os
 import json
 import signal
-from common.enums.enumSys import EnumSys
+import sys
 from common.utils.log import log4py
+from common.enums.enumSys import EnumSys
 subPids={}
     
 def chldhandler(signum , stackframe):
@@ -15,10 +16,10 @@ def chldhandler(signum , stackframe):
             for k in subPids:
                 temp=str(resultPid)
                 kTemp=str(k)
-                if temp in kTemp:
-                    subPids.pop(k)
-                    break
-            log4py.info('子进程('+str(resultPid)+")处理结束，已销毁..") 
+                if temp in kTemp:                    
+                    log4py.info('子进程('+str(resultPid)+")处理结束，已销毁..")
+                    subPids.pop(k)                    
+                    break 
         except:
             break
          

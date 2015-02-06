@@ -2,16 +2,18 @@
 #-*-coding:utf-8-*- 
 from apollo import commHandler
 from common.utils.log import log4py
+from time import sleep
 class SecuritySoftware(commHandler.CommHandler):
     def __init__(self):
         commHandler.CommHandler.__init__(self)
         pass 
     def getSecuritySoftware(self):
+        sleep(10)
         return ""
 if __name__ == "__main__":
     objectTemp=SecuritySoftware()  
     try: 
-        raise Exception               
+#         raise Exception               
         dataReportMsg=objectTemp.orgDataReportMsg(objectTemp.getSecuritySoftware())
         objectTemp.sendMsgToUI(dataReportMsg)
         
