@@ -6,6 +6,9 @@ Created on 2015年2月4日
 @author: hu
  CPU信息
 '''
+import sys
+import os
+sys.path.append(os.path.dirname(os.getcwd()))
 from common.utils.log import log4py
 from apollo.commHandler import CommHandler
 class CpuInfo(CommHandler):

@@ -10,6 +10,8 @@ Created on 2015年2月4日
 import os
 import re
 import binascii
+import sys
+sys.path.append(os.path.dirname(os.getcwd()))
 from common.utils.log import log4py
 from apollo.commHandler import CommHandler
 

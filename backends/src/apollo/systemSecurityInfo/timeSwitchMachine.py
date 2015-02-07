@@ -1,6 +1,8 @@
 #! /usr/bin/python
 #-*-coding:utf-8-*- 
 import os
+import sys
+sys.path.append(os.path.dirname(os.getcwd()))
 from common.utils.log import log4py
 from apollo.commHandler import CommHandler
 class TimeSwitchMachine(CommHandler):
