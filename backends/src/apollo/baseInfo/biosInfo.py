@@ -75,9 +75,9 @@ if __name__ == "__main__":
         else:
             dataReportMsg=objectTemp.orgDataReportMsg(bioslist)
             objectTemp.sendMsgToUI(dataReportMsg)
-            progReportMsg=objectTemp.orgProgReportMsg("100", "check the BiosInfo completed.")
+            progReportMsg=objectTemp.orgProgReportMsg("100", "BISO信息检查完毕.")
             objectTemp.sendMsgToUI(progReportMsg)
     except Exception,e: 
-        log4py.error("检查bios信息出错."  )
-        errReportMsg=objectTemp.orgErrReportMsg("check the BiosInfo error.")
+        log4py.error("BISO信息检查出错."  )
+        errReportMsg=objectTemp.orgErrReportMsg("BISO信息检查出错.")
         objectTemp.sendMsgToUI(errReportMsg)          

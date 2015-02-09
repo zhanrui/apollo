@@ -319,7 +319,7 @@ if __name__ == "__main__":
     try:
         #print(temp.getGraphicsCardInfo())
         temp.sendMsgToUI(temp.orgDataReportMsg(temp.getGraphicsCardInfo())) 
-        temp.sendMsgToUI(temp.orgProgReportMsg("100", "check the GraphicsCardInfo completed."))
+        temp.sendMsgToUI(temp.orgProgReportMsg("100", "显卡信息检查完毕."))
     except:
-        log4py.error("检查显卡信息出错."  )        
-        temp.sendMsgToUI(temp.orgErrReportMsg("check the GraphicsCardInfo error."))  
+        log4py.error("显卡信息检查出错."  )        
+        temp.sendMsgToUI(temp.orgErrReportMsg("显卡信息检查出错."))  

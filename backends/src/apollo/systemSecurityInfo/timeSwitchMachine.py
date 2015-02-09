@@ -56,10 +56,10 @@ if __name__ == "__main__":
         dataReportMsg=objectTemp.orgDataReportMsg(objectTemp.getTimeSwitchMachine())
         objectTemp.sendMsgToUI(dataReportMsg)
          
-        progReportMsg=objectTemp.orgProgReportMsg("100", "check the timeSwitchMachine completed.")
+        progReportMsg=objectTemp.orgProgReportMsg("100", "开关机时间信息检查完毕.")
         objectTemp.sendMsgToUI(progReportMsg)
     except Exception,e: 
         print e 
-        log4py.error("检查开关机时间信息出错.")
-        errReportMsg=objectTemp.orgErrReportMsg("check the timeSwitchMachine error.")
+        log4py.error("开关机时间检查信息出错.")
+        errReportMsg=objectTemp.orgErrReportMsg("开关机时间检查信息出错.")
         objectTemp.sendMsgToUI(errReportMsg)

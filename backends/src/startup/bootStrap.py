@@ -5,6 +5,7 @@ import dbus.service
 import dbus.mainloop.glib
 import sys
 import os
+import traceback
 SERVICE_NAME="com.bmjc.backend"
 OBJECT_PATH="/bmjc/backend"
 INTERFACE="bmjc.backend"
@@ -15,7 +16,7 @@ import msgHandler
 class BootStrap(dbus.service.Object):        
     @dbus.service.method(INTERFACE,in_signature='s')
     def reveiveFromUI(self,jsonMsg):         
-        msgHandler.handler(jsonMsg)
+        msgHandler.handler(jsonMsg,mainloop)
 
 if __name__ == '__main__':
     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)    

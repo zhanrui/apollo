@@ -49,10 +49,10 @@ if __name__ == "__main__":
         cpulist=objectTemp.getCpuinfo()
         dataReportMsg=objectTemp.orgDataReportMsg(cpulist)
         objectTemp.sendMsgToUI(dataReportMsg)
-        progReportMsg=objectTemp.orgProgReportMsg("100", "check the CpuInfo completed.")
+        progReportMsg=objectTemp.orgProgReportMsg("100", "CPU信息检查完毕.")
         objectTemp.sendMsgToUI(progReportMsg)
         
     except Exception:
-        log4py.error("检查CPU信息出错."  )
-        errReportMsg=objectTemp.orgErrReportMsg("check the CpuInfo error.")
+        log4py.error("CPU信息检查出错."  )
+        errReportMsg=objectTemp.orgErrReportMsg("CPU信息检查出错.")
         objectTemp.sendMsgToUI(errReportMsg)     
