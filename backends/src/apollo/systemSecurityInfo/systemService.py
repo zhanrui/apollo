@@ -40,10 +40,10 @@ if __name__ == "__main__":
         dataReportMsg=objectTemp.orgDataReportMsg(objectTemp.getSystemService())
         objectTemp.sendMsgToUI(dataReportMsg)
          
-        progReportMsg=objectTemp.orgProgReportMsg("100", "check the systemService completed.")
+        progReportMsg=objectTemp.orgProgReportMsg("100", "系统服务信息检查完毕.")
         objectTemp.sendMsgToUI(progReportMsg)
     except Exception,e: 
         print e
-        log4py.error("检查系统服务信息出错." )
-        errReportMsg=objectTemp.orgErrReportMsg("check the systemService error.")
+        log4py.error("系统服务信息检查出错." )
+        errReportMsg=objectTemp.orgErrReportMsg("系统服务信息检查出错.")
         objectTemp.sendMsgToUI(errReportMsg)     

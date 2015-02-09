@@ -40,13 +40,17 @@ def stopSubProcess(scenenamePara,functionnamePara):
         if key in kTemp:            
             os.kill(subPids.get(k), 9) 
             subPids.pop(k)
-            log4py.info("backends启动成功..")
+            log4py.info("子进程("+str(k)+")终止成功.")
             break 
 
 def stopAllSubProcess():
-    return ""
+    tempSubPids=subPids
+    print tempSubPids
+    for k in tempSubPids:           
+        os.kill(tempSubPids.get(k), 9)
+        log4py.info("子进程("+str(k)+")终止成功.")
 
-def handler(jsonMsgPara):
+def handler(jsonMsgPara,mainloopPara):
     strMsg = json.loads(jsonMsgPara) #前端UI请求报文
     log4py.info("backends收到报文:"+str(strMsg))
     strPath=os.getcwd()[:len(os.getcwd())-7]+'apollo/'#取刨除当前项目实际路径   
@@ -62,3 +66,4 @@ def handler(jsonMsgPara):
         stopSubProcess(scenename,functionname)           
     elif "stopall"==action:
         stopAllSubProcess()
+        mainloopPara.quit()

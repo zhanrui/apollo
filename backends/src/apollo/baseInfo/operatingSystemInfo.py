@@ -8,6 +8,7 @@ Created on 2015年2月4日
 '''
 import platform
 import sys
+import os
 sys.path.append(os.path.dirname(os.getcwd()))
 from common.utils.log import log4py
 from apollo.commHandler import CommHandler
@@ -38,9 +39,9 @@ if __name__ == "__main__":
         dataReportMsg=objectTemp.orgDataReportMsg(objectTemp.getOperatingSystemInfo())
         objectTemp.sendMsgToUI(dataReportMsg)
         
-        progReportMsg=objectTemp.orgProgReportMsg("100", "check the OperatingSystemInfo completed.")
+        progReportMsg=objectTemp.orgProgReportMsg("100", "操作信息检查完毕.")
         objectTemp.sendMsgToUI(progReportMsg)
     except Exception,e: 
-        log4py.error("检查操作信息出错."  )
-        errReportMsg=objectTemp.orgErrReportMsg("check the OperatingSystemInfo error.")
+        log4py.error("操作信息检查出错."  )
+        errReportMsg=objectTemp.orgErrReportMsg("操作信息检查出错.")
         objectTemp.sendMsgToUI(errReportMsg)   

@@ -260,12 +260,12 @@ if __name__ == "__main__":
         print(Boa)
         if(Boa['result'][0]['BoaProduct']!='' and Boa['result'][0]['BoaVendor']!='' and Boa['result'][0]['BoaSerial']!='' and Boa['result'][0]['BioVendor']!='' and Boa['result'][0]['BioVersion']!='' and Boa['result'][0]['BioRelease']!=''):
             temp.sendMsgToUI(temp.orgDataReportMsg(Boa)) 
-            temp.sendMsgToUI(temp.orgProgReportMsg("100", "check the MotherboardInfo completed."))
+            temp.sendMsgToUI(temp.orgProgReportMsg("100", "主板信息检查完毕."))
         else:
                 #权限不够，请以root用户登录
             #print("login by root")
             temp.sendMsgToUI(temp.orgErrReportMsg("check the MotherboardInfo Permission denied,login by root ."))
          
     except Exception,e: 
-            log4py.error("检查主板信息出错."  )         
-            temp.sendMsgToUI(temp.orgErrReportMsg("check the MotherboardInfo error."))              
+            log4py.error("主板信息检查出错."  )         
+            temp.sendMsgToUI(temp.orgErrReportMsg("主板信息检查出错."))              
