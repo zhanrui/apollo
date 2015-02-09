@@ -139,7 +139,7 @@ void ToolUtil::startTask(const QString& scenename, const QString& taskname, cons
 
     //if(taskname.contains("cpu"))
     //nanosleep(20000);
-    //sleep(10);
+    //sleep(1);
     sendMessage(json);
 }
 
@@ -153,5 +153,6 @@ void ToolUtil::stopAll()
 void ToolUtil::sendMessage(const QJsonObject& json)
 {
     qDebug() << json;
-    iface->call("reveiveFromUI", QString((QJsonDocument(json)).toJson(QJsonDocument::Compact)));
+    iface->call(QDBus::NoBlock,"reveiveFromUI", QString((QJsonDocument(json)).toJson(QJsonDocument::Compact)));
+    //qDebug() << json;
 }

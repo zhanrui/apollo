@@ -25,7 +25,7 @@ MyDelegate::~MyDelegate()
 
 void MyDelegate:: paint(QPainter *painter,
            const QStyleOptionViewItem &option, const QModelIndex &index) const{
-    qDebug()<<option;
+    //qDebug()<<option;
     QStyleOptionViewItem opt = option;
     initStyleOption(&opt, index);
 

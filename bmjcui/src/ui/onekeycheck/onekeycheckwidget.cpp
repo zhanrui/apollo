@@ -237,8 +237,8 @@ void OneKeyCheckWidget::completerateUpdate(const int completerate, const QString
 {
     qDebug() << "completerate::"<<completerate;
     progressbar_front->move(-895 + 900 * completerate / 100, 147);
-    descriptiontitle->setText(status);
-    descriptiontitle->adjustSize();
+    description->setText(status);
+    description->adjustSize();
 }
 
 void OneKeyCheckWidget::dataCountUpdate(const int totalproblems, const int totalinfomations)
@@ -249,10 +249,10 @@ void OneKeyCheckWidget::dataCountUpdate(const int totalproblems, const int total
     if (qs.size() > 0 && totalinfomations > 0)
         qs.append(",");
     if (totalinfomations > 0)
-        qs.append("发现信息").append(totalinfomations).append("条");
+        qs.append("发现信息").append(QString::number(totalinfomations)).append("条");
     if (qs.size() > 0)
         qs.append(".");
     if (qs.size() > 0)
-        description->setText(qs);
-    description->adjustSize();
+        descriptiontitle->setText(qs);
+    descriptiontitle->adjustSize();
 }

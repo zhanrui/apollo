@@ -16,6 +16,7 @@ InterfaceForTool::~InterfaceForTool() {}
 
 void InterfaceForTool::updateFromTool(const QString& messages)
 {
+    qDebug()<<messages;
     QJsonParseError json_error;
     QJsonDocument parse_doucment = QJsonDocument::fromJson(messages.toUtf8(), &json_error);
     if (json_error.error != QJsonParseError::NoError) {

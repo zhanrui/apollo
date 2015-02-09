@@ -110,6 +110,7 @@ void ModelUtil::addBiosInfo(QStandardItemModel* model, const QVariantList& resul
         QVariantMap map = var.toMap();
         QStandardItem* id = new QStandardItem(QString::number(model->rowCount()));
         QStandardItem* BioVendor = new QStandardItem(map["BioVendor"].toString());
+        BioVendor->setToolTip(map["BioVendor"].toString());
         QStandardItem* BioVersion = new QStandardItem(map["BioVersion"].toString());
         QStandardItem* BioRelease = new QStandardItem(map["BioRelease"].toString());
 
