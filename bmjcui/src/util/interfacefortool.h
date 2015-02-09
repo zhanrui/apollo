@@ -147,6 +147,8 @@ signals:
 
 public slots:
     void updateFromTool(const QString& messages);
+public :
+    static int i;
 };
 
 #endif // INTERFACEFORTOOL_H

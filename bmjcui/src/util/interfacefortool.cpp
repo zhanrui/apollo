@@ -14,9 +14,10 @@ InterfaceForTool::InterfaceForTool(QObject* parent)
 
 InterfaceForTool::~InterfaceForTool() {}
 
+int InterfaceForTool::i=1;
 void InterfaceForTool::updateFromTool(const QString& messages)
 {
-    qDebug()<<messages;
+
     QJsonParseError json_error;
     QJsonDocument parse_doucment = QJsonDocument::fromJson(messages.toUtf8(), &json_error);
     if (json_error.error != QJsonParseError::NoError) {
@@ -186,6 +187,8 @@ void InterfaceForTool::updateFromTool(const QString& messages)
         if (resulttype.compare(RPT_DATA) == 0) {
 
             QList<QVariant> data = result["result"].toList();
+           // i=i+data.size();
+           //qDebug()<<i<<" "<<functionname;
             if (functionname.compare(FUNC_OSINFO) == 0)
                 emit o_os_data(data);
             if (functionname.compare(FUNC_CPUINFO) == 0)

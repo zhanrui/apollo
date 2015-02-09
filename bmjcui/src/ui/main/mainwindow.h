@@ -11,6 +11,7 @@ class DeviceConnectRpt;
 class NetRecordCommonRpt;
 class SystemSecurityRpt;
 class SecurityThreatRpt;
+class UsbRecordCommonRpt;
 
 class QParallelAnimationGroup;
 
@@ -52,6 +53,7 @@ public:
     NetRecordCommonRpt* okcNetRecordRpt;
     SystemSecurityRpt* okcSystemSecurityRpt;
     SecurityThreatRpt* okcSecurityThreatRpt;
+    UsbRecordCommonRpt*  okcUsbRecordCommonRpt;
     QList<BaseReport*> okcReports;
     //Animation
     QParallelAnimationGroup*  widgetSwitchAnimation;

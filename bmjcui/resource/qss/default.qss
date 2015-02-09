@@ -14,12 +14,16 @@ MainWindow > OneKeyCheckWidget{
     background-image: url(:image/onekeycheck/background.png);
     background-repeat:no-repeat;
 }
+OneKeyCheckWidget > QWidget#leftbackground{
+     background: #F4F4F4;
+}
 
 MainWindow >DeviceConnectRpt,
 MainWindow >BasicInfoRpt,
 MainWindow >NetRecordCommonRpt,
 MainWindow >SecurityThreatRpt,
-MainWindow >SystemSecurityRpt
+MainWindow >SystemSecurityRpt,
+MainWindow >UsbRecordCommonRpt
 {
     background: #F4F4F4;
     background-image: url(:image/detailreport/background.png);
@@ -30,7 +34,8 @@ DeviceConnectRpt > QLabel,
 NetRecordCommonRpt > QLabel,
 BasicInfoRpt > QLabel ,
 SecurityThreatRpt >QLabel,
-SystemSecurityRpt>QLabel
+SystemSecurityRpt>QLabel,
+UsbRecordCommonRpt>QLabel
 {
       font-family: "方正兰亭细黑_GBK";
       font-size: 14.5px ;

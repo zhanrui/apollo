@@ -362,27 +362,67 @@ void ModelUtil::initSystemServiceModel(QStandardItemModel* model, QTableView* vi
     view->setModel(model);
     QStandardItem* id = new QStandardItem("ID");
     model->setHorizontalHeaderItem(0, id);
+    view->setColumnWidth(0, 50);
+    QStandardItem* name = new QStandardItem("服务名称");
+    model->setHorizontalHeaderItem(1, name);
+    view->setColumnWidth(1, 500);
+    QStandardItem* status = new QStandardItem("状态");
+    model->setHorizontalHeaderItem(2, status);
 }
 void ModelUtil::addSystemService(QStandardItemModel* model, const QVariantList& result)
 {
     for (QVariant var : result) {
         QVariantMap map = var.toMap();
-        QStandardItem* test = new QStandardItem(map["test"].toString());
-        model->appendRow(QList<QStandardItem*>() << test);
+        QStandardItem* id = new QStandardItem(QString::number(model->rowCount()));
+        QStandardItem* UNITFILE = new QStandardItem(map["UNITFILE"].toString());
+        QStandardItem* STATE = new QStandardItem(map["STATE"].toString());
+        model->appendRow(QList<QStandardItem*>() << id << UNITFILE << STATE);
     }
 }
 void ModelUtil::initSystemProcessModel(QStandardItemModel* model, QTableView* view)
 {
     view->setModel(model);
+    int i = 0;
+    int j = 0;
     QStandardItem* id = new QStandardItem("ID");
-    model->setHorizontalHeaderItem(0, id);
+    model->setHorizontalHeaderItem(i++, id);
+    view->setColumnWidth(j++, 30);
+    QStandardItem* UID = new QStandardItem("用户ID");
+    model->setHorizontalHeaderItem(i++, UID);
+     view->setColumnWidth(j++, 70);
+    QStandardItem* PID = new QStandardItem("进程ID");
+    model->setHorizontalHeaderItem(i++, PID);
+    view->setColumnWidth(j++, 70);
+    QStandardItem* PPID = new QStandardItem("父进程ID");
+    model->setHorizontalHeaderItem(i++, PPID);
+    view->setColumnWidth(j++, 70);
+    QStandardItem* STIME = new QStandardItem("开始时间");
+    model->setHorizontalHeaderItem(i++, STIME);
+    view->setColumnWidth(j++, 70);
+    QStandardItem* TTY = new QStandardItem("终端名称");
+    model->setHorizontalHeaderItem(i++, TTY);
+    view->setColumnWidth(j++, 70);
+    QStandardItem* TIME = new QStandardItem("执行时间");
+    model->setHorizontalHeaderItem(i++, TIME);
+     view->setColumnWidth(j++, 70);
+    QStandardItem* CMD = new QStandardItem("命令");
+    model->setHorizontalHeaderItem(i++, CMD);
+    view->setColumnWidth(j++, 400);
 }
 void ModelUtil::addSystemProcess(QStandardItemModel* model, const QVariantList& result)
 {
     for (QVariant var : result) {
         QVariantMap map = var.toMap();
-        QStandardItem* test = new QStandardItem(map["test"].toString());
-        model->appendRow(QList<QStandardItem*>() << test);
+        QStandardItem* id = new QStandardItem(QString::number(model->rowCount()));
+        QStandardItem* UID = new QStandardItem(map["UID"].toString());
+        QStandardItem* PID = new QStandardItem(map["PID"].toString());
+        QStandardItem* PPID = new QStandardItem(map["PPID"].toString());
+        QStandardItem* STIME = new QStandardItem(map["STIME"].toString());
+        QStandardItem* TTY = new QStandardItem(map["TTY"].toString());
+        QStandardItem* TIME = new QStandardItem(map["TIME"].toString());
+        QStandardItem* CMD = new QStandardItem(map["CMD"].toString());
+
+        model->appendRow(QList<QStandardItem*>() << id<<UID<<PID<<PPID<<STIME<<TTY<<TIME<<CMD);
     }
 }
 void ModelUtil::initExternalConnectionModel(QStandardItemModel* model, QTableView* view)
@@ -557,7 +597,22 @@ void ModelUtil::addAuthenticatioInfo(QStandardItemModel* model, const QVariantLi
 //System Usb Check Info
 void ModelUtil::initUsbCheckModel(QStandardItemModel* model, QTableView* view)
 {
-    model->setHorizontalHeaderLabels(QStringList() << "");
+    view->setModel(model);
+    QStandardItem* id = new QStandardItem("ID");
+    model->setHorizontalHeaderItem(0, id);
+    QStandardItem* name = new QStandardItem("名称");
+    model->setHorizontalHeaderItem(1, name);
+    QStandardItem* provider = new QStandardItem("供应商");
+    model->setHorizontalHeaderItem(2, provider);
+}
+
+void ModelUtil::addUsbCheckModel(QStandardItemModel* model, const QVariantList& result)
+{
+    for (QVariant var : result) {
+        QVariantMap map = var.toMap();
+        QStandardItem* test = new QStandardItem(map["test"].toString());
+        model->appendRow(QList<QStandardItem*>() << test);
+    }
 }
 //System Usb Check Info
 void ModelUtil::initIntenetHistoryCheckModel(QStandardItemModel* model, QTableView* view)

@@ -10,6 +10,7 @@
 #include "src/ui/detailreport/systemsecurityrpt.h"
 #include "src/ui/detailreport/securitythreatrpt.h"
 #include "src/ui/detailreport/basicinforpt.h"
+#include "src/ui/detailreport/usbrecordcommonrpt.h"
 #include "src/ui/base/staticbutton.h"
 #include "src/ui/onekeycheck/tabbutton.h"
 #include "src/util/interfacefortool.h"
@@ -119,8 +120,9 @@ void OneKeyCheckState::inittasks(ToolUtil* toolUtil)
 void OneKeyCheckState::initConStateGroup()
 {
     QList<CheckTaskGroup*> taskGroups;
-    taskGroups << basicInfo << deviceConnection << trojanCheck << fileCheck << netRecordsCheck
+    taskGroups << basicInfo << deviceConnection << netRecordsCheck
                << usbCheck << securityThreat << systemSecurity << deviceConnection;
+    //<< trojanCheck << fileCheck
     for (CheckTaskGroup* taskGroup : taskGroups) {
         connect(this, SIGNAL(startSig()), taskGroup, SLOT(startexecute()));
         connect(this, SIGNAL(stopSig()), taskGroup, SLOT(stopexecute()));
@@ -162,11 +164,11 @@ void OneKeyCheckState::initConUIState(MainWindow* mainwindow)
     connect(netRecordsCheck, SIGNAL(errorFindSig()), okc->netbrowserbtn, SLOT(changeToProblem()));
     connect(netRecordsCheck, SIGNAL(completeSig()), okc->netbrowserbtn, SLOT(changeToNoProblem()));
 
-    connect(fileCheck, SIGNAL(errorFindSig()), okc->filecheckbtn, SLOT(changeToProblem()));
-    connect(fileCheck, SIGNAL(completeSig()), okc->filecheckbtn, SLOT(changeToNoProblem()));
+    //connect(fileCheck, SIGNAL(errorFindSig()), okc->filecheckbtn, SLOT(changeToProblem()));
+    //connect(fileCheck, SIGNAL(completeSig()), okc->filecheckbtn, SLOT(changeToNoProblem()));
 
-    connect(trojanCheck, SIGNAL(errorFindSig()), okc->tjcheckbtn, SLOT(changeToProblem()));
-    connect(trojanCheck, SIGNAL(completeSig()), okc->tjcheckbtn, SLOT(changeToNoProblem()));
+    //connect(trojanCheck, SIGNAL(errorFindSig()), okc->tjcheckbtn, SLOT(changeToProblem()));
+    //connect(trojanCheck, SIGNAL(completeSig()), okc->tjcheckbtn, SLOT(changeToNoProblem()));
     //Basic Info
     BasicInfoRpt* okcBasicInfoRpt = mainwindow->okcBasicInfoRpt;
     connect(operatingSystemInfo, &CheckTask::completeSig, okcBasicInfoRpt->osInfoBtn, &TaskButton::changeToNoProblem);
@@ -219,28 +221,74 @@ void OneKeyCheckState::initConUIState(MainWindow* mainwindow)
     connect(blueToothDevice, &CheckTask::dataUpdateSig, okcDeviceConnectRpt, &DeviceConnectRpt::addBlueToothDevice);
 
     NetRecordCommonRpt* okcNetRecordRpt = mainwindow->okcNetRecordRpt;
-
-    // connect(netRecordsRoutineCheck, &CheckTask::completeSig, okcDeviceConnectRpt->blueToothDeviceBtn, &TaskButton::changeToNoProblem);
-    // connect(netRecordsRoutineCheck, &CheckTask::errorFindSig, okcDeviceConnectRpt->blueToothDeviceBtn, &TaskButton::changeToProblem);
     connect(netRecordsRoutineCheck, &CheckTask::dataUpdateSig, okcNetRecordRpt, &NetRecordCommonRpt::addNetRecordsInfo);
 
     SystemSecurityRpt* okcSystemSecurityRpt = mainwindow->okcSystemSecurityRpt;
-
-
-
-    //CheckTask* systemService;
-    //CheckTask* systemProcess;
-    //CheckTask* evenProduct;
-    //CheckTask* timeSwitchMachine;
-    //CheckTask* securitySoftware;
 
     connect(patchNotInstalled, &CheckTask::completeSig, okcSystemSecurityRpt->patchNotInstalledBtn, &TaskButton::changeToNoProblem);
     connect(patchNotInstalled, &CheckTask::errorFindSig, okcSystemSecurityRpt->patchNotInstalledBtn, &TaskButton::changeToProblem);
     connect(patchNotInstalled, &CheckTask::dataUpdateSig, okcSystemSecurityRpt, &SystemSecurityRpt::addPatchNotInstalled);
 
-    //connect(systemService, &CheckTask::completeSig, okcSystemSecurityRpt->patchNotInstalledBtn, &TaskButton::changeToNoProblem);
-    //connect(systemService, &CheckTask::errorFindSig, okcSystemSecurityRpt->patchNotInstalledBtn, &TaskButton::changeToProblem);
-    //connect(systemService, &CheckTask::dataUpdateSig, okcSystemSecurityRpt, &SystemSecurityRpt::addPatchNotInstalled);
+    connect(systemService, &CheckTask::completeSig, okcSystemSecurityRpt->systemServiceBtn, &TaskButton::changeToNoProblem);
+    connect(systemService, &CheckTask::errorFindSig, okcSystemSecurityRpt->systemServiceBtn, &TaskButton::changeToProblem);
+    connect(systemService, &CheckTask::dataUpdateSig, okcSystemSecurityRpt, &SystemSecurityRpt::addSystemService);
+
+    connect(systemProcess, &CheckTask::completeSig, okcSystemSecurityRpt->systemProcessBtn, &TaskButton::changeToNoProblem);
+    connect(systemProcess, &CheckTask::errorFindSig, okcSystemSecurityRpt->systemProcessBtn, &TaskButton::changeToProblem);
+    connect(systemProcess, &CheckTask::dataUpdateSig, okcSystemSecurityRpt, &SystemSecurityRpt::addSystemProcess);
+
+    connect(evenProduct, &CheckTask::completeSig, okcSystemSecurityRpt->evenProductBtn, &TaskButton::changeToNoProblem);
+    connect(evenProduct, &CheckTask::errorFindSig, okcSystemSecurityRpt->evenProductBtn, &TaskButton::changeToProblem);
+    connect(evenProduct, &CheckTask::dataUpdateSig, okcSystemSecurityRpt, &SystemSecurityRpt::addEvenProduct);
+
+    connect(timeSwitchMachine, &CheckTask::completeSig, okcSystemSecurityRpt->timeSwitchMachineBtn, &TaskButton::changeToNoProblem);
+    connect(timeSwitchMachine, &CheckTask::errorFindSig, okcSystemSecurityRpt->timeSwitchMachineBtn, &TaskButton::changeToProblem);
+    connect(timeSwitchMachine, &CheckTask::dataUpdateSig, okcSystemSecurityRpt, &SystemSecurityRpt::addTimeSwitchMachine);
+
+    connect(securitySoftware, &CheckTask::completeSig, okcSystemSecurityRpt->securitySoftwareBtn, &TaskButton::changeToNoProblem);
+    connect(securitySoftware, &CheckTask::errorFindSig, okcSystemSecurityRpt->securitySoftwareBtn, &TaskButton::changeToProblem);
+    connect(securitySoftware, &CheckTask::dataUpdateSig, okcSystemSecurityRpt, &SystemSecurityRpt::addSecuritySoftware);
+
+    UsbRecordCommonRpt* okcUsbRecordCommonRpt = mainwindow->okcUsbRecordCommonRpt;
+    connect(usbRoutineCheck, &CheckTask::dataUpdateSig, okcUsbRecordCommonRpt, &UsbRecordCommonRpt::addUsbRecordsInfo);
+
+    SecurityThreatRpt* okcSecurityThreatRpt = mainwindow->okcSecurityThreatRpt;
+
+    connect(securityPolicy, &CheckTask::completeSig, okcSecurityThreatRpt->securityPolicyBtn, &TaskButton::changeToNoProblem);
+    connect(securityPolicy, &CheckTask::errorFindSig, okcSecurityThreatRpt->securityPolicyBtn, &TaskButton::changeToProblem);
+    connect(securityPolicy, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addSecurityPolicy);
+
+    connect(openPort, &CheckTask::completeSig, okcSecurityThreatRpt->openPortBtn, &TaskButton::changeToNoProblem);
+    connect(openPort, &CheckTask::errorFindSig, okcSecurityThreatRpt->openPortBtn, &TaskButton::changeToProblem);
+    connect(openPort, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addOpenPort);
+
+    connect(sharingInfo, &CheckTask::completeSig, okcSecurityThreatRpt->sharingInfoBtn, &TaskButton::changeToNoProblem);
+    connect(sharingInfo, &CheckTask::errorFindSig, okcSecurityThreatRpt->sharingInfoBtn, &TaskButton::changeToProblem);
+    connect(sharingInfo, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addSharingInfo);
+
+    connect(networkSoftware, &CheckTask::completeSig, okcSecurityThreatRpt->networkSoftwareBtn, &TaskButton::changeToNoProblem);
+    connect(networkSoftware, &CheckTask::errorFindSig, okcSecurityThreatRpt->networkSoftwareBtn, &TaskButton::changeToProblem);
+    connect(networkSoftware, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addNetworkSoftware);
+
+    connect(groupInfo, &CheckTask::completeSig, okcSecurityThreatRpt->groupInfoBtn, &TaskButton::changeToNoProblem);
+    connect(groupInfo, &CheckTask::errorFindSig, okcSecurityThreatRpt->groupInfoBtn, &TaskButton::changeToProblem);
+    connect(groupInfo, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addGroupInfo);
+
+    connect(userInfo, &CheckTask::completeSig, okcSecurityThreatRpt->userInfoBtn, &TaskButton::changeToNoProblem);
+    connect(userInfo, &CheckTask::errorFindSig, okcSecurityThreatRpt->userInfoBtn, &TaskButton::changeToProblem);
+    connect(userInfo, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addUserInfo);
+
+    connect(eventLog, &CheckTask::completeSig, okcSecurityThreatRpt->eventLogBtn, &TaskButton::changeToNoProblem);
+    connect(eventLog, &CheckTask::errorFindSig, okcSecurityThreatRpt->eventLogBtn, &TaskButton::changeToProblem);
+    connect(eventLog, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addEventLog);
+
+    connect(databaseInfo, &CheckTask::completeSig, okcSecurityThreatRpt->databaseInfoBtn, &TaskButton::changeToNoProblem);
+    connect(databaseInfo, &CheckTask::errorFindSig, okcSecurityThreatRpt->databaseInfoBtn, &TaskButton::changeToProblem);
+    connect(databaseInfo, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addDatabaseInfo);
+
+    connect(userAuthentication, &CheckTask::completeSig, okcSecurityThreatRpt->userAuthenticationBtn, &TaskButton::changeToNoProblem);
+    connect(userAuthentication, &CheckTask::errorFindSig, okcSecurityThreatRpt->userAuthenticationBtn, &TaskButton::changeToProblem);
+    connect(userAuthentication, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addUserAuthentication);
 
 }
 //Call UI
@@ -281,13 +329,14 @@ void OneKeyCheckState::dataCountUpdate(const int totalproblems, const int totali
 {
     this->totalproblems += totalproblems;
     this->totalinfomations += totalinfomations;
+    //qDebug()<<totalinfomations;
     if (totalproblems > 0) {
         if (!errorfind) {
             errorfind = true;
             emit errorFindSig();
         }
     }
-    emit dataCountUpdateSig(totalproblems, totalinfomations);
+    emit dataCountUpdateSig(this->totalproblems, this->totalinfomations);
 };
 void OneKeyCheckState::initConInterfaceTask(InterfaceForTool* interfaceForTool)
 {
@@ -416,12 +465,12 @@ void OneKeyCheckState::initConInterfaceTask(InterfaceForTool* interfaceForTool)
     connect(interfaceForTool, SIGNAL(o_netreccomcheck_data(const QVariantList&)), netRecordsRoutineCheck, SLOT(dataUpdate(const QVariantList&)));
 
     //文件检查
-    connect(interfaceForTool, SIGNAL(o_filecomcheck_progress(const int, const QString&)), fileRoutineCheck, SLOT(progressUpdate(const int, const QString&)));
-    connect(interfaceForTool, SIGNAL(o_filecomcheck_error(const QString&)), fileRoutineCheck, SLOT(errorUpdate(const QString&)));
-    connect(interfaceForTool, SIGNAL(o_filecomcheck_data(const QVariantList&)), fileRoutineCheck, SLOT(dataUpdate(const QVariantList&)));
+    //connect(interfaceForTool, SIGNAL(o_filecomcheck_progress(const int, const QString&)), fileRoutineCheck, SLOT(progressUpdate(const int, const QString&)));
+    //connect(interfaceForTool, SIGNAL(o_filecomcheck_error(const QString&)), fileRoutineCheck, SLOT(errorUpdate(const QString&)));
+    //connect(interfaceForTool, SIGNAL(o_filecomcheck_data(const QVariantList&)), fileRoutineCheck, SLOT(dataUpdate(const QVariantList&)));
 
     //木马检查
-    connect(interfaceForTool, SIGNAL(o_trojancheck_progress(const int, const QString&)), threatDocument, SLOT(progressUpdate(const int, const QString&)));
-    connect(interfaceForTool, SIGNAL(o_trojancheck_error(const QString&)), threatDocument, SLOT(errorUpdate(const QString&)));
-    connect(interfaceForTool, SIGNAL(o_trojancheck_data(const QVariantList&)), threatDocument, SLOT(dataUpdate(const QVariantList&)));
+    //connect(interfaceForTool, SIGNAL(o_trojancheck_progress(const int, const QString&)), threatDocument, SLOT(progressUpdate(const int, const QString&)));
+    //connect(interfaceForTool, SIGNAL(o_trojancheck_error(const QString&)), threatDocument, SLOT(errorUpdate(const QString&)));
+    //connect(interfaceForTool, SIGNAL(o_trojancheck_data(const QVariantList&)), threatDocument, SLOT(dataUpdate(const QVariantList&)));
 }

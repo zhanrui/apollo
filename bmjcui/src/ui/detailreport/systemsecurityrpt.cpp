@@ -41,20 +41,24 @@ void SystemSecurityRpt::initUI(const QString& titletext)
     returnbtn = new StaticButton(":image/detailreport/returnbtn", 3, this);
     returnbtn->move(0, 0);
 
-    patchNotInstalledBtn = new TaskButton(":image/detailreport/deviceconnect/hardDiskInfoBtn", this);
+    patchNotInstalledBtn = new TaskButton(":image/detailreport/systemsecurity/patchNotInstalledBtn", this);
     patchNotInstalledBtn->move(27, 60);
-    systemServiceBtn = new TaskButton(":image/detailreport/deviceconnect/virtualMachineInfoBtn", this);
+    systemServiceBtn = new TaskButton(":image/detailreport/systemsecurity/systemServiceBtn", this);
     systemServiceBtn->move(27 + 142, 60);
-    systemProcessBtn = new TaskButton(":image/detailreport/deviceconnect/netConfigBtn", this);
+    systemProcessBtn = new TaskButton(":image/detailreport/systemsecurity/systemProcessBtn", this);
     systemProcessBtn->move(27 + 142 * 2, 60);
-    evenProductBtn = new TaskButton(":image/detailreport/deviceconnect/adapterDeviceBtn", this);
+    evenProductBtn = new TaskButton(":image/detailreport/systemsecurity/evenProductBtn", this);
     evenProductBtn->move(27 + 142 * 3, 60);
-    timeSwitchMachineBtn = new TaskButton(":image/detailreport/deviceconnect/printDeviceBtn", this);
+    timeSwitchMachineBtn = new TaskButton(":image/detailreport/systemsecurity/timeSwitchMachineBtn", this);
     timeSwitchMachineBtn->move(27 + 142 * 4, 60);
-    securitySoftwareBtn = new TaskButton(":image/detailreport/deviceconnect/blueToothDeviceBtn", this);
+    securitySoftwareBtn = new TaskButton(":image/detailreport/systemsecurity/securitySoftwareBtn", this);
     securitySoftwareBtn->move(27 + 142 * 5, 60);
 
     taskbtnlist << patchNotInstalledBtn << systemServiceBtn << systemProcessBtn << evenProductBtn << timeSwitchMachineBtn << securitySoftwareBtn;
+
+    for (TaskButton* task : taskbtnlist) {
+        task->running_movie->move((task->running_defaultstatus->width()) / 2 - 10, 50);
+    }
 
     patchNotInstalledView = new QTableView(this);
     //hardDiskInfoView->setModel(hardDiskInfoMod);

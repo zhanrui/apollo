@@ -69,6 +69,7 @@ public:
     static void addAuthenticatioInfo(QStandardItemModel* model, const QVariantList& result);
     //System Usb Check Info
     static void initUsbCheckModel(QStandardItemModel* model, QTableView* view);
+    static void addUsbCheckModel(QStandardItemModel* model, const QVariantList& result);
     //System Usb Check Info
     static void initIntenetHistoryCheckModel(QStandardItemModel* model, QTableView* view);
     static void addIntenetHistoryCheckModel(QStandardItemModel* model, const QVariantList& result);

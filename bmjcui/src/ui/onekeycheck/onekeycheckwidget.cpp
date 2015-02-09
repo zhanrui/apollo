@@ -22,7 +22,6 @@
 #include <QDebug>
 #include <QMovie>
 
-
 OneKeyCheckWidget::OneKeyCheckWidget(QWidget* parent)
     : BaseStyleWidget(parent)
 {
@@ -83,17 +82,20 @@ void OneKeyCheckWidget::initUI()
     //hline = new QLabel(this);
     //hline->setPixmap(QPixmap(":image/onekeycheck/hline"));
     //hline->move(0,153);
+    QWidget* leftbackground = new QWidget(this);
+    leftbackground->move(0,153);
+    leftbackground->setFixedSize(192,447);
+    leftbackground->setObjectName("leftbackground");
 
     QLabel* vline = new QLabel(this);
     vline->setPixmap(QPixmap(":image/onekeycheck/vline"));
     vline->move(192, 153);
 
     int start = 153;
-    int between = 56;
+    int between = 57;
     int x = 1;
 
-
-    basicinfobtn    = new TabButton(":image/onekeycheck/leftbutton/basicinfobtn", this);
+    basicinfobtn = new TabButton(":image/onekeycheck/leftbutton/basicinfobtn", this);
     basicinfobtn->move(x, start);
     basicinfobtn->setEnabled(false);
 
@@ -116,18 +118,20 @@ void OneKeyCheckWidget::initUI()
     filecheckbtn = new TabButton(":image/onekeycheck/leftbutton/filecheckbtn", this);
     filecheckbtn->move(x, start + (between)*6);
     filecheckbtn->setEnabled(false);
+    filecheckbtn->hide();
     tjcheckbtn = new TabButton(":image/onekeycheck/leftbutton/tjcheckbtn", this);
     tjcheckbtn->move(x, start + (between)*7);
     tjcheckbtn->setEnabled(false);
+    tjcheckbtn->hide();
 
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 6; i++) {
         QLabel* hline = new QLabel(this);
         hline->setPixmap(QPixmap(":image/onekeycheck/hline"));
         hline->move(0, start + (between) * (i + 1));
     }
 
     tabbuttonlist = QList<TabButton*>();
-    tabbuttonlist <<basicinfobtn<< deviceconnectionbtn << netbrowserbtn << systemsecuritybtn
+    tabbuttonlist << basicinfobtn << deviceconnectionbtn << netbrowserbtn << systemsecuritybtn
                   << securitythreatbtn << usbcheckbtn << filecheckbtn << tjcheckbtn;
 
     checkresult = new QTableView(this);
@@ -184,7 +188,7 @@ void OneKeyCheckWidget::startCheck()
     checkingStartTime = (QDateTime::currentDateTime()).toTime_t();
     checkingElapsedTimer->start(1000);
 
-    for(TabButton* btn: tabbuttonlist){
+    for (TabButton* btn : tabbuttonlist) {
         btn->setEnabled(true);
         btn->changeToRunning();
     }
@@ -205,11 +209,10 @@ void OneKeyCheckWidget::cancelCheck()
     checkingElapsedTime->setText("");
     checkingElapsedTimer->stop();
 
-    for(TabButton* btn: tabbuttonlist){
-       if(btn->taskstaus != TASK_PROBLEM)
-       btn->changeToNoProblem();
+    for (TabButton* btn : tabbuttonlist) {
+        if (btn->taskstaus != TASK_PROBLEM)
+            btn->changeToNoProblem();
     }
-
 }
 
 void OneKeyCheckWidget::updateCheckingElapsedTime()
@@ -235,7 +238,7 @@ QList<QString> OneKeyCheckWidget::getSupportedFunctions()
 
 void OneKeyCheckWidget::completerateUpdate(const int completerate, const QString& status)
 {
-    qDebug() << "completerate::"<<completerate;
+    qDebug() << "completerate::" << completerate;
     progressbar_front->move(-895 + 900 * completerate / 100, 147);
     description->setText(status);
     description->adjustSize();

@@ -112,5 +112,50 @@
         <file>image/detailreport/basicinfo/osInfoBtn_noproblem.png</file>
         <file>image/detailreport/basicinfo/osInfoBtn_problem.png</file>
         <file>image/detailreport/basicinfo/osInfoBtn_running.png</file>
+        <file>image/detailreport/securitythreat/databaseInfoBtn_noproblem.png</file>
+        <file>image/detailreport/securitythreat/databaseInfoBtn_problem.png</file>
+        <file>image/detailreport/securitythreat/databaseInfoBtn_running.png</file>
+        <file>image/detailreport/securitythreat/eventLogBtn_noproblem.png</file>
+        <file>image/detailreport/securitythreat/eventLogBtn_problem.png</file>
+        <file>image/detailreport/securitythreat/eventLogBtn_running.png</file>
+        <file>image/detailreport/securitythreat/groupInfoBtn_noproblem.png</file>
+        <file>image/detailreport/securitythreat/groupInfoBtn_problem.png</file>
+        <file>image/detailreport/securitythreat/groupInfoBtn_running.png</file>
+        <file>image/detailreport/securitythreat/networkSoftwareBtn_noproblem.png</file>
+        <file>image/detailreport/securitythreat/networkSoftwareBtn_problem.png</file>
+        <file>image/detailreport/securitythreat/networkSoftwareBtn_running.png</file>
+        <file>image/detailreport/securitythreat/openPortBtn_noproblem.png</file>
+        <file>image/detailreport/securitythreat/openPortBtn_problem.png</file>
+        <file>image/detailreport/securitythreat/openPortBtn_running.png</file>
+        <file>image/detailreport/securitythreat/securityPolicyBtn_noproblem.png</file>
+        <file>image/detailreport/securitythreat/securityPolicyBtn_problem.png</file>
+        <file>image/detailreport/securitythreat/securityPolicyBtn_running.png</file>
+        <file>image/detailreport/securitythreat/sharingInfoBtn_noproblem.png</file>
+        <file>image/detailreport/securitythreat/sharingInfoBtn_problem.png</file>
+        <file>image/detailreport/securitythreat/sharingInfoBtn_running.png</file>
+        <file>image/detailreport/securitythreat/userAuthenticationBtn_noproblem.png</file>
+        <file>image/detailreport/securitythreat/userAuthenticationBtn_problem.png</file>
+        <file>image/detailreport/securitythreat/userAuthenticationBtn_running.png</file>
+        <file>image/detailreport/securitythreat/userInfoBtn_noproblem.png</file>
+        <file>image/detailreport/securitythreat/userInfoBtn_problem.png</file>
+        <file>image/detailreport/securitythreat/userInfoBtn_running.png</file>
+        <file>image/detailreport/systemsecurity/evenProductBtn_noproblem.png</file>
+        <file>image/detailreport/systemsecurity/evenProductBtn_problem.png</file>
+        <file>image/detailreport/systemsecurity/evenProductBtn_running.png</file>
+        <file>image/detailreport/systemsecurity/patchNotInstalledBtn_noproblem.png</file>
+        <file>image/detailreport/systemsecurity/patchNotInstalledBtn_problem.png</file>
+        <file>image/detailreport/systemsecurity/patchNotInstalledBtn_running.png</file>
+        <file>image/detailreport/systemsecurity/securitySoftwareBtn_noproblem.png</file>
+        <file>image/detailreport/systemsecurity/securitySoftwareBtn_problem.png</file>
+        <file>image/detailreport/systemsecurity/securitySoftwareBtn_running.png</file>
+        <file>image/detailreport/systemsecurity/systemProcessBtn_noproblem.png</file>
+        <file>image/detailreport/systemsecurity/systemProcessBtn_problem.png</file>
+        <file>image/detailreport/systemsecurity/systemProcessBtn_running.png</file>
+        <file>image/detailreport/systemsecurity/systemServiceBtn_noproblem.png</file>
+        <file>image/detailreport/systemsecurity/systemServiceBtn_problem.png</file>
+        <file>image/detailreport/systemsecurity/systemServiceBtn_running.png</file>
+        <file>image/detailreport/systemsecurity/timeSwitchMachineBtn_noproblem.png</file>
+        <file>image/detailreport/systemsecurity/timeSwitchMachineBtn_problem.png</file>
+        <file>image/detailreport/systemsecurity/timeSwitchMachineBtn_running.png</file>
     </qresource>
 </RCC>

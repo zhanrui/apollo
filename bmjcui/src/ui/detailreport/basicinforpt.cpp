@@ -57,6 +57,9 @@ void BasicInfoRpt::initUI(const QString& titletext)
 
     taskbtnlist << osInfoBtn << cpuInfoBtn << biosInfoBtn << motherBoardInfoBtn << memoryInfoBtn << graphicsCardInfoBtn;
 
+    for (TaskButton* task : taskbtnlist) {
+        task->running_movie->move((task->running_defaultstatus->width()) / 2 - 10, 50);
+    }
     osView = new QTableView(this);
     //hardDiskInfoView->setModel(hardDiskInfoMod);
     initViewDetail(osView);

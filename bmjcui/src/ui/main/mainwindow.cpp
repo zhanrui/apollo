@@ -10,6 +10,7 @@
 #include "src/ui/detailreport/basereport.h"
 #include "src/ui/detailreport/systemsecurityrpt.h"
 #include "src/ui/detailreport/securitythreatrpt.h"
+#include "src/ui/detailreport/usbrecordcommonrpt.h"
 #include "src/ui/base/staticbutton.h"
 #include "src/ui/onekeycheck/tabbutton.h"
 #include <src/state/onekeycheckstate.h>
@@ -79,9 +80,14 @@ void MainWindow::initUI()
     okcSecurityThreatRpt->setObjectName("okcSecurityThreatRpt");
     okcSecurityThreatRpt->hide();
 
+    okcUsbRecordCommonRpt = new UsbRecordCommonRpt(this, "一键检查——USB记录检查");
+    okcUsbRecordCommonRpt->setObjectName("okcUsbRecordCommonRpt");
+    okcUsbRecordCommonRpt->hide();
+
+
     okcReports = QList<BaseReport*>();
     okcReports << okcBasicInfoRpt << okcDeviceConnectRpt << okcNetRecordRpt
-               << okcSystemSecurityRpt<<okcSecurityThreatRpt;
+               << okcSystemSecurityRpt<<okcSecurityThreatRpt<<okcUsbRecordCommonRpt;
 
     widgetSwitchAnimation = new QParallelAnimationGroup(this);
 
@@ -129,6 +135,13 @@ void MainWindow::initConnect()
             [=]() { switchWidgetToLeft(oneKeyCheckWidget, okcSecurityThreatRpt); });
     connect(okcSecurityThreatRpt->returnbtn, &TabButton::buttonClicked,
             [=]() { switchWidgetToRight(okcSecurityThreatRpt, oneKeyCheckWidget); });
+
+    connect(oneKeyCheckWidget->usbcheckbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToLeft(oneKeyCheckWidget, okcUsbRecordCommonRpt); });
+    connect(okcUsbRecordCommonRpt->returnbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToRight(okcUsbRecordCommonRpt, oneKeyCheckWidget); });
+
+
 
     connect(oneKeyCheckWidget->cancelcheckbtn, &StaticButton::buttonClicked,
             [=]() {

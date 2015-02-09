@@ -43,29 +43,33 @@ void SecurityThreatRpt::initUI(const QString& titletext)
     returnbtn = new StaticButton(":image/detailreport/returnbtn", 3, this);
     returnbtn->move(0, 0);
 
-    securityPolicyBtn = new TaskButton(":image/detailreport/basicinfo/osInfoBtn", this);
-    securityPolicyBtn->move(27, 60);
-    openPortBtn = new TaskButton(":image/detailreport/basicinfo/cpuInfoBtn", this);
-    openPortBtn->move(27 + 142, 60);
-    sharingInfoBtn = new TaskButton(":image/detailreport/basicinfo/biosInfoBtn", this);
-    sharingInfoBtn->move(27 + 142 * 2, 60);
-    networkSoftwareBtn = new TaskButton(":image/detailreport/basicinfo/motherBoardInfoBtn", this);
-    networkSoftwareBtn->move(27 + 142 * 3, 60);
-    groupInfoBtn = new TaskButton(":image/detailreport/basicinfo/memoryInfoBtn", this);
-    groupInfoBtn->move(27 + 142 * 4, 60);
-    userInfoBtn = new TaskButton(":image/detailreport/basicinfo/graphicsCardInfoBtn", this);
-    userInfoBtn->move(27 + 142 * 5, 60);
+    securityPolicyBtn = new TaskButton(":image/detailreport/securitythreat/securityPolicyBtn", this);
+    securityPolicyBtn->move(17, 60);
+    openPortBtn = new TaskButton(":image/detailreport/securitythreat/openPortBtn", this);
+    openPortBtn->move(17 + 97, 60);
+    sharingInfoBtn = new TaskButton(":image/detailreport/securitythreat/sharingInfoBtn", this);
+    sharingInfoBtn->move(17 + 97 * 2, 60);
+    networkSoftwareBtn = new TaskButton(":image/detailreport/securitythreat/networkSoftwareBtn", this);
+    networkSoftwareBtn->move(17 + 97 * 3, 60);
+    groupInfoBtn = new TaskButton(":image/detailreport/securitythreat/groupInfoBtn", this);
+    groupInfoBtn->move(17 + 97 * 4, 60);
+    userInfoBtn = new TaskButton(":image/detailreport/securitythreat/userInfoBtn", this);
+    userInfoBtn->move(17 + 97 * 5, 60);
 
-    databaseInfoBtn = new TaskButton(":image/detailreport/basicinfo/motherBoardInfoBtn", this);
-    databaseInfoBtn->move(27 + 142 * 6, 60);
-    eventLogBtn = new TaskButton(":image/detailreport/basicinfo/memoryInfoBtn", this);
-    eventLogBtn->move(27 + 142 * 7, 60);
-    userAuthenticationBtn = new TaskButton(":image/detailreport/basicinfo/graphicsCardInfoBtn", this);
-    userAuthenticationBtn->move(27 + 142 * 8, 60);
+    databaseInfoBtn = new TaskButton(":image/detailreport/securitythreat/databaseInfoBtn", this);
+    databaseInfoBtn->move(17 + 97 * 6, 60);
+    eventLogBtn = new TaskButton(":image/detailreport/securitythreat/eventLogBtn", this);
+    eventLogBtn->move(17 + 97 * 7, 60);
+    userAuthenticationBtn = new TaskButton(":image/detailreport/securitythreat/userAuthenticationBtn", this);
+    userAuthenticationBtn->move(17 + 97 * 8, 60);
 
     taskbtnlist << securityPolicyBtn << openPortBtn << sharingInfoBtn
                 << networkSoftwareBtn << groupInfoBtn << userInfoBtn
                 << databaseInfoBtn << eventLogBtn << userAuthenticationBtn;
+
+    for (TaskButton* task : taskbtnlist) {
+        task->running_movie->move((task->running_defaultstatus->width()) / 2 - 10, 50);
+    }
 
     securityPolicyView = new QTableView(this);
     initViewDetail(securityPolicyView);
