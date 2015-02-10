@@ -153,7 +153,7 @@
 
         2.解释
         #   IpAddr               IP地址
-        #   netmask              网关
+        #   netmask              子网掩码
         #   broadcast            广播地址
 	
 	#M2-4.网卡设备
