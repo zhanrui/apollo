@@ -13,7 +13,7 @@ import binascii
 import sys
 sys.path.append(os.path.dirname(os.getcwd()))
 from common.utils.log import log4py
-from apollo.commHandler import CommHandler
+from apollo.commHandler import CommHandler 
 
 class MemoryInfo(CommHandler):    
     def __init__(self):
@@ -45,9 +45,10 @@ class MemoryInfo(CommHandler):
 
     
     def getMemoryInfo(self):
-        #Memory Device
-        Mem = {}
-        memList=[]
+
+        Mem1,Mem2,Mem3,Mem4,Mem5,Mem6,Mem7,Mem8 = {},{},{},{},{},{},{},{}
+        memList = [Mem1,Mem2,Mem3,Mem4,Mem5,Mem6,Mem7,Mem8]
+        returnmemList = []
         MemInfo,MemWidth,Memnum,MemSlot,MemProduct,MemVendor,MemSerial,MemSize,BioVendor = "","","","","","",'','',''
         hw = os.popen("dmidecode -t memory")
         memory = hw.read()
@@ -66,8 +67,10 @@ class MemoryInfo(CommHandler):
                         num += 1
                         if MemWidth :
                             MemWidth += "<1_1>" + k
+                            memList[num-1]['MemWidth'] =  k                            
                         else :
                             MemWidth = k
+                            memList[num-1]['MemWidth'] = k
             Memnum = str(num)
             tmp = re.findall("Bank Locator: (.*)",memory)
             i = 0
@@ -77,8 +80,10 @@ class MemoryInfo(CommHandler):
                     if not k == 'Unknown':
                         if MemSlot :
                             MemSlot +="<1_1>"+ tmp[i-1]
+                            memList[i-1]['MemSlot'] =tmp[i-1]
                         else :
                             MemSlot = tmp[i-1]
+                            memList[i-1]['MemSlot'] = tmp[i-1]
             tmp = re.findall("Part Number: (.*)",memory)
             i = 0
             if tmp :
@@ -87,8 +92,10 @@ class MemoryInfo(CommHandler):
                     if not k == 'Unknown':
                         if MemProduct :
                             MemProduct += "<1_1>" + tmp[i-1]
+                            memList[i-1]['MemProduct'] =  tmp[i-1]
                         else :
                             MemProduct = tmp[i-1]
+                            memList[i-1]['MemProduct'] = tmp[i-1]
             tmp = re.findall("Manufacturer: (.*)",memory)
             i = 0
             if tmp :
@@ -97,8 +104,10 @@ class MemoryInfo(CommHandler):
                     if not k == 'Unknown':
                         if MemVendor :
                             MemVendor += "<1_1>" + tmp[i-1]
+                            memList[i-1]['MemVendor'] = tmp[i-1]
                         else :
                             MemVendor = tmp[i-1]
+                            memList[i-1]['MemVendor'] = tmp[i-1]
             tmp = re.findall("Serial Number: (.*)",memory)
             i = 0
             if tmp :
@@ -107,8 +116,10 @@ class MemoryInfo(CommHandler):
                     if not k == 'Unknown':
                         if MemSerial :
                             MemSerial += "<1_1>" + tmp[i-1]
+                            memList[i-1]['MemSerial'] = tmp[i-1]
                         else :
                             MemSerial = tmp[i-1]
+                            memList[i-1]['MemSerial'] = tmp[i-1]
             tmp = re.findall("Size: (.*)",memory)
             i = 0
             if tmp :
@@ -117,8 +128,10 @@ class MemoryInfo(CommHandler):
                     if not k == 'Unknown':
                         if MemSize :
                             MemSize += "<1_1>" + tmp[i-1]
+                            memList[i-1]['MemSize'] = tmp[i-1]
                         else :
                             MemSize = tmp[i-1]
+                            memList[i-1]['MemSize'] = tmp[i-1]
             tmp0 = self.strip(re.findall("Form Factor: (.*)",memory))
             tmp1 = self.strip(re.findall("Type: (.*)",memory))
             tmp2 = self.strip(re.findall("Type Detail: (.*)",memory))
@@ -130,24 +143,30 @@ class MemoryInfo(CommHandler):
                     if not k == 'Unknown':
                         if MemInfo :
                             MemInfo += "<1_1>" + tmp0[i-1] + ' ' + tmp1[i-1] + ' ' + tmp2[i-1] + ' ' + tmp3[i-1]
+                            memList[i-1]['MemInfo'] = tmp0[i-1] + ' ' + tmp1[i-1] + ' ' + tmp2[i-1] + ' ' + tmp3[i-1]
                         else :
                             MemInfo = tmp0[i-1] + ' ' + tmp1[i-1] + ' ' + tmp2[i-1] + ' ' + tmp3[i-1]
-        Mem["MemInfo"],Mem["MemWidth"],Mem["MemSlot"],Mem["MemProduct"],Mem["MemVendor"],Mem["MemSerial"],Mem["MemSize"],Mem["Memnum"] = MemInfo,self.strip(MemWidth),self.strip(MemSlot),self.strip(MemProduct),self.strip(MemVendor),self.strip(MemSerial),self.strip(MemSize),self.strip(Memnum)
-        memList.append(Mem)
-        return memList
+                            memList[i-1]['MemInfo'] = tmp0[i-1] + ' ' + tmp1[i-1] + ' ' + tmp2[i-1] + ' ' + tmp3[i-1]
+        #Mem["MemInfo"],Mem["MemWidth"],Mem["MemSlot"],Mem["MemProduct"],Mem["MemVendor"],Mem["MemSerial"],Mem["MemSize"],Mem["Memnum"] = MemInfo,self.strip(MemWidth),self.strip(MemSlot),self.strip(MemProduct),self.strip(MemVendor),self.strip(MemSerial),self.strip(MemSize),self.strip(Memnum)
+            rangeList= range(num)
+            for r in rangeList :
+                returnmemList.append(memList[r])
+        return returnmemList
  
 if __name__ == "__main__":
     temp=MemoryInfo()  
     try:
-        #print(temp.getMemoryInfo())
+        
         memData = temp.getMemoryInfo()
+        print(memData)
         if(memData[0]['Memnum']!='' and memData[0]['MemInfo']!='' and memData[0]['MemProduct']!='' and memData[0]['MemSerial']!='' and  memData[0]['MemSlot']!='' and memData[0]['MemWidth']!='' and memData[0]['MemVendor']!='' and memData[0]['MemSize']!='' ) :     
             temp.sendMsgToUI(temp.orgDataReportMsg(temp.getMemoryInfo())) 
             temp.sendMsgToUI(temp.orgProgReportMsg("100", "内存信息检查完毕."))
         else :
             temp.sendMsgToUI(temp.orgErrReportMsg("check the MemoryInfo Permission denied,login by root ."))
-    except:
-        log4py.error("内存信息检查出错."  )
+    except Exception as e:
+        print(e)
+        log4py.error("检查内存信息出错."  )
         temp.sendMsgToUI(temp.orgErrReportMsg("内存信息检查出错."))
 
         
