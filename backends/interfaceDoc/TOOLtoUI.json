@@ -105,7 +105,7 @@
 		"resulttype":"datareport",
 		"result":[{'Memnum': '', 'MemInfo': '', 'MemProduct': '', 'MemSerial': '', 'MemSlot': '', 'MemWidth': '', 'MemVendor': '', 'MemSize': ''}]
 	}
-    2.翻译：#Memnum         内存条个数
+    2.翻译：
 			#MemInfo        内存条信息
 			#MemWidth       数据宽度
 			#MemSlot 		插槽号
@@ -128,26 +128,96 @@
 -----------------------------------------------------------------------------------------------------------------------------------
 #M2.设备连接信息
 	#M2-1.硬盘信息
+	    1.报文
+				{
+			"scenename":"###",   
+			"functionname":"###",
+			"resulttype":"datareport",
+			"result":[{'available': '7327388K', 'Start_Stop_Count': '       717', 'capacity': '17909532K', 'hours': '       4721H', 'used': '8260200K', 'Temperature_Celsius': ''}]
+			}
+		2.解释
+			#available								可利用           														
+			#used									已使用
+			#capacity								总大小
+			#Start_Stop_Count					    使用次数
+			#hours									使用时长
+			#Temperature_Celsius			        温度
 	#M2-2.虚拟机信息
 	#M2-3.网络配置
+	    1.报文
+	    {
+		   "scenename":"###",   
+		   "functionname":"###",
+		   "resulttype":"datareport",
+		   "result":[{'broadcast': '192.168.248.255', 'netmask': '255.255.255.0', 'IpAddr': '192.168.248.135'}]
+
+        2.解释
+        #   IpAddr               IP地址
+        #   netmask              网关
+        #   broadcast            广播地址
+	
 	#M2-4.网卡设备
-	1.报文
-	{
+	    1.报文
+			{
 		"scenename":"###",   
 		"functionname":"###",
 		"resulttype":"datareport",
 		"result":[{'NetSerial': '00:50:56:25:b3:c2', 'NetVendor': 'pcnet32', 'NetDrive': 'pcnet32', 'NetProduct': 'Advanced}]
-	}	
-	2.解释 	
-	#   NetProduct          网卡型号
-	#   NetVendor           制造商
-	#   NetLogicalname      设备名称
-	#   NetSerial           MAC地址
-	#   NetIp               IP地址
-	#   NetDrive            网卡驱动
+		}	
+		
+		2.解释
+		#   NetProduct          网卡型号
+		#   NetVendor           制造商
+		#   NetLogicalname      设备名称
+		#   NetSerial           MAC地址
+		#   NetIp               IP地址
+		#   NetDrive            网卡驱动
+	 
  
 	#M2-5.打印机设备
-	#M2-6.蓝牙设备
+	    1.报文
+			{
+				"scenename":"###",   
+				"functionname":"###",
+				"resulttype":"datareport",
+				"result":[{'Info': 'Hewlett-Packard HP LaserJet Professional P1108', 'StateTime': '1423464261', 
+							'JobSheets': 'none none', 'ErrorPolicy': 'stop-printer', 'State': 'Stopped', 
+							'DefaultPrinter': 'HP-LaserJet-Professional-P1108', 'MakeModel': 'HP LaserJet Professional p1108, hpcups 3.13.5, requires proprietary plugin', 
+							'Shared': 'Yes', 'QuotaPeriod': '0', 'Accepting': 'Yes', 'PageLimit': '0', 'Type': '36876', 
+							'DeviceURI': 'hp:/usb/HP_LaserJet_Professional_P1108?serial=000000000Q83GLBZSI1c'}]
+		    }	
+		
+		2.解释
+			Info           打印机信息
+			Shared         共享
+			State          状态
+			Accepting      是否接受打印任务
+			DefaultPrinter 打印机伫列名称
+			DeviceURI      打印机装置所在的位置 
+			QuotaPeriod    配额期
+			MakeModel      型号
+			StateTime      使用的时间
+			JobSheets      打印的页数
+			PageLimit      做多打印的页数
+			ErrorPolicy    打印机有故障时
+			Type           型号
+	
+	
+	
+	#M2-6.蓝牙设备	
+	    1.报文
+		{
+			"scenename":"###",   
+			"functionname":"###",
+			"resulttype":"datareport",
+			"result":[{'bluerun': 'UP RUNNING', 'bluetype': ' USB', 'blueaddr': '28:B2:BD:4F:B9:B4', 'bluepacket': 'DM1 DM3 DM5 DH1 DH3 DH5 HV1 HV2 HV3 ', 'bluename': "'localhost.localdomain-0'"}]
+		}	
+	 2.解释
+		 #	bluerun					命令状态(UP RUNNING- 激活,DOWN-未激活 )
+		 #	bluetype				蓝牙的接口类型
+		 #	blueaddr				蓝牙地址
+		 #	bluepacket			支持数据包
+		 #	bluename				蓝牙名称
 -----------------------------------------------------------------------------------------------------------------------------------
 #M3.系统安全信息
 	#M3-1.未安装补丁
