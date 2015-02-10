@@ -9,13 +9,14 @@ Created on 2015年2月4日
 import sys
 import os
 sys.path.append(os.path.dirname(os.getcwd()))
-from common.utils.log import log4py
 from apollo.commHandler import CommHandler
+from common.utils.log import log4py
 class CpuInfo(CommHandler):
+    
     def __init__(self):
         CommHandler.__init__(self)
         pass
-def getCpuinfo(self):
+    def getCpuinfo(self):
         cpudic = {}
         cpulist =[]
         cputemplist = []
@@ -49,10 +50,10 @@ if __name__ == "__main__":
         cpulist=objectTemp.getCpuinfo()
         dataReportMsg=objectTemp.orgDataReportMsg(cpulist)
         objectTemp.sendMsgToUI(dataReportMsg)
-        progReportMsg=objectTemp.orgProgReportMsg("100", "CPU信息检查完毕.")
+        progReportMsg=objectTemp.orgProgReportMsg("100", "CPU信息检查完毕")
         objectTemp.sendMsgToUI(progReportMsg)
         
-    except Exception:
-        log4py.error("CPU信息检查出错."  )
-        errReportMsg=objectTemp.orgErrReportMsg("CPU信息检查出错.")
+    except Exception,e:
+        log4py.error("检查CPU信息出错."+str(e) )
+        errReportMsg=objectTemp.orgErrReportMsg("check the CpuInfo error.")
         objectTemp.sendMsgToUI(errReportMsg)     

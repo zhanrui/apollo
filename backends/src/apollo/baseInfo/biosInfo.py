@@ -11,9 +11,9 @@ import re
 import binascii
 import sys
 sys.path.append(os.path.dirname(os.getcwd()))
-from common.utils.log import log4py
 from apollo.commHandler import CommHandler
-class BiosInfo(CommHandler):   
+from common.utils.log import log4py
+class BiosInfo(CommHandler):
     def __init__(self):
         CommHandler.__init__(self)
         pass
@@ -70,14 +70,15 @@ if __name__ == "__main__":
     try:      
         bioslist=objectTemp.getBiosinfo()
         if bioslist[0]=='Permission denied': # Permission denied
+            log4py.error("检查bios信息权限不足"  )  
             errReportMsg=objectTemp.orgErrReportMsg("Permission denied")
             objectTemp.sendMsgToUI(errReportMsg)    
         else:
             dataReportMsg=objectTemp.orgDataReportMsg(bioslist)
             objectTemp.sendMsgToUI(dataReportMsg)
-            progReportMsg=objectTemp.orgProgReportMsg("100", "BISO信息检查完毕.")
+            progReportMsg=objectTemp.orgProgReportMsg("100", "BIOS信息检查完毕")
             objectTemp.sendMsgToUI(progReportMsg)
     except Exception,e: 
-        log4py.error("BISO信息检查出错."  )
-        errReportMsg=objectTemp.orgErrReportMsg("BISO信息检查出错.")
+        log4py.error("检查bios信息出错."  +str(e) )
+        errReportMsg=objectTemp.orgErrReportMsg("check the BiosInfo error.")
         objectTemp.sendMsgToUI(errReportMsg)          
