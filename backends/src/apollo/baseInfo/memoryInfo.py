@@ -156,17 +156,15 @@ class MemoryInfo(CommHandler):
 if __name__ == "__main__":
     temp=MemoryInfo()  
     try:
-        
         memData = temp.getMemoryInfo()
-        print(memData)
-        if(memData[0]['Memnum']!='' and memData[0]['MemInfo']!='' and memData[0]['MemProduct']!='' and memData[0]['MemSerial']!='' and  memData[0]['MemSlot']!='' and memData[0]['MemWidth']!='' and memData[0]['MemVendor']!='' and memData[0]['MemSize']!='' ) :     
-            temp.sendMsgToUI(temp.orgDataReportMsg(temp.getMemoryInfo())) 
+        if(len(memData) !=0 and memData[0]['Memnum']!='' and memData[0]['MemInfo']!='' and memData[0]['MemProduct']!='' and memData[0]['MemSerial']!='' and  memData[0]['MemSlot']!='' and memData[0]['MemWidth']!='' and memData[0]['MemVendor']!='' and memData[0]['MemSize']!='' ) :     
+            temp.sendMsgToUI(temp.orgDataReportMsg(memData)) 
             temp.sendMsgToUI(temp.orgProgReportMsg("100", "内存信息检查完毕."))
         else :
             temp.sendMsgToUI(temp.orgErrReportMsg("check the MemoryInfo Permission denied,login by root ."))
     except Exception as e:
-        print(e)
-        log4py.error("检查内存信息出错."  )
-        temp.sendMsgToUI(temp.orgErrReportMsg("内存信息检查出错."))
+            #print(e)
+            log4py.error("检查内存信息出错."  )
+            temp.sendMsgToUI(temp.orgErrReportMsg("内存信息检查出错."))
 
-        
+
