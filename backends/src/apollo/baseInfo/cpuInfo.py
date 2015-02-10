@@ -25,7 +25,7 @@ class CpuInfo(CommHandler):
             for line in f:
                 if line.strip():
                     if line.rstrip('\n').startswith('vendor_id'):
-                         vendorId = line.rstrip('\n').split(':')[1]
+                        vendorId = line.rstrip('\n').split(':')[1]
 #                     elif line.rstrip('\n').startswith('cpu cores'):
 #                          cpu_cores = line.rstrip('\n').split(':')[1]
 #                     elif line.rstrip('\n').startswith('siblings'):
@@ -34,13 +34,13 @@ class CpuInfo(CommHandler):
 #                          clflush_size = line.rstrip('\n').split(':')[1]
 # #                          clflush_size = filter(str.isdigit,clflush_size)
                     elif line.rstrip('\n').startswith('cache size'):
-                         cacheSize = line.rstrip('\n').split(':')[1]
+                        cacheSize = line.rstrip('\n').split(':')[1]
 #                          cache_size = filter(str.isdigit,cache_size)
                     elif line.rstrip('\n').startswith('model name'):
-                         modelName = line.rstrip('\n').split(':')[1]
+                        modelName = line.rstrip('\n').split(':')[1]
 #                          modelName = filter(str.isdigit,cache_size)
                     elif line.rstrip('\n').startswith('cpu MHz'):
-                         cpuMHz = line.rstrip('\n').split(':')[1]
+                        cpuMHz = line.rstrip('\n').split(':')[1]
         cpudic['modelName'],cpudic['vendorId'],cpudic['cacheSize'],cpudic['cpuMHz'] = modelName,vendorId,cacheSize,cpuMHz
         cpulist.append(cpudic)
         return cpulist

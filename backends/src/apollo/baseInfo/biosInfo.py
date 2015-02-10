@@ -39,31 +39,31 @@ class BiosInfo(CommHandler):
             i += 1
         return s
     def getBiosinfo(self):
-           # BIOS
-           bioslist = []
-           biostdic = {}
-           BioVendor,BioVersion,BioRelease = '','',''
-           hw = os.popen("dmidecode -t bios")
-           bios = hw.read()
-           hw.close()  
-           if bios :
-               tmp = re.findall("Vendor: (.*)",bios)
-               if len(tmp)<1:
-                   bioslist.append('Permission denied')
-                   return bioslist
-               if tmp:
-                   BioVendor = tmp[0]
-               tmp = re.findall("Version: (.*)",bios)
-               if tmp:
-                   BioVersion = tmp[0]
-               tmp = re.findall("Release Date: (.*)",bios)
-               if tmp:
-                   BioRelease = tmp[0]
-           biostdic['BioVendor']=self.strip(BioVendor)  # bios 
-           biostdic['BioVersion']=self.strip(BioVersion)
-           biostdic['BioRelease'] = self.strip(BioRelease)
-           bioslist.append(biostdic)
-           return bioslist
+        # BIOS
+        bioslist = []
+        biostdic = {}
+        BioVendor,BioVersion,BioRelease = '','',''
+        hw = os.popen("dmidecode -t bios")
+        bios = hw.read()
+        hw.close()  
+        if bios :
+            tmp = re.findall("Vendor: (.*)",bios)
+            if len(tmp)<1:
+                bioslist.append('Permission denied')
+                return bioslist
+            if tmp:
+                BioVendor = tmp[0]
+            tmp = re.findall("Version: (.*)",bios)
+            if tmp:
+                BioVersion = tmp[0]
+            tmp = re.findall("Release Date: (.*)",bios)
+            if tmp:
+                BioRelease = tmp[0]
+        biostdic['BioVendor']=self.strip(BioVendor)  # bios 
+        biostdic['BioVersion']=self.strip(BioVersion)
+        biostdic['BioRelease'] = self.strip(BioRelease)
+        bioslist.append(biostdic)
+        return bioslist
 
 if __name__ == "__main__":
     objectTemp=BiosInfo()  

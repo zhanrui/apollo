@@ -5,13 +5,13 @@ import sys
 import json
 from common.utils.log import log4py
 # 该接口为测试环境
-#SERVICE_NAME='com.testModule.frontServer'
-#OBJECT_PATH='/com/testModule/frontServer/object'
-#INTERFACE='com.testModule.frontServerInterface'
+SERVICE_NAME="com.mock.frontServer"
+OBJECT_PATH="/com/mock/frontServer/object"
+INTERFACE="com.mock.frontServerInterface"
 # 该接口为生产环境
-SERVICE_NAME='com.bmjc.ui'
-OBJECT_PATH='/bmjc/ui'
-INTERFACE='bmjc.ui'
+# SERVICE_NAME='com.bmjc.ui'
+# OBJECT_PATH='/bmjc/ui'
+# INTERFACE='bmjc.ui'
 def handleMsgFromUI():    
     arguments=sys.argv
     temp=arguments[1]

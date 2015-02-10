@@ -243,7 +243,7 @@ class AdapterDevice(CommHandler):
                     ip_dic[name]=ipaddr
                 except Exception as e:
                     print e
-         # ip 
+# ip 
 #         if len(ip_dic) == 0:
 #             NetLogicalname = 'N/A'
 #             NetIp = 'N/A'

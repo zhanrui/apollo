@@ -5,9 +5,9 @@ import dbus.service
 import dbus.mainloop.glib
 import json
 
-SERVICE_NAME="com.testModule.frontServer"
-OBJECT_PATH="/com/testModule/frontServer/object"
-INTERFACE="com.testModule.frontServerInterface"
+SERVICE_NAME="com.mock.frontServer"
+OBJECT_PATH="/com/mock/frontServer/object"
+INTERFACE="com.mock.frontServerInterface"
 def emit_signal2():
         loop.quit()
         return False
