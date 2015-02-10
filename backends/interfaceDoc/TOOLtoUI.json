@@ -133,15 +133,13 @@
 			"scenename":"###",   
 			"functionname":"###",
 			"resulttype":"datareport",
-			"result":[{'available': '7327388K', 'Start_Stop_Count': '       717', 'capacity': '17909532K', 'hours': '       4721H', 'used': '8260200K', 'Temperature_Celsius': ''}]
+			"result":[{"realpath": "/dev/sda3", "total": "17489", "used": "9435", "free": "7142"}, {"realpath": "/dev/sda1", "total": "476", "used": "96", "free": "350"}]}
 			}
 		2.解释
-			#available								可利用           														
-			#used									已使用
-			#capacity								总大小
-			#Start_Stop_Count					    使用次数
-			#hours									使用时长
-			#Temperature_Celsius			        温度
+			#realpath									分区路径           														
+			#used											已使用(M)
+			#total										总大小(M)
+			#free											剩余(M)
 	#M2-2.虚拟机信息
 	#M2-3.网络配置
 	    1.报文
@@ -159,19 +157,19 @@
 	#M2-4.网卡设备
 	    1.报文
 			{
-		"scenename":"###",   
-		"functionname":"###",
-		"resulttype":"datareport",
-		"result":[{'NetSerial': '00:50:56:25:b3:c2', 'NetVendor': 'pcnet32', 'NetDrive': 'pcnet32', 'NetProduct': 'Advanced}]
-		}	
+				"scenename":"###",   
+				"functionname":"###",
+				"resulttype":"datareport",
+				"result":[{'NetSerial': '00:50:56:25:b3:c2', 'NetVendor': 'pcnet32', 'NetDrive': 'pcnet32', 'NetProduct': 'Advanced}]
+				}	
 		
-		2.解释
-		#   NetProduct          网卡型号
-		#   NetVendor           制造商
-		#   NetLogicalname      设备名称
-		#   NetSerial           MAC地址
-		#   NetIp               IP地址
-		#   NetDrive            网卡驱动
+			2.解释
+			#   NetProduct          网卡型号
+			#   NetVendor           制造商
+			#   NetLogicalname      设备名称
+			#   NetSerial           MAC地址
+			#   NetIp               IP地址
+			#   NetDrive            网卡驱动
 	 
  
 	#M2-5.打印机设备
