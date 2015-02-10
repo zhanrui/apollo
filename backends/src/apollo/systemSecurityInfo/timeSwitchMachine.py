@@ -5,10 +5,13 @@ import sys
 sys.path.append(os.path.dirname(os.getcwd()))
 from common.utils.log import log4py
 from apollo.commHandler import CommHandler
+import time
+monthDict={"Jan":"01","Feb":"02","Mar":"03","Apr":"04","May":"05","Jun":"06","Jul":"07","Aug":"08","Sep":"09","Oct":"10","Nov":"11","Dec":"12"}
 class TimeSwitchMachine(CommHandler):
     def __init__(self):
         CommHandler.__init__(self)
         pass 
+    
     def getTimeSwitchMachine(self):
         hw = os.popen('hostname')
         hostname = hw.read()
@@ -25,30 +28,46 @@ class TimeSwitchMachine(CommHandler):
         tmp=[]
         infoItem={}
         infoList=[]
-        print hostname 
-        print bootInfo
+        resultTemp={}
+        YEAR=time.strftime('%Y',time.localtime(time.time()))
         if bootInfo :
             tmp = bootInfo.split("\n")
             for item in tmp:
                 infoItem={}
                 infoItem["TYPE"]="boot"
-                TIME1=item[39:50]
-                TIME2=item[57:63]
-                TIME=str(TIME1)+str(TIME2)
+                monthTemp=item[43:46]
+                MONTH=monthDict.get(monthTemp)
+                DAY=item[47:49]
+                DAY=DAY.strip()
+                if len(DAY)==1:
+                    DAY="0"+DAY 
+                TIME=item[57:63]
+                TIME=str(YEAR)+"."+str(MONTH)+"."+str(DAY)+""+str(TIME)
                 infoItem["TIME"]=TIME #时间
                 infoItem["HOSTNAME"]=hostname
-                infoList.append(infoItem)
+                resultTemp[TIME]=infoItem
         if shutdownInfo :
             tmp = shutdownInfo.split("\n")
             for item in tmp:
                 infoItem={}
                 infoItem["TYPE"]="shutdown"
-                TIME1=item[39:50]
-                TIME2=item[57:63]
-                TIME=str(TIME1)+str(TIME2)
+                monthTemp=item[43:46]
+                MONTH=monthDict.get(monthTemp)
+                DAY=item[47:49]
+                DAY=DAY.strip()
+                if len(DAY)==1:
+                    DAY="0"+DAY                    
+                TIME=item[57:63]
+                TIME=str(YEAR)+"."+str(MONTH)+"."+str(DAY)+""+str(TIME)
                 infoItem["TIME"]=TIME #时间
                 infoItem["HOSTNAME"]=hostname
-                infoList.append(infoItem)
+                resultTemp[TIME]=infoItem
+        resultTemp=sorted(resultTemp.iteritems(),key=lambda asd:asd[0],reverse=False)
+#         print resultTemp
+        for x in range(len(resultTemp)):
+            temp=resultTemp[x]
+            infoList.append(temp[1])  
+#         print infoList 
         return infoList
 if __name__ == "__main__":
     objectTemp=TimeSwitchMachine()
