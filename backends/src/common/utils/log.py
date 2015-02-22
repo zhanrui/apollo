@@ -42,7 +42,7 @@ class Log4py:
             encoding = 'utf8'  
             out = open(logfile, 'a+')#, encoding  
             out.write(s)  
-            out.write('/n')  
+            out.write('\n')  
             out.close()  
     def fmtstr(self, *fmt):  
         str = ''  
