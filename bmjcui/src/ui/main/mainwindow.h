@@ -6,6 +6,11 @@
 
 class MainWidget;
 class OneKeyCheckWidget;
+class FileCheckWidget;
+class FileCheckCommonRpt;
+class TrojanCheckWidget;
+class TrojanCheckRpt;
+
 class BasicInfoRpt;
 class DeviceConnectRpt;
 class NetRecordCommonRpt;
@@ -21,6 +26,8 @@ class ToolUtil;
 class QThread;
 class InterfaceForTool;
 class OneKeyCheckState;
+class FileCheckState;
+class TrojanCheckState;
 class BaseReport;
 
 class MainWindow : public ShadowWidget {
@@ -33,8 +40,8 @@ private:
     void initDBus();
     void initConnect();
     void initAnim();
-    void switchWidgetToLeft(QWidget* currentWidget,  QWidget* showWidget);
-    void switchWidgetToRight(QWidget* currentWidget,  QWidget* showWidget);
+    void switchWidgetToLeft(QWidget* currentWidget, QWidget* showWidget);
+    void switchWidgetToRight(QWidget* currentWidget, QWidget* showWidget);
 
 public slots:
 
@@ -42,7 +49,7 @@ public slots:
     void closeWidget();
 
 public:
-   //Common Widgets
+    //Common Widgets
     SysButtonGroup* sysButtonGroup;
 
     //Window Widgets
@@ -53,16 +60,27 @@ public:
     NetRecordCommonRpt* okcNetRecordRpt;
     SystemSecurityRpt* okcSystemSecurityRpt;
     SecurityThreatRpt* okcSecurityThreatRpt;
-    UsbRecordCommonRpt*  okcUsbRecordCommonRpt;
+    UsbRecordCommonRpt* okcUsbRecordCommonRpt;
     QList<BaseReport*> okcReports;
+
+    FileCheckWidget* fileCheckWidget;
+    FileCheckCommonRpt* fcFileCheckCommonRpt;
+    QList<BaseReport*> fcReports;
+
+    TrojanCheckWidget* trojanCheckWidget;
+    TrojanCheckRpt* tcTrojanCheckRpt;
+    QList<BaseReport*> tcReports;
+
     //Animation
-    QParallelAnimationGroup*  widgetSwitchAnimation;
+    QParallelAnimationGroup* widgetSwitchAnimation;
 
     //Init State In Other Thread
     QThread* statethread;
     InterfaceForTool* interfaceForTool;
     ToolUtil* toolUtil;
     OneKeyCheckState* oneKeyCheckState;
+    FileCheckState* fileCheckState;
+    TrojanCheckState* trojanCheckState;
 
     //SceneMap
 };

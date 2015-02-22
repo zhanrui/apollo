@@ -145,6 +145,19 @@ signals:
     void o_trojancheck_error(const QString& errordescrition);
     void o_trojancheck_data(const QVariantList& result);
 
+    //文件检查
+    void f_filecomcheck_progress(const int currentcompletion, const QString& currentstatus);
+    void f_filecomcheck_error(const QString& errordescrition);
+    void f_filecomcheck_data(const QVariantList& result);
+
+    //木马检查
+    void t_threatdoccheck_progress(const int currentcompletion, const QString& currentstatus);
+    void t_threatdoccheck_error(const QString& errordescrition);
+    void t_threatdoccheck_data(const QVariantList& result);
+    void t_netweapon_progress(const int currentcompletion, const QString& currentstatus);
+    void t_netweapon_error(const QString& errordescrition);
+    void t_netweapon_data(const QVariantList& result);
+
 public slots:
     void updateFromTool(const QString& messages);
 public :

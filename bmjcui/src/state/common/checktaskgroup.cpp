@@ -28,17 +28,18 @@ CheckTaskGroup::~CheckTaskGroup()
 void CheckTaskGroup::initConnect(const QList<CheckTask*> & tasks)
 {
     for (CheckTask* task : tasks) {
-        connect(this, SIGNAL(startSig()), task, SLOT(startexecute()));
-        connect(this, SIGNAL(stopSig()), task, SLOT(stopexecute()));
-        connect(this, SIGNAL(disableSig()), task, SLOT(disabletask()));
-
+        connect(this, SIGNAL(startSig()), task, SLOT(startExecute()));
+        connect(this, SIGNAL(stopSig()), task, SLOT(stopExecute()));
+        connect(this, SIGNAL(disableSig()), task, SLOT(disableTask()));
+        connect(this, SIGNAL(enableSig()), task, SLOT(enableTask()));
         connect(task, SIGNAL(dataCountUpdateSig(const int  ,const int)), this, SLOT(dataCountUpdate(const int  ,const int)));
         connect(task, SIGNAL(progressUpdateSig(const int ,const QString &)), this, SLOT(progressUpdate(const int , const QString &)));
+        connect(task, SIGNAL(totalUnitChangedSig(const int  )), this, SLOT(totalUnitChanged(const int)));
         this->totalcompleteunit += task->weight*100;
     }
 }
 //Call From State/UI
-void CheckTaskGroup::startexecute()
+void CheckTaskGroup::startExecute()
 {
     if (this->enabled) {
         this->start = true;
@@ -50,17 +51,26 @@ void CheckTaskGroup::startexecute()
     }
     emit startSig();
 }
-void CheckTaskGroup::stopexecute()
+void CheckTaskGroup::stopExecute()
 {
     this->start = false;
     emit stopSig();
 }
-void CheckTaskGroup::disablegroup()
+void CheckTaskGroup::disableGroup()
 {
     this->enabled = false;
     emit disableSig();
 }
+void CheckTaskGroup::enableGroup()
+{
+    this->enabled = false;
+    emit enableSig();
+}
 
+ void CheckTaskGroup::totalUnitChanged(const int value){
+     totalcompleteunit+=value;
+     emit totalUnitChangedSig(value * weight);
+ }
 
 void CheckTaskGroup::progressUpdate(const int completeuint,const QString & status){
 

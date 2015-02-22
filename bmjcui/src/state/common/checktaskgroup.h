@@ -16,13 +16,15 @@ public:
     void initConnect(const QList<CheckTask*> & tasks);
 public slots:
     //Call From State/UI
-    void startexecute();
-    void stopexecute();
-    void disablegroup();
+    void startExecute();
+    void stopExecute();
+    void disableGroup();
+    void enableGroup();
     //From Task
 
     void progressUpdate(const int completeunit ,const QString & status);
     void dataCountUpdate(const int totalproblems ,const int totalinfomations);
+    void totalUnitChanged(const int value);
 signals:
     void errorFindSig();// To UI
     void completeSig();// To UI
@@ -34,6 +36,8 @@ signals:
     void startSig();// To Task
     void stopSig();// To Task
     void disableSig();// To Task
+    void enableSig();// To Task
+    void totalUnitChangedSig(const int value);
 public:
 
     bool enabled;

@@ -30,7 +30,6 @@
         <file>image/onekeycheck/onekeychecklogo.png</file>
         <file>image/onekeycheck/description.png</file>
         <file>image/onekeycheck/background.png</file>
-        <file>image/onekeycheck/startcheckbtn.png</file>
         <file>image/onekeycheck/leftbutton/deviceconnectionbtn_default.png</file>
         <file>image/onekeycheck/leftbutton/deviceconnectionbtn_noproblem.png</file>
         <file>image/onekeycheck/leftbutton/deviceconnectionbtn_problem.png</file>
@@ -63,9 +62,6 @@
         <file>image/onekeycheck/leftbutton/systemsecuritybtn_noproblem.png</file>
         <file>image/onekeycheck/leftbutton/systemsecuritybtn_default.png</file>
         <file>image/onekeycheck/resulttable/headerbackground.png</file>
-        <file>image/onekeycheck/progressbar_front.gif</file>
-        <file>image/onekeycheck/progressbar_background.png</file>
-        <file>image/onekeycheck/cancelcheckbtn.png</file>
         <file>image/detailreport/running_movie.gif</file>
         <file>image/detailreport/background.png</file>
         <file>image/detailreport/deviceconnect/adapterDeviceBtn_noproblem.png</file>
@@ -157,5 +153,15 @@
         <file>image/detailreport/systemsecurity/timeSwitchMachineBtn_noproblem.png</file>
         <file>image/detailreport/systemsecurity/timeSwitchMachineBtn_problem.png</file>
         <file>image/detailreport/systemsecurity/timeSwitchMachineBtn_running.png</file>
+        <file>image/detailreport/trojancheck/networkWeaponBtn_noproblem.png</file>
+        <file>image/detailreport/trojancheck/networkWeaponBtn_problem.png</file>
+        <file>image/detailreport/trojancheck/networkWeaponBtn_running.png</file>
+        <file>image/detailreport/trojancheck/threatDocumentBtn_noproblem.png</file>
+        <file>image/detailreport/trojancheck/threatDocumentBtn_problem.png</file>
+        <file>image/detailreport/trojancheck/threatDocumentBtn_running.png</file>
+        <file>image/common/cancelcheckbtn.png</file>
+        <file>image/common/progressbar_background.png</file>
+        <file>image/common/progressbar_front.gif</file>
+        <file>image/common/startcheckbtn.png</file>
     </qresource>
 </RCC>

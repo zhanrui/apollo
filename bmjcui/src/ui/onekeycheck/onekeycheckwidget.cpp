@@ -40,9 +40,9 @@ void OneKeyCheckWidget::initUI()
     this->setFixedSize(900, 600);
     returnbtn = new StaticButton(":image/common/returnbtn", 3, this);
     returnbtn->move(0, 0);
-    startcheckbtn = new StaticButton(":image/onekeycheck/startcheckbtn", 3, this);
+    startcheckbtn = new StaticButton(":image/common/startcheckbtn", 3, this);
     startcheckbtn->move(703, 60);
-    cancelcheckbtn = new StaticButton(":image/onekeycheck/cancelcheckbtn", 3, this);
+    cancelcheckbtn = new StaticButton(":image/common/cancelcheckbtn", 3, this);
     cancelcheckbtn->move(739, 74);
     cancelcheckbtn->hide();
     onekeychecklogo = new QLabel(this);
@@ -50,20 +50,20 @@ void OneKeyCheckWidget::initUI()
     onekeychecklogo->move(40, 55);
     descriptiontitle = new QLabel(this);
     descriptiontitle->setText("一键检查");
-    descriptiontitle->setObjectName("descriptiontitle");
+    descriptiontitle->setObjectName("okc_descriptiontitle");
     descriptiontitle->move(130, 69);
     description = new QLabel(this);
     description->setText("一般检查项目包含设备信息，以及基本安全信息");
-    description->setObjectName("description");
+    description->setObjectName("okc_description");
     description->move(133, 109);
 
     progressbar_background = new QLabel(this);
-    progressbar_background->setPixmap(QPixmap(":image/onekeycheck/progressbar_background"));
+    progressbar_background->setPixmap(QPixmap(":image/common/progressbar_background"));
     progressbar_background->move(0, 147);
     progressbar_background->hide();
 
     progressbar_front = new QLabel(this);
-    QMovie* movie = new QMovie(":image/onekeycheck/progressbar_front");
+    QMovie* movie = new QMovie(":image/common/progressbar_front");
     movie->setParent(this);
     movie->start();
     progressbar_front->setMovie(movie);
@@ -74,7 +74,7 @@ void OneKeyCheckWidget::initUI()
 
     checkingElapsedTime = new QLabel(this);
     checkingElapsedTime->move(584, 82);
-    checkingElapsedTime->setObjectName("checkingelapsedtime");
+    checkingElapsedTime->setObjectName("okc_checkingelapsedtime");
     checkingElapsedTime->setText("已用时：00:00:00");
     checkingElapsedTime->hide();
     checkingElapsedTimer = new QTimer(this);
@@ -85,7 +85,7 @@ void OneKeyCheckWidget::initUI()
     QWidget* leftbackground = new QWidget(this);
     leftbackground->move(0,153);
     leftbackground->setFixedSize(192,447);
-    leftbackground->setObjectName("leftbackground");
+    leftbackground->setObjectName("okc_leftbackground");
 
     QLabel* vline = new QLabel(this);
     vline->setPixmap(QPixmap(":image/onekeycheck/vline"));
@@ -134,26 +134,8 @@ void OneKeyCheckWidget::initUI()
     tabbuttonlist << basicinfobtn << deviceconnectionbtn << netbrowserbtn << systemsecuritybtn
                   << securitythreatbtn << usbcheckbtn << filecheckbtn << tjcheckbtn;
 
-    checkresult = new QTableView(this);
-    checkresult->setMinimumWidth(707);
-    checkresult->setMinimumHeight(447);
-    checkresult->move(193, 153);
-    checkresult->verticalHeader()->hide();
-    checkresult->horizontalHeader()->setHighlightSections(false);
-    checkresult->horizontalHeader()->setFixedHeight(36);
-    checkresult->setGridStyle(Qt::NoPen);
 
-    checkresult->setShowGrid(false);
-    checkresult->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    checkresult->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
-    checkresult->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-    checkresult->setItemDelegate(new MyDelegate(checkresult));
-    checkresult->setSelectionBehavior(QAbstractItemView::SelectRows);
-    checkresult->setSelectionMode(QAbstractItemView::NoSelection);
-    checkresult->setFrameShape(QFrame::NoFrame);
 
-    checkresult->setModel(cpumodel);
-    checkresult->hide();
 }
 void OneKeyCheckWidget::initConnect()
 {
@@ -163,11 +145,7 @@ void OneKeyCheckWidget::initConnect()
 }
 void OneKeyCheckWidget::initModel()
 {
-    cpumodel = new QStandardItemModel(this);
-    QStandardItem* nameHead = new QStandardItem("姓名");
-    QStandardItem* sexHead = new QStandardItem("性别");
-    cpumodel->setHorizontalHeaderItem(0, nameHead);
-    cpumodel->setHorizontalHeaderItem(1, sexHead);
+
 }
 
 void OneKeyCheckWidget::startCheck()

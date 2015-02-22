@@ -56,7 +56,7 @@ CheckTask::~CheckTask()
 {
 }
 
-void CheckTask::startexecute()
+void CheckTask::startExecute()
 {
     if (enabled) {
         this->enabled = true;
@@ -75,16 +75,23 @@ void CheckTask::startexecute()
     }
 }
 
-void CheckTask::stopexecute()
+void CheckTask::stopExecute()
 {
 
     this->start = false;
     emit stopTaskSig(scenename, taskname);
 }
 
-void CheckTask::disabletask()
+void CheckTask::disableTask()
 {
     this->enabled = false;
+    emit totalUnitChangedSig(100 * weight *(-1));
+}
+
+void CheckTask::enableTask()
+{
+    this->enabled = true;
+    emit totalUnitChangedSig(100 * weight);
 }
 
 void CheckTask::progressUpdate(const int completerate, const QString& currentstatus)

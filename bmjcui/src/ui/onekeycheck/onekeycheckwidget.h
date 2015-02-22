@@ -46,9 +46,6 @@ public:
 
     QList< TabButton*> tabbuttonlist;
 
-    QStandardItemModel * cpumodel ;
-
-    QTableView *    checkresult ;
 
     StaticButton* returnbtn;
     StaticButton* startcheckbtn;

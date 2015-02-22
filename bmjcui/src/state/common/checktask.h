@@ -6,21 +6,21 @@
 #include <QObject>
 class ToolUtil;
 
-
 class CheckTask : public QObject {
 
-Q_OBJECT
+    Q_OBJECT
 
 public:
-    CheckTask(QObject* parent, const QString & tname, const QString & sname, bool bCheck, int weight );
-    CheckTask(QObject* parent,ToolUtil* tool, const QString & tname, const QString & sname, bool bCheck, int weight );
+    CheckTask(QObject* parent, const QString& tname, const QString& sname, bool bCheck, int weight);
+    CheckTask(QObject* parent, ToolUtil* tool, const QString& tname, const QString& sname, bool bCheck, int weight);
     ~CheckTask();
 public slots:
     //Call From UI/Goup/State
-    void startexecute();
-    void stopexecute();
-    void disabletask();
-    void setParameters(const QString& key,const QString& val);
+    void startExecute();
+    void stopExecute();
+    void disableTask();
+    void enableTask();
+    void setParameters(const QString& key, const QString& val);
 
     //From DBus
     void progressUpdate(const int currentcompletion, const QString& currentstatus);
@@ -29,23 +29,22 @@ public slots:
 
 signals:
 
-    void errorFindSig();// To UI & Group
-    void completeSig();// To UI & Group
+    void errorFindSig(); // To UI & Group
+    void completeSig(); // To UI & Group
 
+    void dataUpdateSig(const QVariantList& result); // To UI
+    void dataCountUpdateSig(const int totalproblems, const int totalinfomations); //To Group
 
-    void dataUpdateSig(const QVariantList& result);// To UI
-    void dataCountUpdateSig(const int totalproblems ,const int totalinfomations );//To Group
-
-    void completerateUpdateSig(const int completerate ,const QString & status);//To UI
-    void progressUpdateSig(const int completeunit ,const QString & status);//To Group
-
-
-
-
+    void completerateUpdateSig(const int completerate, const QString& status); //To UI
+    void progressUpdateSig(const int completeunit, const QString& status); //To Group
 
     //To Dus
-    void startTaskSig(const QString& scenename, const QString& taskname, const QMap<QString,QString>& parameters );
+    void startTaskSig(const QString& scenename, const QString& taskname, const QMap<QString, QString>& parameters);
     void stopTaskSig(const QString& scenename, const QString& taskname);
+
+    void totalUnitChangedSig(const int value);
+
+
 public:
     bool enabled;
     bool badinfoCheck;
@@ -63,8 +62,7 @@ public:
     int totalproblems;
     int totalinfomations;
 
-    QMap<QString,QString> parameters;
-
+    QMap<QString, QString> parameters;
 };
 
 #endif // CHECKTASK_H

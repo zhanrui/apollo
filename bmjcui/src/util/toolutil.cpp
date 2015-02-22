@@ -137,7 +137,7 @@ void ToolUtil::startTask(const QString& scenename, const QString& taskname, cons
 
     json.insert("parameters", parametersJson);
 
-    //if(taskname.contains("cpu"))
+    //if(taskname.contains("mem"))
     //nanosleep(20000);
     //sleep(1);
     sendMessage(json);

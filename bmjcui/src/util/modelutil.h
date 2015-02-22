@@ -75,10 +75,16 @@ public:
     static void addIntenetHistoryCheckModel(QStandardItemModel* model, const QVariantList& result);
     //File Check Info
     static void initFileCheckModel(QStandardItemModel* model, QTableView* view);
+    static void addFileCheckModel(QStandardItemModel* model, const QVariantList& result);
     static void initFileFragmentCheckModel(QStandardItemModel* model, QTableView* view);
+    static void addFileFragmentCheckModel(QStandardItemModel* model, const QVariantList& result);
+    static void initDeletedFileRecoveryModel(QStandardItemModel* model, QTableView* view);
+    static void addDeletedFileRecoveryModel(QStandardItemModel* model, const QVariantList& result);
     //Virus Check Info
     static void initMalwareCheckModel(QStandardItemModel* model, QTableView* view);
+    static void addMalwareCheckModel(QStandardItemModel* model, const QVariantList& result);
     static void initVirusCheckModel(QStandardItemModel* model, QTableView* view);
+    static void addVirusCheckModel(QStandardItemModel* model, const QVariantList& result);
 };
 
 #endif // MODELUTIL_H

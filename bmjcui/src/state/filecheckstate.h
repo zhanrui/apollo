@@ -1,5 +1,5 @@
-#ifndef ONEKEYCHECKSTATE_H
-#define ONEKEYCHECKSTATE_H
+#ifndef FILECHECKSTATE_H
+#define FILECHECKSTATE_H
 
 #include <QObject>
 class CheckTask;
@@ -8,13 +8,14 @@ class MainWindow;
 class InterfaceForTool;
 class ToolUtil;
 
-class OneKeyCheckState : public QObject {
+
+class FileCheckState: public QObject {
     Q_OBJECT
 
 public:
-    explicit OneKeyCheckState(QObject* parent , MainWindow* mainwindow, InterfaceForTool* interfaceForTool,
+    explicit FileCheckState(QObject* parent , MainWindow* mainwindow, InterfaceForTool* interfaceForTool,
                               ToolUtil* toolUtil);
-    ~OneKeyCheckState();
+    ~FileCheckState();
     void inittasks(ToolUtil* toolUtil);
     void initConStateGroup();
     void initConInterfaceTask( InterfaceForTool* interfaceForTool);
@@ -40,7 +41,9 @@ public slots:
 
     void progressUpdate(const int completeunit ,const QString & status);
     void dataCountUpdate(const int totalproblems ,const int totalinfomations);
+
     void totalUnitChanged(const int value);
+
 
 private:
     bool enabled;
@@ -57,59 +60,16 @@ private:
 
 public:
 
-    CheckTaskGroup* basicInfo;
-    CheckTask* operatingSystemInfo;
-    CheckTask* cpuInfo;
-    CheckTask* biosInfo;
-    CheckTask* motherboardInfo;
-    CheckTask* memoryInfo;
-    CheckTask* graphicsCardInfo;
-
-    CheckTaskGroup* deviceConnection;
-    CheckTask* hardDiskInfo;
-    CheckTask* virtualMachineInfo;
-    CheckTask* netConfig;
-    CheckTask* adapterDevice;
-    CheckTask* printDevice;
-    CheckTask* blueToothDevice;
-
-    CheckTaskGroup* systemSecurity;
-    CheckTask* patchNotInstalled;
-    CheckTask* systemService;
-    CheckTask* systemProcess;
-    CheckTask* evenProduct;
-    CheckTask* timeSwitchMachine;
-    CheckTask* securitySoftware;
-
-    CheckTaskGroup* securityThreat;
-    CheckTask* securityPolicy;
-    CheckTask* openPort;
-    CheckTask* sharingInfo;
-    CheckTask* networkSoftware;
-    CheckTask* groupInfo;
-    CheckTask* userInfo;
-    CheckTask* databaseInfo;
-    CheckTask* eventLog;
-    CheckTask* userAuthentication;
-
-    CheckTaskGroup* usbCheck;
-    CheckTask* usbRoutineCheck;
-    //CheckTask*	usbDepthCheck
-
-    CheckTaskGroup* netRecordsCheck;
-    CheckTask* netRecordsRoutineCheck;
-   // CheckTask* netRecordsDepthCheck;
 
     CheckTaskGroup* fileCheck;
     CheckTask* fileRoutineCheck;
    // CheckTask* deletedFileRecovery;
    // CheckTask* fileFragmentsCheck;
 
-    CheckTaskGroup* trojanCheck;
+    //CheckTaskGroup* trojanCheck;
     //CheckTask*	networkWeapon
-    CheckTask* threatDocument;
-
+    //CheckTask* threatDocument;
 
 };
 
-#endif // ONEKEYCHECKSTATE_H
+#endif // FILECHECKSTATE_H

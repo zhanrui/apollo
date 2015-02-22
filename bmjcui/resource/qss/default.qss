@@ -9,6 +9,36 @@ MainWindow > MainWidget{
       background-repeat:no-repeat;
 }
 
+MainWidget > QLabel#textLabel{
+      font-family: "方正兰亭细黑_GBK";
+      font-size: 13px ;
+      color:#FFFFFF;
+      font-weight: 900;
+}
+
+MainWidget > QLabel#statusLabel{
+      font-family: "方正兰亭细黑_GBK";
+      font-size: 38px ;
+      color:#FFFFFF;
+}
+
+MainWidget > QLabel#statusLabel2{
+      font-family: "方正兰亭细黑_GBK";
+      font-size: 14.5px ;
+      color:#FFFFFF;
+
+}
+
+MainWidget > QLabel#version{
+      font-family: "方正兰亭细黑_GBK";
+      font-size: 12px ;
+      color:#555555;
+      font-weight: 900;
+}
+
+
+
+
 MainWindow > OneKeyCheckWidget{
     background: #FFFFFF;
     background-image: url(:image/onekeycheck/background.png);
@@ -43,6 +73,8 @@ UsbRecordCommonRpt>QLabel
        font-weight: 900;
 }
 
+
+
 CommonWidget#testbutton{
       background-image: url(:image/common/title/min.png);
       background-repeat:no-repeat;
@@ -60,19 +92,28 @@ CommonWidget#testbutton:pressed{
       background-repeat:no-repeat;
 }
 
-OneKeyCheckWidget > QLabel#descriptiontitle{
+OneKeyCheckWidget > QLabel#okc_descriptiontitle,
+FileCheckWidget > QLabel#fc_descriptiontitle,
+TrojanCheckWidget > QLabel#tc_descriptiontitle
+{
       font-family: "方正兰亭细黑_GBK";
       font-size: 28px ;
       color:#FFFFFF
 }
 
-OneKeyCheckWidget > QLabel#description{
+OneKeyCheckWidget > QLabel#okc_description,
+FileCheckWidget > QLabel#fc_description,
+TrojanCheckWidget > QLabel#tc_description
+{
       font-family: "方正兰亭细黑_GBK";
       font-size: 14.45px ;
       color:#FFFFFF
 }
 
-OneKeyCheckWidget > QLabel#checkingelapsedtime{
+OneKeyCheckWidget > QLabel#okc_checkingelapsedtime,
+FileCheckWidget > QLabel#fc_checkingelapsedtime,
+TrojanCheckWidget > QLabel#tc_checkingelapsedtime
+{
       font-family: "方正兰亭细黑_GBK";
       font-size: 14.45px ;
       color:#FFFFFF

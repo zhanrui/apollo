@@ -49,7 +49,13 @@ HEADERS += \
     src/ui/detailreport/basereport.h \
     src/ui/detailreport/netrecordcommonrpt.h \
     src/ui/detailreport/securitythreatrpt.h \
-    src/ui/detailreport/usbrecordcommonrpt.h
+    src/ui/detailreport/usbrecordcommonrpt.h \
+    src/ui/filecheck/filecheckwidget.h \
+    src/state/filecheckstate.h \
+    src/state/trojancheckstate.h \
+    src/ui/detailreport/filecheckcommonrpt.h \
+    src/ui/detailreport/trojancheckrpt.h \
+    src/ui/trojancheck/trojancheckwidget.h
 
 SOURCES += \
     src/state/onekeycheckstate.cpp \
@@ -81,7 +87,13 @@ SOURCES += \
     src/ui/detailreport/basereport.cpp \
     src/ui/detailreport/netrecordcommonrpt.cpp \
     src/ui/detailreport/securitythreatrpt.cpp \
-    src/ui/detailreport/usbrecordcommonrpt.cpp
+    src/ui/detailreport/usbrecordcommonrpt.cpp \
+    src/ui/filecheck/filecheckwidget.cpp \
+    src/state/filecheckstate.cpp \
+    src/state/trojancheckstate.cpp \
+    src/ui/detailreport/filecheckcommonrpt.cpp \
+    src/ui/detailreport/trojancheckrpt.cpp \
+    src/ui/trojancheck/trojancheckwidget.cpp
 
 copyotherfile.commands = $(COPY_DIR) $$PWD/otherfile $$OUT_PWD
 first.depends = $(first) copyotherfile

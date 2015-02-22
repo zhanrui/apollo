@@ -14,7 +14,7 @@ InterfaceForTool::InterfaceForTool(QObject* parent)
 
 InterfaceForTool::~InterfaceForTool() {}
 
-int InterfaceForTool::i=1;
+int InterfaceForTool::i = 1;
 void InterfaceForTool::updateFromTool(const QString& messages)
 {
 
@@ -187,8 +187,8 @@ void InterfaceForTool::updateFromTool(const QString& messages)
         if (resulttype.compare(RPT_DATA) == 0) {
 
             QList<QVariant> data = result["result"].toList();
-           // i=i+data.size();
-           //qDebug()<<i<<" "<<functionname;
+            // i=i+data.size();
+            //qDebug()<<i<<" "<<functionname;
             if (functionname.compare(FUNC_OSINFO) == 0)
                 emit o_os_data(data);
             if (functionname.compare(FUNC_CPUINFO) == 0)
@@ -197,8 +197,10 @@ void InterfaceForTool::updateFromTool(const QString& messages)
                 emit o_bios_data(data);
             if (functionname.compare(FUNC_MBINFO) == 0)
                 emit o_mb_data(data);
-            if (functionname.compare(FUNC_MEMINFO) == 0)
+            if (functionname.compare(FUNC_MEMINFO) == 0) {
+                qDebug() << messages;
                 emit o_mem_data(data);
+            }
             if (functionname.compare(FUNC_GCINFO) == 0)
                 emit o_gc_data(data);
             //设备连接信息
@@ -208,8 +210,10 @@ void InterfaceForTool::updateFromTool(const QString& messages)
                 emit o_vm_data(data);
             if (functionname.compare(FUNC_NCINFO) == 0)
                 emit o_nc_data(data);
-            if (functionname.compare(FUNC_NADEV) == 0)
+            if (functionname.compare(FUNC_NADEV) == 0) {
+                //qDebug()<<messages;
                 emit o_na_data(data);
+            }
             if (functionname.compare(FUNC_PRIDEV) == 0)
                 emit o_print_data(data);
             if (functionname.compare(FUNC_PRIDEV) == 0)
@@ -266,6 +270,54 @@ void InterfaceForTool::updateFromTool(const QString& messages)
         }
     }
 
+    if (scenename.compare(SCENE_FILECHECK) == 0) {
+        if (resulttype.compare(RPT_PROGRESS) == 0) {
+            int currentcompletion = result["result"].toMap()["currentcompletion"].toString().toInt();
+            QString currentstatus = result["result"].toMap()["currentstatus"].toString();
+            if (functionname.compare(FUNC_FILECOMCHECK) == 0)
+                emit f_filecomcheck_progress(currentcompletion, currentstatus);
+        }
+        if (resulttype.compare(RPT_ERROR) == 0) {
+            QString errordescrition = result["result"].toMap()["errordescrition"].toString();
+            if (functionname.compare(FUNC_FILECOMCHECK) == 0)
+                emit f_filecomcheck_error(errordescrition);
+        }
+        if (resulttype.compare(RPT_DATA) == 0) {
 
+            QList<QVariant> data = result["result"].toList();
+            // i=i+data.size();
+            //qDebug()<<i<<" "<<functionname;
+            if (functionname.compare(FUNC_FILECOMCHECK) == 0)
+                emit f_filecomcheck_data(data);
+        }
+    }
 
+    if (scenename.compare(SCENE_TROJANCHECK) == 0) {
+        if (resulttype.compare(RPT_PROGRESS) == 0) {
+            int currentcompletion = result["result"].toMap()["currentcompletion"].toString().toInt();
+            QString currentstatus = result["result"].toMap()["currentstatus"].toString();
+            if (functionname.compare(FUNC_TROJANCHECK) == 0)
+                emit t_threatdoccheck_progress(currentcompletion, currentstatus);
+            if (functionname.compare(FUNC_MALWARECHECK) == 0)
+                emit t_netweapon_progress(currentcompletion, currentstatus);
+        }
+        if (resulttype.compare(RPT_ERROR) == 0) {
+            QString errordescrition = result["result"].toMap()["errordescrition"].toString();
+            if (functionname.compare(FUNC_TROJANCHECK) == 0)
+                emit t_threatdoccheck_error(errordescrition);
+            if (functionname.compare(FUNC_MALWARECHECK) == 0)
+                emit t_netweapon_error(errordescrition);
+        }
+        if (resulttype.compare(RPT_DATA) == 0) {
+
+            QList<QVariant> data = result["result"].toList();
+            // i=i+data.size();
+            //qDebug()<<i<<" "<<functionname;
+
+            if (functionname.compare(FUNC_TROJANCHECK) == 0)
+                emit t_threatdoccheck_data(data);
+            if (functionname.compare(FUNC_MALWARECHECK) == 0)
+                emit t_netweapon_data(data);
+        }
+    }
 }

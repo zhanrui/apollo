@@ -37,18 +37,29 @@ void MainWidget::initUI()
     logoLabel->setPixmap(QPixmap(":image/common/title/logo"));
     logoLabel->move(13, 1);
     textLabel = new QLabel(this);
-    textLabel->setPixmap(QPixmap(":image/common/title/description"));
+    //textLabel->setPixmap(QPixmap(":image/common/title/description"));
+    textLabel->setText("Linux保密技术检查专用系统");
+    textLabel->setObjectName("textLabel");
     textLabel->move(45, 9);
 
     biglogoLabel = new QLabel(this);
-    statusLabel = new QLabel(this);
     biglogoLabel->setPixmap(QPixmap(":image/main/biglogo"));
     biglogoLabel->move(80, 100);
-    statusLabel->setPixmap(QPixmap(":image/main/status"));
+    statusLabel = new QLabel(this);
+    //statusLabel->setPixmap(QPixmap(":image/main/status"));
+    statusLabel->setText("Linux保密技术检查专用系统");
+    statusLabel->setObjectName("statusLabel");
     statusLabel->move(236, 136);
 
+    QLabel* statusLabel2 = new QLabel(this);
+    statusLabel2->setText("供保密检查人员到Linux用户终端进行保密检查");
+    statusLabel2->setObjectName("statusLabel2");
+    statusLabel2->move(238, 186);
+
     version = new QLabel(this);
-    version->setPixmap(QPixmap(":image/main/version"));
+    //version->setPixmap(QPixmap(":image/main/version"));
+    version->setText("Linux保密技术检查专用系统 V1.0.0");
+    version->setObjectName("version");
     version->move(26, 575);
 
     line = new QLabel(this);
@@ -135,10 +146,10 @@ void MainWidget::initAnim() {}
 
 void MainWidget::toolbarSwitchLeft()
 {
-    int groups = qCeil((qreal)buttonlist->size()/6);
+    int groups = qCeil((qreal)buttonlist->size() / 6);
     for (int i = 0; i < buttonlist->size(); ++i) {
-        if (buttonlist->at(i)->x() < 700*(groups-2)) {
-            buttonlist->at(i)->move(buttonlist->at(i)->x() + 700*groups, buttonlist->at(i)->y());
+        if (buttonlist->at(i)->x() < 700 * (groups - 2)) {
+            buttonlist->at(i)->move(buttonlist->at(i)->x() + 700 * groups, buttonlist->at(i)->y());
         }
     }
     toolbarSwitchAnimation->clear();
@@ -155,10 +166,10 @@ void MainWidget::toolbarSwitchLeft()
 void MainWidget::toolbarSwitchRight()
 {
 
-    int groups = qCeil((qreal)buttonlist->size()/6);
+    int groups = qCeil((qreal)buttonlist->size() / 6);
     for (int i = 0; i < buttonlist->size(); ++i) {
-        if (buttonlist->at(i)->x() > 700*(groups-1)) {
-            buttonlist->at(i)->move(buttonlist->at(i)->x() - 700*groups, buttonlist->at(i)->y());
+        if (buttonlist->at(i)->x() > 700 * (groups - 1)) {
+            buttonlist->at(i)->move(buttonlist->at(i)->x() - 700 * groups, buttonlist->at(i)->y());
         }
     }
 
