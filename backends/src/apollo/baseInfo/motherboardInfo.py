@@ -258,7 +258,7 @@ if __name__ == "__main__":
     try: 
         Boa = temp.getMotherboardInfo()
         print(Boa)
-        if(Boa['result'][0]['BoaProduct']!='' and Boa['result'][0]['BoaVendor']!='' and Boa['result'][0]['BoaSerial']!='' and Boa['result'][0]['BioVendor']!='' and Boa['result'][0]['BioVersion']!='' and Boa['result'][0]['BioRelease']!=''):
+        if(Boa[0]['BoaProduct']!='' and Boa[0]['BoaVendor']!='' and Boa[0]['BoaSerial']!='' and Boa[0]['BioVendor']!='' and Boa[0]['BioVersion']!='' and Boa[0]['BioRelease']!=''):
             temp.sendMsgToUI(temp.orgDataReportMsg(Boa)) 
             temp.sendMsgToUI(temp.orgProgReportMsg("100", "主板信息检查完毕."))
         else:
