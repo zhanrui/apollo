@@ -266,10 +266,42 @@
 #M4.安全隐患信息
 	#M4-1.安全策略
 	#M4-2.开放端口
+			1.报文 
+		{"scenename": "userInfo",
+		 "resulttype": "datareport",
+		  "functionname": "openPort",
+		 "result": [{"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:56892", "pid": "1646/mate-session"}, {"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:36226", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:111", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:22", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "127.0.0.1:631", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "127.0.0.1:25", "pid": "-"}, {"foreadd": "192.168.1.103:51148", "localadd": "192.168.1.102:22", "pid": "-"}, {"foreadd": "127.0.0.1:41435", "localadd": "127.0.0.1:39460", "pid": "14289/python2.7"}, {"foreadd": "127.0.0.1:34922", "localadd": "127.0.0.1:36475", "pid": "14161/python2.7"}, {"foreadd": ":::*", "localadd": ":::34110", "pid": "-"}, {"foreadd": ":::*", "localadd": ":::5473", "pid": "-"}]
+		}
+		2.翻译
+		# foreadd	外部地址
+		# localadd	本地地址
+		# pid	进程号/进程名称
 	#M4-3.共享信息
 	#M4-4.上网软件
 	#M4-5.组信息
+		1.报文
+		
+				{"scenename": "userInfo", 
+				"resulttype": "datareport", 
+				"functionname": "groupInfo", 
+				"result": [{"groupname": "root", "groupid": "0"}, {"groupname": "bin", "groupid": "1"}, {"groupname": "daemon", "groupid": "2"}, {"groupname": "sys", "groupid": "3"}, {"groupname": "adm", "groupid": "4"}, {"groupname": "tty", "groupid": "5"}, {"groupname": "disk", "groupid": "6"}, {"groupname": "lp", "groupid": "7"}, {"groupname": "mem", "groupid": "8"}]
+				}
+		2.翻译
+			# groupname  组名称
+			# groupid    组标识
 	#M4-6.用户信息
+			1.报文
+		{
+			"scenename":"###",   
+			"functionname":"###",
+			"resulttype":"datareport",
+			"result":[{"username": "root", "direct": "/root", "uid": "0", "groupid": "0"}, {"username": "bin", "direct": "/bin", "uid": "1", "groupid": "1"}, {"username": "daemon", "direct": "/sbin", "uid": "2", "groupid": "2"}]
+			}
+		2.翻译
+			# username   用户名称 
+		  # uid 			系统用户标识
+		  # groupid   组标识
+		  # direct		目录 
 	#M4-7.数据库信息
 	#M4-8.事件日志
 	1.报文

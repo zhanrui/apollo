@@ -209,6 +209,7 @@ class AdapterDevice(CommHandler):
                 return url[0]
         return v
     def getAdapterDevice(self):
+        netlist = []
         net = {}
         NetProduct,NetVendor,NetBusinfo,NetLogicalname,NetSerial,NetIp,NetLink,NetCapacity = '','','','','','','',''
         n = os.popen('lspci -vvv')
@@ -243,7 +244,7 @@ class AdapterDevice(CommHandler):
                     ip_dic[name]=ipaddr
                 except Exception as e:
                     print e
-# ip 
+         # ip 
 #         if len(ip_dic) == 0:
 #             NetLogicalname = 'N/A'
 #             NetIp = 'N/A'
@@ -254,8 +255,9 @@ class AdapterDevice(CommHandler):
         # -------------------get mac address-------------------
         mac_addr = uuid.UUID(int = uuid.getnode()).hex[-12:]
         NetSerial = ":".join([mac_addr[e:e+2] for e in range(0,11,2)])      
-        net['NetSerial']=NetSerial  
-        return net    
+        net['NetSerial']=NetSerial 
+        netlist.append(net) 
+        return netlist    
 if __name__ == "__main__":
     objectTemp=AdapterDevice()  
     try:      
