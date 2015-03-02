@@ -266,51 +266,49 @@
 #M4.安全隐患信息
 	#M4-1.安全策略
 	#M4-2.开放端口
-			1.报文 
-		{"scenename": "userInfo",
-		 "resulttype": "datareport",
-		  "functionname": "openPort",
-		 "result": [{"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:56892", "pid": "1646/mate-session"}, {"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:36226", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:111", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:22", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "127.0.0.1:631", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "127.0.0.1:25", "pid": "-"}, {"foreadd": "192.168.1.103:51148", "localadd": "192.168.1.102:22", "pid": "-"}, {"foreadd": "127.0.0.1:41435", "localadd": "127.0.0.1:39460", "pid": "14289/python2.7"}, {"foreadd": "127.0.0.1:34922", "localadd": "127.0.0.1:36475", "pid": "14161/python2.7"}, {"foreadd": ":::*", "localadd": ":::34110", "pid": "-"}, {"foreadd": ":::*", "localadd": ":::5473", "pid": "-"}]
-		}
-		2.翻译
-		# foreadd	外部地址
-		# localadd	本地地址
-		# pid	进程号/进程名称
+	1.报文 
+	{
+		"scenename": "userInfo",
+		"resulttype": "datareport",
+		"functionname": "openPort",
+		"result": [{"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:56892", "pid": "1646/mate-session"}, {"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:36226", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:111", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:22", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "127.0.0.1:631", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "127.0.0.1:25", "pid": "-"}, {"foreadd": "192.168.1.103:51148", "localadd": "192.168.1.102:22", "pid": "-"}, {"foreadd": "127.0.0.1:41435", "localadd": "127.0.0.1:39460", "pid": "14289/python2.7"}, {"foreadd": "127.0.0.1:34922", "localadd": "127.0.0.1:36475", "pid": "14161/python2.7"}, {"foreadd": ":::*", "localadd": ":::34110", "pid": "-"}, {"foreadd": ":::*", "localadd": ":::5473", "pid": "-"}]
+	}
+	2.翻译:# foreadd	外部地址
+		   # localadd	本地地址
+		   # pid	进程号/进程名称
 	#M4-3.共享信息
 	#M4-4.上网软件
 	#M4-5.组信息
-		1.报文
-		
-				{"scenename": "userInfo", 
-				"resulttype": "datareport", 
-				"functionname": "groupInfo", 
-				"result": [{"groupname": "root", "groupid": "0"}, {"groupname": "bin", "groupid": "1"}, {"groupname": "daemon", "groupid": "2"}, {"groupname": "sys", "groupid": "3"}, {"groupname": "adm", "groupid": "4"}, {"groupname": "tty", "groupid": "5"}, {"groupname": "disk", "groupid": "6"}, {"groupname": "lp", "groupid": "7"}, {"groupname": "mem", "groupid": "8"}]
-				}
-		2.翻译
-			# groupname  组名称
-			# groupid    组标识
+	1.报文
+	{
+		"scenename": "userInfo", 
+		"resulttype": "datareport", 
+		"functionname": "groupInfo", 
+		"result": [{"groupname": "root", "groupid": "0"}, {"groupname": "bin", "groupid": "1"}, {"groupname": "daemon", "groupid": "2"}, {"groupname": "sys", "groupid": "3"}, {"groupname": "adm", "groupid": "4"}, {"groupname": "tty", "groupid": "5"}, {"groupname": "disk", "groupid": "6"}, {"groupname": "lp", "groupid": "7"}, {"groupname": "mem", "groupid": "8"}]
+	}
+	2.翻译:# groupname  组名称
+		   # groupid    组标识
 	#M4-6.用户信息
-			1.报文
-		{
-			"scenename":"###",   
-			"functionname":"###",
-			"resulttype":"datareport",
-			"result":[{"username": "root", "direct": "/root", "uid": "0", "groupid": "0"}, {"username": "bin", "direct": "/bin", "uid": "1", "groupid": "1"}, {"username": "daemon", "direct": "/sbin", "uid": "2", "groupid": "2"}]
-			}
-		2.翻译
-			# username   用户名称 
-		  # uid 			系统用户标识
-		  # groupid   组标识
-		  # direct		目录 
+	1.报文
+	{
+		"scenename":"###",   
+		"functionname":"###",
+		"resulttype":"datareport",
+		"result":[{"username": "root", "direct": "/root", "uid": "0", "groupid": "0"}, {"username": "bin", "direct": "/bin", "uid": "1", "groupid": "1"}, {"username": "daemon", "direct": "/sbin", "uid": "2", "groupid": "2"}]
+	}
+	2.翻译:# username   用户名称 
+		   # uid 		系统用户标识
+		   # groupid    组标识
+		   # direct		目录 
 	#M4-7.数据库信息
 	#M4-8.事件日志
 	1.报文
-		{
-			"scenename":"###",   
-			"functionname":"###",
-			"resulttype":"datareport",  
-			"result":[{'maillog': '', 'cronlog': '', 'securelog': 'messageslog','':''}]
-		}
+	{
+		"scenename":"###",   
+		"functionname":"###",
+		"resulttype":"datareport",  
+		"result":[{'maillog': '', 'cronlog': '', 'securelog': 'messageslog','':''}]
+	}
     2.翻译：#maillog          与邮件相关的日志信息                
 			#cronlog          与定时任务相关的日志信息 
             #securelog        与安全相关的日志信息
@@ -323,7 +321,29 @@
 -----------------------------------------------------------------------------------------------------------------------------------
 #M6.上网记录
 	#M6-1.上网记录常规检查
+	1.报文
+	{
+		'scenename': u'onekeycheck',
+		'resulttype': u'datareport',
+		'functionname': u'netRecordsRoutineCheck',
+		'result': [{'url': 'http://www.cs2c.com.cn/', 'visitDate': 'Mon Mar 02 10:09:38 GMT+08:00 2015', 'title': u'\u56fd\u4ea7\u64cd\u4f5c\u7cfb\u7edf\u65d7\u8230\u4f01\u4e1a\uff5c\u4e2d\u6807\u8f6f\u4ef6\uff5c\u4e2d\u6807\u9e92\u9e9f\uff5c'},
+				   {'url': 'http://www.mozilla.com/zh-CN/firefox/21.0/firstrun/', 'visitDate': u'Sat Feb 07 11:45:12 GMT+08:00 2015', 'title': None},
+				   {'url': 'https://www.mozilla.org/zh-CN/firefox/21.0/firstrun/', 'visitDate': 'Sat Feb 07 11:45:21 GMT+08:00 2015', 'title': '\u6b22\u8fce\u4f7f\u7528 Firefox'}]
+	2.翻译：#url          URL地址
+            #visitDate    访问时间
+			#title    	  标签内容
 	#M6-2.上网记录深度检查
+	1.报文
+	{
+		'scenename': u'onekeycheck',
+		'resulttype': u'datareport',
+		'functionname': u'netRecordsDepthCheck',
+		'result': [{'url': 'http://www.cs2c.com.cn/', 'visitDate': 'Mon Mar 02 10:09:38 GMT+08:00 2015', 'title': u'\u56fd\u4ea7\u64cd\u4f5c\u7cfb\u7edf\u65d7\u8230\u4f01\u4e1a\uff5c\u4e2d\u6807\u8f6f\u4ef6\uff5c\u4e2d\u6807\u9e92\u9e9f\uff5c'},
+				   {'url': 'http://www.mozilla.com/zh-CN/firefox/21.0/firstrun/', 'visitDate': u'Sat Feb 07 11:45:12 GMT+08:00 2015', 'title': None},
+				   {'url': 'https://www.mozilla.org/zh-CN/firefox/21.0/firstrun/', 'visitDate': 'Sat Feb 07 11:45:21 GMT+08:00 2015', 'title': '\u6b22\u8fce\u4f7f\u7528 Firefox'}]
+	2.翻译：#url          URL地址
+            #visitDate    访问时间
+			#title    	  标签内容
 -----------------------------------------------------------------------------------------------------------------------------------
 #M7.文件检查
 	#M7-1.文件常规检查
