@@ -10,18 +10,30 @@ class GroupInfo(CommHandler):
         CommHandler.__init__(self)
         pass 
     def getGroupInfo(self):
-        return ""
+        groupInfolist = []
+        groupname, groupid = '', '' 
+        with open('/etc/group') as f:
+            for line in f:
+                if line.strip():
+                    if line.rstrip('\n'):
+                        groupInfodic = {}  
+                        groupname = line.rstrip('\n').split(':')[0]
+                        groupid = line.rstrip('\n').split(':')[2]
+                        groupInfodic['groupname'] = groupname 
+                        groupInfodic['groupid'] = groupid 
+                        groupInfolist.append(groupInfodic)
+                         
+        return groupInfolist
 if __name__ == "__main__":
     objectTemp=GroupInfo()
-    try:
-        raise Exception               
+    try:   
+                
         dataReportMsg=objectTemp.orgDataReportMsg(objectTemp.getGroupInfo())
         objectTemp.sendMsgToUI(dataReportMsg)
          
         progReportMsg=objectTemp.orgProgReportMsg("100", "组信息检查完毕.")
         objectTemp.sendMsgToUI(progReportMsg)
     except Exception,e: 
-        print e 
-        log4py.error("组信息检查出错.")
+        log4py.error("组信息检查出错:" + str(e))
         errReportMsg=objectTemp.orgErrReportMsg("组信息检查出错.")
         objectTemp.sendMsgToUI(errReportMsg)
