@@ -158,6 +158,12 @@ signals:
     void t_netweapon_error(const QString& errordescrition);
     void t_netweapon_data(const QVariantList& result);
 
+    //imagecheck
+    void i_imagecheck_progress(const int currentcompletion, const QString& currentstatus);
+    void i_imagecheck_error(const QString& errordescrition);
+    void i_imagecheck_data(const QVariantList& result);
+
+
 public slots:
     void updateFromTool(const QString& messages);
 public :

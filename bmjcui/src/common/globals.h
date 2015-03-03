@@ -96,6 +96,7 @@ extern const QString SCENE_DEEP_USBCHECK;
 extern const QString SCENE_DEEP_NETRECCHECK;
 extern const QString SCENE_FILECHECK;
 extern const QString SCENE_TROJANCHECK;
+extern const QString SCENE_IMAGECHECK;
 
 extern const QString TOOL_SERVICE;
 extern const QString TOOL_PATH;
@@ -158,6 +159,8 @@ extern const QString FUNC_FILEFRGCHECK;
 //木马检查
 extern const QString FUNC_MALWARECHECK;
 extern const QString FUNC_TROJANCHECK;
+
+extern const QString FUNC_IMAGECHECK;
 
 
 #endif // GLOBALS_H

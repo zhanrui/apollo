@@ -768,3 +768,20 @@ void ModelUtil::addVirusCheckModel(QStandardItemModel* model, const QVariantList
         model->appendRow(QList<QStandardItem*>() << test);
     }
 }
+void ModelUtil::initImageCheckModel(QStandardItemModel* model, QTableView* view){
+    view->setModel(model);
+    QStandardItem* id = new QStandardItem("ID");
+    model->setHorizontalHeaderItem(0, id);
+    QStandardItem* name = new QStandardItem("名称");
+    model->setHorizontalHeaderItem(1, name);
+    QStandardItem* provider = new QStandardItem("供应商");
+    model->setHorizontalHeaderItem(2, provider);
+}
+void ModelUtil::addImageCheckModel(QStandardItemModel* model, const QVariantList& result){
+    for (QVariant var : result) {
+        QVariantMap map = var.toMap();
+        QStandardItem* test = new QStandardItem(map["test"].toString());
+        model->appendRow(QList<QStandardItem*>() << test);
+    }
+}
+

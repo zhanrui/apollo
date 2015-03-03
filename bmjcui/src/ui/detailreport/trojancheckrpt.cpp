@@ -43,9 +43,9 @@ void TrojanCheckRpt::initUI(const QString& titletext)
     returnbtn->move(0, 0);
 
     networkWeaponBtn = new TaskButton(":image/detailreport/trojancheck/networkWeaponBtn", this);
-    networkWeaponBtn->move(27, 60);
+    networkWeaponBtn->move(250, 60);
     threatDocumentBtn = new TaskButton(":image/detailreport/trojancheck/threatDocumentBtn", this);
-    threatDocumentBtn->move(27 + 142, 60);
+    threatDocumentBtn->move(465, 60);
 
     taskbtnlist << networkWeaponBtn << threatDocumentBtn;
 

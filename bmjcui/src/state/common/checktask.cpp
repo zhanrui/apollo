@@ -22,7 +22,7 @@ CheckTask::CheckTask(QObject* parent, const QString& taskname, const QString& sc
     this->totalproblems = 0;
     this->totalinfomations = 0;
 
-    this->parameters = QMap<QString, QString>();
+    this->parameters = QVariantMap();
 }
 
 CheckTask::CheckTask(QObject* parent, ToolUtil* toolUtil, const QString& taskname, const QString& scenename, bool badinfoCheck, int weight)
@@ -45,9 +45,9 @@ CheckTask::CheckTask(QObject* parent, ToolUtil* toolUtil, const QString& tasknam
     this->totalproblems = 0;
     this->totalinfomations = 0;
 
-    this->parameters = QMap<QString, QString>();
-    connect(this, SIGNAL(startTaskSig(const QString&, const QString&, const QMap<QString, QString>&)),
-            toolUtil, SLOT(startTask(const QString&, const QString&, const QMap<QString, QString>&)));
+    this->parameters = QVariantMap();
+    connect(this, SIGNAL(startTaskSig(const QString&, const QString&, const QVariantMap&)),
+            toolUtil, SLOT(startTask(const QString&, const QString&, const QVariantMap&)));
     connect(this, SIGNAL(stopTaskSig(const QString&, const QString&)),
             toolUtil, SLOT(stopTask(const QString&, const QString&)));
 }
@@ -78,8 +78,10 @@ void CheckTask::startExecute()
 void CheckTask::stopExecute()
 {
 
+    if(start){
     this->start = false;
     emit stopTaskSig(scenename, taskname);
+    }
 }
 
 void CheckTask::disableTask()

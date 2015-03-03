@@ -18,6 +18,7 @@ class FileCheckWidget : public BaseStyleWidget {
 public:
     explicit FileCheckWidget(QWidget* parent = 0);
     ~FileCheckWidget();
+     bool validateParameter();
 
 private:
     void initUI();
@@ -26,7 +27,7 @@ private:
 
 signals:
     void setParameter(const QString& name, const QString& value);
-
+    void startCheckSig();
 
 public slots:
     void startCheck();
@@ -37,6 +38,8 @@ public slots:
 
     void setFolderPath();
     void setFileType();
+
+
 
 public:
     StaticButton* returnbtn;
@@ -76,6 +79,8 @@ public:
     QCheckBox* zipCheck;
 
     StaticButton* checkResultBtn;
+
+
 };
 
 #endif // FILECHECKWIDGET_H

@@ -1,7 +1,7 @@
 #ifndef ONEKEYCHECKWIDGET_H
 #define ONEKEYCHECKWIDGET_H
 #include "src/ui/base/basestylewidget.h"
-#include "src/ui/base/taskscene.h"
+
 class QStandardItemModel;
 class QTableView;
 class StaticButton;

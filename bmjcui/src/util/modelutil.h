@@ -85,6 +85,10 @@ public:
     static void addMalwareCheckModel(QStandardItemModel* model, const QVariantList& result);
     static void initVirusCheckModel(QStandardItemModel* model, QTableView* view);
     static void addVirusCheckModel(QStandardItemModel* model, const QVariantList& result);
+    //Image Check Info
+    static void initImageCheckModel(QStandardItemModel* model, QTableView* view);
+    static void addImageCheckModel(QStandardItemModel* model, const QVariantList& result);
+
 };
 
 #endif // MODELUTIL_H

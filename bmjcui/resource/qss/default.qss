@@ -39,7 +39,11 @@ MainWidget > QLabel#version{
 
 
 
-MainWindow > OneKeyCheckWidget{
+OneKeyCheckWidget,
+FileCheckWidget,
+TrojanCheckWidget,
+ImageCheckWidget
+{
     background: #FFFFFF;
     background-image: url(:image/onekeycheck/background.png);
     background-repeat:no-repeat;
@@ -48,12 +52,65 @@ OneKeyCheckWidget > QWidget#leftbackground{
      background: #F4F4F4;
 }
 
+OneKeyCheckWidget > QLabel#destitle{
+    font-family: "方正兰亭细黑_GBK";
+    font-size: 24px ;
+    color:#6F6F6F;
+    font-weight: 600;
+}
+
+OneKeyCheckWidget > QLabel#desdetail{
+    font-family: "方正兰亭细黑_GBK";
+    font-size: 12.28px ;
+    color:#6F6F6F;
+    font-weight: 600;
+    width:300px;
+}
+
+FileCheckWidget > CommonWidget#filechecksetting > QLabel,
+TrojanCheckWidget> CommonWidget#trojanchecksetting > QLabel,
+ImageCheckWidget> CommonWidget#imagechecksetting > QLabel
+{
+    font-family: "方正兰亭细黑_GBK";
+    font-size: 12.28px ;
+    color:#6F6F6F;
+    font-weight: 600;
+}
+
+FileCheckWidget > CommonWidget#filechecksetting > QCheckBox,
+TrojanCheckWidget> CommonWidget#trojanchecksetting > QCheckBox,
+ImageCheckWidget> CommonWidget#imagechecksetting > QCheckBox
+{
+    font-family: "方正兰亭细黑_GBK";
+    font-size: 13px ;
+    color:#6F6F6F;
+    font-weight: 600;
+}
+
+FileCheckWidget > CommonWidget#filechecksetting > QLineEdit,
+TrojanCheckWidget> CommonWidget#trojanchecksetting > QLineEdit,
+ImageCheckWidget> CommonWidget#imagechecksetting > QLineEdit
+{
+   width:797px;
+   height:31px;
+}
+
+FileCheckWidget > CommonWidget#filechecksetting > QComboBox,
+ImageCheckWidget > CommonWidget#imagechecksetting > QComboBox
+{
+   width:767px;
+   height:31px;
+}
+
 MainWindow >DeviceConnectRpt,
 MainWindow >BasicInfoRpt,
 MainWindow >NetRecordCommonRpt,
 MainWindow >SecurityThreatRpt,
 MainWindow >SystemSecurityRpt,
-MainWindow >UsbRecordCommonRpt
+MainWindow >UsbRecordCommonRpt,
+MainWindow >FileCheckCommonRpt,
+MainWindow >TrojanCheckRpt,
+MainWindow >ImageCheckRpt
 {
     background: #F4F4F4;
     background-image: url(:image/detailreport/background.png);
@@ -65,7 +122,10 @@ NetRecordCommonRpt > QLabel,
 BasicInfoRpt > QLabel ,
 SecurityThreatRpt >QLabel,
 SystemSecurityRpt>QLabel,
-UsbRecordCommonRpt>QLabel
+UsbRecordCommonRpt>QLabel,
+FileCheckCommonRpt>QLabel,
+TrojanCheckRpt>QLabel,
+ImageCheckRpt>QLabel
 {
       font-family: "方正兰亭细黑_GBK";
       font-size: 14.5px ;
@@ -94,7 +154,8 @@ CommonWidget#testbutton:pressed{
 
 OneKeyCheckWidget > QLabel#okc_descriptiontitle,
 FileCheckWidget > QLabel#fc_descriptiontitle,
-TrojanCheckWidget > QLabel#tc_descriptiontitle
+TrojanCheckWidget > QLabel#tc_descriptiontitle,
+ImageCheckWidget > QLabel#ic_descriptiontitle
 {
       font-family: "方正兰亭细黑_GBK";
       font-size: 28px ;
@@ -103,7 +164,8 @@ TrojanCheckWidget > QLabel#tc_descriptiontitle
 
 OneKeyCheckWidget > QLabel#okc_description,
 FileCheckWidget > QLabel#fc_description,
-TrojanCheckWidget > QLabel#tc_description
+TrojanCheckWidget > QLabel#tc_description,
+ImageCheckWidget > QLabel#ic_description
 {
       font-family: "方正兰亭细黑_GBK";
       font-size: 14.45px ;
@@ -112,7 +174,8 @@ TrojanCheckWidget > QLabel#tc_description
 
 OneKeyCheckWidget > QLabel#okc_checkingelapsedtime,
 FileCheckWidget > QLabel#fc_checkingelapsedtime,
-TrojanCheckWidget > QLabel#tc_checkingelapsedtime
+TrojanCheckWidget > QLabel#tc_checkingelapsedtime,
+ImageCheckWidget > QLabel#ic_checkingelapsedtime
 {
       font-family: "方正兰亭细黑_GBK";
       font-size: 14.45px ;

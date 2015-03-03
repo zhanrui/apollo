@@ -1,7 +1,7 @@
 #ifndef CHECKTASK_H
 #define CHECKTASK_H
 #include <QString>
-#include <QMap>
+#include <QVariantMap>
 
 #include <QObject>
 class ToolUtil;
@@ -39,7 +39,7 @@ signals:
     void progressUpdateSig(const int completeunit, const QString& status); //To Group
 
     //To Dus
-    void startTaskSig(const QString& scenename, const QString& taskname, const QMap<QString, QString>& parameters);
+    void startTaskSig(const QString& scenename, const QString& taskname, const QVariantMap &  parameters);
     void stopTaskSig(const QString& scenename, const QString& taskname);
 
     void totalUnitChangedSig(const int value);
@@ -62,7 +62,7 @@ public:
     int totalproblems;
     int totalinfomations;
 
-    QMap<QString, QString> parameters;
+    QVariantMap parameters;
 };
 
 #endif // CHECKTASK_H

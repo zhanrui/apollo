@@ -2,7 +2,6 @@
 
 #include "src/ui/base/basestylewidget.h"
 #include "src/ui/base/staticbutton.h"
-#include "src/ui/base/taskscene.h"
 #include "src/ui/base/commonwidget.h"
 #include "src/ui/onekeycheck/tabbutton.h"
 #include "src/ui/onekeycheck/mydelegate.h"
@@ -79,44 +78,60 @@ void TrojanCheckWidget::initUI()
 
     checkingElapsedTime = new QLabel(this);
     checkingElapsedTime->move(584, 82);
-    checkingElapsedTime->setObjectName("fc_checkingelapsedtime");
+    checkingElapsedTime->setObjectName("tc_checkingelapsedtime");
     checkingElapsedTime->setText("已用时：00:00:00");
     checkingElapsedTime->hide();
     checkingElapsedTimer = new QTimer(this);
 
     settings = new CommonWidget(this);
-
-
-
+    settings->setFixedSize(900, 447);
+    settings->setObjectName("trojanchecksetting");
+    int y = 153;
+    settings->move(0, y);
 
     QLabel* typeIcon = new QLabel(settings);
-    typeIcon->move(0, 0);
+    typeIcon->setPixmap(QPixmap(":image/trojancheck/typeIcon"));
+    typeIcon->move(53, 184 - y);
     QLabel* typeDes = new QLabel(settings);
-    typeDes->move(0, 0);
-
+    typeDes->move(82, 184 - y);
     typeDes->setText("检查类型");
     QLabel* typeLabel = new QLabel(settings);
     typeLabel->move(0, 0);
     typeLabel->setText("选择检查类型");
+    typeLabel->move(757, 180 - y);
+    QLabel* hline1 = new QLabel(settings);
+    hline1->move(0, 209 - y);
+    hline1->setPixmap(QPixmap(":image/filecheck/hline"));
     typeLE = new QLineEdit(settings);
     typeLE->setText("威胁文档;网络武器");
     typeLE->setPlaceholderText("请选择检查类型");
+    typeLE->move(51, 218 - y);
+    typeLE->setReadOnly(true);
+
     threatdocumentCheck = new QCheckBox("威胁文档", settings);
     threatdocumentCheck->setCheckState(Qt::Checked);
+    threatdocumentCheck->move(177, 181 - y);
     networkweaponCheck = new QCheckBox("网络武器", settings);
     networkweaponCheck->setCheckState(Qt::Checked);
-
+    networkweaponCheck->move(277, 181 - y);
 
     QLabel* pathIcon = new QLabel(settings);
-    pathIcon->move(0, 0);
+    pathIcon->move(53, 292 - y);
+    pathIcon->setPixmap(QPixmap(":image/trojancheck/pathIcon"));
     QLabel* pathDes = new QLabel(settings);
-    pathDes->move(0, 0);
+    pathDes->move(82, 292 - y);
     pathDes->setText("检查路径");
-    pathBrowserBtn = new StaticButton("icon", 3, settings);
+    pathBrowserBtn = new StaticButton(":image/trojancheck/pathBrowserBtn", 3, settings);
+    pathBrowserBtn->move(772, 288 - y);
+    QLabel* hline2 = new QLabel(settings);
+    hline2->move(0, 316 - y);
+    hline2->setPixmap(QPixmap(":image/trojancheck/hline"));
     pathLE = new QLineEdit(settings);
     pathLE->setPlaceholderText("请设置检查路径");
-
-    checkResultBtn = new StaticButton("icon", 3, settings);
+    pathLE->move(51, 326 - y);
+    checkResultBtn = new StaticButton(":image/trojancheck/checkResultBtn", 3, settings);
+    checkResultBtn->move(738, 380 - y);
+    checkResultBtn->hide();
 }
 void TrojanCheckWidget::initConnect()
 {
@@ -129,7 +144,6 @@ void TrojanCheckWidget::initConnect()
 
     connect(threatdocumentCheck, &QCheckBox::stateChanged, this, &TrojanCheckWidget::setCheckType);
     connect(networkweaponCheck, &QCheckBox::stateChanged, this, &TrojanCheckWidget::setCheckType);
-
 
     connect(threatdocumentCheck, &QCheckBox::stateChanged, [=](int status) {
         if(status  == Qt::Unchecked){
@@ -148,7 +162,6 @@ void TrojanCheckWidget::initConnect()
             emit enableNetworkWeapon();
         }
     });
-
 
     connect(pathLE, &QLineEdit::textChanged, [=](const QString& newValue) {
         emit setParameter("path", newValue);
@@ -176,19 +189,17 @@ void TrojanCheckWidget::setCheckType()
 {
     QString types;
 
-
     if (threatdocumentCheck->checkState() == Qt::Checked) {
-        if (types.isEmpty()) {
+        if (!types.isEmpty()) {
             types.append(";");
         }
         types.append("威胁文档");
     }
     if (networkweaponCheck->checkState() == Qt::Checked) {
-        if (types.isEmpty()) {
+        if (!types.isEmpty()) {
             types.append(";");
         }
         types.append("网络武器");
-
     }
     typeLE->setText(types);
 }
@@ -204,6 +215,8 @@ void TrojanCheckWidget::startCheck()
         typeLE->setFocus();
         return;
     }
+    emit setParameter("path", pathLE->text());
+    emit setParameter("type", typeLE->text());
 
     //     keyWordCB->set
 
@@ -222,6 +235,9 @@ void TrojanCheckWidget::startCheck()
     checkingElapsedTime->adjustSize();
     checkingStartTime = (QDateTime::currentDateTime()).toTime_t();
     checkingElapsedTimer->start(1000);
+
+    checkResultBtn->show();
+    emit startCheckSig();
 }
 
 void TrojanCheckWidget::cancelCheck()
@@ -238,8 +254,6 @@ void TrojanCheckWidget::cancelCheck()
     checkingElapsedTime->hide();
     checkingElapsedTime->setText("");
     checkingElapsedTimer->stop();
-
-
 }
 
 void TrojanCheckWidget::updateCheckingElapsedTime()
@@ -272,4 +286,3 @@ void TrojanCheckWidget::dataCountUpdate(const int totalproblems, const int total
         descriptiontitle->setText(qs);
     descriptiontitle->adjustSize();
 }
-

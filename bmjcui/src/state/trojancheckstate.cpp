@@ -49,7 +49,7 @@ void TrojanCheckState::inittasks(ToolUtil* toolUtil)
     threatDocument = new CheckTask(this, toolUtil, FUNC_TROJANCHECK, SCENE_TROJANCHECK, true, 1);
 
     trojanCheck = new CheckTaskGroup(this, SCENE_FILECHECK, 1,
-                                     QList<CheckTask*>() << threatDocument<<networkWeapon);
+                                     QList<CheckTask*>() << threatDocument << networkWeapon);
 }
 void TrojanCheckState::initConStateGroup()
 {
@@ -76,7 +76,7 @@ void TrojanCheckState::initConUIState(MainWindow* mainwindow)
 {
     TrojanCheckWidget* tc = mainwindow->trojanCheckWidget;
 
-    connect(tc->startcheckbtn, SIGNAL(buttonClicked()), this, SLOT(startexcute()));
+    connect(tc, SIGNAL(startCheckSig()), this, SLOT(startexcute()));
     connect(tc->cancelcheckbtn, SIGNAL(buttonClicked()), this, SLOT(stopexcute()));
     connect(this, SIGNAL(completerateUpdateSig(const int, const QString&)), tc, SLOT(completerateUpdate(const int, const QString&)));
     connect(this, SIGNAL(dataCountUpdateSig(const int, const int)), tc, SLOT(dataCountUpdate(const int, const int)));
@@ -94,7 +94,7 @@ void TrojanCheckState::initConUIState(MainWindow* mainwindow)
     //connect(fileRoutineCheck, &CheckTask::completeSig, fcFileCheckCommonRpt->osInfoBtn, &TaskButton::changeToNoProblem);
     //connect(fileRoutineCheck, &CheckTask::errorFindSig, fcFileCheckCommonRpt->osInfoBtn, &TaskButton::changeToProblem);
     connect(threatDocument, &CheckTask::dataUpdateSig, tcTrojanCheckRpt, &TrojanCheckRpt::addThreatDocument);
-     connect(networkWeapon, &CheckTask::dataUpdateSig, tcTrojanCheckRpt, &TrojanCheckRpt::addNetworkWeapon);
+    connect(networkWeapon, &CheckTask::dataUpdateSig, tcTrojanCheckRpt, &TrojanCheckRpt::addNetworkWeapon);
 }
 //Call UI
 void TrojanCheckState::startexcute()
@@ -154,6 +154,4 @@ void TrojanCheckState::initConInterfaceTask(InterfaceForTool* interfaceForTool)
     connect(interfaceForTool, SIGNAL(t_netweapon_progress(const int, const QString&)), networkWeapon, SLOT(progressUpdate(const int, const QString&)));
     connect(interfaceForTool, SIGNAL(t_netweapon_error(const QString&)), networkWeapon, SLOT(errorUpdate(const QString&)));
     connect(interfaceForTool, SIGNAL(t_netweapon_data(const QVariantList&)), networkWeapon, SLOT(dataUpdate(const QVariantList&)));
-
-
 }

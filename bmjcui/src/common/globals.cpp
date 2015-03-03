@@ -84,6 +84,7 @@ const QString SCENE_COMMONCHECK = "CommonCheck";
 const QString SCENE_DEEPCHECK = "DeepCheck";
 const QString SCENE_FILECHECK = "FileCheck";
 const QString SCENE_TROJANCHECK = "TrojanCheck";
+const QString  SCENE_IMAGECHECK= "ImageCheck";
 
 const QString TOOL_SERVICE = "com.bmjc.backend";
 const QString TOOL_PATH = "/bmjc/backend";
@@ -145,3 +146,5 @@ const QString FUNC_FILEFRGCHECK = "fileFragmentsCheck";
 //木马检查
 const QString FUNC_MALWARECHECK = "networkWeapon";
 const QString FUNC_TROJANCHECK = "threatDocument";
+
+const QString FUNC_IMAGECHECK ="imageCheck";

@@ -74,6 +74,7 @@
 #include <QObject>
 #include <QString>
 #include <QJsonObject>
+#include <QVariantMap>
 
 class QDBusInterface;
 class ToolUtil : public QObject {
@@ -83,7 +84,7 @@ public:
     ~ToolUtil();
 public slots:
     void stopTask(const QString& scenename, const QString& taskname);
-    void startTask(const QString& scenename, const QString& taskname, const QMap<QString, QString>& parameters);
+    void startTask(const QString& scenename, const QString& taskname, const QVariantMap & parameters);
     void stopAll();
     void sendMessage(const QJsonObject& json);
 

@@ -98,6 +98,7 @@
 #include <QJsonParseError>
 #include <QJsonObject>
 #include <QString>
+#include <QVariantMap>
 #include "src/common/globals.h"
 #include  <unistd.h>
 
@@ -121,7 +122,7 @@ void ToolUtil::stopTask(const QString& scenename, const QString& taskname)
     sendMessage(json);
 }
 
-void ToolUtil::startTask(const QString& scenename, const QString& taskname, const QMap<QString, QString>& parameters)
+void ToolUtil::startTask(const QString& scenename, const QString& taskname, const QVariantMap & parameters)
 {
     QJsonObject json;
     json.insert("action", ACTION_RUN);
@@ -129,10 +130,10 @@ void ToolUtil::startTask(const QString& scenename, const QString& taskname, cons
     json.insert("functionname", taskname);
     QJsonObject parametersJson;
 
-    QMapIterator<QString, QString> i(parameters);
+    QMapIterator<QString, QVariant> i(parameters);
     while (i.hasNext()) {
         i.next();
-        parametersJson.insert(i.key(), i.value());
+        parametersJson.insert(i.key(), i.value().toString());
     }
 
     json.insert("parameters", parametersJson);

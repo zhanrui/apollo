@@ -28,7 +28,11 @@ class InterfaceForTool;
 class OneKeyCheckState;
 class FileCheckState;
 class TrojanCheckState;
+class ImageCheckState;
 class BaseReport;
+
+class ImageCheckWidget ;
+class ImageCheckRpt ;
 
 class MainWindow : public ShadowWidget {
     Q_OBJECT
@@ -71,6 +75,10 @@ public:
     TrojanCheckRpt* tcTrojanCheckRpt;
     QList<BaseReport*> tcReports;
 
+    ImageCheckWidget* imageCheckWidget;
+    ImageCheckRpt* icImageCheckRpt;
+    QList<BaseReport*> icReports;
+
     //Animation
     QParallelAnimationGroup* widgetSwitchAnimation;
 
@@ -81,6 +89,7 @@ public:
     OneKeyCheckState* oneKeyCheckState;
     FileCheckState* fileCheckState;
     TrojanCheckState* trojanCheckState;
+    ImageCheckState* imageCheckState;
 
     //SceneMap
 };

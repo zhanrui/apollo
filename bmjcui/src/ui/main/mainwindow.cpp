@@ -5,6 +5,8 @@
 #include "src/ui/onekeycheck/onekeycheckwidget.h"
 #include "src/ui/filecheck/filecheckwidget.h"
 #include "src/ui/trojancheck/trojancheckwidget.h"
+#include "src/ui/imagecheck/imagecheckwidget.h"
+
 #include "src/ui/common/sysbuttongroup.h"
 #include "src/ui/detailreport/basicinforpt.h"
 #include "src/ui/detailreport/deviceconnectrpt.h"
@@ -15,11 +17,17 @@
 #include "src/ui/detailreport/usbrecordcommonrpt.h"
 #include "src/ui/detailreport/filecheckcommonrpt.h"
 #include "src/ui/detailreport/trojancheckrpt.h"
+#include "src/ui/detailreport/imagecheckrpt.h"
+#include "src/ui/detailreport/usbrecordallrpt.h"
+#include "src/ui/detailreport/usbrecorddeeprpt.h"
+#include "src/ui/detailreport/netrecordallrpt.h"
+#include "src/ui/detailreport/netrecorddeeprpt.h"
 #include "src/ui/base/staticbutton.h"
 #include "src/ui/onekeycheck/tabbutton.h"
 #include <src/state/onekeycheckstate.h>
 #include <src/state/filecheckstate.h>
 #include <src/state/trojancheckstate.h>
+#include <src/state/imagecheckstate.h>
 #include <src/util/toolutil.h>
 #include <src/util/interfacefortool.h>
 #include <src/ui/main/mainwindow.h>
@@ -98,7 +106,7 @@ void MainWindow::initUI()
     fileCheckWidget->setObjectName("fileCheckWidget");
     fileCheckWidget->hide();
 
-    fcFileCheckCommonRpt = new FileCheckCommonRpt(this, "检查");
+    fcFileCheckCommonRpt = new FileCheckCommonRpt(this, "文件检查");
     fcFileCheckCommonRpt->setObjectName("fcFileCheckCommonRpt");
     fcFileCheckCommonRpt->hide();
     fcReports << fcFileCheckCommonRpt;
@@ -107,10 +115,21 @@ void MainWindow::initUI()
     trojanCheckWidget->setObjectName("trojanCheckWidget");
     trojanCheckWidget->hide();
 
-    tcTrojanCheckRpt = new TrojanCheckRpt(this, "检查");
+    tcTrojanCheckRpt = new TrojanCheckRpt(this, "木马检查");
     tcTrojanCheckRpt->setObjectName("tcTrojanCheckRpt");
     tcTrojanCheckRpt->hide();
-    tcReports << okcSystemSecurityRpt;
+    tcReports << tcTrojanCheckRpt;
+
+    imageCheckWidget = new ImageCheckWidget(this);
+    imageCheckWidget->setObjectName("imageCheckWidget");
+    imageCheckWidget->hide();
+
+    icImageCheckRpt = new ImageCheckRpt(this, "图片检查");
+    icImageCheckRpt->setObjectName("icImageCheckRpt");
+    icImageCheckRpt->hide();
+    icReports << icImageCheckRpt;
+
+
 
     widgetSwitchAnimation = new QParallelAnimationGroup(this);
 
@@ -209,8 +228,9 @@ void MainWindow::initConnect()
         }
 
     });
-    connect(fileCheckWidget->startcheckbtn, &StaticButton::buttonClicked,
+    connect(fileCheckWidget, &FileCheckWidget::startCheckSig,
             [=]() {
+
         for(BaseReport* baserpt:fcReports){
             for(TaskButton* taskbtn:baserpt->taskbtnlist ){
                 taskbtn->changeToRunning();
@@ -231,7 +251,7 @@ void MainWindow::initConnect()
     connect(trojanCheckWidget->checkResultBtn, &StaticButton::buttonClicked,
             [=]() { switchWidgetToLeft(trojanCheckWidget, tcTrojanCheckRpt); });
     connect(tcTrojanCheckRpt->returnbtn, &StaticButton::buttonClicked,
-            [=]() { switchWidgetToRight(tcTrojanCheckRpt, fileCheckWidget); });
+            [=]() { switchWidgetToRight(tcTrojanCheckRpt, trojanCheckWidget); });
 
     connect(trojanCheckWidget->cancelcheckbtn, &StaticButton::buttonClicked,
             [=]() {
@@ -241,9 +261,9 @@ void MainWindow::initConnect()
                     taskbtn->changeToNoProblem();
             }
         }
-
     });
-    connect(trojanCheckWidget->startcheckbtn, &StaticButton::buttonClicked,
+
+    connect(trojanCheckWidget, &TrojanCheckWidget::startCheckSig,
             [=]() {
         for(BaseReport* baserpt:tcReports){
             for(TaskButton* taskbtn:baserpt->taskbtnlist ){
@@ -255,6 +275,43 @@ void MainWindow::initConnect()
         }
 
     });
+
+
+    //Main Sub Navi - ImageCheck
+    connect(mainWidget->imagechecklogo, &StaticButton::buttonClicked,
+            [=]() {
+        qDebug()<<"test";
+        switchWidgetToLeft(mainWidget, imageCheckWidget); });
+    connect(imageCheckWidget->returnbtn, &StaticButton::buttonClicked,
+            [=]() {  switchWidgetToRight(imageCheckWidget, mainWidget); });
+
+    connect(imageCheckWidget->checkResultBtn, &StaticButton::buttonClicked,
+            [=]() { switchWidgetToLeft(imageCheckWidget, icImageCheckRpt); });
+    connect(icImageCheckRpt->returnbtn, &StaticButton::buttonClicked,
+            [=]() { switchWidgetToRight(icImageCheckRpt, imageCheckWidget); });
+
+    connect(imageCheckWidget->cancelcheckbtn, &StaticButton::buttonClicked,
+            [=]() {
+        for(BaseReport* baserpt:icReports){
+            for(TaskButton* taskbtn:baserpt->taskbtnlist ){
+                if(taskbtn->taskstatus != TASK_PROBLEM)
+                    taskbtn->changeToNoProblem();
+            }
+        }
+
+    });
+    connect(imageCheckWidget, &ImageCheckWidget::startCheckSig,
+            [=]() {
+        for(BaseReport* baserpt:icReports){
+            for(TaskButton* taskbtn:baserpt->taskbtnlist ){
+                taskbtn->changeToRunning();
+            }
+            for(QStandardItemModel* model:baserpt->modellist ){
+               model->removeRows(0,model->rowCount());
+            }
+        }
+    });
+
 
     //OneKeyCheck
     //connect(oneKeyCheckWidget->startcheckbtn, SIGNAL(buttonClicked()), toolUtil, SLOT(startOneKeyCheck()));
@@ -346,6 +403,7 @@ void MainWindow::initDBus()
     oneKeyCheckState->moveToThread(statethread);
     fileCheckState = new FileCheckState(0, this, interfaceForTool, toolUtil);
     trojanCheckState = new TrojanCheckState(0, this, interfaceForTool, toolUtil);
+    imageCheckState = new ImageCheckState(0, this, interfaceForTool, toolUtil);
 
     connect(sysButtonGroup->closeButton, SIGNAL(buttonClicked()), toolUtil, SLOT(stopAll()));
     connect(statethread, SIGNAL(finished()), interfaceForTool, SLOT(deleteLater()));

@@ -320,4 +320,27 @@ void InterfaceForTool::updateFromTool(const QString& messages)
                 emit t_netweapon_data(data);
         }
     }
+
+    if (scenename.compare(SCENE_IMAGECHECK) == 0) {
+        if (resulttype.compare(RPT_PROGRESS) == 0) {
+            int currentcompletion = result["result"].toMap()["currentcompletion"].toString().toInt();
+            QString currentstatus = result["result"].toMap()["currentstatus"].toString();
+            if (functionname.compare(FUNC_IMAGECHECK) == 0)
+                emit i_imagecheck_progress(currentcompletion, currentstatus);
+        }
+        if (resulttype.compare(RPT_ERROR) == 0) {
+            QString errordescrition = result["result"].toMap()["errordescrition"].toString();
+            if (functionname.compare(FUNC_IMAGECHECK) == 0)
+                emit i_imagecheck_error(errordescrition);
+        }
+        if (resulttype.compare(RPT_DATA) == 0) {
+
+            QList<QVariant> data = result["result"].toList();
+            // i=i+data.size();
+            //qDebug()<<i<<" "<<functionname;
+            if (functionname.compare(FUNC_IMAGECHECK) == 0)
+                emit i_imagecheck_data(data);
+        }
+    }
+
 }

@@ -1,7 +1,7 @@
 #include "onekeycheckwidget.h"
 #include "src/ui/base/basestylewidget.h"
 #include "src/ui/base/staticbutton.h"
-#include "src/ui/base/taskscene.h"
+
 #include "src/ui/onekeycheck/tabbutton.h"
 #include "src/ui/onekeycheck/mydelegate.h"
 #include "src/common/globals.h"
@@ -83,8 +83,8 @@ void OneKeyCheckWidget::initUI()
     //hline->setPixmap(QPixmap(":image/onekeycheck/hline"));
     //hline->move(0,153);
     QWidget* leftbackground = new QWidget(this);
-    leftbackground->move(0,153);
-    leftbackground->setFixedSize(192,447);
+    leftbackground->move(0, 153);
+    leftbackground->setFixedSize(192, 447);
     leftbackground->setObjectName("okc_leftbackground");
 
     QLabel* vline = new QLabel(this);
@@ -134,8 +134,25 @@ void OneKeyCheckWidget::initUI()
     tabbuttonlist << basicinfobtn << deviceconnectionbtn << netbrowserbtn << systemsecuritybtn
                   << securitythreatbtn << usbcheckbtn << filecheckbtn << tjcheckbtn;
 
+    QLabel* mainshieldlogo = new QLabel(this);
+    mainshieldlogo->setPixmap(QPixmap(":image/onekeycheck/description/mainshieldlogo"));
+    mainshieldlogo->move(271, 252);
 
+    QLabel* destitle = new QLabel(this);
+    destitle->setObjectName("destitle");
+    destitle->setText("一键检查");
+    destitle->move(496, 259);
 
+    QLabel* shorthline = new QLabel(this);
+    shorthline->setPixmap(QPixmap(":image/onekeycheck/description/shorthline"));
+    shorthline->move(496, 290);
+
+    QLabel* desdetail = new QLabel(this);
+    desdetail->setObjectName("desdetail");
+    desdetail->setText("查看用户终端系统配置、操作系统等基本信息，无线网卡、打印机等设备连接信息，上网记录和usb使用记录，系统服务、进程等系统安全信息，开放端口、共享、身份认证等安全隐患。");
+    desdetail->move(496, 320);
+    desdetail->setFixedWidth(300);
+    desdetail->setWordWrap(true);
 }
 void OneKeyCheckWidget::initConnect()
 {
@@ -145,7 +162,6 @@ void OneKeyCheckWidget::initConnect()
 }
 void OneKeyCheckWidget::initModel()
 {
-
 }
 
 void OneKeyCheckWidget::startCheck()

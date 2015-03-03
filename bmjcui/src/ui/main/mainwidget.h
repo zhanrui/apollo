@@ -45,9 +45,8 @@ public:
     CommonWidget* toolbar;
     StaticButton *onekeychecklogo;
     QLabel* onekeychecktext;
-    StaticButton *commonchecklogo;
-    //TaskButton * commonchecklogo;
-    QLabel* commonchecktext;
+    StaticButton *checkrptlogo;
+    QLabel* checkrpttext;
     StaticButton *deepchecklogo;
     QLabel* deepchecktext;
 
@@ -56,8 +55,8 @@ public:
     QLabel* filechecktext;
     StaticButton *tjchecklogo;
     QLabel* tjchecktext;
-    StaticButton *toollogo;
-    QLabel* tooltext;
+    StaticButton *imagechecklogo;
+    QLabel* imagechecktext;
 
     QList<QWidget*> * buttonlist;
 

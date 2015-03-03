@@ -39,7 +39,6 @@ HEADERS += \
     src/ui/onekeycheck/mydelegate.h \
     src/util/modelutil.h \
     src/common/globals.h \
-    src/ui/base/taskscene.h \
     src/state/common/checktask.h \
     src/state/common/checktaskgroup.h \
     src/ui/common/taskbutton.h \
@@ -55,7 +54,19 @@ HEADERS += \
     src/state/trojancheckstate.h \
     src/ui/detailreport/filecheckcommonrpt.h \
     src/ui/detailreport/trojancheckrpt.h \
-    src/ui/trojancheck/trojancheckwidget.h
+    src/ui/trojancheck/trojancheckwidget.h \
+    src/state/imagecheckstate.h \
+    src/state/usbdeepcheckstate.h \
+    src/state/netrecorddeepcheckstate.h \
+    src/ui/detailreport/imagecheckrpt.h \
+    src/ui/detailreport/netrecorddeeprpt.h \
+    src/ui/detailreport/usbrecorddeeprpt.h \
+    src/ui/detailreport/usbrecordallrpt.h \
+    src/ui/detailreport/netrecordallrpt.h \
+    src/ui/imagecheck/imagecheckwidget.h \
+    src/ui/deepcheck/usbdeepcheckwidget.h \
+    src/ui/deepcheck/netrecorddeepcheckwidget.h \
+    src/ui/checkreport/checkreportwidget.h
 
 SOURCES += \
     src/state/onekeycheckstate.cpp \
@@ -77,7 +88,6 @@ SOURCES += \
     src/ui/onekeycheck/mydelegate.cpp \
     src/util/modelutil.cpp \
     src/common/globals.cpp \
-    src/ui/base/taskscene.cpp \
     src/state/common/checktask.cpp \
     src/state/common/checktaskgroup.cpp \
     src/ui/common/taskbutton.cpp \
@@ -93,7 +103,19 @@ SOURCES += \
     src/state/trojancheckstate.cpp \
     src/ui/detailreport/filecheckcommonrpt.cpp \
     src/ui/detailreport/trojancheckrpt.cpp \
-    src/ui/trojancheck/trojancheckwidget.cpp
+    src/ui/trojancheck/trojancheckwidget.cpp \
+    src/state/imagecheckstate.cpp \
+    src/state/usbdeepcheckstate.cpp \
+    src/state/netrecorddeepcheckstate.cpp \
+    src/ui/detailreport/imagecheckrpt.cpp \
+    src/ui/detailreport/netrecorddeeprpt.cpp \
+    src/ui/detailreport/usbrecorddeeprpt.cpp \
+    src/ui/detailreport/usbrecordallrpt.cpp \
+    src/ui/detailreport/netrecordallrpt.cpp \
+    src/ui/imagecheck/imagecheckwidget.cpp \
+    src/ui/deepcheck/usbdeepcheckwidget.cpp \
+    src/ui/deepcheck/netrecorddeepcheckwidget.cpp \
+    src/ui/checkreport/checkreportwidget.cpp
 
 copyotherfile.commands = $(COPY_DIR) $$PWD/otherfile $$OUT_PWD
 first.depends = $(first) copyotherfile

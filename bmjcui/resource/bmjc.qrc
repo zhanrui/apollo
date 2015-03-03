@@ -163,5 +163,28 @@
         <file>image/common/progressbar_background.png</file>
         <file>image/common/progressbar_front.gif</file>
         <file>image/common/startcheckbtn.png</file>
+        <file>image/filecheck/typeIcon.png</file>
+        <file>image/filecheck/pathIcon.png</file>
+        <file>image/filecheck/pathBrowserBtn.png</file>
+        <file>image/filecheck/keyWordIcon.png</file>
+        <file>image/filecheck/hline.png</file>
+        <file>image/filecheck/filechecklogo.png</file>
+        <file>image/filecheck/checkResultBtn.png</file>
+        <file>image/onekeycheck/description/shorthline.png</file>
+        <file>image/onekeycheck/description/shieldlogo.png</file>
+        <file>image/onekeycheck/description/mainshieldlogo.png</file>
+        <file>image/onekeycheck/description/cloudlogo.png</file>
+        <file>image/trojancheck/typeIcon.png</file>
+        <file>image/trojancheck/trojanchecklogo.png</file>
+        <file>image/trojancheck/pathIcon.png</file>
+        <file>image/trojancheck/pathBrowserBtn.png</file>
+        <file>image/trojancheck/hline.png</file>
+        <file>image/trojancheck/checkResultBtn.png</file>
+        <file>image/imagecheck/pathIcon.png</file>
+        <file>image/imagecheck/pathBrowserBtn.png</file>
+        <file>image/imagecheck/keyWordIcon.png</file>
+        <file>image/imagecheck/imagechecklogo.png</file>
+        <file>image/imagecheck/hline.png</file>
+        <file>image/imagecheck/checkResultBtn.png</file>
     </qresource>
 </RCC>

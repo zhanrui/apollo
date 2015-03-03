@@ -25,6 +25,7 @@ private:
 
 signals:
     void setParameter(const QString& name, const QString& value);
+    void startCheckSig();
     void enableThreatDocument();
     void disableThreatDocument();
     void enableNetworkWeapon();

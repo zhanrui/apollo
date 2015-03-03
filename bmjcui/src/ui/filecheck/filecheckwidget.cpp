@@ -2,7 +2,6 @@
 
 #include "src/ui/base/basestylewidget.h"
 #include "src/ui/base/staticbutton.h"
-#include "src/ui/base/taskscene.h"
 #include "src/ui/base/commonwidget.h"
 #include "src/ui/onekeycheck/tabbutton.h"
 #include "src/ui/onekeycheck/mydelegate.h"
@@ -86,54 +85,85 @@ void FileCheckWidget::initUI()
     checkingElapsedTimer = new QTimer(this);
 
     settings = new CommonWidget(this);
+    settings->setFixedSize(900, 447);
+    settings->setObjectName("filechecksetting");
+    int y = 153;
+    settings->move(0, y);
 
     QLabel* pathIcon = new QLabel(settings);
-    pathIcon->move(0, 0);
+    pathIcon->move(53, 184 - y);
+    pathIcon->setPixmap(QPixmap(":image/filecheck/pathIcon"));
     QLabel* pathDes = new QLabel(settings);
-    pathDes->move(0, 0);
+    pathDes->move(82, 184 - y);
     pathDes->setText("检查路径");
-    pathBrowserBtn = new StaticButton("icon", 3, settings);
+    pathBrowserBtn = new StaticButton(":image/filecheck/pathBrowserBtn", 3, settings);
+    pathBrowserBtn->move(772, 180 - y);
+    QLabel* hline1 = new QLabel(settings);
+    hline1->move(0, 209 - y);
+    hline1->setPixmap(QPixmap(":image/filecheck/hline"));
     pathLE = new QLineEdit(settings);
     pathLE->setPlaceholderText("请设置检查路径");
+    pathLE->move(51, 218 - y);
 
     QLabel* keyWordIcon = new QLabel(settings);
-    keyWordIcon->move(0, 0);
+    keyWordIcon->move(53, 292 - y);
+    keyWordIcon->setPixmap(QPixmap(":image/filecheck/keyWordIcon"));
     QLabel* keyWordDes = new QLabel(settings);
-    keyWordDes->move(0, 0);
+    keyWordDes->move(82, 292 - y);
     keyWordDes->setText("关键词");
     QLabel* keyWordLabel = new QLabel(settings);
-    keyWordLabel->move(0, 0);
+    keyWordLabel->move(773, 288 - y);
     keyWordLabel->setText("设置关键词");
+    QLabel* hline2 = new QLabel(settings);
+    hline2->move(0, 316 - y);
+    hline2->setPixmap(QPixmap(":image/filecheck/hline"));
     keyWordCB = new QComboBox(settings);
     keyWordCB->setEditable(true);
     keyWordCB->insertItem(0, " 秘密;机密;绝密");
     keyWordCB->setCurrentIndex(0);
+    keyWordCB->move(51, 326 - y);
 
     QLabel* typeIcon = new QLabel(settings);
-    typeIcon->move(0, 0);
+    typeIcon->move(53, 403 - y);
+    typeIcon->setPixmap(QPixmap(":image/filecheck/typeIcon"));
     QLabel* typeDes = new QLabel(settings);
-    typeDes->move(0, 0);
+    typeDes->move(82, 403 - y);
     typeDes->setText("文件类型");
     QLabel* typeLabel = new QLabel(settings);
-    typeLabel->move(0, 0);
+    typeLabel->move(757, 406 - y);
     typeLabel->setText("选择文件类型");
+    QLabel* hline3 = new QLabel(settings);
+    hline3->move(0, 316 - y);
+    hline3->setPixmap(QPixmap(":image/filecheck/hline"));
     typeLE = new QLineEdit(settings);
     typeLE->setText(".doc;.docx;.xls;.xlsx;.ppt;.pptx;.pdf;.wps;.et;.rar;.zip;.7z");
     typeLE->setPlaceholderText("请选择文件类型");
+    typeLE->move(51, 440 - y);
+
     docCheck = new QCheckBox("doc(x)", settings);
     docCheck->setCheckState(Qt::Checked);
+    docCheck->move(177, 401 - y);
     xlsCheck = new QCheckBox("xls(x)", settings);
     xlsCheck->setCheckState(Qt::Checked);
+    xlsCheck->move(254, 401 - y);
     pptCheck = new QCheckBox("ppt(x)", settings);
     pptCheck->setCheckState(Qt::Checked);
+    pptCheck->move(324, 401 - y);
     pdfCheck = new QCheckBox("pdf", settings);
     pdfCheck->setCheckState(Qt::Checked);
+    pdfCheck->move(390, 401 - y);
     wpsCheck = new QCheckBox("wps/et", settings);
     wpsCheck->setCheckState(Qt::Checked);
+    wpsCheck->move(440, 401 - y);
     zipCheck = new QCheckBox("rar/zip/7z", settings);
     zipCheck->setCheckState(Qt::Checked);
+    zipCheck->move(516, 401 - y);
 
-    checkResultBtn = new StaticButton("icon", 3, settings);
+    checkResultBtn = new StaticButton(":image/filecheck/checkResultBtn", 3, settings);
+    checkResultBtn->move(738,488-y);
+    checkResultBtn->hide();
+
+
 }
 void FileCheckWidget::initConnect()
 {
@@ -157,7 +187,7 @@ void FileCheckWidget::initConnect()
     connect(typeLE, &QLineEdit::textChanged, [=](const QString& newValue) {
         emit setParameter("type", newValue);
     });
-    connect(keyWordCB, static_cast<void (QComboBox::*)(const QString &)>(&QComboBox::activated), [=](const QString & newValue) {
+    connect(keyWordCB, static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::activated), [=](const QString& newValue) {
         emit setParameter("keyword", newValue);
     });
 }
@@ -181,43 +211,59 @@ void FileCheckWidget::setFileType()
     QString types;
 
     if (docCheck->checkState() == Qt::Checked) {
-        if (types.isEmpty()) {
+        if (!types.isEmpty()) {
             types.append(";");
         }
         types.append(".doc;.docx");
     }
     if (xlsCheck->checkState() == Qt::Checked) {
-        if (types.isEmpty()) {
+        if (!types.isEmpty()) {
             types.append(";");
         }
         types.append(".xls;.xlsx");
     }
     if (pptCheck->checkState() == Qt::Checked) {
-        if (types.isEmpty()) {
+        if (!types.isEmpty()) {
             types.append(";");
         }
         types.append(".ppt;.pptx");
     }
     if (pdfCheck->checkState() == Qt::Checked) {
-        if (types.isEmpty()) {
+        if (!types.isEmpty()) {
             types.append(";");
         }
         types.append(".pdf");
     }
     if (wpsCheck->checkState() == Qt::Checked) {
-        if (types.isEmpty()) {
+        if (!types.isEmpty()) {
             types.append(";");
         }
         types.append(".wps;.ef");
     }
     if (zipCheck->checkState() == Qt::Checked) {
-        if (types.isEmpty()) {
+        if (!types.isEmpty()) {
             types.append(";");
         }
-        types.append(".rar;.zip;7z");
+        types.append(".rar;.zip;.7z");
     }
 
     typeLE->setText(types);
+}
+
+bool FileCheckWidget::validateParameter(){
+    if (keyWordCB->currentText().isEmpty()) {
+        keyWordCB->setFocus();
+        return false;
+    }
+    if (pathLE->text().isEmpty()) {
+        pathLE->setFocus();
+        return false;
+    }
+    if (typeLE->text().isEmpty()) {
+        typeLE->setFocus();
+        return false;
+    }
+    return true;
 }
 
 void FileCheckWidget::startCheck()
@@ -235,6 +281,10 @@ void FileCheckWidget::startCheck()
         typeLE->setFocus();
         return;
     }
+    emit setParameter("path", pathLE->text());
+    emit setParameter("type", typeLE->text());
+    emit setParameter("keyword", keyWordCB->currentText());
+
 
     //     keyWordCB->set
 
@@ -253,6 +303,8 @@ void FileCheckWidget::startCheck()
     checkingElapsedTime->adjustSize();
     checkingStartTime = (QDateTime::currentDateTime()).toTime_t();
     checkingElapsedTimer->start(1000);
+    checkResultBtn->show();
+    emit startCheckSig();
 }
 
 void FileCheckWidget::cancelCheck()
@@ -269,8 +321,6 @@ void FileCheckWidget::cancelCheck()
     checkingElapsedTime->hide();
     checkingElapsedTime->setText("");
     checkingElapsedTimer->stop();
-
-
 }
 
 void FileCheckWidget::updateCheckingElapsedTime()

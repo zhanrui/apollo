@@ -73,7 +73,10 @@ void FileCheckState::initConUIState(MainWindow* mainwindow)
 {
     FileCheckWidget* fc = mainwindow->fileCheckWidget;
 
-    connect(fc->startcheckbtn, SIGNAL(buttonClicked()), this, SLOT(startexcute()));
+    //connect(fc->startcheckbtn, SIGNAL(buttonClicked()), this, SLOT(startexcute()));
+
+    connect(fc, &FileCheckWidget::startCheckSig,this,&FileCheckState::startexcute);
+
     connect(fc->cancelcheckbtn, SIGNAL(buttonClicked()), this, SLOT(stopexcute()));
     connect(fc, &FileCheckWidget::setParameter, fileRoutineCheck, &CheckTask::setParameters);
     connect(this, SIGNAL(completerateUpdateSig(const int, const QString&)), fc, SLOT(completerateUpdate(const int, const QString&)));
@@ -90,6 +93,7 @@ void FileCheckState::initConUIState(MainWindow* mainwindow)
 //Call UI
 void FileCheckState::startexcute()
 {
+
     if (enabled) {
         start = true;
         currentstatus.clear();
