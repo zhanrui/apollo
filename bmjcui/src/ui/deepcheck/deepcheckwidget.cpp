@@ -86,8 +86,8 @@ void DeepCheckWidget::initUI()
     QLabel* deepNetRecCheckDes = new QLabel(settings);
     deepNetRecCheckDes->move(82, 184 - y);
     deepNetRecCheckDes->setText("检查路径");
-    deepUsbCheckbtn = new StaticButton(":image/filecheck/pathBrowserBtn", 3, settings);
-    deepUsbCheckbtn->move(772, 180 - y);
+    deepNetRecCheckbtn = new StaticButton(":image/filecheck/pathBrowserBtn", 3, settings);
+    deepNetRecCheckbtn->move(772, 180 - y);
 
 
 

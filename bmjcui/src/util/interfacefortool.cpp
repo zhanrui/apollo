@@ -204,8 +204,9 @@ void InterfaceForTool::updateFromTool(const QString& messages)
             if (functionname.compare(FUNC_GCINFO) == 0)
                 emit o_gc_data(data);
             //设备连接信息
-            if (functionname.compare(FUNC_HDINFO) == 0)
-                emit o_hd_data(data);
+            if (functionname.compare(FUNC_HDINFO) == 0){
+                qDebug() << messages;
+                emit o_hd_data(data);}
             if (functionname.compare(FUNC_VMINFO) == 0)
                 emit o_vm_data(data);
             if (functionname.compare(FUNC_NCINFO) == 0)
@@ -245,7 +246,7 @@ void InterfaceForTool::updateFromTool(const QString& messages)
                 emit o_grpinfo_data(data);
             if (functionname.compare(FUNC_USERINFO) == 0)
                 emit o_userinfo_data(data);
-            if (functionname.compare(FUNC_GRPINFO) == 0)
+            if (functionname.compare(FUNC_DBINFO) == 0)
                 emit o_dbinfo_data(data);
             if (functionname.compare(FUNC_EVELOG) == 0)
                 emit o_evelog_data(data);

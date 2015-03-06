@@ -89,7 +89,7 @@ void CommonCheckState::inittasks(ToolUtil* toolUtil)
     networkSoftware = new CheckTask(this, toolUtil, FUNC_NETSOFT, SCENE_COMMONCHECK, false, 1);
     groupInfo = new CheckTask(this, toolUtil, FUNC_GRPINFO, SCENE_COMMONCHECK, false, 1);
     userInfo = new CheckTask(this, toolUtil, FUNC_USERINFO, SCENE_COMMONCHECK, false, 1);
-    databaseInfo = new CheckTask(this, toolUtil, FUNC_DBNFO, SCENE_COMMONCHECK, false, 1);
+    databaseInfo = new CheckTask(this, toolUtil, FUNC_DBINFO, SCENE_COMMONCHECK, false, 1);
     eventLog = new CheckTask(this, toolUtil, FUNC_EVELOG, SCENE_COMMONCHECK, false, 1);
     userAuthentication = new CheckTask(this, toolUtil, FUNC_USRAUTH, SCENE_COMMONCHECK, false, 1);
     securityThreat = new CheckTaskGroup(this, SCENE_COMMONCHECK, 1,
@@ -103,18 +103,18 @@ void CommonCheckState::inittasks(ToolUtil* toolUtil)
     //CheckTask*	usbDepthCheck
     netRecordsRoutineCheck = new CheckTask(this, toolUtil, FUNC_NETRECCOMCHECK, SCENE_COMMONCHECK, false, 1);
     netRecordsCheck = new CheckTaskGroup(this, SCENE_COMMONCHECK, 1,
-                                         QList<CheckTask*>() << usbRoutineCheck);
+                                         QList<CheckTask*>() << netRecordsRoutineCheck);
 
     fileRoutineCheck = new CheckTask(this, toolUtil, FUNC_FILECOMCHECK, SCENE_COMMONCHECK, true, 1);
     fileCheck = new CheckTaskGroup(this, SCENE_COMMONCHECK, 1,
-                                   QList<CheckTask*>() << fileRoutineCheck);
+                                   QList<CheckTask*>() <<fileRoutineCheck);
 
     //CheckTask* deletedFileRecovery;
     //CheckTask* fileFragmentsCheck;
 
     threatDocument = new CheckTask(this, toolUtil, FUNC_TROJANCHECK, SCENE_COMMONCHECK, true, 1);
     trojanCheck = new CheckTaskGroup(this, SCENE_COMMONCHECK, 1,
-                                     QList<CheckTask*>() << threatDocument);
+                                     QList<CheckTask*>() <<threatDocument);
     ;
     //CheckTask*	networkWeapon
 }
@@ -122,7 +122,7 @@ void CommonCheckState::initConStateGroup()
 {
     QList<CheckTaskGroup*> taskGroups;
     taskGroups << basicInfo << deviceConnection << netRecordsCheck
-               << usbCheck << securityThreat << systemSecurity << deviceConnection;
+               << usbCheck << securityThreat << systemSecurity ;
     //<< trojanCheck << fileCheck
     for (CheckTaskGroup* taskGroup : taskGroups) {
         connect(this, SIGNAL(startSig()), taskGroup, SLOT(startExecute()));

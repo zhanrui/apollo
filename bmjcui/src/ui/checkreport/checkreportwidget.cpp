@@ -91,7 +91,7 @@ void CheckReportWidget::initUI()
     progressbar_front->hide();
 
     checkingElapsedTime = new QLabel(this);
-    checkingElapsedTime->move(584, 82);
+    checkingElapsedTime->move(560, 82);
     checkingElapsedTime->setObjectName("cr_checkingelapsedtime");
     checkingElapsedTime->setText("已用时：00:00:00");
     checkingElapsedTime->hide();
@@ -397,8 +397,8 @@ void CheckReportWidget::getTableString(QStandardItemModel* model, QString& html,
     html += "     <tbody>";
     for (int i = 0; i < rownumber; i++) {
         html += "      <tr>";
-        for (int i = 0; i < columnnumber; i++) {
-            html += "         <td >" + model->takeItem(rownumber, columnnumber)->text() + "</td>";
+        for (int j = 0; j < columnnumber; j++) {
+            html += "         <td >" + model->takeItem(i, j)->text() + "</td>";
         }
         html += "      </tr>";
     }

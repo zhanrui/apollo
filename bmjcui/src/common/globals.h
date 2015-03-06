@@ -135,7 +135,7 @@ extern const QString FUNC_SHARINFO;
 extern const QString FUNC_NETSOFT;
 extern const QString FUNC_GRPINFO;
 extern const QString FUNC_USERINFO;
-extern const QString FUNC_DBNFO;
+extern const QString FUNC_DBINFO;
 extern const QString FUNC_EVELOG;
 extern const QString FUNC_USRAUTH;
 

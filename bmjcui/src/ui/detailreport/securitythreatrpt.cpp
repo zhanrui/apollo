@@ -177,15 +177,15 @@ void SecurityThreatRpt::addUserInfo(const QVariantList& result)
 
 void SecurityThreatRpt::addDatabaseInfo(const QVariantList& result)
 {
-    ModelUtil::addDataBaseInfo(userInfoMod, result);
+    ModelUtil::addDataBaseInfo(databaseInfoMod, result);
 }
 void SecurityThreatRpt::addEventLog(const QVariantList& result)
 {
-    ModelUtil::addEventLog(userInfoMod, result);
+    ModelUtil::addEventLog(eventLogMod, result);
 }
 void SecurityThreatRpt::addUserAuthentication(const QVariantList& result)
 {
-    ModelUtil::addAuthenticatioInfo(userInfoMod, result);
+    ModelUtil::addAuthenticatioInfo(userAuthenticationMod, result);
 }
 
 void SecurityThreatRpt::selectSecurityPolicy()

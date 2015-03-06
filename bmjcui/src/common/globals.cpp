@@ -128,7 +128,7 @@ const QString FUNC_SHARINFO = "sharingInfo";
 const QString FUNC_NETSOFT = "networkSoftware";
 const QString FUNC_GRPINFO = "groupInfo";
 const QString FUNC_USERINFO = "userInfo";
-const QString FUNC_DBNFO = "databaseInfo";
+const QString FUNC_DBINFO = "databaseInfo";
 const QString FUNC_EVELOG = "eventLog";
 const QString FUNC_USRAUTH = "userAuthentication";
 

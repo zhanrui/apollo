@@ -233,27 +233,28 @@ void ModelUtil::initHardDiskModel(QStandardItemModel* model, QTableView* view)
     view->setModel(model);
     QStandardItem* id = new QStandardItem("ID");
     model->setHorizontalHeaderItem(0, id);
-    view->setColumnWidth(0, 300);
-    QStandardItem* seqnum = new QStandardItem("序列号");
+
+    QStandardItem* seqnum = new QStandardItem("实际路径");
     model->setHorizontalHeaderItem(1, seqnum);
-    QStandardItem* size = new QStandardItem("大小");
+    QStandardItem* size = new QStandardItem("总空间(M)");
     model->setHorizontalHeaderItem(2, size);
-    QStandardItem* partition = new QStandardItem("分区");
+    QStandardItem* partition = new QStandardItem("已使用(M)");
     model->setHorizontalHeaderItem(3, partition);
-    QStandardItem* starttimes = new QStandardItem("启动次数");
+    QStandardItem* starttimes = new QStandardItem("空闲(M)");
     model->setHorizontalHeaderItem(4, starttimes);
-    QStandardItem* runningtime = new QStandardItem("运行时间（小时）");
-    model->setHorizontalHeaderItem(5, runningtime);
-    QStandardItem* partitioninfo = new QStandardItem("分区信息");
-    model->setHorizontalHeaderItem(6, partitioninfo);
 }
 
 void ModelUtil::addHardDiskInfo(QStandardItemModel* model, const QVariantList& result)
 {
     for (QVariant var : result) {
         QVariantMap map = var.toMap();
-        QStandardItem* test = new QStandardItem(map["test"].toString());
-        model->appendRow(QList<QStandardItem*>() << test);
+        QStandardItem* id = new QStandardItem(QString::number(model->rowCount()));
+        QStandardItem* repath = new QStandardItem(map["realpath"].toString());
+        QStandardItem* total = new QStandardItem(map["total"].toString());
+        QStandardItem* used = new QStandardItem(map["used"].toString());
+        QStandardItem* free = new QStandardItem(map["free"].toString());
+
+        model->appendRow(QList<QStandardItem*>() << id << repath << total << used << free);
     }
 }
 void ModelUtil::initVMModel(QStandardItemModel* model, QTableView* view)
@@ -527,13 +528,25 @@ void ModelUtil::initOpenPortModel(QStandardItemModel* model, QTableView* view)
     view->setModel(model);
     QStandardItem* id = new QStandardItem("ID");
     model->setHorizontalHeaderItem(0, id);
+
+    QStandardItem* pid = new QStandardItem("相关进程");
+    model->setHorizontalHeaderItem(1, pid);
+    QStandardItem* localadd = new QStandardItem("本地地址");
+    model->setHorizontalHeaderItem(2, localadd);
+    QStandardItem* foreadd = new QStandardItem("远程地址");
+    model->setHorizontalHeaderItem(3, foreadd);
 }
 void ModelUtil::addOpenPort(QStandardItemModel* model, const QVariantList& result)
 {
     for (QVariant var : result) {
+
         QVariantMap map = var.toMap();
-        QStandardItem* test = new QStandardItem(map["test"].toString());
-        model->appendRow(QList<QStandardItem*>() << test);
+        QStandardItem* id = new QStandardItem(QString::number(model->rowCount()));
+        QStandardItem* pid = new QStandardItem(map["pid"].toString());
+        QStandardItem* localadd = new QStandardItem(map["localadd"].toString());
+        QStandardItem* foreadd = new QStandardItem(map["foreadd"].toString());
+
+        model->appendRow(QList<QStandardItem*>() << id << pid << localadd << foreadd);
     }
 }
 void ModelUtil::initSharedInfoModel(QStandardItemModel* model, QTableView* view)
@@ -569,13 +582,20 @@ void ModelUtil::initUserGroupInfoModel(QStandardItemModel* model, QTableView* vi
     view->setModel(model);
     QStandardItem* id = new QStandardItem("ID");
     model->setHorizontalHeaderItem(0, id);
+    QStandardItem* groupname = new QStandardItem("组名称");
+    model->setHorizontalHeaderItem(1, groupname);
+    QStandardItem* groupid = new QStandardItem("组标识");
+    model->setHorizontalHeaderItem(2, groupid);
 }
 void ModelUtil::addUserGroupInfo(QStandardItemModel* model, const QVariantList& result)
 {
+
     for (QVariant var : result) {
         QVariantMap map = var.toMap();
-        QStandardItem* test = new QStandardItem(map["test"].toString());
-        model->appendRow(QList<QStandardItem*>() << test);
+        QStandardItem* id = new QStandardItem(QString::number(model->rowCount()));
+        QStandardItem* groupname = new QStandardItem(map["groupname"].toString());
+        QStandardItem* groupid = new QStandardItem(map["groupid"].toString());
+        model->appendRow(QList<QStandardItem*>() << id << groupname << groupid);
     }
 }
 void ModelUtil::initUserInfoModel(QStandardItemModel* model, QTableView* view)
@@ -583,13 +603,28 @@ void ModelUtil::initUserInfoModel(QStandardItemModel* model, QTableView* view)
     view->setModel(model);
     QStandardItem* id = new QStandardItem("ID");
     model->setHorizontalHeaderItem(0, id);
+    QStandardItem* username = new QStandardItem("用户名称");
+    model->setHorizontalHeaderItem(1, username);
+    QStandardItem* uid = new QStandardItem("系统用户标识");
+    model->setHorizontalHeaderItem(2, uid);
+    QStandardItem* direct = new QStandardItem("默认目录");
+    model->setHorizontalHeaderItem(3, direct);
+    QStandardItem* groupid = new QStandardItem("组标识");
+    model->setHorizontalHeaderItem(4, groupid);
 }
 void ModelUtil::addUserInfo(QStandardItemModel* model, const QVariantList& result)
 {
+
     for (QVariant var : result) {
         QVariantMap map = var.toMap();
-        QStandardItem* test = new QStandardItem(map["test"].toString());
-        model->appendRow(QList<QStandardItem*>() << test);
+        QStandardItem* id = new QStandardItem(QString::number(model->rowCount()));
+        QStandardItem* username = new QStandardItem( map["username"].toString());
+        QStandardItem* uid = new QStandardItem( map["uid"].toString());;
+        QStandardItem* direct = new QStandardItem( map["direct"].toString());;
+        QStandardItem* groupid = new QStandardItem( map["groupid"].toString());;
+
+
+        model->appendRow(QList<QStandardItem*>() << id << username << uid << direct << groupid);
     }
 }
 void ModelUtil::initDataBaseInfoModel(QStandardItemModel* model, QTableView* view)
@@ -658,7 +693,6 @@ void ModelUtil::addUsbCheckModel(QStandardItemModel* model, const QVariantList& 
 void ModelUtil::initIntenetHistoryCheckModel(QStandardItemModel* model, QTableView* view)
 {
 
-
     view->setModel(model);
     QStandardItem* id = new QStandardItem("ID");
     model->setHorizontalHeaderItem(0, id);
@@ -685,7 +719,6 @@ void ModelUtil::addIntenetHistoryCheckModel(QStandardItemModel* model, const QVa
 
         model->appendRow(QList<QStandardItem*>() << id << title << visitDate << url);
     }
-
 }
 //File Check Info
 void ModelUtil::initFileCheckModel(QStandardItemModel* model, QTableView* view)
@@ -781,7 +814,8 @@ void ModelUtil::addVirusCheckModel(QStandardItemModel* model, const QVariantList
         model->appendRow(QList<QStandardItem*>() << test);
     }
 }
-void ModelUtil::initImageCheckModel(QStandardItemModel* model, QTableView* view){
+void ModelUtil::initImageCheckModel(QStandardItemModel* model, QTableView* view)
+{
     view->setModel(model);
     QStandardItem* id = new QStandardItem("ID");
     model->setHorizontalHeaderItem(0, id);
@@ -790,11 +824,11 @@ void ModelUtil::initImageCheckModel(QStandardItemModel* model, QTableView* view)
     QStandardItem* provider = new QStandardItem("供应商");
     model->setHorizontalHeaderItem(2, provider);
 }
-void ModelUtil::addImageCheckModel(QStandardItemModel* model, const QVariantList& result){
+void ModelUtil::addImageCheckModel(QStandardItemModel* model, const QVariantList& result)
+{
     for (QVariant var : result) {
         QVariantMap map = var.toMap();
         QStandardItem* test = new QStandardItem(map["test"].toString());
         model->appendRow(QList<QStandardItem*>() << test);
     }
 }
-
