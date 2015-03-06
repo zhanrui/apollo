@@ -8,7 +8,7 @@
 
 #include "src/ui/common/taskbutton.h"
 #include "src/ui/base/staticbutton.h"
-#include "src/ui/onekeycheck/mydelegate.h"
+#include "src/ui/commoncheck/mydelegate.h"
 BaseReport::BaseReport()
 {
     taskbtnlist = QList<TaskButton*>();

@@ -11,7 +11,7 @@
 
 #include "src/ui/common/taskbutton.h"
 #include "src/ui/base/staticbutton.h"
-#include "src/ui/onekeycheck/mydelegate.h"
+#include "src/ui/commoncheck/mydelegate.h"
 #include "src/util/modelutil.h"
 #include "src/ui/detailreport/basereport.h"
 ImageCheckRpt::~ImageCheckRpt()

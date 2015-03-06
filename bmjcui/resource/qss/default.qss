@@ -39,27 +39,28 @@ MainWidget > QLabel#version{
 
 
 
-OneKeyCheckWidget,
+CommonCheckWidget,
 FileCheckWidget,
 TrojanCheckWidget,
-ImageCheckWidget
+ImageCheckWidget,
+CheckReportWidget
 {
     background: #FFFFFF;
-    background-image: url(:image/onekeycheck/background.png);
+    background-image: url(:image/commoncheck/background.png);
     background-repeat:no-repeat;
 }
-OneKeyCheckWidget > QWidget#leftbackground{
+CommonCheckWidget > QWidget#leftbackground{
      background: #F4F4F4;
 }
 
-OneKeyCheckWidget > QLabel#destitle{
+CommonCheckWidget > QLabel#destitle{
     font-family: "方正兰亭细黑_GBK";
     font-size: 24px ;
     color:#6F6F6F;
     font-weight: 600;
 }
 
-OneKeyCheckWidget > QLabel#desdetail{
+CommonCheckWidget > QLabel#desdetail{
     font-family: "方正兰亭细黑_GBK";
     font-size: 12.28px ;
     color:#6F6F6F;
@@ -69,7 +70,8 @@ OneKeyCheckWidget > QLabel#desdetail{
 
 FileCheckWidget > CommonWidget#filechecksetting > QLabel,
 TrojanCheckWidget> CommonWidget#trojanchecksetting > QLabel,
-ImageCheckWidget> CommonWidget#imagechecksetting > QLabel
+ImageCheckWidget> CommonWidget#imagechecksetting > QLabel,
+CheckReportWidget> CommonWidget#checkreportsetting > QLabel
 {
     font-family: "方正兰亭细黑_GBK";
     font-size: 12.28px ;
@@ -79,7 +81,8 @@ ImageCheckWidget> CommonWidget#imagechecksetting > QLabel
 
 FileCheckWidget > CommonWidget#filechecksetting > QCheckBox,
 TrojanCheckWidget> CommonWidget#trojanchecksetting > QCheckBox,
-ImageCheckWidget> CommonWidget#imagechecksetting > QCheckBox
+ImageCheckWidget> CommonWidget#imagechecksetting > QCheckBox,
+CheckReportWidget> CommonWidget#checkreportsetting > QCheckBox
 {
     font-family: "方正兰亭细黑_GBK";
     font-size: 13px ;
@@ -89,7 +92,8 @@ ImageCheckWidget> CommonWidget#imagechecksetting > QCheckBox
 
 FileCheckWidget > CommonWidget#filechecksetting > QLineEdit,
 TrojanCheckWidget> CommonWidget#trojanchecksetting > QLineEdit,
-ImageCheckWidget> CommonWidget#imagechecksetting > QLineEdit
+ImageCheckWidget> CommonWidget#imagechecksetting > QLineEdit,
+CheckReportWidget> CommonWidget#checkreportsetting > QLineEdit
 {
    width:797px;
    height:31px;
@@ -152,30 +156,33 @@ CommonWidget#testbutton:pressed{
       background-repeat:no-repeat;
 }
 
-OneKeyCheckWidget > QLabel#okc_descriptiontitle,
+CommonCheckWidget > QLabel#cc_descriptiontitle,
 FileCheckWidget > QLabel#fc_descriptiontitle,
 TrojanCheckWidget > QLabel#tc_descriptiontitle,
-ImageCheckWidget > QLabel#ic_descriptiontitle
+ImageCheckWidget > QLabel#ic_descriptiontitle,
+CheckReportWidget > QLabel#cr_descriptiontitle
 {
       font-family: "方正兰亭细黑_GBK";
       font-size: 28px ;
       color:#FFFFFF
 }
 
-OneKeyCheckWidget > QLabel#okc_description,
+CommonCheckWidget > QLabel#cc_description,
 FileCheckWidget > QLabel#fc_description,
 TrojanCheckWidget > QLabel#tc_description,
-ImageCheckWidget > QLabel#ic_description
+ImageCheckWidget > QLabel#ic_description,
+CheckReportWidget > QLabel#cr_description
 {
       font-family: "方正兰亭细黑_GBK";
       font-size: 14.45px ;
       color:#FFFFFF
 }
 
-OneKeyCheckWidget > QLabel#okc_checkingelapsedtime,
+CommonCheckWidget > QLabel#cc_checkingelapsedtime,
 FileCheckWidget > QLabel#fc_checkingelapsedtime,
 TrojanCheckWidget > QLabel#tc_checkingelapsedtime,
-ImageCheckWidget > QLabel#ic_checkingelapsedtime
+ImageCheckWidget > QLabel#ic_checkingelapsedtime,
+CheckReportWidget > QLabel#cr_checkingelapsedtime
 {
       font-family: "方正兰亭细黑_GBK";
       font-size: 14.45px ;

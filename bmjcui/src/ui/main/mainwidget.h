@@ -31,6 +31,9 @@ public slots:
     void toolbarSwitchRight();
 
 public:
+
+
+
     QWidget* mainTitleWidget;
     QLabel* logoLabel;
     QLabel* textLabel;
@@ -43,8 +46,8 @@ public:
     QLabel* line;
 
     CommonWidget* toolbar;
-    StaticButton *onekeychecklogo;
-    QLabel* onekeychecktext;
+    StaticButton *commonchecklogo;
+    QLabel* commonchecktext;
     StaticButton *checkrptlogo;
     QLabel* checkrpttext;
     StaticButton *deepchecklogo;

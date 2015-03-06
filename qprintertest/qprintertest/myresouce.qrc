@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>bootstrap.min.css</file>
+        <file>bootstrap-theme.min.css</file>
+    </qresource>
+</RCC>

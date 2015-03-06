@@ -10,7 +10,7 @@
 #include <QFontDatabase>
 #include <QTextCodec>
 
-#include <src/state/onekeycheckstate.h>
+#include <src/state/commoncheckstate.h>
 #include <src/util/toolutil.h>
 #include <src/util/interfacefortool.h>
 #include <src/ui/main/mainwindow.h>

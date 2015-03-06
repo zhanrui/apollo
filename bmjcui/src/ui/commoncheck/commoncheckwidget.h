@@ -9,12 +9,12 @@ class QLabel;
 class TabButton;
 
 
-class OneKeyCheckWidget : public BaseStyleWidget
+class CommonCheckWidget : public BaseStyleWidget
 {
     Q_OBJECT
 public:
-    explicit OneKeyCheckWidget(QWidget* parent = 0);
-    ~OneKeyCheckWidget();
+    explicit CommonCheckWidget(QWidget* parent = 0);
+    ~CommonCheckWidget();
     QString getSupportedScene();
     QList<QString> getSupportedFunctions();
 

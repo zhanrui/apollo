@@ -75,11 +75,11 @@ void MainWidget::initUI()
     toolbar->setFixedSize(700, 200);
     toolbar->move(100, 300);
 
-    onekeychecklogo = new StaticButton(":image/main/onekeychecklogo", 3, toolbar);
-    onekeychecklogo->move(37, 9);
-    onekeychecktext = new QLabel(toolbar);
-    onekeychecktext->setPixmap(QPixmap(":image/main/onekeychecktext"));
-    onekeychecktext->move(77, 171);
+    commonchecklogo = new StaticButton(":image/main/commonchecklogo", 3, toolbar);
+    commonchecklogo->move(37, 9);
+    commonchecktext = new QLabel(toolbar);
+    commonchecktext->setPixmap(QPixmap(":image/main/commonchecktext"));
+    commonchecktext->move(77, 171);
 
 
     deepchecklogo = new StaticButton(":image/main/deepchecklogo", 3, toolbar);
@@ -102,22 +102,22 @@ void MainWidget::initUI()
     tjchecktext->setPixmap(QPixmap(":image/main/tjchecktext"));
     tjchecktext->move(77 + 700, 171);
 
-    imagechecklogo = new StaticButton(":image/main/toollogo", 3, toolbar);
+    imagechecklogo = new StaticButton(":image/main/imagechecklogo", 3, toolbar);
     imagechecklogo->move(271 + 700, 9);
     imagechecktext = new QLabel(toolbar);
-    imagechecktext->setPixmap(QPixmap(":image/main/tooltext"));
+    imagechecktext->setPixmap(QPixmap(":image/main/imagechecktext"));
     imagechecktext->move(316 + 700, 171);
 
-    checkrptlogo = new StaticButton(":image/main/commonchecklogo", 3, toolbar);
+    checkrptlogo = new StaticButton(":image/main/checkreportlogo", 3, toolbar);
     checkrptlogo->move(500 + 700, 9);
     checkrpttext = new QLabel(toolbar);
-    checkrpttext->setPixmap(QPixmap(":image/main/commonchecktext"));
+    checkrpttext->setPixmap(QPixmap(":image/main/checkreporttext"));
     checkrpttext->move(550 + 700, 171);
 
     buttonlist = new QList<QWidget*>();
 
-    buttonlist->append(onekeychecklogo);
-    buttonlist->append(onekeychecktext);
+    buttonlist->append(commonchecklogo);
+    buttonlist->append(commonchecktext);
     buttonlist->append(checkrptlogo);
     buttonlist->append(checkrpttext);
     buttonlist->append(deepchecklogo);

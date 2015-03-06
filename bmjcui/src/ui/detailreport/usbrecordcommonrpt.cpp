@@ -9,7 +9,7 @@
 
 #include "src/ui/common/taskbutton.h"
 #include "src/ui/base/staticbutton.h"
-#include "src/ui/onekeycheck/mydelegate.h"
+#include "src/ui/commoncheck/mydelegate.h"
 #include "src/util/modelutil.h"
 #include "src/ui/detailreport/basereport.h"
 UsbRecordCommonRpt::~UsbRecordCommonRpt()
@@ -49,6 +49,7 @@ void UsbRecordCommonRpt::initModel()
 {
 
     usbRecordsMod = new QStandardItemModel(this);
+    //usbRecordsMod->setUserData();
     ModelUtil::initUsbCheckModel(usbRecordsMod, usbRecordsView);
     modellist << usbRecordsMod;
 }

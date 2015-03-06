@@ -3,8 +3,8 @@
 #include "src/ui/base/basestylewidget.h"
 #include "src/ui/base/staticbutton.h"
 #include "src/ui/base/commonwidget.h"
-#include "src/ui/onekeycheck/tabbutton.h"
-#include "src/ui/onekeycheck/mydelegate.h"
+#include "src/ui/commoncheck/tabbutton.h"
+#include "src/ui/commoncheck/mydelegate.h"
 #include "src/common/globals.h"
 #include "src/common/common.h"
 #include <QLabel>
@@ -72,7 +72,7 @@ void ImageCheckWidget::initUI()
     movie->start();
     progressbar_front->setMovie(movie);
 
-    //progressbar_front->setPixmap(QPixmap(":image/onekeycheck/progressbar_front"));
+    //progressbar_front->setPixmap(QPixmap(":image/commoncheck/progressbar_front"));
     progressbar_front->move(-900, 147);
     progressbar_front->hide();
 
@@ -124,7 +124,7 @@ void ImageCheckWidget::initUI()
 
     QLabel* typeIcon = new QLabel(settings);
     typeIcon->move(53, 403 - y);
-    typeIcon->setPixmap(QPixmap(":image/filecheck/typeIcon"));
+    typeIcon->setPixmap(QPixmap(":image/imagecheck/typeIcon"));
     QLabel* typeDes = new QLabel(settings);
     typeDes->move(82, 403 - y);
     typeDes->setText("文件类型");
@@ -298,10 +298,13 @@ void ImageCheckWidget::cancelCheck()
     progressbar_background->hide();
     progressbar_front->hide();
 
-    descriptiontitle->setText("检查已取消");
+    QString currentstatus=descriptiontitle->text();
+    if(currentstatus.contains("发现")){
+         descriptiontitle->setText(currentstatus+"检查取消!");
+    }else{
+         descriptiontitle->setText("检查已取消!");
+    }
     descriptiontitle->adjustSize();
-    description->setText("还未检查出可疑问题");
-    description->adjustSize();
     checkingElapsedTime->hide();
     checkingElapsedTime->setText("");
     checkingElapsedTimer->stop();
@@ -320,6 +323,22 @@ void ImageCheckWidget::completerateUpdate(const int completerate, const QString&
     progressbar_front->move(-895 + 900 * completerate / 100, 147);
     description->setText(status);
     description->adjustSize();
+    if(completerate ==100){
+        startcheckbtn->show();
+        cancelcheckbtn->hide();
+        progressbar_background->hide();
+        progressbar_front->hide();
+        QString currentstatus=descriptiontitle->text();
+        if(currentstatus.contains("发现")){
+             descriptiontitle->setText(currentstatus+"检查完成!");
+        }else{
+             descriptiontitle->setText("检查完成!");
+        }
+        descriptiontitle->adjustSize();
+        checkingElapsedTime->hide();
+        checkingElapsedTime->setText("");
+        checkingElapsedTimer->stop();
+    }
 }
 
 void ImageCheckWidget::dataCountUpdate(const int totalproblems, const int totalinfomations)

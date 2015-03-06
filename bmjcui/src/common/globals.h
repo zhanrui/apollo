@@ -84,14 +84,10 @@ extern const QString RPT_ERROR;
 extern const QString ACTION_RUN;
 extern const QString ACTION_STOP;
 
-extern const QString SCENE_COMMONCHECK;
-extern const QString SCENE_DEEP_USBCHECK;
-extern const QString SCENE_DEEP_NETRECCHECK;
-extern const QString SCENE_FILECHECK;
-extern const QString SCENE_TROJANCHECK;
 
-extern const QString SCENE_ONEKEYCHECK;
+
 extern const QString SCENE_COMMONCHECK;
+extern const QString SCENE_ONEKEYCHECK;
 extern const QString SCENE_DEEP_USBCHECK;
 extern const QString SCENE_DEEP_NETRECCHECK;
 extern const QString SCENE_FILECHECK;

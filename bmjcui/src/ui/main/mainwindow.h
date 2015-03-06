@@ -5,11 +5,21 @@
 #include "src/ui/base/shadowwidget.h"
 
 class MainWidget;
-class OneKeyCheckWidget;
+class CommonCheckWidget;
 class FileCheckWidget;
 class FileCheckCommonRpt;
 class TrojanCheckWidget;
 class TrojanCheckRpt;
+
+class NetRecordDeepCheckWidget;
+class NetRecordDeepRpt;
+class NetRecordDeepCheckState;
+class UsbDeepCheckWidget;
+class UsbRecordDeepRpt;
+class UsbDeepCheckState;
+
+class CheckReportWidget;
+class RptCreator;
 
 class BasicInfoRpt;
 class DeviceConnectRpt;
@@ -25,14 +35,16 @@ class ToolUtil;
 
 class QThread;
 class InterfaceForTool;
-class OneKeyCheckState;
+class CommonCheckState;
 class FileCheckState;
 class TrojanCheckState;
 class ImageCheckState;
 class BaseReport;
 
-class ImageCheckWidget ;
-class ImageCheckRpt ;
+class ImageCheckWidget;
+class ImageCheckRpt;
+
+class DeepCheckWidget;
 
 class MainWindow : public ShadowWidget {
     Q_OBJECT
@@ -53,19 +65,24 @@ public slots:
     void closeWidget();
 
 public:
+
+
+
     //Common Widgets
+
+
     SysButtonGroup* sysButtonGroup;
 
     //Window Widgets
     MainWidget* mainWidget;
-    OneKeyCheckWidget* oneKeyCheckWidget;
-    BasicInfoRpt* okcBasicInfoRpt;
-    DeviceConnectRpt* okcDeviceConnectRpt;
-    NetRecordCommonRpt* okcNetRecordRpt;
-    SystemSecurityRpt* okcSystemSecurityRpt;
-    SecurityThreatRpt* okcSecurityThreatRpt;
-    UsbRecordCommonRpt* okcUsbRecordCommonRpt;
-    QList<BaseReport*> okcReports;
+    CommonCheckWidget* commonCheckWidget;
+    BasicInfoRpt* ccBasicInfoRpt;
+    DeviceConnectRpt* ccDeviceConnectRpt;
+    NetRecordCommonRpt* ccNetRecordRpt;
+    SystemSecurityRpt* ccSystemSecurityRpt;
+    SecurityThreatRpt* ccSecurityThreatRpt;
+    UsbRecordCommonRpt* ccUsbRecordCommonRpt;
+    QList<BaseReport*> ccReports;
 
     FileCheckWidget* fileCheckWidget;
     FileCheckCommonRpt* fcFileCheckCommonRpt;
@@ -79,6 +96,16 @@ public:
     ImageCheckRpt* icImageCheckRpt;
     QList<BaseReport*> icReports;
 
+    DeepCheckWidget* deepCheckWidget;
+
+    NetRecordDeepCheckWidget* netRecordDeepCheckWidget;
+    NetRecordDeepRpt* nrdNetRecordDeepRpt;
+    QList<BaseReport*> nrdReports;
+
+    UsbDeepCheckWidget* usbDeepCheckWidget;
+    UsbRecordDeepRpt* udUsbRecordDeepRpt;
+    QList<BaseReport*> udReports;
+
     //Animation
     QParallelAnimationGroup* widgetSwitchAnimation;
 
@@ -86,10 +113,15 @@ public:
     QThread* statethread;
     InterfaceForTool* interfaceForTool;
     ToolUtil* toolUtil;
-    OneKeyCheckState* oneKeyCheckState;
+    CommonCheckState* oneKeyCheckState;
     FileCheckState* fileCheckState;
     TrojanCheckState* trojanCheckState;
     ImageCheckState* imageCheckState;
+    NetRecordDeepCheckState* netRecordDeepCheckState;
+    UsbDeepCheckState* usbDeepCheckState;
+
+    CheckReportWidget * checkReportWidget;
+    RptCreator * rptCreator ;
 
     //SceneMap
 };

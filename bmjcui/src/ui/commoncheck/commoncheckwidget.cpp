@@ -1,9 +1,9 @@
-#include "onekeycheckwidget.h"
+#include "commoncheckwidget.h"
 #include "src/ui/base/basestylewidget.h"
 #include "src/ui/base/staticbutton.h"
 
-#include "src/ui/onekeycheck/tabbutton.h"
-#include "src/ui/onekeycheck/mydelegate.h"
+#include "src/ui/commoncheck/tabbutton.h"
+#include "src/ui/commoncheck/mydelegate.h"
 #include "src/common/globals.h"
 #include "src/common/common.h"
 #include <QLabel>
@@ -22,7 +22,7 @@
 #include <QDebug>
 #include <QMovie>
 
-OneKeyCheckWidget::OneKeyCheckWidget(QWidget* parent)
+CommonCheckWidget::CommonCheckWidget(QWidget* parent)
     : BaseStyleWidget(parent)
 {
 
@@ -31,11 +31,11 @@ OneKeyCheckWidget::OneKeyCheckWidget(QWidget* parent)
     initConnect();
 }
 
-OneKeyCheckWidget::~OneKeyCheckWidget()
+CommonCheckWidget::~CommonCheckWidget()
 {
 }
 
-void OneKeyCheckWidget::initUI()
+void CommonCheckWidget::initUI()
 {
     this->setFixedSize(900, 600);
     returnbtn = new StaticButton(":image/common/returnbtn", 3, this);
@@ -46,15 +46,15 @@ void OneKeyCheckWidget::initUI()
     cancelcheckbtn->move(739, 74);
     cancelcheckbtn->hide();
     onekeychecklogo = new QLabel(this);
-    onekeychecklogo->setPixmap(QPixmap(":image/onekeycheck/onekeychecklogo"));
+    onekeychecklogo->setPixmap(QPixmap(":image/commoncheck/commonchecklogo"));
     onekeychecklogo->move(40, 55);
     descriptiontitle = new QLabel(this);
-    descriptiontitle->setText("一键检查");
-    descriptiontitle->setObjectName("okc_descriptiontitle");
+    descriptiontitle->setText("常规检查");
+    descriptiontitle->setObjectName("cc_descriptiontitle");
     descriptiontitle->move(130, 69);
     description = new QLabel(this);
     description->setText("一般检查项目包含设备信息，以及基本安全信息");
-    description->setObjectName("okc_description");
+    description->setObjectName("cc_description");
     description->move(133, 109);
 
     progressbar_background = new QLabel(this);
@@ -68,65 +68,65 @@ void OneKeyCheckWidget::initUI()
     movie->start();
     progressbar_front->setMovie(movie);
 
-    //progressbar_front->setPixmap(QPixmap(":image/onekeycheck/progressbar_front"));
+    //progressbar_front->setPixmap(QPixmap(":image/commoncheck/progressbar_front"));
     progressbar_front->move(-900, 147);
     progressbar_front->hide();
 
     checkingElapsedTime = new QLabel(this);
     checkingElapsedTime->move(584, 82);
-    checkingElapsedTime->setObjectName("okc_checkingelapsedtime");
+    checkingElapsedTime->setObjectName("cc_checkingelapsedtime");
     checkingElapsedTime->setText("已用时：00:00:00");
     checkingElapsedTime->hide();
     checkingElapsedTimer = new QTimer(this);
 
     //hline = new QLabel(this);
-    //hline->setPixmap(QPixmap(":image/onekeycheck/hline"));
+    //hline->setPixmap(QPixmap(":image/commoncheck/hline"));
     //hline->move(0,153);
     QWidget* leftbackground = new QWidget(this);
     leftbackground->move(0, 153);
     leftbackground->setFixedSize(192, 447);
-    leftbackground->setObjectName("okc_leftbackground");
+    leftbackground->setObjectName("cc_leftbackground");
 
     QLabel* vline = new QLabel(this);
-    vline->setPixmap(QPixmap(":image/onekeycheck/vline"));
+    vline->setPixmap(QPixmap(":image/commoncheck/vline"));
     vline->move(192, 153);
 
     int start = 153;
     int between = 57;
     int x = 1;
 
-    basicinfobtn = new TabButton(":image/onekeycheck/leftbutton/basicinfobtn", this);
+    basicinfobtn = new TabButton(":image/commoncheck/leftbutton/basicinfobtn", this);
     basicinfobtn->move(x, start);
     basicinfobtn->setEnabled(false);
 
-    deviceconnectionbtn = new TabButton(":image/onekeycheck/leftbutton/deviceconnectionbtn", this);
+    deviceconnectionbtn = new TabButton(":image/commoncheck/leftbutton/deviceconnectionbtn", this);
     deviceconnectionbtn->move(x, start + (between)*1);
     deviceconnectionbtn->setEnabled(false);
 
-    netbrowserbtn = new TabButton(":image/onekeycheck/leftbutton/netbrowserbtn", this);
+    netbrowserbtn = new TabButton(":image/commoncheck/leftbutton/netbrowserbtn", this);
     netbrowserbtn->move(x, start + (between)*2);
     netbrowserbtn->setEnabled(false);
-    systemsecuritybtn = new TabButton(":image/onekeycheck/leftbutton/systemsecuritybtn", this);
+    systemsecuritybtn = new TabButton(":image/commoncheck/leftbutton/systemsecuritybtn", this);
     systemsecuritybtn->move(x, start + (between)*3);
     systemsecuritybtn->setEnabled(false);
-    securitythreatbtn = new TabButton(":image/onekeycheck/leftbutton/securitythreatbtn", this);
+    securitythreatbtn = new TabButton(":image/commoncheck/leftbutton/securitythreatbtn", this);
     securitythreatbtn->move(x, start + (between)*4);
     securitythreatbtn->setEnabled(false);
-    usbcheckbtn = new TabButton(":image/onekeycheck/leftbutton/usbcheckbtn", this);
+    usbcheckbtn = new TabButton(":image/commoncheck/leftbutton/usbcheckbtn", this);
     usbcheckbtn->move(x, start + (between)*5);
     usbcheckbtn->setEnabled(false);
-    filecheckbtn = new TabButton(":image/onekeycheck/leftbutton/filecheckbtn", this);
+    filecheckbtn = new TabButton(":image/commoncheck/leftbutton/filecheckbtn", this);
     filecheckbtn->move(x, start + (between)*6);
     filecheckbtn->setEnabled(false);
     filecheckbtn->hide();
-    tjcheckbtn = new TabButton(":image/onekeycheck/leftbutton/tjcheckbtn", this);
+    tjcheckbtn = new TabButton(":image/commoncheck/leftbutton/tjcheckbtn", this);
     tjcheckbtn->move(x, start + (between)*7);
     tjcheckbtn->setEnabled(false);
     tjcheckbtn->hide();
 
     for (int i = 0; i < 6; i++) {
         QLabel* hline = new QLabel(this);
-        hline->setPixmap(QPixmap(":image/onekeycheck/hline"));
+        hline->setPixmap(QPixmap(":image/commoncheck/hline"));
         hline->move(0, start + (between) * (i + 1));
     }
 
@@ -135,16 +135,16 @@ void OneKeyCheckWidget::initUI()
                   << securitythreatbtn << usbcheckbtn << filecheckbtn << tjcheckbtn;
 
     QLabel* mainshieldlogo = new QLabel(this);
-    mainshieldlogo->setPixmap(QPixmap(":image/onekeycheck/description/mainshieldlogo"));
+    mainshieldlogo->setPixmap(QPixmap(":image/commoncheck/description/mainshieldlogo"));
     mainshieldlogo->move(271, 252);
 
     QLabel* destitle = new QLabel(this);
     destitle->setObjectName("destitle");
-    destitle->setText("一键检查");
+    destitle->setText("常规检查");
     destitle->move(496, 259);
 
     QLabel* shorthline = new QLabel(this);
-    shorthline->setPixmap(QPixmap(":image/onekeycheck/description/shorthline"));
+    shorthline->setPixmap(QPixmap(":image/commoncheck/description/shorthline"));
     shorthline->move(496, 290);
 
     QLabel* desdetail = new QLabel(this);
@@ -154,17 +154,17 @@ void OneKeyCheckWidget::initUI()
     desdetail->setFixedWidth(300);
     desdetail->setWordWrap(true);
 }
-void OneKeyCheckWidget::initConnect()
+void CommonCheckWidget::initConnect()
 {
     connect(startcheckbtn, SIGNAL(buttonClicked()), this, SLOT(startCheck()));
     connect(cancelcheckbtn, SIGNAL(buttonClicked()), this, SLOT(cancelCheck()));
     connect(checkingElapsedTimer, SIGNAL(timeout()), this, SLOT(updateCheckingElapsedTime()));
 }
-void OneKeyCheckWidget::initModel()
+void CommonCheckWidget::initModel()
 {
 }
 
-void OneKeyCheckWidget::startCheck()
+void CommonCheckWidget::startCheck()
 {
     startcheckbtn->hide();
     cancelcheckbtn->show();
@@ -188,17 +188,21 @@ void OneKeyCheckWidget::startCheck()
     }
 }
 
-void OneKeyCheckWidget::cancelCheck()
+void CommonCheckWidget::cancelCheck()
 {
     startcheckbtn->show();
     cancelcheckbtn->hide();
     progressbar_background->hide();
     progressbar_front->hide();
 
-    descriptiontitle->setText("检查已取消");
+    QString currentstatus=descriptiontitle->text();
+    if(currentstatus.contains("发现")){
+         descriptiontitle->setText(currentstatus+"检查取消!");
+    }else{
+         descriptiontitle->setText("检查已取消!");
+    }
     descriptiontitle->adjustSize();
-    description->setText("还未检查出可疑问题");
-    description->adjustSize();
+
     checkingElapsedTime->hide();
     checkingElapsedTime->setText("");
     checkingElapsedTimer->stop();
@@ -209,18 +213,18 @@ void OneKeyCheckWidget::cancelCheck()
     }
 }
 
-void OneKeyCheckWidget::updateCheckingElapsedTime()
+void CommonCheckWidget::updateCheckingElapsedTime()
 {
     //qDebug() << "updateCheckingElapsedTime";
     unsigned int timedifference = (QDateTime::currentDateTime()).toTime_t() - checkingStartTime;
     checkingElapsedTime->setText("已用时：" + (QTime(0, 0)).addSecs(timedifference).toString("hh:mm:ss"));
 }
 
-QString OneKeyCheckWidget::getSupportedScene()
+QString CommonCheckWidget::getSupportedScene()
 {
-    return SCENE_ONEKEYCHECK;
+    return SCENE_COMMONCHECK;
 }
-QList<QString> OneKeyCheckWidget::getSupportedFunctions()
+QList<QString> CommonCheckWidget::getSupportedFunctions()
 {
     return QList<QString>() << FUNC_HDINFO << FUNC_VMINFO << FUNC_NCINFO
                             << FUNC_NADEV << FUNC_PRIDEV << FUNC_BTDEV
@@ -230,15 +234,31 @@ QList<QString> OneKeyCheckWidget::getSupportedFunctions()
                             << FUNC_NETRECCOMCHECK << FUNC_TROJANCHECK;
 }
 
-void OneKeyCheckWidget::completerateUpdate(const int completerate, const QString& status)
+void CommonCheckWidget::completerateUpdate(const int completerate, const QString& status)
 {
-    qDebug() << "completerate::" << completerate;
+   // qDebug() << "completerate::" << completerate;
     progressbar_front->move(-895 + 900 * completerate / 100, 147);
     description->setText(status);
     description->adjustSize();
+    if(completerate ==100){
+        startcheckbtn->show();
+        cancelcheckbtn->hide();
+        progressbar_background->hide();
+        progressbar_front->hide();
+        QString currentstatus=descriptiontitle->text();
+        if(currentstatus.contains("发现")){
+             descriptiontitle->setText(currentstatus+"检查完成!");
+        }else{
+             descriptiontitle->setText("检查完成!");
+        }
+        descriptiontitle->adjustSize();
+        checkingElapsedTime->hide();
+        checkingElapsedTime->setText("");
+        checkingElapsedTimer->stop();
+    }
 }
 
-void OneKeyCheckWidget::dataCountUpdate(const int totalproblems, const int totalinfomations)
+void CommonCheckWidget::dataCountUpdate(const int totalproblems, const int totalinfomations)
 {
     QString qs;
     if (totalproblems > 0)

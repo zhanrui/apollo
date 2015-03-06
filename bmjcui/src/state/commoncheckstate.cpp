@@ -1,10 +1,10 @@
-#include "onekeycheckstate.h"
+#include "commoncheckstate.h"
 #include <QDBusConnection>
 
 #include "src/state/common/checktaskgroup.h"
 #include "src/common/globals.h"
 #include "src/ui/main/mainwindow.h"
-#include "src/ui/onekeycheck/onekeycheckwidget.h"
+#include "src/ui/commoncheck/commoncheckwidget.h"
 #include "src/ui/common/taskbutton.h"
 #include "src/ui/detailreport/deviceconnectrpt.h"
 #include "src/ui/detailreport/netrecordcommonrpt.h"
@@ -13,7 +13,7 @@
 #include "src/ui/detailreport/basicinforpt.h"
 #include "src/ui/detailreport/usbrecordcommonrpt.h"
 #include "src/ui/base/staticbutton.h"
-#include "src/ui/onekeycheck/tabbutton.h"
+#include "src/ui/commoncheck/tabbutton.h"
 #include "src/util/interfacefortool.h"
 #include "src/util/toolutil.h"
 #include <QDebug>
@@ -22,7 +22,7 @@
 //#include "onekeycheck_adaptor.h"
 //#include "onekeycheck_interface.h"
 
-OneKeyCheckState::OneKeyCheckState(QObject* parent, MainWindow* mainwindow, InterfaceForTool* interfaceForTool,
+CommonCheckState::CommonCheckState(QObject* parent, MainWindow* mainwindow, InterfaceForTool* interfaceForTool,
                                    ToolUtil* toolUtil)
     : QObject(parent)
 {
@@ -43,82 +43,82 @@ OneKeyCheckState::OneKeyCheckState(QObject* parent, MainWindow* mainwindow, Inte
     // initConnectionBtwStateAndGroup();
 }
 
-OneKeyCheckState::~OneKeyCheckState()
+CommonCheckState::~CommonCheckState()
 {
 }
 
-void OneKeyCheckState::inittasks(ToolUtil* toolUtil)
+void CommonCheckState::inittasks(ToolUtil* toolUtil)
 {
 
-    operatingSystemInfo = new CheckTask(this, toolUtil, FUNC_OSINFO, SCENE_ONEKEYCHECK, false, 1);
-    cpuInfo = new CheckTask(this, toolUtil, FUNC_CPUINFO, SCENE_ONEKEYCHECK, false, 1);
-    biosInfo = new CheckTask(this, toolUtil, FUNC_BIOSINFO, SCENE_ONEKEYCHECK, false, 1);
-    motherboardInfo = new CheckTask(this, toolUtil, FUNC_MBINFO, SCENE_ONEKEYCHECK, false, 1);
-    memoryInfo = new CheckTask(this, toolUtil, FUNC_MEMINFO, SCENE_ONEKEYCHECK, false, 1);
-    graphicsCardInfo = new CheckTask(this, toolUtil, FUNC_GCINFO, SCENE_ONEKEYCHECK, false, 1);
-    basicInfo = new CheckTaskGroup(this, SCENE_ONEKEYCHECK, 1,
+    operatingSystemInfo = new CheckTask(this, toolUtil, FUNC_OSINFO, SCENE_COMMONCHECK, false, 1);
+    cpuInfo = new CheckTask(this, toolUtil, FUNC_CPUINFO, SCENE_COMMONCHECK, false, 1);
+    biosInfo = new CheckTask(this, toolUtil, FUNC_BIOSINFO, SCENE_COMMONCHECK, false, 1);
+    motherboardInfo = new CheckTask(this, toolUtil, FUNC_MBINFO, SCENE_COMMONCHECK, false, 1);
+    memoryInfo = new CheckTask(this, toolUtil, FUNC_MEMINFO, SCENE_COMMONCHECK, false, 1);
+    graphicsCardInfo = new CheckTask(this, toolUtil, FUNC_GCINFO, SCENE_COMMONCHECK, false, 1);
+    basicInfo = new CheckTaskGroup(this, SCENE_COMMONCHECK, 1,
                                    QList<CheckTask*>() << operatingSystemInfo << cpuInfo
                                                        << biosInfo << motherboardInfo << memoryInfo
                                                        << graphicsCardInfo);
 
-    hardDiskInfo = new CheckTask(this, toolUtil, FUNC_HDINFO, SCENE_ONEKEYCHECK, false, 1);
-    virtualMachineInfo = new CheckTask(this, toolUtil, FUNC_VMINFO, SCENE_ONEKEYCHECK, false, 1);
-    netConfig = new CheckTask(this, toolUtil, FUNC_NCINFO, SCENE_ONEKEYCHECK, false, 1);
-    adapterDevice = new CheckTask(this, toolUtil, FUNC_NADEV, SCENE_ONEKEYCHECK, false, 1);
-    printDevice = new CheckTask(this, toolUtil, FUNC_PRIDEV, SCENE_ONEKEYCHECK, false, 1);
-    blueToothDevice = new CheckTask(this, toolUtil, FUNC_BTDEV, SCENE_ONEKEYCHECK, false, 1);
-    deviceConnection = new CheckTaskGroup(this, SCENE_ONEKEYCHECK, 1,
+    hardDiskInfo = new CheckTask(this, toolUtil, FUNC_HDINFO, SCENE_COMMONCHECK, false, 1);
+    virtualMachineInfo = new CheckTask(this, toolUtil, FUNC_VMINFO, SCENE_COMMONCHECK, false, 1);
+    netConfig = new CheckTask(this, toolUtil, FUNC_NCINFO, SCENE_COMMONCHECK, false, 1);
+    adapterDevice = new CheckTask(this, toolUtil, FUNC_NADEV, SCENE_COMMONCHECK, false, 1);
+    printDevice = new CheckTask(this, toolUtil, FUNC_PRIDEV, SCENE_COMMONCHECK, false, 1);
+    blueToothDevice = new CheckTask(this, toolUtil, FUNC_BTDEV, SCENE_COMMONCHECK, false, 1);
+    deviceConnection = new CheckTaskGroup(this, SCENE_COMMONCHECK, 1,
                                           QList<CheckTask*>() << hardDiskInfo << virtualMachineInfo
                                                               << netConfig << adapterDevice << printDevice
                                                               << blueToothDevice);
 
-    patchNotInstalled = new CheckTask(this, toolUtil, FUNC_PATCH, SCENE_ONEKEYCHECK, false, 1);
-    systemService = new CheckTask(this, toolUtil, FUNC_SERVICE, SCENE_ONEKEYCHECK, false, 2);
-    systemProcess = new CheckTask(this, toolUtil, FUNC_PROCESS, SCENE_ONEKEYCHECK, false, 2);
-    evenProduct = new CheckTask(this, toolUtil, FUNC_OTHERPDT, SCENE_ONEKEYCHECK, false, 1);
-    timeSwitchMachine = new CheckTask(this, toolUtil, FUNC_SWITHTIME, SCENE_ONEKEYCHECK, false, 1);
-    securitySoftware = new CheckTask(this, toolUtil, FUNC_SECSOFT, SCENE_ONEKEYCHECK, false, 1);
-    systemSecurity = new CheckTaskGroup(this, SCENE_ONEKEYCHECK, 1,
+    patchNotInstalled = new CheckTask(this, toolUtil, FUNC_PATCH, SCENE_COMMONCHECK, false, 1);
+    systemService = new CheckTask(this, toolUtil, FUNC_SERVICE, SCENE_COMMONCHECK, false, 2);
+    systemProcess = new CheckTask(this, toolUtil, FUNC_PROCESS, SCENE_COMMONCHECK, false, 2);
+    evenProduct = new CheckTask(this, toolUtil, FUNC_OTHERPDT, SCENE_COMMONCHECK, false, 1);
+    timeSwitchMachine = new CheckTask(this, toolUtil, FUNC_SWITHTIME, SCENE_COMMONCHECK, false, 1);
+    securitySoftware = new CheckTask(this, toolUtil, FUNC_SECSOFT, SCENE_COMMONCHECK, false, 1);
+    systemSecurity = new CheckTaskGroup(this, SCENE_COMMONCHECK, 1,
                                         QList<CheckTask*>() << patchNotInstalled << systemService
                                                             << systemProcess << evenProduct << timeSwitchMachine
                                                             << securitySoftware);
 
-    securityPolicy = new CheckTask(this, toolUtil, FUNC_SECPLCY, SCENE_ONEKEYCHECK, false, 1);
-    openPort = new CheckTask(this, toolUtil, FUNC_OPENPORT, SCENE_ONEKEYCHECK, false, 1);
-    sharingInfo = new CheckTask(this, toolUtil, FUNC_SHARINFO, SCENE_ONEKEYCHECK, false, 1);
-    networkSoftware = new CheckTask(this, toolUtil, FUNC_NETSOFT, SCENE_ONEKEYCHECK, false, 1);
-    groupInfo = new CheckTask(this, toolUtil, FUNC_GRPINFO, SCENE_ONEKEYCHECK, false, 1);
-    userInfo = new CheckTask(this, toolUtil, FUNC_USERINFO, SCENE_ONEKEYCHECK, false, 1);
-    databaseInfo = new CheckTask(this, toolUtil, FUNC_DBNFO, SCENE_ONEKEYCHECK, false, 1);
-    eventLog = new CheckTask(this, toolUtil, FUNC_EVELOG, SCENE_ONEKEYCHECK, false, 1);
-    userAuthentication = new CheckTask(this, toolUtil, FUNC_USRAUTH, SCENE_ONEKEYCHECK, false, 1);
-    securityThreat = new CheckTaskGroup(this, SCENE_ONEKEYCHECK, 1,
+    securityPolicy = new CheckTask(this, toolUtil, FUNC_SECPLCY, SCENE_COMMONCHECK, false, 1);
+    openPort = new CheckTask(this, toolUtil, FUNC_OPENPORT, SCENE_COMMONCHECK, false, 1);
+    sharingInfo = new CheckTask(this, toolUtil, FUNC_SHARINFO, SCENE_COMMONCHECK, false, 1);
+    networkSoftware = new CheckTask(this, toolUtil, FUNC_NETSOFT, SCENE_COMMONCHECK, false, 1);
+    groupInfo = new CheckTask(this, toolUtil, FUNC_GRPINFO, SCENE_COMMONCHECK, false, 1);
+    userInfo = new CheckTask(this, toolUtil, FUNC_USERINFO, SCENE_COMMONCHECK, false, 1);
+    databaseInfo = new CheckTask(this, toolUtil, FUNC_DBNFO, SCENE_COMMONCHECK, false, 1);
+    eventLog = new CheckTask(this, toolUtil, FUNC_EVELOG, SCENE_COMMONCHECK, false, 1);
+    userAuthentication = new CheckTask(this, toolUtil, FUNC_USRAUTH, SCENE_COMMONCHECK, false, 1);
+    securityThreat = new CheckTaskGroup(this, SCENE_COMMONCHECK, 1,
                                         QList<CheckTask*>() << securityPolicy << openPort << sharingInfo
                                                             << networkSoftware << groupInfo << userInfo
                                                             << databaseInfo << eventLog << userAuthentication);
 
-    usbRoutineCheck = new CheckTask(this, toolUtil, FUNC_USBCOMCHECK, SCENE_ONEKEYCHECK, false, 1);
-    usbCheck = new CheckTaskGroup(this, SCENE_ONEKEYCHECK, 1,
+    usbRoutineCheck = new CheckTask(this, toolUtil, FUNC_USBCOMCHECK, SCENE_COMMONCHECK, false, 1);
+    usbCheck = new CheckTaskGroup(this, SCENE_COMMONCHECK, 1,
                                   QList<CheckTask*>() << usbRoutineCheck);
     //CheckTask*	usbDepthCheck
-    netRecordsRoutineCheck = new CheckTask(this, toolUtil, FUNC_NETRECCOMCHECK, SCENE_ONEKEYCHECK, false, 1);
-    netRecordsCheck = new CheckTaskGroup(this, SCENE_ONEKEYCHECK, 1,
+    netRecordsRoutineCheck = new CheckTask(this, toolUtil, FUNC_NETRECCOMCHECK, SCENE_COMMONCHECK, false, 1);
+    netRecordsCheck = new CheckTaskGroup(this, SCENE_COMMONCHECK, 1,
                                          QList<CheckTask*>() << usbRoutineCheck);
 
-    fileRoutineCheck = new CheckTask(this, toolUtil, FUNC_FILECOMCHECK, SCENE_ONEKEYCHECK, true, 1);
-    fileCheck = new CheckTaskGroup(this, SCENE_ONEKEYCHECK, 1,
+    fileRoutineCheck = new CheckTask(this, toolUtil, FUNC_FILECOMCHECK, SCENE_COMMONCHECK, true, 1);
+    fileCheck = new CheckTaskGroup(this, SCENE_COMMONCHECK, 1,
                                    QList<CheckTask*>() << fileRoutineCheck);
 
     //CheckTask* deletedFileRecovery;
     //CheckTask* fileFragmentsCheck;
 
-    threatDocument = new CheckTask(this, toolUtil, FUNC_TROJANCHECK, SCENE_ONEKEYCHECK, true, 1);
-    trojanCheck = new CheckTaskGroup(this, SCENE_ONEKEYCHECK, 1,
+    threatDocument = new CheckTask(this, toolUtil, FUNC_TROJANCHECK, SCENE_COMMONCHECK, true, 1);
+    trojanCheck = new CheckTaskGroup(this, SCENE_COMMONCHECK, 1,
                                      QList<CheckTask*>() << threatDocument);
     ;
     //CheckTask*	networkWeapon
 }
-void OneKeyCheckState::initConStateGroup()
+void CommonCheckState::initConStateGroup()
 {
     QList<CheckTaskGroup*> taskGroups;
     taskGroups << basicInfo << deviceConnection << netRecordsCheck
@@ -136,168 +136,168 @@ void OneKeyCheckState::initConStateGroup()
     }
 }
 
-void OneKeyCheckState::totalUnitChanged(const int value){
+void CommonCheckState::totalUnitChanged(const int value){
     totalcompleteunit +=value;
 }
-void OneKeyCheckState::initConUIState(MainWindow* mainwindow)
+void CommonCheckState::initConUIState(MainWindow* mainwindow)
 {
-    OneKeyCheckWidget* okc = mainwindow->oneKeyCheckWidget;
+    CommonCheckWidget* cc = mainwindow->commonCheckWidget;
 
-    connect(okc->startcheckbtn, SIGNAL(buttonClicked()), this, SLOT(startexcute()));
-    connect(okc->cancelcheckbtn, SIGNAL(buttonClicked()), this, SLOT(stopexcute()));
-    connect(this, SIGNAL(completerateUpdateSig(const int, const QString&)), okc, SLOT(completerateUpdate(const int, const QString&)));
-    connect(this, SIGNAL(dataCountUpdateSig(const int, const int)), okc, SLOT(dataCountUpdate(const int, const int)));
+    connect(cc->startcheckbtn, SIGNAL(buttonClicked()), this, SLOT(startexcute()));
+    connect(cc->cancelcheckbtn, SIGNAL(buttonClicked()), this, SLOT(stopexcute()));
+    connect(this, SIGNAL(completerateUpdateSig(const int, const QString&)), cc, SLOT(completerateUpdate(const int, const QString&)));
+    connect(this, SIGNAL(dataCountUpdateSig(const int, const int)), cc, SLOT(dataCountUpdate(const int, const int)));
 
-    connect(basicInfo, SIGNAL(errorFindSig()), okc->basicinfobtn, SLOT(changeToProblem()));
-    connect(basicInfo, SIGNAL(completeSig()), okc->basicinfobtn, SLOT(changeToNoProblem()));
+    connect(basicInfo, SIGNAL(errorFindSig()), cc->basicinfobtn, SLOT(changeToProblem()));
+    connect(basicInfo, SIGNAL(completeSig()), cc->basicinfobtn, SLOT(changeToNoProblem()));
 
-    connect(deviceConnection, SIGNAL(errorFindSig()), okc->deviceconnectionbtn, SLOT(changeToProblem()));
-    connect(deviceConnection, SIGNAL(completeSig()), okc->deviceconnectionbtn, SLOT(changeToNoProblem()));
+    connect(deviceConnection, SIGNAL(errorFindSig()), cc->deviceconnectionbtn, SLOT(changeToProblem()));
+    connect(deviceConnection, SIGNAL(completeSig()), cc->deviceconnectionbtn, SLOT(changeToNoProblem()));
 
-    connect(systemSecurity, SIGNAL(errorFindSig()), okc->systemsecuritybtn, SLOT(changeToProblem()));
-    connect(systemSecurity, SIGNAL(completeSig()), okc->systemsecuritybtn, SLOT(changeToNoProblem()));
+    connect(systemSecurity, SIGNAL(errorFindSig()), cc->systemsecuritybtn, SLOT(changeToProblem()));
+    connect(systemSecurity, SIGNAL(completeSig()), cc->systemsecuritybtn, SLOT(changeToNoProblem()));
 
-    connect(securityThreat, SIGNAL(errorFindSig()), okc->securitythreatbtn, SLOT(changeToProblem()));
-    connect(securityThreat, SIGNAL(completeSig()), okc->securitythreatbtn, SLOT(changeToNoProblem()));
+    connect(securityThreat, SIGNAL(errorFindSig()), cc->securitythreatbtn, SLOT(changeToProblem()));
+    connect(securityThreat, SIGNAL(completeSig()), cc->securitythreatbtn, SLOT(changeToNoProblem()));
 
-    connect(usbCheck, SIGNAL(errorFindSig()), okc->usbcheckbtn, SLOT(changeToProblem()));
-    connect(usbCheck, SIGNAL(completeSig()), okc->usbcheckbtn, SLOT(changeToNoProblem()));
+    connect(usbCheck, SIGNAL(errorFindSig()), cc->usbcheckbtn, SLOT(changeToProblem()));
+    connect(usbCheck, SIGNAL(completeSig()), cc->usbcheckbtn, SLOT(changeToNoProblem()));
 
-    connect(netRecordsCheck, SIGNAL(errorFindSig()), okc->netbrowserbtn, SLOT(changeToProblem()));
-    connect(netRecordsCheck, SIGNAL(completeSig()), okc->netbrowserbtn, SLOT(changeToNoProblem()));
+    connect(netRecordsCheck, SIGNAL(errorFindSig()), cc->netbrowserbtn, SLOT(changeToProblem()));
+    connect(netRecordsCheck, SIGNAL(completeSig()), cc->netbrowserbtn, SLOT(changeToNoProblem()));
 
-    connect(netRecordsCheck, SIGNAL(errorFindSig()), okc->netbrowserbtn, SLOT(changeToProblem()));
-    connect(netRecordsCheck, SIGNAL(completeSig()), okc->netbrowserbtn, SLOT(changeToNoProblem()));
+    connect(netRecordsCheck, SIGNAL(errorFindSig()), cc->netbrowserbtn, SLOT(changeToProblem()));
+    connect(netRecordsCheck, SIGNAL(completeSig()), cc->netbrowserbtn, SLOT(changeToNoProblem()));
 
-    //connect(fileCheck, SIGNAL(errorFindSig()), okc->filecheckbtn, SLOT(changeToProblem()));
-    //connect(fileCheck, SIGNAL(completeSig()), okc->filecheckbtn, SLOT(changeToNoProblem()));
+    //connect(fileCheck, SIGNAL(errorFindSig()), cc->filecheckbtn, SLOT(changeToProblem()));
+    //connect(fileCheck, SIGNAL(completeSig()), cc->filecheckbtn, SLOT(changeToNoProblem()));
 
-    //connect(trojanCheck, SIGNAL(errorFindSig()), okc->tjcheckbtn, SLOT(changeToProblem()));
-    //connect(trojanCheck, SIGNAL(completeSig()), okc->tjcheckbtn, SLOT(changeToNoProblem()));
+    //connect(trojanCheck, SIGNAL(errorFindSig()), cc->tjcheckbtn, SLOT(changeToProblem()));
+    //connect(trojanCheck, SIGNAL(completeSig()), cc->tjcheckbtn, SLOT(changeToNoProblem()));
     //Basic Info
-    BasicInfoRpt* okcBasicInfoRpt = mainwindow->okcBasicInfoRpt;
-    connect(operatingSystemInfo, &CheckTask::completeSig, okcBasicInfoRpt->osInfoBtn, &TaskButton::changeToNoProblem);
-    connect(operatingSystemInfo, &CheckTask::errorFindSig, okcBasicInfoRpt->osInfoBtn, &TaskButton::changeToProblem);
-    connect(operatingSystemInfo, &CheckTask::dataUpdateSig, okcBasicInfoRpt, &BasicInfoRpt::addOSInfo);
+    BasicInfoRpt* ccBasicInfoRpt = mainwindow->ccBasicInfoRpt;
+    connect(operatingSystemInfo, &CheckTask::completeSig, ccBasicInfoRpt->osInfoBtn, &TaskButton::changeToNoProblem);
+    connect(operatingSystemInfo, &CheckTask::errorFindSig, ccBasicInfoRpt->osInfoBtn, &TaskButton::changeToProblem);
+    connect(operatingSystemInfo, &CheckTask::dataUpdateSig, ccBasicInfoRpt, &BasicInfoRpt::addOSInfo);
 
-    connect(cpuInfo, &CheckTask::completeSig, okcBasicInfoRpt->cpuInfoBtn, &TaskButton::changeToNoProblem);
-    connect(cpuInfo, &CheckTask::errorFindSig, okcBasicInfoRpt->cpuInfoBtn, &TaskButton::changeToProblem);
-    connect(cpuInfo, &CheckTask::dataUpdateSig, okcBasicInfoRpt, &BasicInfoRpt::addCpuInfo);
+    connect(cpuInfo, &CheckTask::completeSig, ccBasicInfoRpt->cpuInfoBtn, &TaskButton::changeToNoProblem);
+    connect(cpuInfo, &CheckTask::errorFindSig, ccBasicInfoRpt->cpuInfoBtn, &TaskButton::changeToProblem);
+    connect(cpuInfo, &CheckTask::dataUpdateSig, ccBasicInfoRpt, &BasicInfoRpt::addCpuInfo);
 
-    connect(biosInfo, &CheckTask::completeSig, okcBasicInfoRpt->biosInfoBtn, &TaskButton::changeToNoProblem);
-    connect(biosInfo, &CheckTask::errorFindSig, okcBasicInfoRpt->biosInfoBtn, &TaskButton::changeToProblem);
-    connect(biosInfo, &CheckTask::dataUpdateSig, okcBasicInfoRpt, &BasicInfoRpt::addBiosInfo);
+    connect(biosInfo, &CheckTask::completeSig, ccBasicInfoRpt->biosInfoBtn, &TaskButton::changeToNoProblem);
+    connect(biosInfo, &CheckTask::errorFindSig, ccBasicInfoRpt->biosInfoBtn, &TaskButton::changeToProblem);
+    connect(biosInfo, &CheckTask::dataUpdateSig, ccBasicInfoRpt, &BasicInfoRpt::addBiosInfo);
 
-    connect(motherboardInfo, &CheckTask::completeSig, okcBasicInfoRpt->motherBoardInfoBtn, &TaskButton::changeToNoProblem);
-    connect(motherboardInfo, &CheckTask::errorFindSig, okcBasicInfoRpt->motherBoardInfoBtn, &TaskButton::changeToProblem);
-    connect(motherboardInfo, &CheckTask::dataUpdateSig, okcBasicInfoRpt, &BasicInfoRpt::addMotherBoardInfo);
+    connect(motherboardInfo, &CheckTask::completeSig, ccBasicInfoRpt->motherBoardInfoBtn, &TaskButton::changeToNoProblem);
+    connect(motherboardInfo, &CheckTask::errorFindSig, ccBasicInfoRpt->motherBoardInfoBtn, &TaskButton::changeToProblem);
+    connect(motherboardInfo, &CheckTask::dataUpdateSig, ccBasicInfoRpt, &BasicInfoRpt::addMotherBoardInfo);
 
-    connect(memoryInfo, &CheckTask::completeSig, okcBasicInfoRpt->memoryInfoBtn, &TaskButton::changeToNoProblem);
-    connect(memoryInfo, &CheckTask::errorFindSig, okcBasicInfoRpt->memoryInfoBtn, &TaskButton::changeToProblem);
-    connect(memoryInfo, &CheckTask::dataUpdateSig, okcBasicInfoRpt, &BasicInfoRpt::addMemoryInfo);
+    connect(memoryInfo, &CheckTask::completeSig, ccBasicInfoRpt->memoryInfoBtn, &TaskButton::changeToNoProblem);
+    connect(memoryInfo, &CheckTask::errorFindSig, ccBasicInfoRpt->memoryInfoBtn, &TaskButton::changeToProblem);
+    connect(memoryInfo, &CheckTask::dataUpdateSig, ccBasicInfoRpt, &BasicInfoRpt::addMemoryInfo);
 
-    connect(graphicsCardInfo, &CheckTask::completeSig, okcBasicInfoRpt->graphicsCardInfoBtn, &TaskButton::changeToNoProblem);
-    connect(graphicsCardInfo, &CheckTask::errorFindSig, okcBasicInfoRpt->graphicsCardInfoBtn, &TaskButton::changeToProblem);
-    connect(graphicsCardInfo, &CheckTask::dataUpdateSig, okcBasicInfoRpt, &BasicInfoRpt::addGraphicsCardInfo);
+    connect(graphicsCardInfo, &CheckTask::completeSig, ccBasicInfoRpt->graphicsCardInfoBtn, &TaskButton::changeToNoProblem);
+    connect(graphicsCardInfo, &CheckTask::errorFindSig, ccBasicInfoRpt->graphicsCardInfoBtn, &TaskButton::changeToProblem);
+    connect(graphicsCardInfo, &CheckTask::dataUpdateSig, ccBasicInfoRpt, &BasicInfoRpt::addGraphicsCardInfo);
 
-    DeviceConnectRpt* okcDeviceConnectRpt = mainwindow->okcDeviceConnectRpt;
-    connect(hardDiskInfo, &CheckTask::completeSig, okcDeviceConnectRpt->hardDiskInfoBtn, &TaskButton::changeToNoProblem);
-    connect(hardDiskInfo, &CheckTask::errorFindSig, okcDeviceConnectRpt->hardDiskInfoBtn, &TaskButton::changeToProblem);
-    connect(hardDiskInfo, &CheckTask::dataUpdateSig, okcDeviceConnectRpt, &DeviceConnectRpt::addHardDiskInfo);
+    DeviceConnectRpt* ccDeviceConnectRpt = mainwindow->ccDeviceConnectRpt;
+    connect(hardDiskInfo, &CheckTask::completeSig, ccDeviceConnectRpt->hardDiskInfoBtn, &TaskButton::changeToNoProblem);
+    connect(hardDiskInfo, &CheckTask::errorFindSig, ccDeviceConnectRpt->hardDiskInfoBtn, &TaskButton::changeToProblem);
+    connect(hardDiskInfo, &CheckTask::dataUpdateSig, ccDeviceConnectRpt, &DeviceConnectRpt::addHardDiskInfo);
 
-    connect(virtualMachineInfo, &CheckTask::completeSig, okcDeviceConnectRpt->virtualMachineInfoBtn, &TaskButton::changeToNoProblem);
-    connect(virtualMachineInfo, &CheckTask::errorFindSig, okcDeviceConnectRpt->virtualMachineInfoBtn, &TaskButton::changeToProblem);
-    connect(virtualMachineInfo, &CheckTask::dataUpdateSig, okcDeviceConnectRpt, &DeviceConnectRpt::addVirtualMachineInfo);
+    connect(virtualMachineInfo, &CheckTask::completeSig, ccDeviceConnectRpt->virtualMachineInfoBtn, &TaskButton::changeToNoProblem);
+    connect(virtualMachineInfo, &CheckTask::errorFindSig, ccDeviceConnectRpt->virtualMachineInfoBtn, &TaskButton::changeToProblem);
+    connect(virtualMachineInfo, &CheckTask::dataUpdateSig, ccDeviceConnectRpt, &DeviceConnectRpt::addVirtualMachineInfo);
 
-    connect(netConfig, &CheckTask::completeSig, okcDeviceConnectRpt->netConfigBtn, &TaskButton::changeToNoProblem);
-    connect(netConfig, &CheckTask::errorFindSig, okcDeviceConnectRpt->netConfigBtn, &TaskButton::changeToProblem);
-    connect(netConfig, &CheckTask::dataUpdateSig, okcDeviceConnectRpt, &DeviceConnectRpt::addNetConfig);
+    connect(netConfig, &CheckTask::completeSig, ccDeviceConnectRpt->netConfigBtn, &TaskButton::changeToNoProblem);
+    connect(netConfig, &CheckTask::errorFindSig, ccDeviceConnectRpt->netConfigBtn, &TaskButton::changeToProblem);
+    connect(netConfig, &CheckTask::dataUpdateSig, ccDeviceConnectRpt, &DeviceConnectRpt::addNetConfig);
 
-    connect(adapterDevice, &CheckTask::completeSig, okcDeviceConnectRpt->adapterDeviceBtn, &TaskButton::changeToNoProblem);
-    connect(adapterDevice, &CheckTask::errorFindSig, okcDeviceConnectRpt->adapterDeviceBtn, &TaskButton::changeToProblem);
-    connect(adapterDevice, &CheckTask::dataUpdateSig, okcDeviceConnectRpt, &DeviceConnectRpt::addAdapterDevice);
+    connect(adapterDevice, &CheckTask::completeSig, ccDeviceConnectRpt->adapterDeviceBtn, &TaskButton::changeToNoProblem);
+    connect(adapterDevice, &CheckTask::errorFindSig, ccDeviceConnectRpt->adapterDeviceBtn, &TaskButton::changeToProblem);
+    connect(adapterDevice, &CheckTask::dataUpdateSig, ccDeviceConnectRpt, &DeviceConnectRpt::addAdapterDevice);
 
-    connect(printDevice, &CheckTask::completeSig, okcDeviceConnectRpt->printDeviceBtn, &TaskButton::changeToNoProblem);
-    connect(printDevice, &CheckTask::errorFindSig, okcDeviceConnectRpt->printDeviceBtn, &TaskButton::changeToProblem);
-    connect(printDevice, &CheckTask::dataUpdateSig, okcDeviceConnectRpt, &DeviceConnectRpt::addPrintDevice);
+    connect(printDevice, &CheckTask::completeSig, ccDeviceConnectRpt->printDeviceBtn, &TaskButton::changeToNoProblem);
+    connect(printDevice, &CheckTask::errorFindSig, ccDeviceConnectRpt->printDeviceBtn, &TaskButton::changeToProblem);
+    connect(printDevice, &CheckTask::dataUpdateSig, ccDeviceConnectRpt, &DeviceConnectRpt::addPrintDevice);
 
-    connect(blueToothDevice, &CheckTask::completeSig, okcDeviceConnectRpt->blueToothDeviceBtn, &TaskButton::changeToNoProblem);
-    connect(blueToothDevice, &CheckTask::errorFindSig, okcDeviceConnectRpt->blueToothDeviceBtn, &TaskButton::changeToProblem);
-    connect(blueToothDevice, &CheckTask::dataUpdateSig, okcDeviceConnectRpt, &DeviceConnectRpt::addBlueToothDevice);
+    connect(blueToothDevice, &CheckTask::completeSig, ccDeviceConnectRpt->blueToothDeviceBtn, &TaskButton::changeToNoProblem);
+    connect(blueToothDevice, &CheckTask::errorFindSig, ccDeviceConnectRpt->blueToothDeviceBtn, &TaskButton::changeToProblem);
+    connect(blueToothDevice, &CheckTask::dataUpdateSig, ccDeviceConnectRpt, &DeviceConnectRpt::addBlueToothDevice);
 
-    NetRecordCommonRpt* okcNetRecordRpt = mainwindow->okcNetRecordRpt;
-    connect(netRecordsRoutineCheck, &CheckTask::dataUpdateSig, okcNetRecordRpt, &NetRecordCommonRpt::addNetRecordsInfo);
+    NetRecordCommonRpt* ccNetRecordRpt = mainwindow->ccNetRecordRpt;
+    connect(netRecordsRoutineCheck, &CheckTask::dataUpdateSig, ccNetRecordRpt, &NetRecordCommonRpt::addNetRecordsInfo);
 
-    SystemSecurityRpt* okcSystemSecurityRpt = mainwindow->okcSystemSecurityRpt;
+    SystemSecurityRpt* ccSystemSecurityRpt = mainwindow->ccSystemSecurityRpt;
 
-    connect(patchNotInstalled, &CheckTask::completeSig, okcSystemSecurityRpt->patchNotInstalledBtn, &TaskButton::changeToNoProblem);
-    connect(patchNotInstalled, &CheckTask::errorFindSig, okcSystemSecurityRpt->patchNotInstalledBtn, &TaskButton::changeToProblem);
-    connect(patchNotInstalled, &CheckTask::dataUpdateSig, okcSystemSecurityRpt, &SystemSecurityRpt::addPatchNotInstalled);
+    connect(patchNotInstalled, &CheckTask::completeSig, ccSystemSecurityRpt->patchNotInstalledBtn, &TaskButton::changeToNoProblem);
+    connect(patchNotInstalled, &CheckTask::errorFindSig, ccSystemSecurityRpt->patchNotInstalledBtn, &TaskButton::changeToProblem);
+    connect(patchNotInstalled, &CheckTask::dataUpdateSig, ccSystemSecurityRpt, &SystemSecurityRpt::addPatchNotInstalled);
 
-    connect(systemService, &CheckTask::completeSig, okcSystemSecurityRpt->systemServiceBtn, &TaskButton::changeToNoProblem);
-    connect(systemService, &CheckTask::errorFindSig, okcSystemSecurityRpt->systemServiceBtn, &TaskButton::changeToProblem);
-    connect(systemService, &CheckTask::dataUpdateSig, okcSystemSecurityRpt, &SystemSecurityRpt::addSystemService);
+    connect(systemService, &CheckTask::completeSig, ccSystemSecurityRpt->systemServiceBtn, &TaskButton::changeToNoProblem);
+    connect(systemService, &CheckTask::errorFindSig, ccSystemSecurityRpt->systemServiceBtn, &TaskButton::changeToProblem);
+    connect(systemService, &CheckTask::dataUpdateSig, ccSystemSecurityRpt, &SystemSecurityRpt::addSystemService);
 
-    connect(systemProcess, &CheckTask::completeSig, okcSystemSecurityRpt->systemProcessBtn, &TaskButton::changeToNoProblem);
-    connect(systemProcess, &CheckTask::errorFindSig, okcSystemSecurityRpt->systemProcessBtn, &TaskButton::changeToProblem);
-    connect(systemProcess, &CheckTask::dataUpdateSig, okcSystemSecurityRpt, &SystemSecurityRpt::addSystemProcess);
+    connect(systemProcess, &CheckTask::completeSig, ccSystemSecurityRpt->systemProcessBtn, &TaskButton::changeToNoProblem);
+    connect(systemProcess, &CheckTask::errorFindSig, ccSystemSecurityRpt->systemProcessBtn, &TaskButton::changeToProblem);
+    connect(systemProcess, &CheckTask::dataUpdateSig, ccSystemSecurityRpt, &SystemSecurityRpt::addSystemProcess);
 
-    connect(evenProduct, &CheckTask::completeSig, okcSystemSecurityRpt->evenProductBtn, &TaskButton::changeToNoProblem);
-    connect(evenProduct, &CheckTask::errorFindSig, okcSystemSecurityRpt->evenProductBtn, &TaskButton::changeToProblem);
-    connect(evenProduct, &CheckTask::dataUpdateSig, okcSystemSecurityRpt, &SystemSecurityRpt::addEvenProduct);
+    connect(evenProduct, &CheckTask::completeSig, ccSystemSecurityRpt->evenProductBtn, &TaskButton::changeToNoProblem);
+    connect(evenProduct, &CheckTask::errorFindSig, ccSystemSecurityRpt->evenProductBtn, &TaskButton::changeToProblem);
+    connect(evenProduct, &CheckTask::dataUpdateSig, ccSystemSecurityRpt, &SystemSecurityRpt::addEvenProduct);
 
-    connect(timeSwitchMachine, &CheckTask::completeSig, okcSystemSecurityRpt->timeSwitchMachineBtn, &TaskButton::changeToNoProblem);
-    connect(timeSwitchMachine, &CheckTask::errorFindSig, okcSystemSecurityRpt->timeSwitchMachineBtn, &TaskButton::changeToProblem);
-    connect(timeSwitchMachine, &CheckTask::dataUpdateSig, okcSystemSecurityRpt, &SystemSecurityRpt::addTimeSwitchMachine);
+    connect(timeSwitchMachine, &CheckTask::completeSig, ccSystemSecurityRpt->timeSwitchMachineBtn, &TaskButton::changeToNoProblem);
+    connect(timeSwitchMachine, &CheckTask::errorFindSig, ccSystemSecurityRpt->timeSwitchMachineBtn, &TaskButton::changeToProblem);
+    connect(timeSwitchMachine, &CheckTask::dataUpdateSig, ccSystemSecurityRpt, &SystemSecurityRpt::addTimeSwitchMachine);
 
-    connect(securitySoftware, &CheckTask::completeSig, okcSystemSecurityRpt->securitySoftwareBtn, &TaskButton::changeToNoProblem);
-    connect(securitySoftware, &CheckTask::errorFindSig, okcSystemSecurityRpt->securitySoftwareBtn, &TaskButton::changeToProblem);
-    connect(securitySoftware, &CheckTask::dataUpdateSig, okcSystemSecurityRpt, &SystemSecurityRpt::addSecuritySoftware);
+    connect(securitySoftware, &CheckTask::completeSig, ccSystemSecurityRpt->securitySoftwareBtn, &TaskButton::changeToNoProblem);
+    connect(securitySoftware, &CheckTask::errorFindSig, ccSystemSecurityRpt->securitySoftwareBtn, &TaskButton::changeToProblem);
+    connect(securitySoftware, &CheckTask::dataUpdateSig, ccSystemSecurityRpt, &SystemSecurityRpt::addSecuritySoftware);
 
-    UsbRecordCommonRpt* okcUsbRecordCommonRpt = mainwindow->okcUsbRecordCommonRpt;
-    connect(usbRoutineCheck, &CheckTask::dataUpdateSig, okcUsbRecordCommonRpt, &UsbRecordCommonRpt::addUsbRecordsInfo);
+    UsbRecordCommonRpt* ccUsbRecordCommonRpt = mainwindow->ccUsbRecordCommonRpt;
+    connect(usbRoutineCheck, &CheckTask::dataUpdateSig, ccUsbRecordCommonRpt, &UsbRecordCommonRpt::addUsbRecordsInfo);
 
-    SecurityThreatRpt* okcSecurityThreatRpt = mainwindow->okcSecurityThreatRpt;
+    SecurityThreatRpt* ccSecurityThreatRpt = mainwindow->ccSecurityThreatRpt;
 
-    connect(securityPolicy, &CheckTask::completeSig, okcSecurityThreatRpt->securityPolicyBtn, &TaskButton::changeToNoProblem);
-    connect(securityPolicy, &CheckTask::errorFindSig, okcSecurityThreatRpt->securityPolicyBtn, &TaskButton::changeToProblem);
-    connect(securityPolicy, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addSecurityPolicy);
+    connect(securityPolicy, &CheckTask::completeSig, ccSecurityThreatRpt->securityPolicyBtn, &TaskButton::changeToNoProblem);
+    connect(securityPolicy, &CheckTask::errorFindSig, ccSecurityThreatRpt->securityPolicyBtn, &TaskButton::changeToProblem);
+    connect(securityPolicy, &CheckTask::dataUpdateSig, ccSecurityThreatRpt, &SecurityThreatRpt::addSecurityPolicy);
 
-    connect(openPort, &CheckTask::completeSig, okcSecurityThreatRpt->openPortBtn, &TaskButton::changeToNoProblem);
-    connect(openPort, &CheckTask::errorFindSig, okcSecurityThreatRpt->openPortBtn, &TaskButton::changeToProblem);
-    connect(openPort, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addOpenPort);
+    connect(openPort, &CheckTask::completeSig, ccSecurityThreatRpt->openPortBtn, &TaskButton::changeToNoProblem);
+    connect(openPort, &CheckTask::errorFindSig, ccSecurityThreatRpt->openPortBtn, &TaskButton::changeToProblem);
+    connect(openPort, &CheckTask::dataUpdateSig, ccSecurityThreatRpt, &SecurityThreatRpt::addOpenPort);
 
-    connect(sharingInfo, &CheckTask::completeSig, okcSecurityThreatRpt->sharingInfoBtn, &TaskButton::changeToNoProblem);
-    connect(sharingInfo, &CheckTask::errorFindSig, okcSecurityThreatRpt->sharingInfoBtn, &TaskButton::changeToProblem);
-    connect(sharingInfo, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addSharingInfo);
+    connect(sharingInfo, &CheckTask::completeSig, ccSecurityThreatRpt->sharingInfoBtn, &TaskButton::changeToNoProblem);
+    connect(sharingInfo, &CheckTask::errorFindSig, ccSecurityThreatRpt->sharingInfoBtn, &TaskButton::changeToProblem);
+    connect(sharingInfo, &CheckTask::dataUpdateSig, ccSecurityThreatRpt, &SecurityThreatRpt::addSharingInfo);
 
-    connect(networkSoftware, &CheckTask::completeSig, okcSecurityThreatRpt->networkSoftwareBtn, &TaskButton::changeToNoProblem);
-    connect(networkSoftware, &CheckTask::errorFindSig, okcSecurityThreatRpt->networkSoftwareBtn, &TaskButton::changeToProblem);
-    connect(networkSoftware, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addNetworkSoftware);
+    connect(networkSoftware, &CheckTask::completeSig, ccSecurityThreatRpt->networkSoftwareBtn, &TaskButton::changeToNoProblem);
+    connect(networkSoftware, &CheckTask::errorFindSig, ccSecurityThreatRpt->networkSoftwareBtn, &TaskButton::changeToProblem);
+    connect(networkSoftware, &CheckTask::dataUpdateSig, ccSecurityThreatRpt, &SecurityThreatRpt::addNetworkSoftware);
 
-    connect(groupInfo, &CheckTask::completeSig, okcSecurityThreatRpt->groupInfoBtn, &TaskButton::changeToNoProblem);
-    connect(groupInfo, &CheckTask::errorFindSig, okcSecurityThreatRpt->groupInfoBtn, &TaskButton::changeToProblem);
-    connect(groupInfo, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addGroupInfo);
+    connect(groupInfo, &CheckTask::completeSig, ccSecurityThreatRpt->groupInfoBtn, &TaskButton::changeToNoProblem);
+    connect(groupInfo, &CheckTask::errorFindSig, ccSecurityThreatRpt->groupInfoBtn, &TaskButton::changeToProblem);
+    connect(groupInfo, &CheckTask::dataUpdateSig, ccSecurityThreatRpt, &SecurityThreatRpt::addGroupInfo);
 
-    connect(userInfo, &CheckTask::completeSig, okcSecurityThreatRpt->userInfoBtn, &TaskButton::changeToNoProblem);
-    connect(userInfo, &CheckTask::errorFindSig, okcSecurityThreatRpt->userInfoBtn, &TaskButton::changeToProblem);
-    connect(userInfo, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addUserInfo);
+    connect(userInfo, &CheckTask::completeSig, ccSecurityThreatRpt->userInfoBtn, &TaskButton::changeToNoProblem);
+    connect(userInfo, &CheckTask::errorFindSig, ccSecurityThreatRpt->userInfoBtn, &TaskButton::changeToProblem);
+    connect(userInfo, &CheckTask::dataUpdateSig, ccSecurityThreatRpt, &SecurityThreatRpt::addUserInfo);
 
-    connect(eventLog, &CheckTask::completeSig, okcSecurityThreatRpt->eventLogBtn, &TaskButton::changeToNoProblem);
-    connect(eventLog, &CheckTask::errorFindSig, okcSecurityThreatRpt->eventLogBtn, &TaskButton::changeToProblem);
-    connect(eventLog, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addEventLog);
+    connect(eventLog, &CheckTask::completeSig, ccSecurityThreatRpt->eventLogBtn, &TaskButton::changeToNoProblem);
+    connect(eventLog, &CheckTask::errorFindSig, ccSecurityThreatRpt->eventLogBtn, &TaskButton::changeToProblem);
+    connect(eventLog, &CheckTask::dataUpdateSig, ccSecurityThreatRpt, &SecurityThreatRpt::addEventLog);
 
-    connect(databaseInfo, &CheckTask::completeSig, okcSecurityThreatRpt->databaseInfoBtn, &TaskButton::changeToNoProblem);
-    connect(databaseInfo, &CheckTask::errorFindSig, okcSecurityThreatRpt->databaseInfoBtn, &TaskButton::changeToProblem);
-    connect(databaseInfo, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addDatabaseInfo);
+    connect(databaseInfo, &CheckTask::completeSig, ccSecurityThreatRpt->databaseInfoBtn, &TaskButton::changeToNoProblem);
+    connect(databaseInfo, &CheckTask::errorFindSig, ccSecurityThreatRpt->databaseInfoBtn, &TaskButton::changeToProblem);
+    connect(databaseInfo, &CheckTask::dataUpdateSig, ccSecurityThreatRpt, &SecurityThreatRpt::addDatabaseInfo);
 
-    connect(userAuthentication, &CheckTask::completeSig, okcSecurityThreatRpt->userAuthenticationBtn, &TaskButton::changeToNoProblem);
-    connect(userAuthentication, &CheckTask::errorFindSig, okcSecurityThreatRpt->userAuthenticationBtn, &TaskButton::changeToProblem);
-    connect(userAuthentication, &CheckTask::dataUpdateSig, okcSecurityThreatRpt, &SecurityThreatRpt::addUserAuthentication);
+    connect(userAuthentication, &CheckTask::completeSig, ccSecurityThreatRpt->userAuthenticationBtn, &TaskButton::changeToNoProblem);
+    connect(userAuthentication, &CheckTask::errorFindSig, ccSecurityThreatRpt->userAuthenticationBtn, &TaskButton::changeToProblem);
+    connect(userAuthentication, &CheckTask::dataUpdateSig, ccSecurityThreatRpt, &SecurityThreatRpt::addUserAuthentication);
 
 }
 //Call UI
-void OneKeyCheckState::startexcute()
+void CommonCheckState::startexcute()
 {
     if (enabled) {
         start = true;
@@ -309,18 +309,18 @@ void OneKeyCheckState::startexcute()
         emit startSig();
     }
 }
-void OneKeyCheckState::stopexcute()
+void CommonCheckState::stopexcute()
 {
     start = false;
     emit stopSig();
 }
-void OneKeyCheckState::disablescene()
+void CommonCheckState::disablescene()
 {
     enabled = false;
     emit disableSig();
 }
 //From Task
-void OneKeyCheckState::progressUpdate(const int completeunit, const QString& status)
+void CommonCheckState::progressUpdate(const int completeunit, const QString& status)
 {
     this->currentcompleteunit += completeunit;
     this->currentstatus = status;
@@ -330,7 +330,7 @@ void OneKeyCheckState::progressUpdate(const int completeunit, const QString& sta
         emit completeSig();
     }
 };
-void OneKeyCheckState::dataCountUpdate(const int totalproblems, const int totalinfomations)
+void CommonCheckState::dataCountUpdate(const int totalproblems, const int totalinfomations)
 {
     this->totalproblems += totalproblems;
     this->totalinfomations += totalinfomations;
@@ -343,7 +343,7 @@ void OneKeyCheckState::dataCountUpdate(const int totalproblems, const int totali
     }
     emit dataCountUpdateSig(this->totalproblems, this->totalinfomations);
 };
-void OneKeyCheckState::initConInterfaceTask(InterfaceForTool* interfaceForTool)
+void CommonCheckState::initConInterfaceTask(InterfaceForTool* interfaceForTool)
 {
 
     //Basic Info

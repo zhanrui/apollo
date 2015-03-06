@@ -82,8 +82,8 @@ void FileCheckState::initConUIState(MainWindow* mainwindow)
     connect(this, SIGNAL(completerateUpdateSig(const int, const QString&)), fc, SLOT(completerateUpdate(const int, const QString&)));
     connect(this, SIGNAL(dataCountUpdateSig(const int, const int)), fc, SLOT(dataCountUpdate(const int, const int)));
 
-    //connect(fileCheck, SIGNAL(errorFindSig()), okc->basicinfobtn, SLOT(changeToProblem()));
-    //connect(fileCheck, SIGNAL(completeSig()), okc->basicinfobtn, SLOT(changeToNoProblem()));
+    //connect(fileCheck, SIGNAL(errorFindSig()), cc->basicinfobtn, SLOT(changeToProblem()));
+    //connect(fileCheck, SIGNAL(completeSig()), cc->basicinfobtn, SLOT(changeToNoProblem()));
 
     FileCheckCommonRpt* fcFileCheckCommonRpt = mainwindow->fcFileCheckCommonRpt;
     //connect(fileRoutineCheck, &CheckTask::completeSig, fcFileCheckCommonRpt->osInfoBtn, &TaskButton::changeToNoProblem);

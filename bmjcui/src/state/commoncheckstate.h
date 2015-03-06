@@ -8,13 +8,13 @@ class MainWindow;
 class InterfaceForTool;
 class ToolUtil;
 
-class OneKeyCheckState : public QObject {
+class CommonCheckState : public QObject {
     Q_OBJECT
 
 public:
-    explicit OneKeyCheckState(QObject* parent , MainWindow* mainwindow, InterfaceForTool* interfaceForTool,
+    explicit CommonCheckState(QObject* parent , MainWindow* mainwindow, InterfaceForTool* interfaceForTool,
                               ToolUtil* toolUtil);
-    ~OneKeyCheckState();
+    ~CommonCheckState();
     void inittasks(ToolUtil* toolUtil);
     void initConStateGroup();
     void initConInterfaceTask( InterfaceForTool* interfaceForTool);

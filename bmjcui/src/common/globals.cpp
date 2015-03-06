@@ -85,6 +85,8 @@ const QString SCENE_DEEPCHECK = "DeepCheck";
 const QString SCENE_FILECHECK = "FileCheck";
 const QString SCENE_TROJANCHECK = "TrojanCheck";
 const QString  SCENE_IMAGECHECK= "ImageCheck";
+const QString SCENE_DEEP_USBCHECK= "DeepUsbCheck";
+const QString SCENE_DEEP_NETRECCHECK= "DeepNetRecCheck";
 
 const QString TOOL_SERVICE = "com.bmjc.backend";
 const QString TOOL_PATH = "/bmjc/backend";

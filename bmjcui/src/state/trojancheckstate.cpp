@@ -87,8 +87,8 @@ void TrojanCheckState::initConUIState(MainWindow* mainwindow)
     connect(tc, &TrojanCheckWidget::disableThreatDocument, threatDocument, &CheckTask::disableTask);
     connect(tc, &TrojanCheckWidget::enableThreatDocument, threatDocument, &CheckTask::enableTask);
 
-    //connect(fileCheck, SIGNAL(errorFindSig()), okc->basicinfobtn, SLOT(changeToProblem()));
-    //connect(fileCheck, SIGNAL(completeSig()), okc->basicinfobtn, SLOT(changeToNoProblem()));
+    //connect(fileCheck, SIGNAL(errorFindSig()), cc->basicinfobtn, SLOT(changeToProblem()));
+    //connect(fileCheck, SIGNAL(completeSig()), cc->basicinfobtn, SLOT(changeToNoProblem()));
 
     TrojanCheckRpt* tcTrojanCheckRpt = mainwindow->tcTrojanCheckRpt;
     //connect(fileRoutineCheck, &CheckTask::completeSig, fcFileCheckCommonRpt->osInfoBtn, &TaskButton::changeToNoProblem);

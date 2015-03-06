@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui dbus widgets multimedia multimediawidgets
+QT       += core gui printsupport dbus widgets multimedia multimediawidgets
 
 CONFIG += qt debug c++11
 
@@ -20,7 +20,6 @@ RESOURCES += \
     resource/bmjc.qrc
 
 HEADERS += \
-    src/state/onekeycheckstate.h \
     src/common/common.h \
     src/ui/base/basestylewidget.h \
     src/ui/base/commonwidget.h \
@@ -34,9 +33,8 @@ HEADERS += \
     src/ui/common/sysbuttongroup.h \
     src/ui/base/opacitywidget.h \
     src/ui/base/faderwidget.h \
-    src/ui/onekeycheck/onekeycheckwidget.h \
-    src/ui/onekeycheck/tabbutton.h \
-    src/ui/onekeycheck/mydelegate.h \
+    src/ui/commoncheck/tabbutton.h \
+    src/ui/commoncheck/mydelegate.h \
     src/util/modelutil.h \
     src/common/globals.h \
     src/state/common/checktask.h \
@@ -66,10 +64,13 @@ HEADERS += \
     src/ui/imagecheck/imagecheckwidget.h \
     src/ui/deepcheck/usbdeepcheckwidget.h \
     src/ui/deepcheck/netrecorddeepcheckwidget.h \
-    src/ui/checkreport/checkreportwidget.h
+    src/ui/checkreport/checkreportwidget.h \
+    src/util/rptcreator.h \
+    src/state/commoncheckstate.h \
+    src/ui/commoncheck/commoncheckwidget.h \
+    src/ui/deepcheck/deepcheckwidget.h
 
 SOURCES += \
-    src/state/onekeycheckstate.cpp \
     src/ui/base/basestylewidget.cpp \
     src/ui/base/commonwidget.cpp \
     src/ui/base/shadowwidget.cpp \
@@ -82,10 +83,9 @@ SOURCES += \
     src/ui/common/sysbuttongroup.cpp \
     src/ui/base/opacitywidget.cpp \
     src/ui/base/faderwidget.cpp \
-    src/ui/onekeycheck/onekeycheckwidget.cpp \
     src/main.cpp \
-    src/ui/onekeycheck/tabbutton.cpp \
-    src/ui/onekeycheck/mydelegate.cpp \
+    src/ui/commoncheck/tabbutton.cpp \
+    src/ui/commoncheck/mydelegate.cpp \
     src/util/modelutil.cpp \
     src/common/globals.cpp \
     src/state/common/checktask.cpp \
@@ -115,7 +115,11 @@ SOURCES += \
     src/ui/imagecheck/imagecheckwidget.cpp \
     src/ui/deepcheck/usbdeepcheckwidget.cpp \
     src/ui/deepcheck/netrecorddeepcheckwidget.cpp \
-    src/ui/checkreport/checkreportwidget.cpp
+    src/ui/checkreport/checkreportwidget.cpp \
+    src/util/rptcreator.cpp \
+    src/state/commoncheckstate.cpp \
+    src/ui/commoncheck/commoncheckwidget.cpp \
+    src/ui/deepcheck/deepcheckwidget.cpp
 
 copyotherfile.commands = $(COPY_DIR) $$PWD/otherfile $$OUT_PWD
 first.depends = $(first) copyotherfile

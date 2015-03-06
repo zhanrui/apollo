@@ -38,7 +38,7 @@ void ModelUtil::initCPUModel(QStandardItemModel* model, QTableView* view)
 //	CPU MHz				CPU MHz
 void ModelUtil::addCpuInfo(QStandardItemModel* model, const QVariantList& result)
 {
-    qDebug() << "result" << result.size();
+    //qDebug() << "result" << result.size();
 
     for (QVariant var : result) {
         QVariantMap map = var.toMap();
@@ -657,22 +657,35 @@ void ModelUtil::addUsbCheckModel(QStandardItemModel* model, const QVariantList& 
 //System Usb Check Info
 void ModelUtil::initIntenetHistoryCheckModel(QStandardItemModel* model, QTableView* view)
 {
+
+
     view->setModel(model);
     QStandardItem* id = new QStandardItem("ID");
     model->setHorizontalHeaderItem(0, id);
-    QStandardItem* name = new QStandardItem("名称");
-    model->setHorizontalHeaderItem(1, name);
-    QStandardItem* provider = new QStandardItem("供应商");
-    model->setHorizontalHeaderItem(2, provider);
+    QStandardItem* title = new QStandardItem("标签内容");
+    model->setHorizontalHeaderItem(1, title);
+    QStandardItem* visitDate = new QStandardItem("访问时间");
+    model->setHorizontalHeaderItem(2, visitDate);
+    QStandardItem* url = new QStandardItem("URL地址");
+    model->setHorizontalHeaderItem(3, url);
 }
 
 void ModelUtil::addIntenetHistoryCheckModel(QStandardItemModel* model, const QVariantList& result)
 {
+    //#url          URL地址
+    //#visitDate    访问时间
+    //#title    	  标签内容
+
     for (QVariant var : result) {
         QVariantMap map = var.toMap();
-        QStandardItem* test = new QStandardItem(map["test"].toString());
-        model->appendRow(QList<QStandardItem*>() << test);
+        QStandardItem* id = new QStandardItem(QString::number(model->rowCount()));
+        QStandardItem* title = new QStandardItem(map["title"].toString());
+        QStandardItem* visitDate = new QStandardItem(map["visitDate"].toString());
+        QStandardItem* url = new QStandardItem(map["url"].toString());
+
+        model->appendRow(QList<QStandardItem*>() << id << title << visitDate << url);
     }
+
 }
 //File Check Info
 void ModelUtil::initFileCheckModel(QStandardItemModel* model, QTableView* view)

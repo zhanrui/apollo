@@ -28,7 +28,7 @@ void InterfaceForTool::updateFromTool(const QString& messages)
     QString resulttype = result["resulttype"].toString();
     QString scenename = result["scenename"].toString();
     QString functionname = result["functionname"].toString();
-    if (scenename.compare(SCENE_ONEKEYCHECK) == 0) {
+    if (scenename.compare(SCENE_COMMONCHECK) == 0) {
         if (resulttype.compare(RPT_PROGRESS) == 0) {
             int currentcompletion = result["result"].toMap()["currentcompletion"].toString().toInt();
             QString currentstatus = result["result"].toMap()["currentstatus"].toString();
@@ -257,8 +257,10 @@ void InterfaceForTool::updateFromTool(const QString& messages)
                 emit o_usbcomcheck_data(data);
 
             //上网记录
-            if (functionname.compare(FUNC_NETRECCOMCHECK) == 0)
+            if (functionname.compare(FUNC_NETRECCOMCHECK) == 0) {
+                qDebug() << "hello";
                 emit o_netreccomcheck_data(data);
+            }
 
             //文件检查
             if (functionname.compare(FUNC_FILECOMCHECK) == 0)
@@ -340,6 +342,48 @@ void InterfaceForTool::updateFromTool(const QString& messages)
             //qDebug()<<i<<" "<<functionname;
             if (functionname.compare(FUNC_IMAGECHECK) == 0)
                 emit i_imagecheck_data(data);
+        }
+    }
+
+    if (scenename.compare(SCENE_DEEP_NETRECCHECK) == 0) {
+        if (resulttype.compare(RPT_PROGRESS) == 0) {
+            int currentcompletion = result["result"].toMap()["currentcompletion"].toString().toInt();
+            QString currentstatus = result["result"].toMap()["currentstatus"].toString();
+            if (functionname.compare(FUNC_NETRECDEPCHECK) == 0)
+                emit n_netrecdeepcheck_progress(currentcompletion, currentstatus);
+        }
+        if (resulttype.compare(RPT_ERROR) == 0) {
+            QString errordescrition = result["result"].toMap()["errordescrition"].toString();
+            if (functionname.compare(FUNC_NETRECDEPCHECK) == 0)
+                emit n_netrecdeepcheck_error(errordescrition);
+        }
+        if (resulttype.compare(RPT_DATA) == 0) {
+
+            QList<QVariant> data = result["result"].toList();
+            if (functionname.compare(FUNC_NETRECDEPCHECK) == 0)
+                emit n_netrecdeepcheck_data(data);
+        }
+    }
+
+    //usbdeepcheck
+
+    if (scenename.compare(SCENE_DEEP_USBCHECK) == 0) {
+        if (resulttype.compare(RPT_PROGRESS) == 0) {
+            int currentcompletion = result["result"].toMap()["currentcompletion"].toString().toInt();
+            QString currentstatus = result["result"].toMap()["currentstatus"].toString();
+            if (functionname.compare(FUNC_USBDEPCHECK) == 0)
+                emit u_usbdeepcheck_progress(currentcompletion, currentstatus);
+        }
+        if (resulttype.compare(RPT_ERROR) == 0) {
+            QString errordescrition = result["result"].toMap()["errordescrition"].toString();
+            if (functionname.compare(FUNC_USBDEPCHECK) == 0)
+                emit u_usbdeepcheck_error(errordescrition);
+        }
+        if (resulttype.compare(RPT_DATA) == 0) {
+
+            QList<QVariant> data = result["result"].toList();
+            if (functionname.compare(FUNC_USBDEPCHECK) == 0)
+                emit u_usbdeepcheck_data(data);
         }
     }
 

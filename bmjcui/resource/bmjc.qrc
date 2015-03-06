@@ -27,41 +27,41 @@
         <file>image/main/toright.png</file>
         <file>image/main/version.png</file>
         <file>image/common/returnbtn.png</file>
-        <file>image/onekeycheck/onekeychecklogo.png</file>
-        <file>image/onekeycheck/description.png</file>
-        <file>image/onekeycheck/background.png</file>
-        <file>image/onekeycheck/leftbutton/deviceconnectionbtn_default.png</file>
-        <file>image/onekeycheck/leftbutton/deviceconnectionbtn_noproblem.png</file>
-        <file>image/onekeycheck/leftbutton/deviceconnectionbtn_problem.png</file>
-        <file>image/onekeycheck/leftbutton/deviceconnectionbtn_running.png</file>
-        <file>image/onekeycheck/leftbutton/filecheckbtn_default.png</file>
-        <file>image/onekeycheck/leftbutton/filecheckbtn_noproblem.png</file>
-        <file>image/onekeycheck/leftbutton/filecheckbtn_problem.png</file>
-        <file>image/onekeycheck/leftbutton/filecheckbtn_running.png</file>
-        <file>image/onekeycheck/leftbutton/netbrowserbtn_default.png</file>
-        <file>image/onekeycheck/leftbutton/netbrowserbtn_noproblem.png</file>
-        <file>image/onekeycheck/leftbutton/netbrowserbtn_problem.png</file>
-        <file>image/onekeycheck/leftbutton/netbrowserbtn_running.png</file>
-        <file>image/onekeycheck/leftbutton/securitythreatbtn_default.png</file>
-        <file>image/onekeycheck/leftbutton/securitythreatbtn_noproblem.png</file>
-        <file>image/onekeycheck/leftbutton/securitythreatbtn_problem.png</file>
-        <file>image/onekeycheck/leftbutton/securitythreatbtn_running.png</file>
-        <file>image/onekeycheck/leftbutton/systemsecuritybtn_problem.png</file>
-        <file>image/onekeycheck/leftbutton/systemsecuritybtn_running.png</file>
-        <file>image/onekeycheck/leftbutton/tjcheckbtn_default.png</file>
-        <file>image/onekeycheck/leftbutton/tjcheckbtn_noproblem.png</file>
-        <file>image/onekeycheck/leftbutton/tjcheckbtn_problem.png</file>
-        <file>image/onekeycheck/leftbutton/tjcheckbtn_running.png</file>
-        <file>image/onekeycheck/leftbutton/usbcheckbtn_default.png</file>
-        <file>image/onekeycheck/leftbutton/usbcheckbtn_noproblem.png</file>
-        <file>image/onekeycheck/leftbutton/usbcheckbtn_problem.png</file>
-        <file>image/onekeycheck/leftbutton/usbcheckbtn_running.png</file>
+        <file>image/commoncheck/onekeychecklogo.png</file>
+        <file>image/commoncheck/description.png</file>
+        <file>image/commoncheck/background.png</file>
+        <file>image/commoncheck/leftbutton/deviceconnectionbtn_default.png</file>
+        <file>image/commoncheck/leftbutton/deviceconnectionbtn_noproblem.png</file>
+        <file>image/commoncheck/leftbutton/deviceconnectionbtn_problem.png</file>
+        <file>image/commoncheck/leftbutton/deviceconnectionbtn_running.png</file>
+        <file>image/commoncheck/leftbutton/filecheckbtn_default.png</file>
+        <file>image/commoncheck/leftbutton/filecheckbtn_noproblem.png</file>
+        <file>image/commoncheck/leftbutton/filecheckbtn_problem.png</file>
+        <file>image/commoncheck/leftbutton/filecheckbtn_running.png</file>
+        <file>image/commoncheck/leftbutton/netbrowserbtn_default.png</file>
+        <file>image/commoncheck/leftbutton/netbrowserbtn_noproblem.png</file>
+        <file>image/commoncheck/leftbutton/netbrowserbtn_problem.png</file>
+        <file>image/commoncheck/leftbutton/netbrowserbtn_running.png</file>
+        <file>image/commoncheck/leftbutton/securitythreatbtn_default.png</file>
+        <file>image/commoncheck/leftbutton/securitythreatbtn_noproblem.png</file>
+        <file>image/commoncheck/leftbutton/securitythreatbtn_problem.png</file>
+        <file>image/commoncheck/leftbutton/securitythreatbtn_running.png</file>
+        <file>image/commoncheck/leftbutton/systemsecuritybtn_problem.png</file>
+        <file>image/commoncheck/leftbutton/systemsecuritybtn_running.png</file>
+        <file>image/commoncheck/leftbutton/tjcheckbtn_default.png</file>
+        <file>image/commoncheck/leftbutton/tjcheckbtn_noproblem.png</file>
+        <file>image/commoncheck/leftbutton/tjcheckbtn_problem.png</file>
+        <file>image/commoncheck/leftbutton/tjcheckbtn_running.png</file>
+        <file>image/commoncheck/leftbutton/usbcheckbtn_default.png</file>
+        <file>image/commoncheck/leftbutton/usbcheckbtn_noproblem.png</file>
+        <file>image/commoncheck/leftbutton/usbcheckbtn_problem.png</file>
+        <file>image/commoncheck/leftbutton/usbcheckbtn_running.png</file>
         <file>font/方正兰亭细黑.TTF</file>
-        <file>image/onekeycheck/hline.png</file>
-        <file>image/onekeycheck/vline.png</file>
-        <file>image/onekeycheck/leftbutton/systemsecuritybtn_noproblem.png</file>
-        <file>image/onekeycheck/leftbutton/systemsecuritybtn_default.png</file>
-        <file>image/onekeycheck/resulttable/headerbackground.png</file>
+        <file>image/commoncheck/hline.png</file>
+        <file>image/commoncheck/vline.png</file>
+        <file>image/commoncheck/leftbutton/systemsecuritybtn_noproblem.png</file>
+        <file>image/commoncheck/leftbutton/systemsecuritybtn_default.png</file>
+        <file>image/commoncheck/resulttable/headerbackground.png</file>
         <file>image/detailreport/running_movie.gif</file>
         <file>image/detailreport/background.png</file>
         <file>image/detailreport/deviceconnect/adapterDeviceBtn_noproblem.png</file>
@@ -86,10 +86,10 @@
         <file>image/detailreport/resulttable/headerbackground.png</file>
         <file>image/detailreport/resulttable/headerseperate.png</file>
         <file>image/detailreport/logo.png</file>
-        <file>image/onekeycheck/leftbutton/basicinfobtn_default.png</file>
-        <file>image/onekeycheck/leftbutton/basicinfobtn_noproblem.png</file>
-        <file>image/onekeycheck/leftbutton/basicinfobtn_problem.png</file>
-        <file>image/onekeycheck/leftbutton/basicinfobtn_running.png</file>
+        <file>image/commoncheck/leftbutton/basicinfobtn_default.png</file>
+        <file>image/commoncheck/leftbutton/basicinfobtn_noproblem.png</file>
+        <file>image/commoncheck/leftbutton/basicinfobtn_problem.png</file>
+        <file>image/commoncheck/leftbutton/basicinfobtn_running.png</file>
         <file>image/detailreport/basicinfo/biosInfoBtn_noproblem.png</file>
         <file>image/detailreport/basicinfo/biosInfoBtn_problem.png</file>
         <file>image/detailreport/basicinfo/biosInfoBtn_running.png</file>
@@ -170,10 +170,10 @@
         <file>image/filecheck/hline.png</file>
         <file>image/filecheck/filechecklogo.png</file>
         <file>image/filecheck/checkResultBtn.png</file>
-        <file>image/onekeycheck/description/shorthline.png</file>
-        <file>image/onekeycheck/description/shieldlogo.png</file>
-        <file>image/onekeycheck/description/mainshieldlogo.png</file>
-        <file>image/onekeycheck/description/cloudlogo.png</file>
+        <file>image/commoncheck/description/shorthline.png</file>
+        <file>image/commoncheck/description/shieldlogo.png</file>
+        <file>image/commoncheck/description/mainshieldlogo.png</file>
+        <file>image/commoncheck/description/cloudlogo.png</file>
         <file>image/trojancheck/typeIcon.png</file>
         <file>image/trojancheck/trojanchecklogo.png</file>
         <file>image/trojancheck/pathIcon.png</file>
@@ -186,5 +186,18 @@
         <file>image/imagecheck/imagechecklogo.png</file>
         <file>image/imagecheck/hline.png</file>
         <file>image/imagecheck/checkResultBtn.png</file>
+        <file>image/main/imagechecktext.png</file>
+        <file>image/main/imagechecklogo.png</file>
+        <file>image/main/checkreporttext.png</file>
+        <file>image/main/checkreportlogo.png</file>
+        <file>image/commoncheck/commonchecklogo.png</file>
+        <file>image/imagecheck/typeIcon.png</file>
+        <file>image/checkreport/typeIcon.png</file>
+        <file>image/checkreport/pathIcon.png</file>
+        <file>image/checkreport/pathBrowserBtn.png</file>
+        <file>image/checkreport/nameIcon.png</file>
+        <file>image/checkreport/hline.png</file>
+        <file>image/checkreport/createReportBtn.png</file>
+        <file>image/checkreport/checkreportlogo.png</file>
     </qresource>
 </RCC>

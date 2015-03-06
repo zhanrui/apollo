@@ -163,6 +163,16 @@ signals:
     void i_imagecheck_error(const QString& errordescrition);
     void i_imagecheck_data(const QVariantList& result);
 
+    //netrecdeepcheck
+    void n_netrecdeepcheck_progress(const int currentcompletion, const QString& currentstatus);
+    void n_netrecdeepcheck_error(const QString& errordescrition);
+    void n_netrecdeepcheck_data(const QVariantList& result);
+
+    //usbdeepcheck
+    void u_usbdeepcheck_progress(const int currentcompletion, const QString& currentstatus);
+    void u_usbdeepcheck_error(const QString& errordescrition);
+    void u_usbdeepcheck_data(const QVariantList& result);
+
 
 public slots:
     void updateFromTool(const QString& messages);
