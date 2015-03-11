@@ -353,4 +353,29 @@
 #M8.木马检查
 	#M8-1.网络武器
 	#M8-2.威胁文档
+		1.报文 
+		
+		# 扫描结果
+		{"scenename": "ceshi",
+	 	"resulttype": "datareport",
+  	"functionname": "threatDocument",
+  	 "result": [{"found": ["/home/zzp/zzp/clamav-0.97.6/test/clam.exe.html","/home/zzp/zzp/clamav-0.97.6/test/clam.newc.cpio","/home/zzp/zzp/clamav-0.97.6/test/clam.exe.mbox.uu", 
+   	"/home/zzp/zzp/clamav-0.97.6/test/clam.tar.gz", "/home/zzp/zzp/clamav-0.97.6/test/clam.sis", "/home/zzp/zzp/clamav-0.97.6/test/clam-nsis.exe"],
+     "infectedfiles": "46",
+     "scfiles": "30322",
+     "scdirectories": "4149",
+     "timesa": "2014.384 sec (33 m 34 s)"}]}.
+     
+     # 扫描进度
+      {"scenename": "ceshi",
+     "resulttype": "progressreport", 
+     "functionname": "threatDocument", 
+     "result": {"currentstatus": "Scanning /home/zzp/workspace2/t1/numpy-master/numpy-master/doc/release/1.5.0-notes.rst", "currentcompletion": "71%"}}
+		
+		2.翻译
+		    # infectedfiles   感染病毒数量
+        # scfiles   	扫描文件数量
+        # scdirectories	 扫描文件夹数量
+        # timesa       扫描耗用时间 
+        # found     病毒目录
 -----------------------------------------------------------------------------------------------------------------------------------
