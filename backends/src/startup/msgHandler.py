@@ -23,11 +23,11 @@ def chldhandler(signum , stackframe):
         except:
             break
          
-def runSubProcess(filePathPara,scenenamePara,functionnamePara,jsonMsgPara): 
+def runSubProcess(cmdPara,filePathPara,scenenamePara,functionnamePara,jsonMsgPara): 
     signal.signal(signal.SIGCHLD,chldhandler)
     pid = os.fork()
     if not pid: 
-        os.execl("/usr/bin/python2.7", "python", filePathPara, jsonMsgPara) 
+        os.execl(cmdPara, "python", filePathPara, jsonMsgPara) 
     else: 
         log4py.info('backends创建子进程('+str(pid)+")开始处理..")
         key=scenenamePara+functionnamePara+str(pid)
@@ -59,7 +59,7 @@ def handler(jsonMsgPara,mainloopPara):
         scenename=strMsg["scenename"] 
         functionname=strMsg["functionname"]  
         filePath=strPath+EnumSys.sysModules[functionname]+"/"+functionname+'.py'               
-        runSubProcess(filePath,scenename,functionname,jsonMsgPara)             
+        runSubProcess("/usr/bin/python2.7",filePath,scenename,functionname,jsonMsgPara)             
     elif "stop"==action:
         scenename=strMsg["scenename"] 
         functionname=strMsg["functionname"]
