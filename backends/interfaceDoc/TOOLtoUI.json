@@ -370,7 +370,7 @@
       {"scenename": "ceshi",
      "resulttype": "progressreport", 
      "functionname": "threatDocument", 
-     "result": {"currentstatus": "Scanning /home/zzp/workspace2/t1/numpy-master/numpy-master/doc/release/1.5.0-notes.rst", "currentcompletion": "71%"}}
+     "result": {"currentstatus": "Scanning /home/zzp/workspace2/t1/numpy-master/numpy-master/doc/release/1.5.0-notes.rst", "currentcompletion": "71"}}
 		
 		2.翻译
 		    # infectedfiles   感染病毒数量
