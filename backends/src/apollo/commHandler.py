@@ -12,13 +12,19 @@ from common.utils.log import log4py
 SERVICE_NAME='com.bmjc.ui'
 OBJECT_PATH='/bmjc/ui'
 INTERFACE='bmjc.ui'
+arguments=sys.argv
+arg=arguments[1]
+arg=json.loads(arg)
+parameters=arg['parameters']
+# print type(parameters)
+# print parameters['parameter1']
 def handleMsgFromUI():    
-    arguments=sys.argv
-    temp=arguments[1]
-    temp=json.loads(temp)
+#     arguments=sys.argv
+#     temp=arguments[1]
+#     temp=json.loads(temp)
     msgToUI={}
-    msgToUI["scenename"]=str(temp["scenename"])
-    msgToUI["functionname"]=str(temp["functionname"])
+    msgToUI['scenename']=str(arg['scenename'])
+    msgToUI['functionname']=str(arg['functionname'])
     return msgToUI
 class CommHandler:
     def __init__(self):
