@@ -75,20 +75,23 @@ void MainWidget::initUI()
     toolbar->setFixedSize(700, 200);
     toolbar->move(100, 300);
 
+    //commonchecklogo = new StaticButton(":image/main/commonchecklogo", 3, toolbar);
+    //commonchecklogo->move(37, 9);
+    //commonchecktext = new QLabel(toolbar);
+    //commonchecktext->setPixmap(QPixmap(":image/main/commonchecktext"));
+    //commonchecktext->move(77, 171);
+
+    onekeychecklogo = new StaticButton(":image/main/onekeychecklogo", 3, toolbar);
+    onekeychecklogo->move(37, 9);
+    onekeychecktext = new QLabel(toolbar);
+    onekeychecktext->setPixmap(QPixmap(":image/main/onekeychecktext"));
+    onekeychecktext->move(77, 171);
+
     commonchecklogo = new StaticButton(":image/main/commonchecklogo", 3, toolbar);
-    commonchecklogo->move(37, 9);
+    commonchecklogo->move(271, 9);
     commonchecktext = new QLabel(toolbar);
     commonchecktext->setPixmap(QPixmap(":image/main/commonchecktext"));
-    commonchecktext->move(77, 171);
-
-
-    deepchecklogo = new StaticButton(":image/main/deepchecklogo", 3, toolbar);
-    deepchecklogo->move(271, 9);
-    deepchecktext = new QLabel(toolbar);
-    deepchecktext->setPixmap(QPixmap(":image/main/deepchecktext"));
-    deepchecktext->move(316, 171);
-
-
+    commonchecktext->move(316, 171);
 
     filechecklogo = new StaticButton(":image/main/filechecklogo", 3, toolbar);
     filechecklogo->move(500, 9);
@@ -120,8 +123,8 @@ void MainWidget::initUI()
     buttonlist->append(commonchecktext);
     buttonlist->append(checkrptlogo);
     buttonlist->append(checkrpttext);
-    buttonlist->append(deepchecklogo);
-    buttonlist->append(deepchecktext);
+    buttonlist->append(onekeychecklogo);
+    buttonlist->append(onekeychecktext);
 
     buttonlist->append(filechecklogo);
     buttonlist->append(filechecktext);

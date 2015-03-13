@@ -58,7 +58,7 @@ void CheckReportWidget::initUI()
     this->setFixedSize(900, 600);
     returnbtn = new StaticButton(":image/common/returnbtn", 3, this);
     returnbtn->move(0, 0);
-    startcheckbtn = new StaticButton(":image/common/startcheckbtn", 3, this);
+    startcheckbtn = new StaticButton(":image/checkreport/createReportBtn", 3, this);
     startcheckbtn->move(703, 60);
     cancelcheckbtn = new StaticButton(":image/common/cancelcheckbtn", 3, this);
     cancelcheckbtn->move(739, 74);
@@ -115,12 +115,15 @@ void CheckReportWidget::initUI()
     QLabel* hline1 = new QLabel(settings);
     hline1->move(0, 209 - y);
     hline1->setPixmap(QPixmap(":image/checkreport/hline"));
+    onekeyCheck = new QCheckBox("一键检查", settings);
+    onekeyCheck->setCheckState(Qt::Unchecked);
+    onekeyCheck->move(51, 222 - y);
     commonCheck = new QCheckBox("常规检查", settings);
     commonCheck->setCheckState(Qt::Checked);
-    commonCheck->move(51, 222 - y);
-    deepCheck = new QCheckBox("深度检查", settings);
-    deepCheck->setCheckState(Qt::Checked);
-    deepCheck->move(151, 222 - y);
+    commonCheck->move(151, 222 - y);
+    //deepCheck = new QCheckBox("深度检查", settings);
+    //deepCheck->setCheckState(Qt::Checked);
+    //deepCheck->move(251, 222 - y);
     fileCheck = new QCheckBox("文件检查", settings);
     fileCheck->setCheckState(Qt::Checked);
     fileCheck->move(251, 222 - y);
@@ -257,6 +260,51 @@ QString CheckReportWidget::getHtml()
     html += "<div  align='center' class ='title'>LINUX保密检查报告</div>";
     html += "<p/><p/><p/>";
 
+    if (onekeyCheck->checkState() == Qt::Checked) {
+        getSubTitleString(html, "一键检查");
+        getSectionTitleString(html, "基本信息");
+        getTableString(mainWindow->okcBasicInfoRpt->osInfoMod, html, "操作系统");
+        getTableString(mainWindow->okcBasicInfoRpt->biosInfoMod, html, "BIOS信息");
+        getTableString(mainWindow->okcBasicInfoRpt->motherBoardInfoMod, html, "主板信息");
+        getTableString(mainWindow->okcBasicInfoRpt->memoryInfoMod, html, "内存信息");
+        getTableString(mainWindow->okcBasicInfoRpt->graphicsCardInfoMod, html, "显卡信息");
+        getSectionTitleString(html, "设备连接");
+        getTableString(mainWindow->okcDeviceConnectRpt->hardDiskInfoMod, html, "硬盘信息");
+        getTableString(mainWindow->okcDeviceConnectRpt->virtualMachineInfoMod, html, "虚拟机信息");
+        getTableString(mainWindow->okcDeviceConnectRpt->netConfigMod, html, "网络配置");
+        getTableString(mainWindow->okcDeviceConnectRpt->adapterDeviceMod, html, "网卡设备");
+        getTableString(mainWindow->okcDeviceConnectRpt->printDeviceMod, html, "打印机设备");
+        getTableString(mainWindow->okcDeviceConnectRpt->blueToothDeviceMod, html, "蓝牙设备");
+        getSectionTitleString(html, "安全威胁");
+        getTableString(mainWindow->okcSecurityThreatRpt->securityPolicyMod, html, "安全策略");
+        getTableString(mainWindow->okcSecurityThreatRpt->openPortMod, html, "开放端口");
+        getTableString(mainWindow->okcSecurityThreatRpt->sharingInfoMod, html, "共享信息");
+        getTableString(mainWindow->okcSecurityThreatRpt->networkSoftwareMod, html, "网络软件");
+        getTableString(mainWindow->okcSecurityThreatRpt->groupInfoMod, html, "组信息");
+        getTableString(mainWindow->okcSecurityThreatRpt->userInfoMod, html, "用户信息");
+        getTableString(mainWindow->okcSecurityThreatRpt->databaseInfoMod, html, "数据库信息");
+        getTableString(mainWindow->okcSecurityThreatRpt->eventLogMod, html, "事件日志");
+        getTableString(mainWindow->okcSecurityThreatRpt->userAuthenticationMod, html, "用户认证");
+        getSectionTitleString(html, "系统安全");
+        getTableString(mainWindow->okcSystemSecurityRpt->patchNotInstalledMod, html, "未安装补丁");
+        getTableString(mainWindow->okcSystemSecurityRpt->systemServiceMod, html, "系统服务");
+        getTableString(mainWindow->okcSystemSecurityRpt->systemProcessMod, html, "系统进程");
+        getTableString(mainWindow->okcSystemSecurityRpt->evenProductMod, html, "操作系统");
+        getTableString(mainWindow->okcSystemSecurityRpt->timeSwitchMachineMod, html, "开关机时间");
+        getTableString(mainWindow->okcSystemSecurityRpt->securitySoftwareMod, html, "安全软件");
+        getSectionTitleString(html, "网络记录");
+        getTableString(mainWindow->okcNetRecordRpt->netRecordsMod, html, "网络记录常规信息");
+        getSectionTitleString(html, "USB记录");
+        getTableString(mainWindow->okcUsbRecordCommonRpt->usbRecordsMod, html, "USB记录常规信息");
+        getSectionTitleString(html, "文件检查");
+        getTableString(mainWindow->okcFileCheckCommonRpt->fileRoutineCheckMod, html, "文件检查信息");
+        getSectionTitleString(html, "木马检查");
+        getTableString(mainWindow->okcTrojanCheckRpt->threatDocumentMod, html, "威胁文档");
+        getTableString(mainWindow->okcTrojanCheckRpt->networkWeaponMod, html, "网络武器");
+        getSectionTitleString(html, "图片检查");
+        getTableString(mainWindow->okcImageCheckRpt->imageCheckMod, html, "图片检查信息");
+    }
+
     if (commonCheck->checkState() == Qt::Checked) {
         getSubTitleString(html, "常规检查");
         getSectionTitleString(html, "基本信息");
@@ -295,11 +343,11 @@ QString CheckReportWidget::getHtml()
         getTableString(mainWindow->ccUsbRecordCommonRpt->usbRecordsMod, html, "USB记录常规信息");
     }
 
-    if (deepCheck->checkState() == Qt::Checked) {
-        getSubTitleString(html, "深度检查");
-        getTableString(mainWindow->nrdNetRecordDeepRpt->netRecordsMod, html, "网络记录深度检查信息");
-        getTableString(mainWindow->udUsbRecordDeepRpt->usbRecordsMod, html, "USB记录深度检查信息");
-    }
+   // if (deepCheck->checkState() == Qt::Checked) {
+   //     getSubTitleString(html, "深度检查");
+    //    getTableString(mainWindow->nrdNetRecordDeepRpt->netRecordsMod, html, "网络记录深度检查信息");
+    //    getTableString(mainWindow->udUsbRecordDeepRpt->usbRecordsMod, html, "USB记录深度检查信息");
+   // }
     if (fileCheck->checkState() == Qt::Checked) {
         getSubTitleString(html, "文件检查");
         getTableString(mainWindow->fcFileCheckCommonRpt->fileRoutineCheckMod, html, "文件检查信息");

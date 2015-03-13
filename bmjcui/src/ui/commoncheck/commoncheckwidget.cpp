@@ -45,9 +45,9 @@ void CommonCheckWidget::initUI()
     cancelcheckbtn = new StaticButton(":image/common/cancelcheckbtn", 3, this);
     cancelcheckbtn->move(739, 74);
     cancelcheckbtn->hide();
-    onekeychecklogo = new QLabel(this);
-    onekeychecklogo->setPixmap(QPixmap(":image/commoncheck/commonchecklogo"));
-    onekeychecklogo->move(40, 55);
+    commonchecklogo = new QLabel(this);
+    commonchecklogo->setPixmap(QPixmap(":image/commoncheck/commonchecklogo"));
+    commonchecklogo->move(40, 55);
     descriptiontitle = new QLabel(this);
     descriptiontitle->setText("常规检查");
     descriptiontitle->setObjectName("cc_descriptiontitle");

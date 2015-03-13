@@ -182,27 +182,28 @@ void FileCheckWidget::initConnect()
     connect(zipCheck, &QCheckBox::stateChanged, this, &FileCheckWidget::setFileType);
 
     connect(pathLE, &QLineEdit::textChanged, [=](const QString& newValue) {
-        emit setParameter("path", newValue);
+        emit setParameter("path", newValue.trimmed());
     });
     connect(typeLE, &QLineEdit::textChanged, [=](const QString& newValue) {
-        emit setParameter("type", newValue);
+        emit setParameter("type", newValue.trimmed());
     });
     connect(keyWordCB, static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::activated), [=](const QString& newValue) {
-        emit setParameter("keyword", newValue);
+        emit setParameter("keyword", newValue.trimmed());
     });
 }
 
 void FileCheckWidget::setFolderPath()
 {
     QString directory = QFileDialog::getExistingDirectory(this, "选择文件夹", QDir::currentPath());
-
+     pathLE->setText(directory.trimmed());
     if (!directory.isEmpty()) {
-        QString currentText = pathLE->text();
-        if (currentText.trimmed().isEmpty()) {
-            pathLE->setText(directory.trimmed());
-        } else {
-            pathLE->setText(currentText.trimmed().append(";").append(directory.trimmed()));
-        }
+         pathLE->setText(directory.trimmed());
+//        QString currentText = pathLE->text();
+//        if (currentText.trimmed().isEmpty()) {
+//            pathLE->setText(directory.trimmed());
+//        } else {
+//            pathLE->setText(currentText.trimmed().append(";").append(directory.trimmed()));
+//        }
     }
 }
 
@@ -269,21 +270,21 @@ bool FileCheckWidget::validateParameter(){
 void FileCheckWidget::startCheck()
 {
 
-    if (keyWordCB->currentText().isEmpty()) {
+    if (keyWordCB->currentText().trimmed().isEmpty()) {
         keyWordCB->setFocus();
         return;
     }
-    if (pathLE->text().isEmpty()) {
+    if (pathLE->text().trimmed().isEmpty()) {
         pathLE->setFocus();
         return;
     }
-    if (typeLE->text().isEmpty()) {
+    if (typeLE->text().trimmed().isEmpty()) {
         typeLE->setFocus();
         return;
     }
-    emit setParameter("path", pathLE->text());
-    emit setParameter("type", typeLE->text());
-    emit setParameter("keyword", keyWordCB->currentText());
+    emit setParameter("path", pathLE->text().trimmed());
+    emit setParameter("type", typeLE->text().trimmed());
+    emit setParameter("keyword", keyWordCB->currentText().trimmed());
 
 
     //     keyWordCB->set

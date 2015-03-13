@@ -85,15 +85,17 @@ void CheckTask::stopExecute()
 }
 
 void CheckTask::disableTask()
-{
+{ if(this->enabled==true){
     this->enabled = false;
-    emit totalUnitChangedSig(100 * weight *(-1));
+    emit totalUnitChangedSig(100 * weight *(-1));}
 }
 
 void CheckTask::enableTask()
 {
+    if(this->enabled==false){
     this->enabled = true;
     emit totalUnitChangedSig(100 * weight);
+    }
 }
 
 void CheckTask::progressUpdate(const int completerate, const QString& currentstatus)

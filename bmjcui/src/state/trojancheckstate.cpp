@@ -44,12 +44,12 @@ TrojanCheckState::~TrojanCheckState()
 void TrojanCheckState::inittasks(ToolUtil* toolUtil)
 {
 
-    networkWeapon = new CheckTask(this, toolUtil, FUNC_MALWARECHECK, SCENE_TROJANCHECK, true, 1);
+    //networkWeapon = new CheckTask(this, toolUtil, FUNC_MALWARECHECK, SCENE_TROJANCHECK, true, 1);
 
     threatDocument = new CheckTask(this, toolUtil, FUNC_TROJANCHECK, SCENE_TROJANCHECK, true, 1);
 
     trojanCheck = new CheckTaskGroup(this, SCENE_FILECHECK, 1,
-                                     QList<CheckTask*>() << threatDocument << networkWeapon);
+                                     QList<CheckTask*>() << threatDocument );
 }
 void TrojanCheckState::initConStateGroup()
 {
@@ -80,9 +80,9 @@ void TrojanCheckState::initConUIState(MainWindow* mainwindow)
     connect(tc->cancelcheckbtn, SIGNAL(buttonClicked()), this, SLOT(stopexcute()));
     connect(this, SIGNAL(completerateUpdateSig(const int, const QString&)), tc, SLOT(completerateUpdate(const int, const QString&)));
     connect(this, SIGNAL(dataCountUpdateSig(const int, const int)), tc, SLOT(dataCountUpdate(const int, const int)));
-    connect(tc, &TrojanCheckWidget::setParameter, networkWeapon, &CheckTask::setParameters);
-    connect(tc, &TrojanCheckWidget::disableNetworkWeapon, networkWeapon, &CheckTask::disableTask);
-    connect(tc, &TrojanCheckWidget::enableNetworkWeapon, networkWeapon, &CheckTask::enableTask);
+    //connect(tc, &TrojanCheckWidget::setParameter, networkWeapon, &CheckTask::setParameters);
+    //connect(tc, &TrojanCheckWidget::disableNetworkWeapon, networkWeapon, &CheckTask::disableTask);
+    //connect(tc, &TrojanCheckWidget::enableNetworkWeapon, networkWeapon, &CheckTask::enableTask);
     connect(tc, &TrojanCheckWidget::setParameter, threatDocument, &CheckTask::setParameters);
     connect(tc, &TrojanCheckWidget::disableThreatDocument, threatDocument, &CheckTask::disableTask);
     connect(tc, &TrojanCheckWidget::enableThreatDocument, threatDocument, &CheckTask::enableTask);
@@ -94,7 +94,7 @@ void TrojanCheckState::initConUIState(MainWindow* mainwindow)
     //connect(fileRoutineCheck, &CheckTask::completeSig, fcFileCheckCommonRpt->osInfoBtn, &TaskButton::changeToNoProblem);
     //connect(fileRoutineCheck, &CheckTask::errorFindSig, fcFileCheckCommonRpt->osInfoBtn, &TaskButton::changeToProblem);
     connect(threatDocument, &CheckTask::dataUpdateSig, tcTrojanCheckRpt, &TrojanCheckRpt::addThreatDocument);
-    connect(networkWeapon, &CheckTask::dataUpdateSig, tcTrojanCheckRpt, &TrojanCheckRpt::addNetworkWeapon);
+    //connect(networkWeapon, &CheckTask::dataUpdateSig, tcTrojanCheckRpt, &TrojanCheckRpt::addNetworkWeapon);
 }
 //Call UI
 void TrojanCheckState::startexcute()
@@ -151,7 +151,7 @@ void TrojanCheckState::initConInterfaceTask(InterfaceForTool* interfaceForTool)
     connect(interfaceForTool, SIGNAL(t_threatdoccheck_error(const QString&)), threatDocument, SLOT(errorUpdate(const QString&)));
     connect(interfaceForTool, SIGNAL(t_threatdoccheck_data(const QVariantList&)), threatDocument, SLOT(dataUpdate(const QVariantList&)));
 
-    connect(interfaceForTool, SIGNAL(t_netweapon_progress(const int, const QString&)), networkWeapon, SLOT(progressUpdate(const int, const QString&)));
-    connect(interfaceForTool, SIGNAL(t_netweapon_error(const QString&)), networkWeapon, SLOT(errorUpdate(const QString&)));
-    connect(interfaceForTool, SIGNAL(t_netweapon_data(const QVariantList&)), networkWeapon, SLOT(dataUpdate(const QVariantList&)));
+    //connect(interfaceForTool, SIGNAL(t_netweapon_progress(const int, const QString&)), networkWeapon, SLOT(progressUpdate(const int, const QString&)));
+    //connect(interfaceForTool, SIGNAL(t_netweapon_error(const QString&)), networkWeapon, SLOT(errorUpdate(const QString&)));
+    //connect(interfaceForTool, SIGNAL(t_netweapon_data(const QVariantList&)), networkWeapon, SLOT(dataUpdate(const QVariantList&)));
 }

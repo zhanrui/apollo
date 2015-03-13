@@ -1,5 +1,5 @@
-#ifndef ONEKEYCHECKSTATE_H
-#define ONEKEYCHECKSTATE_H
+#ifndef COMMONCHECKSTATE_H
+#define COMMONCHECKSTATE_H
 
 #include <QObject>
 class CheckTask;
@@ -112,4 +112,4 @@ public:
 
 };
 
-#endif // ONEKEYCHECKSTATE_H
+#endif // COMMONCHECKSTATE_H

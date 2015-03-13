@@ -19,7 +19,7 @@ TrojanCheckRpt::TrojanCheckRpt(QWidget* parent, const QString& title)
     initUI(title);
     initModel();
     initConnection();
-    selectNetworkWeapon();
+    selectThreatDocument();
 }
 
 TrojanCheckRpt::~TrojanCheckRpt()
@@ -44,8 +44,10 @@ void TrojanCheckRpt::initUI(const QString& titletext)
 
     networkWeaponBtn = new TaskButton(":image/detailreport/trojancheck/networkWeaponBtn", this);
     networkWeaponBtn->move(250, 60);
+    networkWeaponBtn->hide();
     threatDocumentBtn = new TaskButton(":image/detailreport/trojancheck/threatDocumentBtn", this);
     threatDocumentBtn->move(465, 60);
+    threatDocumentBtn->hide();
 
     taskbtnlist << networkWeaponBtn << threatDocumentBtn;
 
@@ -65,8 +67,10 @@ void TrojanCheckRpt::initUI(const QString& titletext)
 void TrojanCheckRpt::initViewDetail(QTableView* view)
 {
     view->setMinimumWidth(900);
-    view->setMinimumHeight(447);
-    view->move(0, 153);
+    //view->setMinimumHeight(447);
+    view->setMinimumHeight(554);
+    //view->move(0, 153);
+    view->move(0,46);
     initViewStyle(view);
 }
 

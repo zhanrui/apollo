@@ -58,7 +58,7 @@ private:
 public:
 
     CheckTaskGroup* trojanCheck;
-    CheckTask*	networkWeapon;
+    //CheckTask*	networkWeapon;
     CheckTask* threatDocument;
 };
 

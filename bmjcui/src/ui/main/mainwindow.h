@@ -46,6 +46,10 @@ class ImageCheckRpt;
 
 class DeepCheckWidget;
 
+class OneKeyCheckState;
+class OneKeyCheckMainWidget;
+class OneKeyCheckSettingWidget;
+
 class MainWindow : public ShadowWidget {
     Q_OBJECT
 public:
@@ -65,11 +69,7 @@ public slots:
     void closeWidget();
 
 public:
-
-
-
     //Common Widgets
-
 
     SysButtonGroup* sysButtonGroup;
 
@@ -106,6 +106,19 @@ public:
     UsbRecordDeepRpt* udUsbRecordDeepRpt;
     QList<BaseReport*> udReports;
 
+    OneKeyCheckMainWidget* oneKeyCheckMainWidget;
+    OneKeyCheckSettingWidget* oneKeyCheckSettingWidget;
+    BasicInfoRpt* okcBasicInfoRpt;
+    DeviceConnectRpt* okcDeviceConnectRpt;
+    NetRecordCommonRpt* okcNetRecordRpt;
+    SystemSecurityRpt* okcSystemSecurityRpt;
+    SecurityThreatRpt* okcSecurityThreatRpt;
+    UsbRecordCommonRpt* okcUsbRecordCommonRpt;
+    FileCheckCommonRpt* okcFileCheckCommonRpt;
+    TrojanCheckRpt* okcTrojanCheckRpt;
+    ImageCheckRpt* okcImageCheckRpt;
+    QList<BaseReport*> okcReports;
+
     //Animation
     QParallelAnimationGroup* widgetSwitchAnimation;
 
@@ -113,15 +126,16 @@ public:
     QThread* statethread;
     InterfaceForTool* interfaceForTool;
     ToolUtil* toolUtil;
-    CommonCheckState* oneKeyCheckState;
+    CommonCheckState* commonCheckState;
     FileCheckState* fileCheckState;
     TrojanCheckState* trojanCheckState;
     ImageCheckState* imageCheckState;
     NetRecordDeepCheckState* netRecordDeepCheckState;
     UsbDeepCheckState* usbDeepCheckState;
+    OneKeyCheckState* oneKeyCheckState;
 
-    CheckReportWidget * checkReportWidget;
-    RptCreator * rptCreator ;
+    CheckReportWidget* checkReportWidget;
+    RptCreator* rptCreator;
 
     //SceneMap
 };

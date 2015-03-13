@@ -11,6 +11,8 @@
 #include "src/ui/deepcheck/usbdeepcheckwidget.h"
 #include "src/ui/checkreport/checkreportwidget.h"
 
+#include "src/ui/onekeycheck/onekeycheckmainwidget.h"
+#include "src/ui/onekeycheck/onekeychecksettingwidget.h"
 #include "src/ui/common/sysbuttongroup.h"
 #include "src/ui/detailreport/basicinforpt.h"
 #include "src/ui/detailreport/deviceconnectrpt.h"
@@ -28,18 +30,21 @@
 #include "src/ui/detailreport/netrecorddeeprpt.h"
 #include "src/ui/base/staticbutton.h"
 #include "src/ui/commoncheck/tabbutton.h"
-#include <src/state/commoncheckstate.h>
-#include <src/state/filecheckstate.h>
-#include <src/state/trojancheckstate.h>
-#include <src/state/imagecheckstate.h>
-#include <src/state/netrecorddeepcheckstate.h>
-#include <src/state/usbdeepcheckstate.h>
-#include <src/util/toolutil.h>
-#include <src/util/interfacefortool.h>
-#include <src/util/rptcreator.h>
-#include <src/ui/main/mainwindow.h>
-#include <src/ui/common/taskbutton.h>
-#include <src/common/common.h>
+
+#include "src/state/filecheckstate.h"
+#include "src/state/onekeycheckstate.h"
+#include "src/state/commoncheckstate.h"
+
+#include "src/state/trojancheckstate.h"
+#include "src/state/imagecheckstate.h"
+#include "src/state/netrecorddeepcheckstate.h"
+#include "src/state/usbdeepcheckstate.h"
+#include "src/util/toolutil.h"
+#include "src/util/interfacefortool.h"
+#include "src/util/rptcreator.h"
+#include "src/ui/main/mainwindow.h"
+#include "src/ui/common/taskbutton.h"
+#include "src/common/common.h"
 #include <QApplication>
 #include <QFile>
 #include <QStackedWidget>
@@ -77,6 +82,43 @@ void MainWindow::initUI()
     mainWidget = new MainWidget(this);
     mainWidget->setObjectName("mainwidget");
 
+    oneKeyCheckMainWidget = new OneKeyCheckMainWidget(this);
+    oneKeyCheckMainWidget->setObjectName("oneKeyCheckMainWidget");
+    oneKeyCheckMainWidget->hide();
+    oneKeyCheckSettingWidget = new OneKeyCheckSettingWidget(this);
+    oneKeyCheckSettingWidget->setObjectName("oneKeyCheckSettingWidget");
+    oneKeyCheckSettingWidget->hide();
+    okcBasicInfoRpt = new BasicInfoRpt(this, "一键检查——基本信息");
+    okcBasicInfoRpt->setObjectName("okcBasicInfoRpt");
+    okcBasicInfoRpt->hide();
+    okcDeviceConnectRpt = new DeviceConnectRpt(this, "一键检查——设备连接信息");
+    okcDeviceConnectRpt->setObjectName("okcDeviceConnectRpt");
+    okcDeviceConnectRpt->hide();
+    okcNetRecordRpt = new NetRecordCommonRpt(this, "一键检查——上网记录检查");
+    okcNetRecordRpt->setObjectName("okcNetRecordRpt");
+    okcNetRecordRpt->hide();
+    okcSystemSecurityRpt = new SystemSecurityRpt(this, "一键检查——系统安全检查");
+    okcSystemSecurityRpt->setObjectName("okcSystemSecurityRpt");
+    okcSystemSecurityRpt->hide();
+    okcSecurityThreatRpt = new SecurityThreatRpt(this, "一键检查——安全威胁检查");
+    okcSecurityThreatRpt->setObjectName("okcSecurityThreatRpt");
+    okcSecurityThreatRpt->hide();
+    okcUsbRecordCommonRpt = new UsbRecordCommonRpt(this, "一键检查——USB记录检查");
+    okcUsbRecordCommonRpt->setObjectName("okcUsbRecordCommonRpt");
+    okcUsbRecordCommonRpt->hide();
+    okcFileCheckCommonRpt = new FileCheckCommonRpt(this, "一键检查——文件检查");
+    okcFileCheckCommonRpt->setObjectName("okcFileCheckCommonRpt");
+    okcFileCheckCommonRpt->hide();
+    okcTrojanCheckRpt = new TrojanCheckRpt(this, "一键检查——木马检查");
+    okcTrojanCheckRpt->setObjectName("okcTrojanCheckRpt");
+    okcTrojanCheckRpt->hide();
+    okcImageCheckRpt = new ImageCheckRpt(this, "一键检查——图片检查");
+    okcImageCheckRpt->setObjectName("okcImageCheckRpt");
+    okcImageCheckRpt->hide();
+
+    okcReports << okcBasicInfoRpt << okcDeviceConnectRpt << okcNetRecordRpt
+               << okcSystemSecurityRpt << okcSecurityThreatRpt << okcUsbRecordCommonRpt
+               << okcFileCheckCommonRpt << okcTrojanCheckRpt << okcImageCheckRpt;
 
     commonCheckWidget = new CommonCheckWidget(this);
     commonCheckWidget->setObjectName("commonCheckWidget");
@@ -178,7 +220,87 @@ void MainWindow::initConnect()
     connect(sysButtonGroup->minButton, SIGNAL(buttonClicked()), this, SLOT(showMin()));
     connect(sysButtonGroup->closeButton, SIGNAL(buttonClicked()), this, SLOT(closeWidget()));
 
-    //Main Sub Navi - OneKeyCheck
+    //One Key Check
+    connect(mainWidget->onekeychecklogo, &StaticButton::buttonClicked,
+            [=]() {   switchWidgetToLeft(mainWidget, oneKeyCheckMainWidget); });
+    connect(oneKeyCheckMainWidget->returnbtn, &StaticButton::buttonClicked,
+            [=]() {  switchWidgetToRight(oneKeyCheckMainWidget, mainWidget); });
+
+    connect(oneKeyCheckMainWidget->settingbtn, &StaticButton::buttonClicked,
+            [=]() {   switchWidgetToLeft(oneKeyCheckMainWidget, oneKeyCheckSettingWidget); });
+    connect(oneKeyCheckSettingWidget->returnbtn, &StaticButton::buttonClicked,
+            [=]() {  switchWidgetToRight(oneKeyCheckSettingWidget, oneKeyCheckMainWidget); });
+
+    connect(oneKeyCheckMainWidget->deviceconnectionbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToLeft(oneKeyCheckMainWidget, okcDeviceConnectRpt); });
+    connect(okcDeviceConnectRpt->returnbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToRight(okcDeviceConnectRpt, oneKeyCheckMainWidget); });
+
+    connect(oneKeyCheckMainWidget->netbrowserbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToLeft(oneKeyCheckMainWidget, okcNetRecordRpt); });
+    connect(okcNetRecordRpt->returnbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToRight(okcNetRecordRpt, oneKeyCheckMainWidget); });
+
+    connect(oneKeyCheckMainWidget->basicinfobtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToLeft(oneKeyCheckMainWidget, okcBasicInfoRpt); });
+    connect(okcBasicInfoRpt->returnbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToRight(okcBasicInfoRpt, oneKeyCheckMainWidget); });
+
+    connect(oneKeyCheckMainWidget->systemsecuritybtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToLeft(oneKeyCheckMainWidget, okcSystemSecurityRpt); });
+    connect(okcSystemSecurityRpt->returnbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToRight(okcSystemSecurityRpt, oneKeyCheckMainWidget); });
+
+    connect(oneKeyCheckMainWidget->securitythreatbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToLeft(oneKeyCheckMainWidget, okcSecurityThreatRpt); });
+    connect(okcSecurityThreatRpt->returnbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToRight(okcSecurityThreatRpt, oneKeyCheckMainWidget); });
+
+    connect(oneKeyCheckMainWidget->usbcheckbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToLeft(oneKeyCheckMainWidget, okcUsbRecordCommonRpt); });
+    connect(okcUsbRecordCommonRpt->returnbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToRight(okcUsbRecordCommonRpt, oneKeyCheckMainWidget); });
+
+    connect(oneKeyCheckMainWidget->filecheckbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToLeft(oneKeyCheckMainWidget, okcFileCheckCommonRpt); });
+    connect(okcFileCheckCommonRpt->returnbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToRight(okcFileCheckCommonRpt, oneKeyCheckMainWidget); });
+
+    connect(oneKeyCheckMainWidget->tjcheckbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToLeft(oneKeyCheckMainWidget, okcTrojanCheckRpt); });
+    connect(okcTrojanCheckRpt->returnbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToRight(okcTrojanCheckRpt, oneKeyCheckMainWidget); });
+
+    connect(oneKeyCheckMainWidget->imagecheckbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToLeft(oneKeyCheckMainWidget, okcImageCheckRpt); });
+    connect(okcImageCheckRpt->returnbtn, &TabButton::buttonClicked,
+            [=]() { switchWidgetToRight(okcImageCheckRpt, oneKeyCheckMainWidget); });
+
+    connect(oneKeyCheckMainWidget->cancelcheckbtn, &StaticButton::buttonClicked,
+            [=]() {
+        for(BaseReport* baserpt:okcReports){
+            for(TaskButton* taskbtn:baserpt->taskbtnlist ){
+                if(taskbtn->taskstatus != TASK_PROBLEM)
+                    taskbtn->changeToNoProblem();
+            }
+        }
+
+    });
+
+    connect(oneKeyCheckMainWidget->startcheckbtn, &StaticButton::buttonClicked,
+            [=]() {
+        for(BaseReport* baserpt:okcReports){
+            for(TaskButton* taskbtn:baserpt->taskbtnlist ){
+                taskbtn->changeToRunning();
+            }
+            for(QStandardItemModel* model:baserpt->modellist ){
+               model->removeRows(0,model->rowCount());
+            }
+        }
+
+    });
+
+    //Main Sub Navi - CommonCheck
     connect(mainWidget->commonchecklogo, &StaticButton::buttonClicked,
             [=]() {   switchWidgetToLeft(mainWidget, commonCheckWidget); });
     connect(commonCheckWidget->returnbtn, &StaticButton::buttonClicked,
@@ -340,75 +462,75 @@ void MainWindow::initConnect()
     });
 
     //Main Sub Navi - NetRecordDeepCheck
-    connect(mainWidget->deepchecklogo, &StaticButton::buttonClicked,
-            [=]() { switchWidgetToLeft(mainWidget, deepCheckWidget); });
-    connect(deepCheckWidget->returnbtn, &StaticButton::buttonClicked,
-            [=]() {  switchWidgetToRight(deepCheckWidget, mainWidget); });
+    //    connect(mainWidget->onekeychecklogo, &StaticButton::buttonClicked,
+    //            [=]() { switchWidgetToLeft(mainWidget, deepCheckWidget); });
+    //    connect(deepCheckWidget->returnbtn, &StaticButton::buttonClicked,
+    //            [=]() {  switchWidgetToRight(deepCheckWidget, mainWidget); });
 
-    connect(deepCheckWidget->deepNetRecCheckbtn, &StaticButton::buttonClicked,
-            [=]() { switchWidgetToLeft(deepCheckWidget, netRecordDeepCheckWidget); });
-    connect(netRecordDeepCheckWidget->returnbtn, &StaticButton::buttonClicked,
-            [=]() {  switchWidgetToRight(netRecordDeepCheckWidget, deepCheckWidget); });
+    //    connect(deepCheckWidget->deepNetRecCheckbtn, &StaticButton::buttonClicked,
+    //            [=]() { switchWidgetToLeft(deepCheckWidget, netRecordDeepCheckWidget); });
+    //    connect(netRecordDeepCheckWidget->returnbtn, &StaticButton::buttonClicked,
+    //            [=]() {  switchWidgetToRight(netRecordDeepCheckWidget, deepCheckWidget); });
 
-    connect(netRecordDeepCheckWidget->checkResultBtn, &StaticButton::buttonClicked,
-            [=]() { switchWidgetToLeft(netRecordDeepCheckWidget, nrdNetRecordDeepRpt); });
-    connect(nrdNetRecordDeepRpt->returnbtn, &StaticButton::buttonClicked,
-            [=]() { switchWidgetToRight(nrdNetRecordDeepRpt, netRecordDeepCheckWidget); });
+    //    connect(netRecordDeepCheckWidget->checkResultBtn, &StaticButton::buttonClicked,
+    //            [=]() { switchWidgetToLeft(netRecordDeepCheckWidget, nrdNetRecordDeepRpt); });
+    //    connect(nrdNetRecordDeepRpt->returnbtn, &StaticButton::buttonClicked,
+    //            [=]() { switchWidgetToRight(nrdNetRecordDeepRpt, netRecordDeepCheckWidget); });
 
-    connect(netRecordDeepCheckWidget->cancelcheckbtn, &StaticButton::buttonClicked,
-            [=]() {
-        for(BaseReport* baserpt:nrdReports){
-            for(TaskButton* taskbtn:baserpt->taskbtnlist ){
-                if(taskbtn->taskstatus != TASK_PROBLEM)
-                    taskbtn->changeToNoProblem();
-            }
-        }
+    //    connect(netRecordDeepCheckWidget->cancelcheckbtn, &StaticButton::buttonClicked,
+    //            [=]() {
+    //        for(BaseReport* baserpt:nrdReports){
+    //            for(TaskButton* taskbtn:baserpt->taskbtnlist ){
+    //                if(taskbtn->taskstatus != TASK_PROBLEM)
+    //                    taskbtn->changeToNoProblem();
+    //            }
+    //        }
 
-    });
-    connect(netRecordDeepCheckWidget, &NetRecordDeepCheckWidget::startCheckSig,
-            [=]() {
-        for(BaseReport* baserpt:nrdReports){
-            for(TaskButton* taskbtn:baserpt->taskbtnlist ){
-                taskbtn->changeToRunning();
-            }
-            for(QStandardItemModel* model:baserpt->modellist ){
-               model->removeRows(0,model->rowCount());
-            }
-        }
-    });
+    //    });
+    //    connect(netRecordDeepCheckWidget, &NetRecordDeepCheckWidget::startCheckSig,
+    //            [=]() {
+    //        for(BaseReport* baserpt:nrdReports){
+    //            for(TaskButton* taskbtn:baserpt->taskbtnlist ){
+    //                taskbtn->changeToRunning();
+    //            }
+    //            for(QStandardItemModel* model:baserpt->modellist ){
+    //               model->removeRows(0,model->rowCount());
+    //            }
+    //        }
+    //    });
 
-    //Main Sub Navi - UsbDeepCheck
+    //    //Main Sub Navi - UsbDeepCheck
 
-    connect(deepCheckWidget->deepUsbCheckbtn, &StaticButton::buttonClicked,
-            [=]() { switchWidgetToLeft(deepCheckWidget, usbDeepCheckWidget); });
-    connect(usbDeepCheckWidget->returnbtn, &StaticButton::buttonClicked,
-            [=]() {  switchWidgetToRight(usbDeepCheckWidget, deepCheckWidget); });
+    //    connect(deepCheckWidget->deepUsbCheckbtn, &StaticButton::buttonClicked,
+    //            [=]() { switchWidgetToLeft(deepCheckWidget, usbDeepCheckWidget); });
+    //    connect(usbDeepCheckWidget->returnbtn, &StaticButton::buttonClicked,
+    //            [=]() {  switchWidgetToRight(usbDeepCheckWidget, deepCheckWidget); });
 
-    connect(usbDeepCheckWidget->checkResultBtn, &StaticButton::buttonClicked,
-            [=]() { switchWidgetToLeft(usbDeepCheckWidget, udUsbRecordDeepRpt); });
-    connect(udUsbRecordDeepRpt->returnbtn, &StaticButton::buttonClicked,
-            [=]() { switchWidgetToRight(udUsbRecordDeepRpt, usbDeepCheckWidget); });
+    //    connect(usbDeepCheckWidget->checkResultBtn, &StaticButton::buttonClicked,
+    //            [=]() { switchWidgetToLeft(usbDeepCheckWidget, udUsbRecordDeepRpt); });
+    //    connect(udUsbRecordDeepRpt->returnbtn, &StaticButton::buttonClicked,
+    //            [=]() { switchWidgetToRight(udUsbRecordDeepRpt, usbDeepCheckWidget); });
 
-    connect(usbDeepCheckWidget->cancelcheckbtn, &StaticButton::buttonClicked,
-            [=]() {
-        for(BaseReport* baserpt:udReports){
-            for(TaskButton* taskbtn:baserpt->taskbtnlist ){
-                if(taskbtn->taskstatus != TASK_PROBLEM)
-                    taskbtn->changeToNoProblem();
-            }
-        }
-    });
-    connect(usbDeepCheckWidget, &UsbDeepCheckWidget::startCheckSig,
-            [=]() {
-        for(BaseReport* baserpt:udReports){
-            for(TaskButton* taskbtn:baserpt->taskbtnlist ){
-                taskbtn->changeToRunning();
-            }
-            for(QStandardItemModel* model:baserpt->modellist ){
-               model->removeRows(0,model->rowCount());
-            }
-        }
-    });
+    //    connect(usbDeepCheckWidget->cancelcheckbtn, &StaticButton::buttonClicked,
+    //            [=]() {
+    //        for(BaseReport* baserpt:udReports){
+    //            for(TaskButton* taskbtn:baserpt->taskbtnlist ){
+    //                if(taskbtn->taskstatus != TASK_PROBLEM)
+    //                    taskbtn->changeToNoProblem();
+    //            }
+    //        }
+    //    });
+    //    connect(usbDeepCheckWidget, &UsbDeepCheckWidget::startCheckSig,
+    //            [=]() {
+    //        for(BaseReport* baserpt:udReports){
+    //            for(TaskButton* taskbtn:baserpt->taskbtnlist ){
+    //                taskbtn->changeToRunning();
+    //            }
+    //            for(QStandardItemModel* model:baserpt->modellist ){
+    //               model->removeRows(0,model->rowCount());
+    //            }
+    //        }
+    //    });
 
     connect(mainWidget->checkrptlogo, &StaticButton::buttonClicked,
             [=]() { switchWidgetToLeft(mainWidget, checkReportWidget); });
@@ -501,8 +623,10 @@ void MainWindow::initDBus()
     toolUtil = new ToolUtil();
     toolUtil->moveToThread(statethread);
 
-    oneKeyCheckState = new CommonCheckState(0, this, interfaceForTool, toolUtil);
+    oneKeyCheckState = new OneKeyCheckState(0, this, interfaceForTool, toolUtil);
     oneKeyCheckState->moveToThread(statethread);
+    commonCheckState = new CommonCheckState(0, this, interfaceForTool, toolUtil);
+    commonCheckState->moveToThread(statethread);
     fileCheckState = new FileCheckState(0, this, interfaceForTool, toolUtil);
     fileCheckState->moveToThread(statethread);
     trojanCheckState = new TrojanCheckState(0, this, interfaceForTool, toolUtil);
@@ -518,10 +642,11 @@ void MainWindow::initDBus()
     connect(sysButtonGroup->closeButton, SIGNAL(buttonClicked()), toolUtil, SLOT(stopAll()));
     connect(statethread, SIGNAL(finished()), interfaceForTool, SLOT(deleteLater()));
     connect(statethread, SIGNAL(finished()), toolUtil, SLOT(deleteLater()));
+
     connect(statethread, SIGNAL(finished()), oneKeyCheckState, SLOT(deleteLater()));
+    connect(statethread, SIGNAL(finished()), commonCheckState, SLOT(deleteLater()));
     connect(statethread, SIGNAL(finished()), fileCheckState, SLOT(deleteLater()));
     connect(statethread, SIGNAL(finished()), trojanCheckState, SLOT(deleteLater()));
-
     connect(statethread, SIGNAL(finished()), netRecordDeepCheckState, SLOT(deleteLater()));
     connect(statethread, SIGNAL(finished()), usbDeepCheckState, SLOT(deleteLater()));
     connect(statethread, SIGNAL(finished()), rptCreator, SLOT(deleteLater()));

@@ -67,6 +67,7 @@ public:
     CommonWidget* settings;
 
     QLineEdit* typeLE;
+    QCheckBox* onekeyCheck;
     QCheckBox* commonCheck;
     QCheckBox* deepCheck;
     QCheckBox* fileCheck;

@@ -68,7 +68,15 @@ HEADERS += \
     src/util/rptcreator.h \
     src/state/commoncheckstate.h \
     src/ui/commoncheck/commoncheckwidget.h \
-    src/ui/deepcheck/deepcheckwidget.h
+    src/ui/deepcheck/deepcheckwidget.h \
+    src/state/onekeycheckstate.h \
+    src/ui/onekeycheck/onekeycheckmainwidget.h \
+    src/ui/onekeycheck/onekeychecksettingwidget.h \
+    src/ui/onekeycheck/filechecksettingpart.h \
+    src/ui/onekeycheck/imagechecksettingpart.h \
+    src/ui/onekeycheck/trojanchecksettingpart.h \
+    src/ui/onekeycheck/commonchecksettingpart.h \
+    src/ui/onekeycheck/checkbutton.h
 
 SOURCES += \
     src/ui/base/basestylewidget.cpp \
@@ -119,7 +127,15 @@ SOURCES += \
     src/util/rptcreator.cpp \
     src/state/commoncheckstate.cpp \
     src/ui/commoncheck/commoncheckwidget.cpp \
-    src/ui/deepcheck/deepcheckwidget.cpp
+    src/ui/deepcheck/deepcheckwidget.cpp \
+    src/state/onekeycheckstate.cpp \
+    src/ui/onekeycheck/onekeycheckmainwidget.cpp \
+    src/ui/onekeycheck/onekeychecksettingwidget.cpp \
+    src/ui/onekeycheck/filechecksettingpart.cpp \
+    src/ui/onekeycheck/imagechecksettingpart.cpp \
+    src/ui/onekeycheck/trojanchecksettingpart.cpp \
+    src/ui/onekeycheck/commonchecksettingpart.cpp \
+    src/ui/onekeycheck/checkbutton.cpp
 
 copyotherfile.commands = $(COPY_DIR) $$PWD/otherfile $$OUT_PWD
 first.depends = $(first) copyotherfile

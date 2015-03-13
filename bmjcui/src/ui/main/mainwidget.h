@@ -50,8 +50,8 @@ public:
     QLabel* commonchecktext;
     StaticButton *checkrptlogo;
     QLabel* checkrpttext;
-    StaticButton *deepchecklogo;
-    QLabel* deepchecktext;
+    StaticButton *onekeychecklogo;
+    QLabel* onekeychecktext;
 
 
     StaticButton *filechecklogo;

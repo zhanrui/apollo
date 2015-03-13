@@ -51,7 +51,7 @@ public:
     StaticButton* startcheckbtn;
     StaticButton* cancelcheckbtn;
 
-    QLabel* onekeychecklogo;
+    QLabel* commonchecklogo;
     QLabel* descriptiontitle;
     QLabel* description;
 

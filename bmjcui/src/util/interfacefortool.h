@@ -173,6 +173,149 @@ signals:
     void u_usbdeepcheck_error(const QString& errordescrition);
     void u_usbdeepcheck_data(const QVariantList& result);
 
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //基本信息
+    void okc_os_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_os_error(const QString& errordescrition);
+    void okc_os_data(const QVariantList& result);
+
+    void okc_cpu_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_cpu_error(const QString& errordescrition);
+    void okc_cpu_data(const QVariantList& result);
+
+    void okc_bios_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_bios_error(const QString& errordescrition);
+    void okc_bios_data(const QVariantList& result);
+
+    void okc_mb_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_mb_error(const QString& errordescrition);
+    void okc_mb_data(const QVariantList& result);
+
+    void okc_mem_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_mem_error(const QString& errordescrition);
+    void okc_mem_data(const QVariantList& result);
+
+    void okc_gc_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_gc_error(const QString& errordescrition);
+    void okc_gc_data(const QVariantList& result);
+
+    //设备连接信息
+    void okc_hd_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_hd_error(const QString& errordescrition);
+    void okc_hd_data(const QVariantList& result);
+
+    void okc_vm_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_vm_error(const QString& errordescrition);
+    void okc_vm_data(const QVariantList& result);
+
+    void okc_nc_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_nc_error(const QString& errordescrition);
+    void okc_nc_data(const QVariantList& result);
+
+    void okc_na_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_na_error(const QString& errordescrition);
+    void okc_na_data(const QVariantList& result);
+
+    void okc_print_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_print_error(const QString& errordescrition);
+    void okc_print_data(const QVariantList& result);
+
+    void okc_bt_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_bt_error(const QString& errordescrition);
+    void okc_bt_data(const QVariantList& result);
+
+    //系统安全信息
+    void okc_patch_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_patch_error(const QString& errordescrition);
+    void okc_patch_data(const QVariantList& result);
+
+    void okc_service_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_service_error(const QString& errordescrition);
+    void okc_service_data(const QVariantList& result);
+
+    void okc_process_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_process_error(const QString& errordescrition);
+    void okc_process_data(const QVariantList& result);
+
+    void okc_otherpdt_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_otherpdt_error(const QString& errordescrition);
+    void okc_otherpdt_data(const QVariantList& result);
+
+    void okc_swithtime_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_swithtime_error(const QString& errordescrition);
+    void okc_swithtime_data(const QVariantList& result);
+
+    void okc_secsoft_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_secsoft_error(const QString& errordescrition);
+    void okc_secsoft_data(const QVariantList& result);
+
+    //安全隐患信息
+    void okc_secplcy_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_secplcy_error(const QString& errordescrition);
+    void okc_secplcy_data(const QVariantList& result);
+
+    void okc_openport_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_openport_error(const QString& errordescrition);
+    void okc_openport_data(const QVariantList& result);
+
+    void okc_sharinfo_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_sharinfo_error(const QString& errordescrition);
+    void okc_sharinfo_data(const QVariantList& result);
+
+    void okc_netsoft_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_netsoft_error(const QString& errordescrition);
+    void okc_netsoft_data(const QVariantList& result);
+
+    void okc_grpinfo_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_grpinfo_error(const QString& errordescrition);
+    void okc_grpinfo_data(const QVariantList& result);
+
+    void okc_userinfo_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_userinfo_error(const QString& errordescrition);
+    void okc_userinfo_data(const QVariantList& result);
+
+    void okc_dbinfo_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_dbinfo_error(const QString& errordescrition);
+    void okc_dbinfo_data(const QVariantList& result);
+
+    void okc_evelog_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_evelog_error(const QString& errordescrition);
+    void okc_evelog_data(const QVariantList& result);
+
+    void okc_usrauth_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_usrauth_error(const QString& errordescrition);
+    void okc_usrauth_data(const QVariantList& result);
+
+    //USB设备记录
+    void okc_usbcomcheck_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_usbcomcheck_error(const QString& errordescrition);
+    void okc_usbcomcheck_data(const QVariantList& result);
+
+    //上网记录
+    void okc_netreccomcheck_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_netreccomcheck_error(const QString& errordescrition);
+    void okc_netreccomcheck_data(const QVariantList& result);
+
+    //文件检查
+    void okc_filecomcheck_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_filecomcheck_error(const QString& errordescrition);
+    void okc_filecomcheck_data(const QVariantList& result);
+
+    //木马检查
+    void okc_threatdoccheck_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_threatdoccheck_error(const QString& errordescrition);
+    void okc_threatdoccheck_data(const QVariantList& result);
+    void okc_netweapon_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_netweapon_error(const QString& errordescrition);
+    void okc_netweapon_data(const QVariantList& result);
+
+    //imagecheck
+    void okc_imagecheck_progress(const int currentcompletion, const QString& currentstatus);
+    void okc_imagecheck_error(const QString& errordescrition);
+    void okc_imagecheck_data(const QVariantList& result);
+
+
+
 
 public slots:
     void updateFromTool(const QString& messages);

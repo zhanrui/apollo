@@ -68,9 +68,9 @@ public:
     QLineEdit* pathLE;
 
 
-    QLineEdit* typeLE;
-    QCheckBox* threatdocumentCheck;
-    QCheckBox* networkweaponCheck;
+//    QLineEdit* typeLE;
+//    QCheckBox* threatdocumentCheck;
+//    QCheckBox* networkweaponCheck;
 
     StaticButton* checkResultBtn;
 };

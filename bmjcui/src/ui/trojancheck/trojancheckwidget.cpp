@@ -89,48 +89,48 @@ void TrojanCheckWidget::initUI()
     int y = 153;
     settings->move(0, y);
 
-    QLabel* typeIcon = new QLabel(settings);
-    typeIcon->setPixmap(QPixmap(":image/trojancheck/typeIcon"));
-    typeIcon->move(53, 184 - y);
-    QLabel* typeDes = new QLabel(settings);
-    typeDes->move(82, 184 - y);
-    typeDes->setText("检查类型");
-    QLabel* typeLabel = new QLabel(settings);
-    typeLabel->move(0, 0);
-    typeLabel->setText("选择检查类型");
-    typeLabel->move(757, 180 - y);
-    QLabel* hline1 = new QLabel(settings);
-    hline1->move(0, 209 - y);
-    hline1->setPixmap(QPixmap(":image/filecheck/hline"));
-    typeLE = new QLineEdit(settings);
-    typeLE->setText("威胁文档;网络武器");
-    typeLE->setPlaceholderText("请选择检查类型");
-    typeLE->move(51, 218 - y);
-    typeLE->setReadOnly(true);
+//    QLabel* typeIcon = new QLabel(settings);
+//    typeIcon->setPixmap(QPixmap(":image/trojancheck/typeIcon"));
+//    typeIcon->move(53, 184 - y);
+//    QLabel* typeDes = new QLabel(settings);
+//    typeDes->move(82, 184 - y);
+//    typeDes->setText("检查类型");
+//    QLabel* typeLabel = new QLabel(settings);
+//    typeLabel->move(0, 0);
+//    typeLabel->setText("选择检查类型");
+//    typeLabel->move(757, 180 - y);
+//    QLabel* hline1 = new QLabel(settings);
+//    hline1->move(0, 209 - y);
+//    hline1->setPixmap(QPixmap(":image/filecheck/hline"));
+//    typeLE = new QLineEdit(settings);
+//    typeLE->setText("威胁文档;网络武器");
+//    typeLE->setPlaceholderText("请选择检查类型");
+//    typeLE->move(51, 218 - y);
+//    typeLE->setReadOnly(true);
 
-    threatdocumentCheck = new QCheckBox("威胁文档", settings);
-    threatdocumentCheck->setCheckState(Qt::Checked);
-    threatdocumentCheck->move(177, 181 - y);
-    networkweaponCheck = new QCheckBox("网络武器", settings);
-    networkweaponCheck->setCheckState(Qt::Checked);
-    networkweaponCheck->move(277, 181 - y);
+//    threatdocumentCheck = new QCheckBox("威胁文档", settings);
+//    threatdocumentCheck->setCheckState(Qt::Checked);
+//    threatdocumentCheck->move(177, 181 - y);
+//    networkweaponCheck = new QCheckBox("网络武器", settings);
+//    networkweaponCheck->setCheckState(Qt::Checked);
+//    networkweaponCheck->move(277, 181 - y);
 
     QLabel* pathIcon = new QLabel(settings);
-    pathIcon->move(53, 292 - y);
+    pathIcon->move(53, 184 - y);
     pathIcon->setPixmap(QPixmap(":image/trojancheck/pathIcon"));
     QLabel* pathDes = new QLabel(settings);
-    pathDes->move(82, 292 - y);
+    pathDes->move(82, 184- y);
     pathDes->setText("检查路径");
     pathBrowserBtn = new StaticButton(":image/trojancheck/pathBrowserBtn", 3, settings);
-    pathBrowserBtn->move(772, 288 - y);
+    pathBrowserBtn->move(772, 180- y);
     QLabel* hline2 = new QLabel(settings);
-    hline2->move(0, 316 - y);
+    hline2->move(0, 209 - y);
     hline2->setPixmap(QPixmap(":image/trojancheck/hline"));
     pathLE = new QLineEdit(settings);
     pathLE->setPlaceholderText("请设置检查路径");
-    pathLE->move(51, 326 - y);
+    pathLE->move(51, 218 - y);
     checkResultBtn = new StaticButton(":image/trojancheck/checkResultBtn", 3, settings);
-    checkResultBtn->move(738, 380 - y);
+    checkResultBtn->move(738, 272 - y);
     checkResultBtn->hide();
 }
 void TrojanCheckWidget::initConnect()
@@ -142,33 +142,33 @@ void TrojanCheckWidget::initConnect()
 
     connect(pathBrowserBtn, &StaticButton::buttonClicked, this, &TrojanCheckWidget::setFolderPath);
 
-    connect(threatdocumentCheck, &QCheckBox::stateChanged, this, &TrojanCheckWidget::setCheckType);
-    connect(networkweaponCheck, &QCheckBox::stateChanged, this, &TrojanCheckWidget::setCheckType);
+    //connect(threatdocumentCheck, &QCheckBox::stateChanged, this, &TrojanCheckWidget::setCheckType);
+    //connect(networkweaponCheck, &QCheckBox::stateChanged, this, &TrojanCheckWidget::setCheckType);
 
-    connect(threatdocumentCheck, &QCheckBox::stateChanged, [=](int status) {
-        if(status  == Qt::Unchecked){
-            emit disableThreatDocument();
-        }
-        if(status  == Qt::Checked){
-            emit enableThreatDocument();
-        }
-    });
+    //connect(threatdocumentCheck, &QCheckBox::stateChanged, [=](int status) {
+    //    if(status  == Qt::Unchecked){
+    //        emit disableThreatDocument();
+    //    }
+    //    if(status  == Qt::Checked){
+    //        emit enableThreatDocument();
+    //   }
+    //});
 
-    connect(networkweaponCheck, &QCheckBox::stateChanged, [=](int status) {
-        if(status  == Qt::Unchecked){
-            emit disableNetworkWeapon();
-        }
-        if(status  == Qt::Checked){
-            emit enableNetworkWeapon();
-        }
-    });
+    //connect(networkweaponCheck, &QCheckBox::stateChanged, [=](int status) {
+     //   if(status  == Qt::Unchecked){
+     //       emit disableNetworkWeapon();
+     //   }
+     //   if(status  == Qt::Checked){
+     //       emit enableNetworkWeapon();
+     //   }
+    //});
 
     connect(pathLE, &QLineEdit::textChanged, [=](const QString& newValue) {
-        emit setParameter("path", newValue);
+        emit setParameter("path", newValue.trimmed());
     });
-    connect(typeLE, &QLineEdit::textChanged, [=](const QString& newValue) {
-        emit setParameter("type", newValue);
-    });
+    //connect(typeLE, &QLineEdit::textChanged, [=](const QString& newValue) {
+    //    emit setParameter("type", newValue);
+    //});
 }
 
 void TrojanCheckWidget::setFolderPath()
@@ -176,47 +176,48 @@ void TrojanCheckWidget::setFolderPath()
     QString directory = QFileDialog::getExistingDirectory(this, "选择文件夹", QDir::currentPath());
 
     if (!directory.isEmpty()) {
-        QString currentText = pathLE->text();
-        if (currentText.trimmed().isEmpty()) {
-            pathLE->setText(directory.trimmed());
-        } else {
-            pathLE->setText(currentText.trimmed().append(";").append(directory.trimmed()));
-        }
+        pathLE->setText(directory.trimmed());
+//        QString currentText = pathLE->text();
+//        if (currentText.trimmed().isEmpty()) {
+//            pathLE->setText(directory.trimmed());
+//        } else {
+//            pathLE->setText(currentText.trimmed().append(";").append(directory.trimmed()));
+//        }
     }
 }
 
 void TrojanCheckWidget::setCheckType()
 {
-    QString types;
+    //QString types;
 
-    if (threatdocumentCheck->checkState() == Qt::Checked) {
-        if (!types.isEmpty()) {
-            types.append(";");
-        }
-        types.append("威胁文档");
-    }
-    if (networkweaponCheck->checkState() == Qt::Checked) {
-        if (!types.isEmpty()) {
-            types.append(";");
-        }
-        types.append("网络武器");
-    }
-    typeLE->setText(types);
+    //if (threatdocumentCheck->checkState() == Qt::Checked) {
+    //    if (!types.isEmpty()) {
+    //        types.append(";");
+     //   }
+    //    types.append("威胁文档");
+    //}
+    //if (networkweaponCheck->checkState() == Qt::Checked) {
+    //    if (!types.isEmpty()) {
+    //        types.append(";");
+    //    }
+    //    types.append("网络武器");
+    // }
+    //typeLE->setText(types);
 }
 
 void TrojanCheckWidget::startCheck()
 {
 
-    if (pathLE->text().isEmpty()) {
+    if (pathLE->text().trimmed().isEmpty()) {
         pathLE->setFocus();
         return;
     }
-    if (typeLE->text().isEmpty()) {
-        typeLE->setFocus();
-        return;
-    }
-    emit setParameter("path", pathLE->text());
-    emit setParameter("type", typeLE->text());
+    //if (typeLE->text().isEmpty()) {
+    //    typeLE->setFocus();
+    //    return;
+    //}
+    emit setParameter("path", pathLE->text().trimmed());
+    //emit setParameter("type", typeLE->text());
 
     //     keyWordCB->set
 

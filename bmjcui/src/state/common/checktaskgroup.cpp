@@ -63,7 +63,7 @@ void CheckTaskGroup::disableGroup()
 }
 void CheckTaskGroup::enableGroup()
 {
-    this->enabled = false;
+    this->enabled = true;
     emit enableSig();
 }
 

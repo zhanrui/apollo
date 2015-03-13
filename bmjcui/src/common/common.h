@@ -11,6 +11,10 @@ typedef enum {
     TASK_PROBLEM
 } TASKSTAUS;
 
+typedef enum {
+    ENABLED,
+    DISABLED
+} CHECKBUTTONSTAUS;
 
 typedef enum {
     BUTTON_DEFAULT,
