@@ -6,7 +6,8 @@ import signal
 import sys
 from common.utils.log import log4py
 from common.enums.enumSys import EnumSys
-subPids={}
+subPids={} 
+paraDict={}        
     
 def chldhandler(signum , stackframe):
     while 1:
@@ -23,11 +24,11 @@ def chldhandler(signum , stackframe):
         except:
             break
          
-def runSubProcess(cmdPara,filePathPara,scenenamePara,functionnamePara,jsonMsgPara): 
+def runSubProcess(filePathPara,scenenamePara,functionnamePara,jsonMsgPara): 
     signal.signal(signal.SIGCHLD,chldhandler)
     pid = os.fork()
     if not pid: 
-        os.execl(cmdPara, "python", filePathPara, jsonMsgPara) 
+        os.execl("/usr/bin/python2.7", "python", filePathPara, jsonMsgPara) 
     else: 
         log4py.info('backends创建子进程('+str(pid)+")开始处理..")
         key=scenenamePara+functionnamePara+str(pid)
@@ -41,7 +42,16 @@ def stopSubProcess(scenenamePara,functionnamePara):
             os.kill(subPids.get(k), 9) 
             subPids.pop(k)
             log4py.info("子进程("+str(k)+")终止成功.")
-            break 
+            break    
+    if "threatDocument"==functionnamePara or "fileRoutineCheck"==functionnamePara or "imageCheck"==functionnamePara:
+        parametersTemp={}
+        parametersTemp["functionname"]=functionnamePara
+        parametersTemp["parameters"]=paraDict[functionnamePara]
+        paraDict.pop(functionnamePara)
+        paraJson=json.dumps(parametersTemp)
+        print paraJson
+        filePath=os.getcwd()[:len(os.getcwd())-7]+"common/utils/killSubProcess.py"
+        runSubProcess(filePath,scenenamePara,functionnamePara,paraJson)
 
 def stopAllSubProcess():
     tempSubPids=subPids
@@ -57,9 +67,12 @@ def handler(jsonMsgPara,mainloopPara):
     action=strMsg["action"]            #以action为分界点判断   
     if "run"==action:        
         scenename=strMsg["scenename"] 
-        functionname=strMsg["functionname"]  
+        functionname=strMsg["functionname"] 
+        parameters=strMsg["parameters"]
+        if "threatDocument"==functionname or "fileRoutineCheck"==functionname or "imageCheck"==functionname:
+            paraDict[functionname]=parameters
         filePath=strPath+EnumSys.sysModules[functionname]+"/"+functionname+'.py'               
-        runSubProcess("/usr/bin/python2.7",filePath,scenename,functionname,jsonMsgPara)             
+        runSubProcess(filePath,scenename,functionname,jsonMsgPara)             
     elif "stop"==action:
         scenename=strMsg["scenename"] 
         functionname=strMsg["functionname"]

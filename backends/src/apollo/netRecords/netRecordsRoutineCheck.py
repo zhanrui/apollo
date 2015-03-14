@@ -3,6 +3,7 @@
 import sys
 import os
 import sqlite3
+import time
 sys.path.append(os.path.dirname(os.getcwd()))
 from common.utils.log import log4py
 from apollo.commHandler import CommHandler
@@ -39,16 +40,16 @@ class NetRecordsRoutineCheck(CommHandler):
                 dictTemp['url']=tmp[1]
                 dictTemp['title']=tmp[2]                
                 timeTemp=str(tmp[4])
-                hw = os.popen('java DateChange '+timeTemp)
-                visitTime = hw.read()                
-                hw.close()              
-#                 print visitTime 
+                timeStamp= timeTemp[0:len(timeTemp)-6]
+                timeStamp=int(timeStamp)
+                print timeStamp 
+                t = time.localtime(timeStamp)
+                timeArray = time.localtime(timeStamp)
+                visitTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
                 dictTemp['visitDate']=visitTime
                 save.append(dictTemp)
                 dictTemp={}
                 i=i+1
-                print i                
-                print save
                 log4py.info(str(i))
                 log4py.info(save)
                 if proNum<100:
@@ -69,7 +70,7 @@ if __name__ == "__main__":
     try:              
         dataReportMsg=objectTemp.orgDataReportMsg(objectTemp.getNetRecordsRoutineCheck())
         objectTemp.sendMsgToUI(dataReportMsg)
-        
+         
         progReportMsg=objectTemp.orgProgReportMsg("100", "上网记录常规信息检查完毕.")
         objectTemp.sendMsgToUI(progReportMsg)
     except Exception,e: 

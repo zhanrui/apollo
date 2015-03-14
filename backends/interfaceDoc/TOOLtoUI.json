@@ -41,105 +41,100 @@
 -----------------------------------------------------------------------------------------------------------------------------------
 #M1.基本信息
 	#M1-1.操作系统
-	1.报文	
-			{
+		1.报文	
+		{
 			"scenename":"###",   
 			"functionname":"###",
 			"resulttype":"datareport",
 			"result:"[{'node': 'localhost.localdomain', 'uname': ('Linux', 'localhost.localdomain', '3.12.11-201.nk.1.i686.PAE', '#1 SMP Sun Jun 8 19:40:47 CST 2014', 'i686', 'i686'), 'system': 'Linux', 'machine': 'i686', 'platform': 'Linux-3.12.11-201.nk.1.i686.PAE-i686-with-redhat-6.0', 'version': '#1 SMP Sun Jun 8 19:40:47 CST 2014', 'architecture': ('32bit', 'ELF'), 'processor': 'i686'}]
-			}
-	2.解释
-	  #	platform 			获取操作系统名称及版本号   
-    #	version			  获取操作系统版本号   
-    #	architecture 	获取操作系统的位数  
-    #	machine 			计算机类型
-    #	node 					计算机的网络名称
-    #	processor 		计算机处理器信息
-    #	system 				获取操作系统类型
-    #	unam          综合信息
+		}
+		2.解释: #	platform 			获取操作系统名称及版本号   
+				#	version			  获取操作系统版本号   
+				#	architecture 	获取操作系统的位数  
+				#	machine 			计算机类型
+				#	node 					计算机的网络名称
+				#	processor 		计算机处理器信息
+				#	system 				获取操作系统类型
+				#	unam          综合信息
 	#M1-2.CPU信息
 		1.报文	
-			{
+		{
 			"scenename":"###",   
 			"functionname":"###",
 			"resulttype":"datareport",
 			"result":[{'cacheSize': ' 3072 KB', 'vendorId': ' GenuineIntel', 'modelName': ' Intel(R) Core(TM) i5-4210U CPU @ 1.70GHz', 'cpuMHz': ' 2394.469'}]
-			}
-		2.翻译
-		#	vendorId			生产厂商
-		#	modelName			名称
-		#	cacheSize			缓存大小(K)
-		#	CPU MHz				CPU MHz
+		}
+		2.翻译: #	vendorId			生产厂商
+				#	modelName			名称
+				#	cacheSize			缓存大小(K)
+				#	CPU MHz				CPU MHz
 	
 	#M1-3.BIOS信息
-	1.报文	
-			{
+		1.报文	
+		{
 			"scenename":"###",   
 			"functionname":"###",
 			"resulttype":"datareport",
 			"result":[{'BioVersion': '6.00', 'BioVendor': 'Phoenix Technologies LTD', 'BioRelease': '07/02/2012'}]
-			}
-	2.解释
-		 #   BioVendor		    BIOS产商
-		 #   BioVersion		    BIOS版本
-		 #   BioRelease		    发布日期
+		}
+		2.解释:#   BioVendor		    BIOS产商
+			   #   BioVersion		    BIOS版本
+			   #   BioRelease		    发布日期
 	#M1-4.主板信息
-	1.报文
-	{
-		"scenename":"###",   
-		"functionname":"###",
-		"resulttype":"datareport",
-		"result":[{'BioVendor': '', 'BoaVendor': '', 'BioRelease': '', 'BioVersion': '', 'BoaSerial': '', 'BoaProduct': ''}]
-	}
-    2.翻译：#BoaProduct		主板型号
-			#BoaVendor		主板产商
-			#BoaSerial		序列号
-			#BioVendor		BIOS产商
-			#BioVersion		BIOS版本
-			#BioRelease		发布日期
+		1.报文
+		{
+			"scenename":"###",   
+			"functionname":"###",
+			"resulttype":"datareport",
+			"result":[{'BioVendor': '', 'BoaVendor': '', 'BioRelease': '', 'BioVersion': '', 'BoaSerial': '', 'BoaProduct': ''}]
+		}
+		2.翻译：#BoaProduct		主板型号
+				#BoaVendor		主板产商
+				#BoaSerial		序列号
+				#BioVendor		BIOS产商
+				#BioVersion		BIOS版本
+				#BioRelease		发布日期
 	#M1-5.内存信息
-	1.报文
-	{
-		"scenename":"###",   
-		"functionname":"###",
-		"resulttype":"datareport",
-		"result":[{'Memnum': '', 'MemInfo': '', 'MemProduct': '', 'MemSerial': '', 'MemSlot': '', 'MemWidth': '', 'MemVendor': '', 'MemSize': ''}]
-	}
-    2.翻译：
-			#MemInfo        内存条信息
-			#MemWidth       数据宽度
-			#MemSlot 		插槽号
-			#MemProduct		内存型号
-			#MemVendor		制造商
-			#MemSerial		序列号
-			#MemSize 		内存大小
+		1.报文
+		{
+			"scenename":"###",   
+			"functionname":"###",
+			"resulttype":"datareport",
+			"result":[{'Memnum': '', 'MemInfo': '', 'MemProduct': '', 'MemSerial': '', 'MemSlot': '', 'MemWidth': '', 'MemVendor': '', 'MemSize': ''}]
+		}
+		2.翻译：#MemInfo        内存条信息
+				#MemWidth       数据宽度
+				#MemSlot 		插槽号
+				#MemProduct		内存型号
+				#MemVendor		制造商
+				#MemSerial		序列号
+				#MemSize 		内存大小
 	#M1-6.显卡信息
-	1.报文
-	{
-		"scenename":"###",   
-		"functionname":"###",
-		"resulttype":"datareport",
-		"result":[{'Vga_num': '1', 'Vga_product': 'VMware SVGA II Adapter (prog-if 00 [VGA controller])', 'Vga_businfo': 'pci@0000:00:0f.0', 'Vga_vendor': '', 'Vga_Drive': 'vmwgfx'}]
-	}
-    2.翻译：#Vga_product    显卡型号
-			#Vga_vendor     显卡产商
-			#Vga_businfo    显卡总线地址
-			#Vga_Drive      显卡驱动		
+		1.报文
+		{
+			"scenename":"###",   
+			"functionname":"###",
+			"resulttype":"datareport",
+			"result":[{'Vga_num': '1', 'Vga_product': 'VMware SVGA II Adapter (prog-if 00 [VGA controller])', 'Vga_businfo': 'pci@0000:00:0f.0', 'Vga_vendor': '', 'Vga_Drive': 'vmwgfx'}]
+		}
+		2.翻译：#Vga_product    显卡型号
+				#Vga_vendor     显卡产商
+				#Vga_businfo    显卡总线地址
+				#Vga_Drive      显卡驱动		
 -----------------------------------------------------------------------------------------------------------------------------------
 #M2.设备连接信息
 	#M2-1.硬盘信息
 	    1.报文
-				{
+		{
 			"scenename":"###",   
 			"functionname":"###",
 			"resulttype":"datareport",
 			"result":[{"realpath": "/dev/sda3", "total": "17489", "used": "9435", "free": "7142"}, {"realpath": "/dev/sda1", "total": "476", "used": "96", "free": "350"}]}
-			}
-		2.解释
-			#realpath									分区路径           														
-			#used											已使用(M)
-			#total										总大小(M)
-			#free											剩余(M)
+		}
+		2.解释:	#realpath									分区路径           														
+				#used											已使用(M)
+				#total										总大小(M)
+				#free											剩余(M)
 	#M2-2.虚拟机信息
 	#M2-3.网络配置
 	    1.报文
@@ -148,171 +143,164 @@
 		   "functionname":"###",
 		   "resulttype":"datareport",
 		   "result":[{'broadcast': '192.168.248.255', 'netmask': '255.255.255.0', 'IpAddr': '192.168.248.135'}]
-
-        2.解释
-        #   IpAddr               IP地址
-        #   netmask              子网掩码
-        #   broadcast            广播地址
+		}
+        2.解释:#   IpAddr               IP地址
+			   #   netmask              子网掩码
+			   #   broadcast            广播地址
 	
 	#M2-4.网卡设备
 	    1.报文
-			{
-				"scenename":"###",   
-				"functionname":"###",
-				"resulttype":"datareport",
-				"result":[{'NetSerial': '00:50:56:25:b3:c2', 'NetVendor': 'pcnet32', 'NetDrive': 'pcnet32', 'NetProduct': 'Advanced}]
-				}	
-		
-			2.解释
-			#   NetProduct          网卡型号
-			#   NetVendor           制造商
-			#   NetLogicalname      设备名称
-			#   NetSerial           MAC地址
-			#   NetIp               IP地址
-			#   NetDrive            网卡驱动
-	 
+		{
+			"scenename":"###",   
+			"functionname":"###",
+			"resulttype":"datareport",
+			"result":[{'NetSerial': '00:50:56:25:b3:c2', 'NetVendor': 'pcnet32', 'NetDrive': 'pcnet32', 'NetProduct': 'Advanced}]
+		}		
+		2.解释:	#   NetProduct          网卡型号
+				#   NetVendor           制造商
+				#   NetLogicalname      设备名称
+				#   NetSerial           MAC地址
+				#   NetIp               IP地址
+				#   NetDrive            网卡驱动	 
  
 	#M2-5.打印机设备
 	    1.报文
-			{
-				"scenename":"###",   
-				"functionname":"###",
-				"resulttype":"datareport",
-				"result":[{'Info': 'Hewlett-Packard HP LaserJet Professional P1108', 'StateTime': '1423464261', 
-							'JobSheets': 'none none', 'ErrorPolicy': 'stop-printer', 'State': 'Stopped', 
-							'DefaultPrinter': 'HP-LaserJet-Professional-P1108', 'MakeModel': 'HP LaserJet Professional p1108, hpcups 3.13.5, requires proprietary plugin', 
-							'Shared': 'Yes', 'QuotaPeriod': '0', 'Accepting': 'Yes', 'PageLimit': '0', 'Type': '36876', 
-							'DeviceURI': 'hp:/usb/HP_LaserJet_Professional_P1108?serial=000000000Q83GLBZSI1c'}]
-		    }	
+		{
+			"scenename":"###",   
+			"functionname":"###",
+			"resulttype":"datareport",
+			"result":[{'Info': 'Hewlett-Packard HP LaserJet Professional P1108', 'StateTime': '1423464261', 
+						'JobSheets': 'none none', 'ErrorPolicy': 'stop-printer', 'State': 'Stopped', 
+						'DefaultPrinter': 'HP-LaserJet-Professional-P1108', 'MakeModel': 'HP LaserJet Professional p1108, hpcups 3.13.5, requires proprietary plugin', 
+						'Shared': 'Yes', 'QuotaPeriod': '0', 'Accepting': 'Yes', 'PageLimit': '0', 'Type': '36876', 
+						'DeviceURI': 'hp:/usb/HP_LaserJet_Professional_P1108?serial=000000000Q83GLBZSI1c'}]
+		}	
 		
-		2.解释
-			Info           打印机信息
-			Shared         共享
-			State          状态
-			Accepting      是否接受打印任务
-			DefaultPrinter 打印机伫列名称
-			DeviceURI      打印机装置所在的位置 
-			QuotaPeriod    配额期
-			MakeModel      型号
-			StateTime      使用的时间
-			JobSheets      打印的页数
-			PageLimit      做多打印的页数
-			ErrorPolicy    打印机有故障时
-			Type           型号
-	
+		2.解释:	Info           打印机信息
+				Shared         共享
+				State          状态
+				Accepting      是否接受打印任务
+				DefaultPrinter 打印机伫列名称
+				DeviceURI      打印机装置所在的位置 
+				QuotaPeriod    配额期
+				MakeModel      型号
+				StateTime      使用的时间
+				JobSheets      打印的页数
+				PageLimit      做多打印的页数
+				ErrorPolicy    打印机有故障时
+				Type           型号
 	
 	
 	#M2-6.蓝牙设备	
-	    1.报文
+		1.报文
 		{
 			"scenename":"###",   
 			"functionname":"###",
 			"resulttype":"datareport",
 			"result":[{'bluerun': 'UP RUNNING', 'bluetype': ' USB', 'blueaddr': '28:B2:BD:4F:B9:B4', 'bluepacket': 'DM1 DM3 DM5 DH1 DH3 DH5 HV1 HV2 HV3 ', 'bluename': "'localhost.localdomain-0'"}]
 		}	
-	 2.解释
-		 #	bluerun					命令状态(UP RUNNING- 激活,DOWN-未激活 )
-		 #	bluetype				蓝牙的接口类型
-		 #	blueaddr				蓝牙地址
-		 #	bluepacket			支持数据包
-		 #	bluename				蓝牙名称
+		2.解释:	#	bluerun					命令状态(UP RUNNING- 激活,DOWN-未激活 )
+				#	bluetype				蓝牙的接口类型
+				#	blueaddr				蓝牙地址
+				#	bluepacket			支持数据包
+				#	bluename				蓝牙名称
 -----------------------------------------------------------------------------------------------------------------------------------
 #M3.系统安全信息
 	#M3-1.未安装补丁
 	#M3-2.系统服务
-	1.报文
-	{
-		"scenename":"###",   
-		"functionname":"###",
-		"resulttype":"datareport",
-		"result":[{'UNITFILE': 'proc-sys-fs-binfmt_misc.automount', 'STATE': 'static'},
-				  {'UNITFILE': 'NetworkManager-wait-online.service', 'STATE': 'disabled'},
-				  {'UNITFILE': 'NetworkManager-wait-online.service', 'STATE': 'enabled'},]
-	}
-    2.翻译：#UNITFILE      单元名               
-			#STATE         状态	
+		1.报文
+		{
+			"scenename":"###",   
+			"functionname":"###",
+			"resulttype":"datareport",
+			"result":[{'UNITFILE': 'proc-sys-fs-binfmt_misc.automount', 'STATE': 'static'},
+					{'UNITFILE': 'NetworkManager-wait-online.service', 'STATE': 'disabled'},
+					{'UNITFILE': 'NetworkManager-wait-online.service', 'STATE': 'enabled'},]
+		}
+		2.翻译：#UNITFILE      单元名               
+				#STATE         状态	
 	#M3-3.系统进程
-	1.报文
-	{
-		"scenename":"###",   
-		"functionname":"###",
-		"resulttype":"datareport",
-		"result":[{"TTY": "none", "UID": "root", "CMD": "/usr/lib/systemd/systemd", "PID": "2", "STIME": "09:01", "TIME": "00:00:02", "PPID": "0"},
-				  {"TTY": "none", "UID": "xiangyang", "CMD": "/usr/lib/systemd/systemd", "PID": "1", "STIME": "09:01", "TIME": "00:00:02", "PPID": "0"},
-				  {"TTY": "none", "UID": "root", "CMD": "/usr/lib/systemd/systemd", "PID": "1", "STIME": "09:01", "TIME": "00:00:02", "PPID": "0"}]
-	}
-    2.翻译：#UID           用户ID               
-			#PID           进程ID
-            #PPID          父进程ID
-            #STIME         开始时间
-            #TTY           终端名称
-            #TIME          进程执行时间，进程启动所占用CPU时间
-			#CMD           命令行输入
+		1.报文
+		{
+			"scenename":"###",   
+			"functionname":"###",
+			"resulttype":"datareport",
+			"result":[{"TTY": "none", "UID": "root", "CMD": "/usr/lib/systemd/systemd", "PID": "2", "STIME": "09:01", "TIME": "00:00:02", "PPID": "0"},
+					{"TTY": "none", "UID": "xiangyang", "CMD": "/usr/lib/systemd/systemd", "PID": "1", "STIME": "09:01", "TIME": "00:00:02", "PPID": "0"},
+					{"TTY": "none", "UID": "root", "CMD": "/usr/lib/systemd/systemd", "PID": "1", "STIME": "09:01", "TIME": "00:00:02", "PPID": "0"}]
+		}
+		2.翻译：#UID           用户ID               
+				#PID           进程ID
+				#PPID          父进程ID
+				#STIME         开始时间
+				#TTY           终端名称
+				#TIME          进程执行时间，进程启动所占用CPU时间
+				#CMD           命令行输入
 	#M3-4.外连产品
 	#M3-5.开关机时间
-	1.报文
-	{
-		"scenename":"###",   
-		"functionname":"###",
-		"resulttype":"datareport",
-		"result":[{'HOSTNAME': 'localhost.localdomain', 'TYPE': 'boot', 'TIME': 'Thu Feb  5  15:20'},
-				  {'HOSTNAME': 'localhost.localdomain', 'TYPE': 'shutdown', 'TIME': 'Thu Feb  2  15:20'}]
-	}
-    2.翻译：#TYPE          类型               
-			#TIME          时间
-            #HOSTNAME      主机名
+		1.报文
+		{
+			"scenename":"###",   
+			"functionname":"###",
+			"resulttype":"datareport",
+			"result":[{'HOSTNAME': 'localhost.localdomain', 'TYPE': 'boot', 'TIME': 'Thu Feb  5  15:20'},
+					{'HOSTNAME': 'localhost.localdomain', 'TYPE': 'shutdown', 'TIME': 'Thu Feb  2  15:20'}]
+		}
+		2.翻译：#TYPE          类型               
+				#TIME          时间
+				#HOSTNAME      主机名
 	#M3-6.安全软件
 -----------------------------------------------------------------------------------------------------------------------------------
 #M4.安全隐患信息
 	#M4-1.安全策略
 	#M4-2.开放端口
-	1.报文 
-	{
-		"scenename": "userInfo",
-		"resulttype": "datareport",
-		"functionname": "openPort",
-		"result": [{"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:56892", "pid": "1646/mate-session"}, {"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:36226", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:111", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:22", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "127.0.0.1:631", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "127.0.0.1:25", "pid": "-"}, {"foreadd": "192.168.1.103:51148", "localadd": "192.168.1.102:22", "pid": "-"}, {"foreadd": "127.0.0.1:41435", "localadd": "127.0.0.1:39460", "pid": "14289/python2.7"}, {"foreadd": "127.0.0.1:34922", "localadd": "127.0.0.1:36475", "pid": "14161/python2.7"}, {"foreadd": ":::*", "localadd": ":::34110", "pid": "-"}, {"foreadd": ":::*", "localadd": ":::5473", "pid": "-"}]
-	}
-	2.翻译:# foreadd	外部地址
-		   # localadd	本地地址
-		   # pid	进程号/进程名称
+		1.报文 
+		{
+			"scenename": "userInfo",
+			"resulttype": "datareport",
+			"functionname": "openPort",
+			"result": [{"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:56892", "pid": "1646/mate-session"}, {"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:36226", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:111", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "0.0.0.0:22", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "127.0.0.1:631", "pid": "-"}, {"foreadd": "0.0.0.0:*", "localadd": "127.0.0.1:25", "pid": "-"}, {"foreadd": "192.168.1.103:51148", "localadd": "192.168.1.102:22", "pid": "-"}, {"foreadd": "127.0.0.1:41435", "localadd": "127.0.0.1:39460", "pid": "14289/python2.7"}, {"foreadd": "127.0.0.1:34922", "localadd": "127.0.0.1:36475", "pid": "14161/python2.7"}, {"foreadd": ":::*", "localadd": ":::34110", "pid": "-"}, {"foreadd": ":::*", "localadd": ":::5473", "pid": "-"}]
+		}
+		2.翻译: # foreadd	外部地址
+				# localadd	本地地址
+				# pid	进程号/进程名称
 	#M4-3.共享信息
 	#M4-4.上网软件
 	#M4-5.组信息
-	1.报文
-	{
-		"scenename": "userInfo", 
-		"resulttype": "datareport", 
-		"functionname": "groupInfo", 
-		"result": [{"groupname": "root", "groupid": "0"}, {"groupname": "bin", "groupid": "1"}, {"groupname": "daemon", "groupid": "2"}, {"groupname": "sys", "groupid": "3"}, {"groupname": "adm", "groupid": "4"}, {"groupname": "tty", "groupid": "5"}, {"groupname": "disk", "groupid": "6"}, {"groupname": "lp", "groupid": "7"}, {"groupname": "mem", "groupid": "8"}]
-	}
-	2.翻译:# groupname  组名称
-		   # groupid    组标识
+		1.报文
+		{
+			"scenename": "userInfo", 
+			"resulttype": "datareport", 
+			"functionname": "groupInfo", 
+			"result": [{"groupname": "root", "groupid": "0"}, {"groupname": "bin", "groupid": "1"}, {"groupname": "daemon", "groupid": "2"}, {"groupname": "sys", "groupid": "3"}, {"groupname": "adm", "groupid": "4"}, {"groupname": "tty", "groupid": "5"}, {"groupname": "disk", "groupid": "6"}, {"groupname": "lp", "groupid": "7"}, {"groupname": "mem", "groupid": "8"}]
+		}
+		2.翻译:# groupname  组名称
+			   # groupid    组标识
 	#M4-6.用户信息
-	1.报文
-	{
-		"scenename":"###",   
-		"functionname":"###",
-		"resulttype":"datareport",
-		"result":[{"username": "root", "direct": "/root", "uid": "0", "groupid": "0"}, {"username": "bin", "direct": "/bin", "uid": "1", "groupid": "1"}, {"username": "daemon", "direct": "/sbin", "uid": "2", "groupid": "2"}]
-	}
-	2.翻译:# username   用户名称 
-		   # uid 		系统用户标识
-		   # groupid    组标识
-		   # direct		目录 
+		1.报文
+		{
+			"scenename":"###",   
+			"functionname":"###",
+			"resulttype":"datareport",
+			"result":[{"username": "root", "direct": "/root", "uid": "0", "groupid": "0"}, {"username": "bin", "direct": "/bin", "uid": "1", "groupid": "1"}, {"username": "daemon", "direct": "/sbin", "uid": "2", "groupid": "2"}]
+		}
+		2.翻译: # username   用户名称 
+				# uid 		系统用户标识
+				# groupid    组标识
+				# direct		目录 
 	#M4-7.数据库信息
 	#M4-8.事件日志
-	1.报文
-	{
-		"scenename":"###",   
-		"functionname":"###",
-		"resulttype":"datareport",  
-		"result":[{'maillog': '', 'cronlog': '', 'securelog': 'messageslog','':''}]
-	}
-    2.翻译：#maillog          与邮件相关的日志信息                
-			#cronlog          与定时任务相关的日志信息 
-            #securelog        与安全相关的日志信息
-			#messageslog      系统启动后的信息和错误日志
+		1.报文
+		{
+			"scenename":"###",   
+			"functionname":"###",
+			"resulttype":"datareport",  
+			"result":[{'maillog': '', 'cronlog': '', 'securelog': 'messageslog','':''}]
+		}
+		2.翻译：#maillog          与邮件相关的日志信息                
+				#cronlog          与定时任务相关的日志信息 
+				#securelog        与安全相关的日志信息
+				#messageslog      系统启动后的信息和错误日志
 	#M4-9.用户认证
 -----------------------------------------------------------------------------------------------------------------------------------
 #M5.USB设备记录
@@ -321,32 +309,49 @@
 -----------------------------------------------------------------------------------------------------------------------------------
 #M6.上网记录
 	#M6-1.上网记录常规检查
-	1.报文
-	{
-		'scenename': u'onekeycheck',
-		'resulttype': u'datareport',
-		'functionname': u'netRecordsRoutineCheck',
-		'result': [{'url': 'http://www.cs2c.com.cn/', 'visitDate': 'Mon Mar 02 10:09:38 GMT+08:00 2015', 'title': u'\u56fd\u4ea7\u64cd\u4f5c\u7cfb\u7edf\u65d7\u8230\u4f01\u4e1a\uff5c\u4e2d\u6807\u8f6f\u4ef6\uff5c\u4e2d\u6807\u9e92\u9e9f\uff5c'},
-				   {'url': 'http://www.mozilla.com/zh-CN/firefox/21.0/firstrun/', 'visitDate': u'Sat Feb 07 11:45:12 GMT+08:00 2015', 'title': None},
-				   {'url': 'https://www.mozilla.org/zh-CN/firefox/21.0/firstrun/', 'visitDate': 'Sat Feb 07 11:45:21 GMT+08:00 2015', 'title': '\u6b22\u8fce\u4f7f\u7528 Firefox'}]
-	2.翻译：#url          URL地址
-            #visitDate    访问时间
-			#title    	  标签内容
+		1.报文
+		{
+			'scenename': u'onekeycheck',
+			'resulttype': u'datareport',
+			'functionname': u'netRecordsRoutineCheck',
+			'result': [{'url': 'http://www.cs2c.com.cn/', 'visitDate': 'Mon Mar 02 10:09:38 GMT+08:00 2015', 'title': u'\u56fd\u4ea7\u64cd\u4f5c\u7cfb\u7edf\u65d7\u8230\u4f01\u4e1a\uff5c\u4e2d\u6807\u8f6f\u4ef6\uff5c\u4e2d\u6807\u9e92\u9e9f\uff5c'},
+					{'url': 'http://www.mozilla.com/zh-CN/firefox/21.0/firstrun/', 'visitDate': u'Sat Feb 07 11:45:12 GMT+08:00 2015', 'title': None},
+					{'url': 'https://www.mozilla.org/zh-CN/firefox/21.0/firstrun/', 'visitDate': 'Sat Feb 07 11:45:21 GMT+08:00 2015', 'title': '\u6b22\u8fce\u4f7f\u7528 Firefox'}]
+		2.翻译：#url          URL地址
+				#visitDate    访问时间
+				#title    	  标签内容
 	#M6-2.上网记录深度检查
-	1.报文
-	{
-		'scenename': u'onekeycheck',
-		'resulttype': u'datareport',
-		'functionname': u'netRecordsDepthCheck',
-		'result': [{'url': 'http://www.cs2c.com.cn/', 'visitDate': 'Mon Mar 02 10:09:38 GMT+08:00 2015', 'title': u'\u56fd\u4ea7\u64cd\u4f5c\u7cfb\u7edf\u65d7\u8230\u4f01\u4e1a\uff5c\u4e2d\u6807\u8f6f\u4ef6\uff5c\u4e2d\u6807\u9e92\u9e9f\uff5c'},
-				   {'url': 'http://www.mozilla.com/zh-CN/firefox/21.0/firstrun/', 'visitDate': u'Sat Feb 07 11:45:12 GMT+08:00 2015', 'title': None},
-				   {'url': 'https://www.mozilla.org/zh-CN/firefox/21.0/firstrun/', 'visitDate': 'Sat Feb 07 11:45:21 GMT+08:00 2015', 'title': '\u6b22\u8fce\u4f7f\u7528 Firefox'}]
-	2.翻译：#url          URL地址
-            #visitDate    访问时间
-			#title    	  标签内容
+		1.报文
+		{
+			'scenename': u'onekeycheck',
+			'resulttype': u'datareport',
+			'functionname': u'netRecordsDepthCheck',
+			'result': [{'url': 'http://www.cs2c.com.cn/', 'visitDate': 'Mon Mar 02 10:09:38 GMT+08:00 2015', 'title': u'\u56fd\u4ea7\u64cd\u4f5c\u7cfb\u7edf\u65d7\u8230\u4f01\u4e1a\uff5c\u4e2d\u6807\u8f6f\u4ef6\uff5c\u4e2d\u6807\u9e92\u9e9f\uff5c'},
+					{'url': 'http://www.mozilla.com/zh-CN/firefox/21.0/firstrun/', 'visitDate': u'Sat Feb 07 11:45:12 GMT+08:00 2015', 'title': None},
+					{'url': 'https://www.mozilla.org/zh-CN/firefox/21.0/firstrun/', 'visitDate': 'Sat Feb 07 11:45:21 GMT+08:00 2015', 'title': '\u6b22\u8fce\u4f7f\u7528 Firefox'}]
+		2.翻译：#url          URL地址
+				#visitDate    访问时间
+				#title    	  标签内容
 -----------------------------------------------------------------------------------------------------------------------------------
 #M7.文件检查
 	#M7-1.文件常规检查
+		1.报文
+		{
+			"scenename": "FileCheck", 
+			"resulttype": "datareport",
+			"functionname": "fileRoutineCheck",
+			"result": [{"filetotal": "15",
+						"found": ["/home/xiangyang/backends/src/startup/logs_20150206.txt FOUND",
+								"/home/xiangyang/backends/src/startup/__init__.pyc FOUND",
+								"/home/xiangyang/backends/src/startup/__init__.py FOUND",
+								"/home/xiangyang/backends/src/startup/msgHandler.py FOUND", 
+								"/home/xiangyang/backends/src/apollo/commHandler.py FOUND"]
+						}]
+		}
+		2.翻译: # filetotal   符合条件文件数量
+				# found   	  符合条件路径
+					
+2015-03-14T14:22:21.330561.[INFO]
 	#M7-2.已删除文件恢复
 	#M7-3.文件碎片检查
 -----------------------------------------------------------------------------------------------------------------------------------
@@ -354,28 +359,22 @@
 	#M8-1.网络武器
 	#M8-2.威胁文档
 		1.报文 
-		
-		# 扫描结果
-		{"scenename": "ceshi",
-	 	"resulttype": "datareport",
-  	"functionname": "threatDocument",
-  	 "result": [{"found": ["/home/zzp/zzp/clamav-0.97.6/test/clam.exe.html","/home/zzp/zzp/clamav-0.97.6/test/clam.newc.cpio","/home/zzp/zzp/clamav-0.97.6/test/clam.exe.mbox.uu", 
-   	"/home/zzp/zzp/clamav-0.97.6/test/clam.tar.gz", "/home/zzp/zzp/clamav-0.97.6/test/clam.sis", "/home/zzp/zzp/clamav-0.97.6/test/clam-nsis.exe"],
-     "infectedfiles": "46",
-     "scfiles": "30322",
-     "scdirectories": "4149",
-     "timesa": "2014.384 sec (33 m 34 s)"}]}.
-     
-     # 扫描进度
-      {"scenename": "ceshi",
-     "resulttype": "progressreport", 
-     "functionname": "threatDocument", 
-     "result": {"currentstatus": "Scanning /home/zzp/workspace2/t1/numpy-master/numpy-master/doc/release/1.5.0-notes.rst", "currentcompletion": "71"}}
-		
-		2.翻译
-		    # infectedfiles   感染病毒数量
-        # scfiles   	扫描文件数量
-        # scdirectories	 扫描文件夹数量
-        # timesa       扫描耗用时间 
-        # found     病毒目录
+		{
+			"scenename": "TrojanCheck", 
+			"resulttype": "datareport",
+			"functionname": "threatDocument",
+			"result": [{"infectedfiles": "50",
+						"scfiles": "5182",
+						"scdirectories": "248", 
+						"timesa": "98.146 sec (1 m 38 s)",
+						"found": ["/root/clamav-0.98.5/test/clamjol.iso: ClamAV-Test-File FOUND",
+								  "/root/clamav-0.98.5/test/clam.tar.gz: ClamAV-Test-File FOUND",
+								  "/root/clamav-0.98.5/test/clam.exe: ClamAV-Test-File FOUND",
+								  "/root/clamav-0.98.5/test/clam_ISmsi_ext.exe: ClamAV-Test-File FOUND"]}]
+		}
+		2.翻译: # infectedfiles   感染病毒数量
+				# scfiles   	扫描文件数量
+				# scdirectories	 扫描文件夹数量
+				# timesa       扫描耗用时间 
+				# found     病毒目录
 -----------------------------------------------------------------------------------------------------------------------------------

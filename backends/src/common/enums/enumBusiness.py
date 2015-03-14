@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #-*-coding:utf-8-*- 
-class EnumReportType:
+class ReportType:
     reportType={
                 0:"datareport",
                 1:"errorreport",
@@ -9,4 +9,8 @@ class EnumReportType:
                        0:"errordescrition"}
     progReportResult={
                       0:"currentcompletion",
-                      1:"currentstatus"}      
+                      1:"currentstatus"}  
+
+scanType={"threatDocument":"木马检查",
+           "fileRoutineCheck":"文件常规检查",
+           "imageCheck":"图片检查"}   
