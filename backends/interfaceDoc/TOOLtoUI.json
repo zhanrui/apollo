@@ -340,13 +340,7 @@
 			"scenename": "FileCheck", 
 			"resulttype": "datareport",
 			"functionname": "fileRoutineCheck",
-			"result": [{"filetotal": "15",
-						"found": ["/home/xiangyang/backends/src/startup/logs_20150206.txt FOUND",
-								"/home/xiangyang/backends/src/startup/__init__.pyc FOUND",
-								"/home/xiangyang/backends/src/startup/__init__.py FOUND",
-								"/home/xiangyang/backends/src/startup/msgHandler.py FOUND", 
-								"/home/xiangyang/backends/src/apollo/commHandler.py FOUND"]
-						}]
+			"result": [{"found": ["/home/xiangyang/backends/src/startup/logs_20150206.txt FOUND"}]
 		}
 		2.翻译: # filetotal   符合条件文件数量
 				# found   	  符合条件路径
@@ -363,14 +357,7 @@
 			"scenename": "TrojanCheck", 
 			"resulttype": "datareport",
 			"functionname": "threatDocument",
-			"result": [{"infectedfiles": "50",
-						"scfiles": "5182",
-						"scdirectories": "248", 
-						"timesa": "98.146 sec (1 m 38 s)",
-						"found": ["/root/clamav-0.98.5/test/clamjol.iso: ClamAV-Test-File FOUND",
-								  "/root/clamav-0.98.5/test/clam.tar.gz: ClamAV-Test-File FOUND",
-								  "/root/clamav-0.98.5/test/clam.exe: ClamAV-Test-File FOUND",
-								  "/root/clamav-0.98.5/test/clam_ISmsi_ext.exe: ClamAV-Test-File FOUND"]}]
+			"result": [{"found": "/root/clamav-0.98.5/test/clamjol.iso: ClamAV-Test-File FOUND"}]
 		}
 		2.翻译: # infectedfiles   感染病毒数量
 				# scfiles   	扫描文件数量
