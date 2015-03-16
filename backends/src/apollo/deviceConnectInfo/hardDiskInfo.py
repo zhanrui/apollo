@@ -65,18 +65,15 @@ class HardDiskInfo(CommHandler):
             mounts = f.readlines()
             for mount in mounts:
                 if mount.startswith('/dev/'):
-                    mount = mount.split()
-                    dev = mount[0]
-                    target = mount[1]
-    #                 if target == '/':
-    #                     print 'root fs'
-    #                 else:
-    #                     print 'logical fs'
-    #                 print '%(dev)s mounts to %(target)s' % locals()
-                    hddic = self.get_fs_info(target)
-                    hddic['realpath']= os.path.realpath(dev)
-    #                 hdlist.append(get_fs_info(target))
-                    hdlist.append(hddic)
+                    if re.findall("/run/media",mount):
+                        pass
+                    else :
+                        mount = mount.split()
+                        dev = mount[0]
+                        target = mount[1]
+                        hddic = self.get_fs_info(target)
+                        hddic['realpath']= os.path.realpath(dev)
+                        hdlist.append(hddic)                        
         return hdlist
     
 if __name__ == "__main__":
