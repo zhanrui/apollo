@@ -18,10 +18,10 @@ if __name__ == "__main__":
         dataReportMsg=objectTemp.orgDataReportMsg(objectTemp.getVirtualMachineInfo())
         objectTemp.sendMsgToUI(dataReportMsg)
         
-        progReportMsg=objectTemp.orgProgReportMsg("100", "check the VirtualMachineInfo completed.")
+        progReportMsg=objectTemp.orgProgReportMsg("100", "虚拟机信息检查完毕.")
         objectTemp.sendMsgToUI(progReportMsg)
     except Exception,e: 
         print e
-        log4py.error("检查虚拟机信息出错." )
-        errReportMsg=objectTemp.orgErrReportMsg("check the VirtualMachineInfo error.")
+        log4py.error("虚拟机信息检查出错." )
+        errReportMsg=objectTemp.orgErrReportMsg("虚拟机信息检查出错.")
         objectTemp.sendMsgToUI(errReportMsg)

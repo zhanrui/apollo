@@ -5,6 +5,8 @@ import time
 import re
 import sys
 import json
+import linecache
+from _csv import reader
 sys.path.append(os.path.dirname(os.getcwd()))
 from apollo.commHandler import CommHandler
 from apollo.commHandler import parameters   
@@ -34,49 +36,46 @@ def  scanFileAndOrgProg(scanTypePara,checkPathPara,logdirPara)   :
     scanTypeInfo=scanType[scanTypePara]
     checkPath=checkPathPara
     logdir=logdirPara
-    checkord = 'cat '+logdir+' |wc -l'
-    foundord = 'cat '+logdir+' |grep  FOUND'
     objectTemp = ProgressStatistics() 
     if len(checkPath) > 0: 
 #                 创建日志文件 这个步骤要在fork 之前
-        if not os.path.isfile(logdir): 
-            os.mknod(logdir)
         filenum = objectTemp.filenum(checkPath)   # 扫描文件个数
         prors='0' # 进度
-        lastReadrs=None
+        lastNum=1
+        currentNum=1
+        found='FOUND'
+        foundDict={}
+        foundList=[]
         while  1:
             readrs = ''   # 正在检查的文件
-            if os.path.isfile(logdir): 
+            if os.path.exists(logdir): 
                 logrs=open(logdir)  
                 logrscon = logrs.read();
                 logrs.close()
                 scansummary = re.findall("----------- SCAN SUMMARY -----------",logrscon)
-                if  len(scansummary)>0:
-                    foundList=[]
-                    hw = os.popen(foundord)
-                    foundtemp = hw.read()
-                    hw.close()
-                    if foundtemp :
-                        foundList = foundtemp.split("\n")           
-                    return foundList  
-                else:
+                if  len(scansummary)>0: 
+                    break
+                else:                    
                     logrs=open(logdir)  
-                    logrscon = logrs.readlines();
+                    currentNum=len(logrs.readlines())
                     logrs.close()
-                    for readline  in logrscon:
-                        readrs = readline.replace('\n','')
-                    checktemp=os.popen(checkord)
-                    checknumtemp = int (checktemp.read())
-                    checktemp.close()
-                    prors = objectTemp.getProgressStatisticsInfo(filenum, checknumtemp )
-                    if lastReadrs != readrs:  
+                    while lastNum<=currentNum:
+                        linecache.clearcache()
+                        readrs=linecache.getline(logdir, lastNum)
+                        readrs=readrs.replace('\n','')
+                        lastNum=lastNum+1
+                        prors = objectTemp.getProgressStatisticsInfo(filenum, lastNum )
+                        if found  in readrs:
+                            foundDict['found']=readrs
+                            foundList.append(foundDict)
+                            dataReportMsg=objectTemp.orgDataReportMsg(foundList)
+                            objectTemp.sendMsgToUI(dataReportMsg) 
+                            foundDict={}
+                            foundList=[]                        
                         progReportMsg = objectTemp.orgProgReportMsg(prors, readrs )#
-                        objectTemp.sendMsgToUI(progReportMsg)                    
-                    lastReadrs=readrs
-                    continue
+                        objectTemp.sendMsgToUI(progReportMsg)         
             else :
-                log4py.error(scanTypeInfo + " 出错： 缺失日志文件"+logdir )
-                break   
+                continue   
     else:
         log4py.error(scanTypeInfo + " 出错：未指定扫描路径" )
          

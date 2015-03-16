@@ -23,10 +23,10 @@ class PrintDevice(commHandler.CommHandler):
     def getPrintDevice(self):
             printDevice = {}
             printDeviceList = []
-                #打印机的配置文件
+#                打印机的配置文件
             with open("/etc/cups/printers.conf", "r") as printers :
                 for printer in printers :
-
+ 
                     if re.findall("DefaultPrinter (.*)",printer) :
                         printDevice['DefaultPrinter'] = re.findall("DefaultPrinter (.*)",printer)[0].replace(">","")
                     if re.findall("MakeModel (.*)",printer):
@@ -74,7 +74,7 @@ if __name__ == "__main__":
               and printDevice[0]['State'] !='' :
             #print("success")
             temp.sendMsgToUI(temp.orgDataReportMsg(temp.getPrintDevice())) 
-            temp.sendMsgToUI(temp.orgProgReportMsg("100", "网络配置检查完毕."))
+            temp.sendMsgToUI(temp.orgProgReportMsg("100", "打印机设备检查完毕."))
         else :
             #print("login root")
             temp.sendMsgToUI(temp.orgErrReportMsg("check the printDevice Permission denied,login by root ."))

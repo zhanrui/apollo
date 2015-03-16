@@ -5,9 +5,9 @@ import sys
 import json
 from common.utils.log import log4py
 # 该接口为测试环境
-#SERVICE_NAME="com.mock.frontServer"
-#OBJECT_PATH="/com/mock/frontServer/object"
-#INTERFACE="com.mock.frontServerInterface"
+# SERVICE_NAME="com.mock.frontServer"
+# OBJECT_PATH="/com/mock/frontServer/object"
+# INTERFACE="com.mock.frontServerInterface"
 # 该接口为生产环境
 SERVICE_NAME='com.bmjc.ui'
 OBJECT_PATH='/bmjc/ui'
@@ -16,12 +16,7 @@ arguments=sys.argv
 arg=arguments[1]
 arg=json.loads(arg)
 parameters=arg['parameters']
-# print type(parameters)
-# print parameters['parameter1']
 def handleMsgFromUI():    
-#     arguments=sys.argv
-#     temp=arguments[1]
-#     temp=json.loads(temp)
     msgToUI={}
     msgToUI['scenename']=str(arg['scenename'])
     msgToUI['functionname']=str(arg['functionname'])
