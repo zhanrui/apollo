@@ -144,11 +144,10 @@
 				 "result": [{"netmask": "255.255.255.0", "macaddr": "", "IpAddr": "192.168.1.116", "dns": "202.102.128.68/202.102.134.68/", "netname": "ens33"},
 				  {"netmask": "255.255.255.0", "macaddr": "", "IpAddr": "192.168.1.116", "dns": "202.102.128.68/202.102.134.68/", "netname": "ens33"}]}
         
-        2.解释:
-         #   IpAddr               IP地址
+        2.解释:#   IpAddr               IP地址
 			   #   netmask              子网掩码
-			   #	 netname              连接名称
-			   #  macaddr               mac地址
+			   #   netname              连接名称
+			   #   macaddr               mac地址
  			   #   dns                   dns
 	
 	#M2-4.网卡设备
@@ -367,4 +366,15 @@
 				# scdirectories	 扫描文件夹数量
 				# timesa       扫描耗用时间 
 				# found     病毒目录
+-----------------------------------------------------------------------------------------------------------------------------------
+#M9.图片检查
+	#M9-1.图片检查
+		1.报文 
+		{
+			"scenename": "ImageCheck", 
+			"resulttype": "datareport",
+			"functionname": "imageCheck",
+			"result": [{"found": "/root/clamav-0.98.5/test/clamjol.iso: ClamAV-Test-File FOUND"}]
+		}
+		2.翻译: # found     符合条件路径
 -----------------------------------------------------------------------------------------------------------------------------------
