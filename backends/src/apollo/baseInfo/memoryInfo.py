@@ -157,7 +157,7 @@ if __name__ == "__main__":
     temp=MemoryInfo()  
     try:
         memData = temp.getMemoryInfo()
-        if(len(memData) !=0 and memData[0]['Memnum']!='' and memData[0]['MemInfo']!='' and memData[0]['MemProduct']!='' and memData[0]['MemSerial']!='' and  memData[0]['MemSlot']!='' and memData[0]['MemWidth']!='' and memData[0]['MemVendor']!='' and memData[0]['MemSize']!='' ) :     
+        if(len(memData) !=0  and memData[0]['MemInfo']!='' and memData[0]['MemProduct']!='' and memData[0]['MemSerial']!='' and  memData[0]['MemSlot']!='' and memData[0]['MemWidth']!='' and memData[0]['MemVendor']!='' and memData[0]['MemSize']!='' ) :     
             temp.sendMsgToUI(temp.orgDataReportMsg(memData)) 
             temp.sendMsgToUI(temp.orgProgReportMsg("100", "内存信息检查完毕."))
         else :

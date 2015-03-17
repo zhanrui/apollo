@@ -45,6 +45,8 @@ class EnumSys:
              "fileFragmentsCheck":"fileCheck",
             # 木马检查
              "networkWeapon":"trojanCheck",
-             "threatDocument":"trojanCheck"}  
+             "threatDocument":"trojanCheck",
+            # 图片检查
+             "imageCheck":"imageCheck"}  
     
     

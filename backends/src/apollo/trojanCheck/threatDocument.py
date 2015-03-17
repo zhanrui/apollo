@@ -13,11 +13,8 @@ from common.utils.scanFile import scanFileAndOrgProg
 from apollo.commHandler import CommHandler 
 from apollo.commHandler import parameters   
 checkPath = str(parameters['path'])
-strParameters = json.dumps(parameters)
 logGenDir="/tmp/threatDocument.log" #日志生成目录
-subProcFilePath=os.path.dirname(os.getcwd())+"/apollo/trojanCheck/clamscan.py"
 functionname="threatDocument"
-pid=None
 class ThreatDocument(CommHandler):
     def __init__(self):
         CommHandler.__init__(self)

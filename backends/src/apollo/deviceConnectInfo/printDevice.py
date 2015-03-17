@@ -23,10 +23,10 @@ class PrintDevice(commHandler.CommHandler):
     def getPrintDevice(self):
             printDevice = {}
             printDeviceList = []
-#                打印机的配置文件
+                #打印机的配置文件
             with open("/etc/cups/printers.conf", "r") as printers :
                 for printer in printers :
- 
+
                     if re.findall("DefaultPrinter (.*)",printer) :
                         printDevice['DefaultPrinter'] = re.findall("DefaultPrinter (.*)",printer)[0].replace(">","")
                     if re.findall("MakeModel (.*)",printer):
@@ -70,19 +70,25 @@ if __name__ == "__main__":
     try:        
         print(temp.getPrintDevice())
         printDevice = temp.getPrintDevice()
-        if printDevice[0]['Info'] !='' and printDevice[0]['DeviceURI'] != '' and printDevice[0]['Shared'] !='' \
-              and printDevice[0]['State'] !='' :
-            #print("success")
-            temp.sendMsgToUI(temp.orgDataReportMsg(temp.getPrintDevice())) 
-            temp.sendMsgToUI(temp.orgProgReportMsg("100", "打印机设备检查完毕."))
-        else :
-            #print("login root")
-            temp.sendMsgToUI(temp.orgErrReportMsg("check the printDevice Permission denied,login by root ."))
-       
+        dictTemp=printDevice[0]
+        dictLen=len(dictTemp)
+        print dictLen 
+        if(dictLen ==0):
+            temp.sendMsgToUI(temp.orgProgReportMsg("100", "打印机设备信息检查完毕."))
+        else:
+            if printDevice[0]['Info'] !='' and printDevice[0]['DeviceURI'] != '' and printDevice[0]['Shared'] !='' \
+                  and printDevice[0]['State'] !='' :
+                #print("success")
+                temp.sendMsgToUI(temp.orgDataReportMsg(temp.getPrintDevice())) 
+                temp.sendMsgToUI(temp.orgProgReportMsg("100", "打印机设备信息检查完毕."))
+            else :
+                #print("login root")
+                temp.sendMsgToUI(temp.orgErrReportMsg("检查失败，获取root权限失败."))
+           
     except Exception as e:
         #print (str(e))
-        if(re.findall("Permission denied",str(e))[0] =='Permission denied'):
-            temp.sendMsgToUI(temp.orgErrReportMsg("check the printDevice Permission denied,login by root ."))            
+        if(re.findall("Permission denied",str(e))):
+            temp.sendMsgToUI(temp.orgErrReportMsg("检查失败，获取root权限失败."))            
         else :
-            log4py.error("检查打印机设备出错."  )
-            temp.sendMsgToUI(temp.orgErrReportMsg("打印机设备检查出错."))  
+            log4py.error("打印机设备信息检查出错."  )
+            temp.sendMsgToUI(temp.orgErrReportMsg("打印机设备信息检查出错."))  

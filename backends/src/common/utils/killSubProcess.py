@@ -8,8 +8,6 @@ from _ast import keyword
 # threatDocument2='/bin/sh -c /usr/local/clamav/bin/clamscan -r  /root/clamav-0.98.5  >>/tmp/threatDocument.log'
 # fileRoutineCheck1='./CAFileScan /root/clamav-0.98.5 def'
 # fileRoutineCheck2='sh -c ./CAFileScan /root/clamav-0.98.5 def >>/tmp/fileRoutineCheck.log'
-imageCheck1=""
-imageCheck2=""
 def getPid(process):
     import commands
     cmd1 = "ps aux | grep '%s' " % process
@@ -42,14 +40,7 @@ def killSubProcess(functionNamePara,pathPara,keywordPara):
         cmd1 = "kill -9 %d" % int(pid1)
         cmd2 = "kill -9 %d" % int(pid2)
         rc = os.system(cmd1)
-        rc = os.system(cmd2)        
-    elif "imageCheck"==functionNamePara:
-        pid1=getPid(imageCheck1)
-        pid2=getPid(imageCheck2)
-        cmd1 = "kill -9 %d" % int(pid1)
-        cmd2 = "kill -9 %d" % int(pid2)
-        rc = os.system(cmd1)
-        rc = os.system(cmd2)
+        rc = os.system(cmd2)       
 
 if __name__ == "__main__":
     arguments=sys.argv[1]

@@ -82,9 +82,9 @@ if __name__ == "__main__":
         disklist = objectTemp.getHrdDiskInfo()
         dataReportMsg=objectTemp.orgDataReportMsg(disklist)
         objectTemp.sendMsgToUI(dataReportMsg)
-        progReportMsg=objectTemp.orgProgReportMsg("100", "硬盘信息检查完毕")
+        progReportMsg=objectTemp.orgProgReportMsg("100", "硬盘信息检查完毕.")
         objectTemp.sendMsgToUI(progReportMsg)
     except Exception,e: 
-        log4py.error("检查硬盘信息出错."  +str(e))
-        errReportMsg=objectTemp.orgErrReportMsg("check the hardDiskInfo error.")
-        objectTemp.sendMsgToUI(errReportMsg)          
+        log4py.error("硬盘信息检查出错."  +str(e))
+        errReportMsg=objectTemp.orgErrReportMsg("硬盘信息检查出错.")
+        objectTemp.sendMsgToUI(errReportMsg)  

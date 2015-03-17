@@ -44,24 +44,20 @@ def  scanFileAndOrgProg(scanTypePara,checkPathPara,logdirPara)   :
         lastNum=1
         currentNum=1
         found='FOUND'
+        end='----------- SCAN SUMMARY -----------'
         foundDict={}
         foundList=[]
         while  1:
             readrs = ''   # 正在检查的文件
-            if os.path.exists(logdir): 
-                logrs=open(logdir)  
-                logrscon = logrs.read();
-                logrs.close()
-                scansummary = re.findall("----------- SCAN SUMMARY -----------",logrscon)
-                if  len(scansummary)>0: 
-                    break
-                else:                    
+            if os.path.exists(logdir):                
                     logrs=open(logdir)  
                     currentNum=len(logrs.readlines())
                     logrs.close()
                     while lastNum<=currentNum:
                         linecache.clearcache()
                         readrs=linecache.getline(logdir, lastNum)
+                        if end in readrs:
+                            return
                         readrs=readrs.replace('\n','')
                         lastNum=lastNum+1
                         prors = objectTemp.getProgressStatisticsInfo(filenum, lastNum )
@@ -73,7 +69,7 @@ def  scanFileAndOrgProg(scanTypePara,checkPathPara,logdirPara)   :
                             foundDict={}
                             foundList=[]                        
                         progReportMsg = objectTemp.orgProgReportMsg(prors, readrs )#
-                        objectTemp.sendMsgToUI(progReportMsg)         
+                        objectTemp.sendMsgToUI(progReportMsg)  
             else :
                 continue   
     else:

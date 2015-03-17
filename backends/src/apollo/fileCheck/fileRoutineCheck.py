@@ -24,19 +24,24 @@ class FileRoutineCheck(CommHandler):
         libc = ctypes.CDLL('libc.so.6')
         pid = os.fork()
         if not pid:
-            try: 
-                libc.prctl(1, 15) #父进程over的同时随之over                             
-                strOrder = './CAFileScan '+checkPath+' '+keyword+' >>'+logGenDir
-                print strOrder
-                hw = os.popen(strOrder)#会产生以当前子进程id为父id的'./CAFileScan '+scanPath+' '+keyWord+' >>'+logGenDir进程，和另外一个./CAFileScan '+scanPath+' '+keyWord进程，这两个进程需要另外处理
-                hw.close()
-                os.wait()        
-            except Exception,e: 
-                print e
-                log4py.error("文件常规信息检查出错." )
-                errReportMsg=objectTemp.orgErrReportMsg("文件常规信息检查出错.")
-                objectTemp.sendMsgToUI(errReportMsg)
-                os.kill(os.getppid(), 9)           
+            libc.prctl(1, 15) #父进程over的同时随之over                             
+            strOrder = './CAFileScan '+checkPath+' '+keyword+' >>'+logGenDir
+            print strOrder
+            hw = os.popen(strOrder)#会产生以当前子进程id为父id的'./CAFileScan '+scanPath+' '+keyWord+' >>'+logGenDir进程，和另外一个./CAFileScan '+scanPath+' '+keyWord进程，这两个进程需要另外处理
+            hw.close()
+#             try: 
+#                 libc.prctl(1, 15) #父进程over的同时随之over                             
+#                 strOrder = './CAFileScan '+checkPath+' '+keyword+' >>'+logGenDir
+#                 print strOrder
+#                 hw = os.popen(strOrder)#会产生以当前子进程id为父id的'./CAFileScan '+scanPath+' '+keyWord+' >>'+logGenDir进程，和另外一个./CAFileScan '+scanPath+' '+keyWord进程，这两个进程需要另外处理
+#                 hw.close()
+#                 os.wait()        
+#             except Exception,e: 
+#                 print e
+#                 log4py.error("文件常规信息检查出错." )
+#                 errReportMsg=objectTemp.orgErrReportMsg("文件常规信息检查出错.")
+#                 objectTemp.sendMsgToUI(errReportMsg)
+#                 os.kill(os.getppid(), 9)           
         else: 
             log4py.info('backends创建子进程('+str(pid)+")开始处理..")
             scanFileAndOrgProg(functionname,checkPath,logGenDir) #调用文件检查公共模块，并组织进度信息发送，该模块调用完毕说明文件检查已结束             
