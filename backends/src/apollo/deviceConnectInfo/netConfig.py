@@ -21,8 +21,14 @@ class NetConfig(commHandler.CommHandler):
         pass 
 
     def getNetConfig(self):
-        netdic = {}   
         netlist = []
+        dnsorder = 'cat /etc/resolv.conf | grep nameserver | awk \'{print $2}\''
+        dnsopen = os.popen(dnsorder)
+        dnsread = dnsopen.readlines()
+        dnsopen.close()
+        dns = ''
+        for readline in dnsread:
+            dns = readline.replace('\n','')+'/'+ dns  
         order = "cat /proc/net/dev | awk \'{if($2>0 && NR > 2) print substr($1, 0, index($1, \":\") - 1)}\'"    
         netname =  os.popen(order)  
         netnamecon = netname.readlines()
@@ -31,26 +37,30 @@ class NetConfig(commHandler.CommHandler):
             netname = readline.replace('\n','')
             netemp = os.popen('ifconfig '+netname)
             netcontemp = netemp.read()
+            print netcontemp
             if netcontemp :
+                netdic = {} 
                 if(re.findall('inet',netcontemp)):
-                    networkList = netcontemp[netcontemp.index('inet'):].replace(":"," ").replace("\n","").split(" ")
+                    networkList = netcontemp[netcontemp.index('inet'):].replace(":"," ").replace("\n","").split(" ") 
                     netdic['netname'] = netname
+                    netdic['dns'] =dns
                     netdic['IpAddr'] = networkList[1]
                     netdic['netmask'] =networkList[4]   # 子网掩码
-#                     netdic['broadcast'] =networkList[7] 
+    #                 netdic['broadcast'] =networkList[7] 
+                    # mac 获取  以下是两次获取mac 地址 优先 HWaddr，其次ether
                     macaddr = ''
                     if re.findall('HWaddr(.*)',netcontemp):
                         macaddr = re.findall('HWaddr(.*)',netcontemp)
                     netdic['macaddr'] =macaddr
-                    netlist.append(netdic)
-        dnsorder = 'cat /etc/resolv.conf | grep nameserver | awk \'{print $2}\''
-        dnsopen = os.popen(dnsorder)
-        dnsread = dnsopen.readlines()
-        dnsopen.close()
-        dns = ''
-        for readline in dnsread:
-            dns = readline.replace('\n','')+'/'+ dns  
-        netdic['dns'] =dns
+                    ethertemp =  os.popen('ifconfig '+netname+' |grep ether ')
+                    ethercon = ethertemp.read()
+                    ethertemp.close()
+                    if ethercon:
+                        etherfindtemp = re.findall('ether (.*)',ethercon)
+                        if etherfindtemp:
+                            macaddr=etherfindtemp[0].split(' ')[0] 
+                            netdic['macaddr'] =macaddr
+                    netlist.append(netdic)        
         return netlist
 
 
