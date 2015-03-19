@@ -4,10 +4,8 @@ import os
 import sys
 import json
 from _ast import keyword
-# threatDocument1='/usr/local/clamav/bin/clamscan -r /root/clamav-0.98.5'
-# threatDocument2='/bin/sh -c /usr/local/clamav/bin/clamscan -r  /root/clamav-0.98.5  >>/tmp/threatDocument.log'
-# fileRoutineCheck1='./CAFileScan /root/clamav-0.98.5 def'
-# fileRoutineCheck2='sh -c ./CAFileScan /root/clamav-0.98.5 def >>/tmp/fileRoutineCheck.log'
+import re
+clamavPath=os.path.dirname(os.getcwd())+'/apollo/trojanCheck/clamav'
 def getPid(process):
     import commands
     cmd1 = "ps aux | grep '%s' " % process
@@ -22,10 +20,10 @@ def getPid(process):
     else:
         return -1
     
-def killSubProcess(functionNamePara,pathPara,keywordPara):
+def killSubProcess(functionNamePara,pathPara,keywordListPara):
     if "threatDocument"==functionNamePara:
-        threatDocument1='/usr/local/clamav/bin/clamscan -r '+pathPara 
-        threatDocument2='/bin/sh -c /usr/local/clamav/bin/clamscan -r  '+pathPara+'  >>/tmp/threatDocument.log'        
+        threatDocument1=clamavPath+'/bin/clamscan -d'+clamavPath+'/updata'+' -r '+pathPara 
+        threatDocument2='/bin/sh -c '+clamavPath+'/bin/clamscan -d'+clamavPath+'/updata'+' -r  '+pathPara+'  >>/tmp/threatDocument.log'        
         pid1=getPid(threatDocument1)
         pid2=getPid(threatDocument2)
         cmd1 = "kill -9 %d" % int(pid1)
@@ -33,14 +31,20 @@ def killSubProcess(functionNamePara,pathPara,keywordPara):
         rc = os.system(cmd1)
         rc = os.system(cmd2)
     elif "fileRoutineCheck"==functionNamePara:
-        fileRoutineCheck1='./CAFileScan '+pathPara+' '+keywordPara
-        fileRoutineCheck2='sh -c ./CAFileScan '+pathPara+' '+keywordPara+' >>/tmp/fileRoutineCheck.log'
-        pid1=getPid(fileRoutineCheck1)
-        pid2=getPid(fileRoutineCheck2)
-        cmd1 = "kill -9 %d" % int(pid1)
-        cmd2 = "kill -9 %d" % int(pid2)
-        rc = os.system(cmd1)
-        rc = os.system(cmd2)       
+        keywordNum=len(keywordListPara)    
+        currentNum=0
+        keywordNum=len(keywordListPara)
+        while currentNum<keywordNum:
+            fileRoutineCheck1='./CAFileScan '+pathPara+' '+keywordListPara[currentNum]
+            fileRoutineCheck2='sh -c ./CAFileScan '+pathPara+' '+keywordListPara[currentNum]+' >>/tmp/fileRoutineCheck.log'
+            pid1=getPid(fileRoutineCheck1)
+            pid2=getPid(fileRoutineCheck2)
+            cmd1 = "kill -9 %d" % int(pid1)
+            cmd2 = "kill -9 %d" % int(pid2)
+            rc = os.system(cmd1)
+            rc = os.system(cmd2) 
+            currentNum=currentNum+1 
+              
 
 if __name__ == "__main__":
     arguments=sys.argv[1]
@@ -49,8 +53,11 @@ if __name__ == "__main__":
     functionNameTemp=str(args["functionname"])
     parametersTemp=args['parameters']
     pathTemp=str(parametersTemp['path'])
+    keywordList=[]
     if "fileRoutineCheck"==functionNameTemp:
-        keywordTemp=str(parametersTemp['keyword'])
+        keywordTemp=parametersTemp['keyword']
+        keywordTemp = keywordTemp.encode('utf-8')
+        keywordList=re.split(';',keywordTemp)
     else:
         keywordTemp=""        
-    killSubProcess(functionNameTemp,pathTemp,keywordTemp)
+    killSubProcess(functionNameTemp,pathTemp,keywordList)

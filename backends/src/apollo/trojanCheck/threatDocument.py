@@ -15,6 +15,7 @@ from apollo.commHandler import parameters
 checkPath = str(parameters['path'])
 logGenDir="/tmp/threatDocument.log" #日志生成目录
 functionname="threatDocument"
+clamavPath=os.path.dirname(os.getcwd())+'/apollo/trojanCheck/clamav'
 class ThreatDocument(CommHandler):
     def __init__(self):
         CommHandler.__init__(self)
@@ -26,7 +27,8 @@ class ThreatDocument(CommHandler):
         pid = os.fork()
         if not pid:
             libc.prctl(1, 15)       
-            strOrder = '/usr/local/clamav/bin/clamscan -r  '+checkPath+' '+' >>'+logGenDir
+#             strOrder = '/usr/local/clamav/bin/clamscan -r  '+checkPath+' '+' >>'+logGenDir
+            strOrder = clamavPath+'/bin/clamscan -d'+clamavPath+'/updata'+' -r  '+checkPath+' '+' >>'+logGenDir
             
             hw = os.popen(strOrder)
             hw.close()
