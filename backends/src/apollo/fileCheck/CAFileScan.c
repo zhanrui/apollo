@@ -1,62 +1,263 @@
 /*
- ============================================================================
- Name        : CAFileScan.c
- ============================================================================
+ |    FileName: CAFileScan.c
+ |      
+ |        
+ | Description:
+ |
  */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <dirent.h>
-#include <string.h>
-#include <iconv.h>
-
-#include "sccca.h"
-#include "scctype.h"
-//#include "basetype.h"
-//#include "list.h"
-
-#define MAX_PATH_LENGTH 2048
-#define ERROR_BUFFER_SIZE 0x100
-#define CONTENT_BUFFER_SIZE  0x10000
-#ifdef UNIX
-#define PATH_TYPE   IOTYPE_UNIXPATH
-#else
-#define PATH_TYPE   IOTYPE_ANSIPATH
+#ifdef __cpluscplus
+extern "C"
+{
 #endif
 
-static char* SCANNING_STR = "Scanning ";
-static char* FOUND_STR = " FOUND";
-static char* FOUND_CNT = "#TOTAL:";
-static char* SCAN_SUMMARY = "----------- SCAN SUMMARY -----------";
-int CNT = 0;
+/* standard head files */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <dirent.h>
+#include <unistd.h>
+#include <iconv.h>
 
-typedef void (*FileProcCallBack)(int iIsDir, char *pcPathName, const char *keyWord);
+/* common lib head files */
+#include "sccca.h"
+#include "scctype.h"
+#include "basetype.h"
+#include "list.h"
 
-/**  \brief Display an error message.  */
-VTVOID displayError(DAERR const daErr, VTCHAR const * const source);
-/**  \brief Process the given document through CA.  */
-DAERR useCA(VTHDOC const hDoc, char *fileName, const char *keyWord);
-int CAFileScan(char *fileName, const char *keyWord);
-
-/******************************************************************************
- *    Function: DirectoryListNest
- * Description:
- *   Arguments: const char *pcDirPath, const char *keyWord, FileProcCallBack pfCallBack
- *      Return: void
- *****************************************************************************/
-static void DirectoryListNest(char *pcDirPath, const char *keyWord, FileProcCallBack pfCallBack)
+typedef struct tagKeywords
 {
+    STL_NODE_S stNode;
+    CHAR szKeyWord[0];
+} KEYWORD_NODE_S;
+
+typedef VOID (*FILESCAN_CALLBACK_PF)(CHAR *pcFilePath, STL_HEAD_S *pstKeWordsList);
+
+#define SCANNING_STR    "Scanning"
+#define FOUND_STR       "FOUND"
+#define FOUND_CNT       "#TOTAL:"
+#define SCAN_SUMMARY    "----------- SCAN SUMMARY -----------"
+#define SCAN_HELPINFO   "\nCAFileScan: You need to give a path following by some keywords.\n"\
+                        "Usage: CAFileScan PATH KEYWORD1 [ KEYWORD2 ...]\n"\
+                        "PATH\t\t the root directory path that you want to search the keywords\n"\
+                        "KEYWORD\t\t the keyword you need to search\n"
+
+#define CONTENT_BUFFER_SIZE 0x10000
+STATIC ULONG g_ulFoundCnt = 0;
+
+/*
+ |    Function: CA_UseCA
+ |      
+ | Description: use CA
+ |   Arguments: VTHDOC const hDoc, char *pcFilePath, const STL_HEAD_S *pstKeWordsList
+ |      Return:
+ |
+ */
+STATIC DAERR CA_UseCA(VTHDOC const hDoc, CHAR *pcFilePath, const STL_HEAD_S *pstKeWordsList)
+{
+    BOOL_T bFound;
+    DAERR daErr;
+    VTHCONTENT hCAContent;
+    SCCCAGETCONTENT stCAContent;
+    STL_NODE_S *pstEntry;
+    KEYWORD_NODE_S *pstKeyWordNode;
+    VTBYTE szbuffer[CONTENT_BUFFER_SIZE];
+
+    printf("%s %s\n", SCANNING_STR, pcFilePath);
+
+    daErr = CAOpenContent(hDoc, &hCAContent);
+    if (daErr != DAERR_OK)
+    {
+        return daErr;
+    }
+
+    memset(szbuffer, 0, sizeof(szbuffer));
+    stCAContent.dwStructSize = sizeof(SCCCAGETCONTENT);
+    stCAContent.dwFlags = 0;
+    stCAContent.dwMaxBufSize = CONTENT_BUFFER_SIZE;
+    stCAContent.pDataBuf = szbuffer;
+
+    daErr = CAReadFirst(hCAContent, &stCAContent);
+    if (daErr != DAERR_OK)
+    {
+        CACloseContent(hCAContent);
+        return daErr;
+    }
+
+    bFound = BOOL_FALSE;
+    while (daErr == DAERR_OK || daErr == DAERR_MISALIGNMENT)
+    {
+        if ((SCCCA_TEXT == stCAContent.dwType) && (0 != (SCCCA_DOCUMENTTEXT & stCAContent.dwSubType)))
+        {
+            STL_FOREACH_NODE(pstKeWordsList, pstEntry)
+            {
+                pstKeyWordNode = (KEYWORD_NODE_S *) pstEntry;
+                if (NULL != strstr((VTBYTE*) (stCAContent.pDataBuf), pstKeyWordNode->szKeyWord))
+                {
+                    printf("%s %s\n", pcFilePath, FOUND_STR);
+                    g_ulFoundCnt++;
+
+                    bFound = BOOL_TRUE;
+                    break;
+                }
+            }
+
+            if (BOOL_TRUE == bFound)
+            {
+                break;
+            }
+        }
+
+        daErr = CAReadNext(hCAContent, &stCAContent);
+    }
+
+    (VOID) CACloseContent(hCAContent);
+
+    return daErr;
+}
+
+/*
+ |    Function: CA_FileSearch
+ |      
+ |        
+ | Description: CA file search the keywords
+ |   Arguments: CHAR *pcFilePath, STL_HEAD_S *pstKeWordsList
+ |      Return:
+ |
+ */
+STATIC VOID CA_FileSearch(CHAR *pcFilePath, STL_HEAD_S *pstKeWordsList)
+{
+    VTHDOC hDoc;
+    DAERR daErr;
+    VTDWORD dwordOptionValue;
+
+    daErr = DAOpenDocument(&hDoc, IOTYPE_UNIXPATH, pcFilePath, 0);
+    if (daErr == DAERR_OK)
+    {
+        dwordOptionValue = SO_ANSI936;
+        DASetOption(hDoc, SCCOPT_DEFAULTINPUTCHARSET, &dwordOptionValue, sizeof(dwordOptionValue));
+        DASetOption(hDoc, SCCOPT_OUTPUTCHARACTERSET, &dwordOptionValue, sizeof(dwordOptionValue));
+
+        (VOID) CA_UseCA(hDoc, pcFilePath, pstKeWordsList);
+        (VOID) DACloseDocument(hDoc);
+    }
+
+    return;
+}
+
+/*
+ |    Function: SCAN_CheckArgs
+ |      
+ |        
+ | Description: check if the given argumens is right
+ |   Arguments: INT iArgc, CHAR **ppArgv
+ |      Return: BOOL_T
+ |
+ */
+STATIC BOOL_T SCAN_CheckArgs(INT iArgc, CHAR **ppArgv)
+{
+    BOOL_T bRet = BOOL_TRUE;
+    DIR *pstDirectory;
+
+    if (2 >= iArgc)
+    {
+        bRet = BOOL_FALSE;
+    }
+    else
+    {
+        /* check if the PATH is valid or readable */
+        pstDirectory = opendir(ppArgv[1]);
+        if (NULL == pstDirectory)
+        {
+            printf("CAFileScan: the given path is not avalid.\n");
+            bRet = BOOL_FALSE;
+        }
+        else
+        {
+            closedir(pstDirectory);
+        }
+    }
+
+    if (BOOL_TRUE != bRet)
+    {
+        printf(SCAN_HELPINFO);
+    }
+
+    return bRet;
+}
+
+/*
+ |    Function: SCAN_SaveKeyWords
+ |      
+ |        
+ | Description: save the keywords to the list
+ |   Arguments: STL_HEAD_S *pstList, CHAR *pcKeyWord
+ |      Return:
+ |
+ */
+STATIC VOID SCAN_SaveKeyWords(INT iArgc, CHAR **ppArgv, STL_HEAD_S *pstList)
+{
+    LONG i;
+    LONG lInLen;
+    LONG lOutLen;
+    CHAR *pcUtf8;
+    CHAR *pcGbk;
+    iconv_t hConv;
+    KEYWORD_NODE_S *pstKeyWord;
+
+    for (i = 2; i < iArgc; i++)
+    {
+        pcUtf8 = ppArgv[i];
+        lInLen = strlen(pcUtf8) + 1;
+        lOutLen = lInLen * 4;
+
+        pstKeyWord = (KEYWORD_NODE_S *) malloc(sizeof(KEYWORD_NODE_S) + lOutLen);
+        if (NULL != pstKeyWord)
+        {
+            memset((VOID *) pstKeyWord, 0, sizeof(KEYWORD_NODE_S) + lOutLen);
+            hConv = iconv_open("GBK", "UTF-8");
+            pcGbk = (CHAR *) pstKeyWord->szKeyWord;
+            iconv(hConv, &pcUtf8, (size_t *) &lInLen, &pcGbk, (size_t *) &lOutLen);
+            iconv_close(hConv);
+
+            STL_InitNode(&(pstKeyWord->stNode));
+            STL_AddTail(pstList, &(pstKeyWord->stNode));
+        }
+    }
+
+    return;
+}
+
+/*
+ |    Function: SCAN_DirScan
+ |      
+ |        
+ | Description: search the root path and all the sub dirs
+ |   Arguments: CHAR *pcRootPath, STL_HEAD_S *pstKeyWordsList, FILE_SCAN_CALLBACK_PF pfCallBack
+ |      Return:
+ |
+ */
+STATIC VOID SCAN_DirScan(CHAR *pcDirPath, STL_HEAD_S *pstKeyWordsList, FILESCAN_CALLBACK_PF pfCallBack)
+{
+    ULONG ulDirPathLen;
+    ULONG ulPathLen;
+    CHAR *pcPathName;
     DIR *pstDirectory;
     struct dirent *dir_entry;
-    char szPathName[MAX_PATH_LENGTH];
 
     pstDirectory = opendir(pcDirPath);
     if (NULL == pstDirectory)
     {
-        printf("opendir %s failed.\r\n", pcDirPath);
+        printf("CAFileScan: opendir %s failed.\r\n", pcDirPath);
         return;
     }
 
+    ulDirPathLen = strlen(pcDirPath);
+    if ('/' == pcDirPath[ulDirPathLen - 1])
+    {
+        pcDirPath[ulDirPathLen - 1] = 0;
+    }
+
+    ulDirPathLen = strlen(pcDirPath) + 2;
     while (NULL != (dir_entry = readdir(pstDirectory)))
     {
         if (dir_entry->d_type & DT_DIR)
@@ -66,229 +267,69 @@ static void DirectoryListNest(char *pcDirPath, const char *keyWord, FileProcCall
                 continue;
             }
 
-            sprintf(szPathName, "%s/%s", pcDirPath, dir_entry->d_name);
-            DirectoryListNest(szPathName, keyWord, pfCallBack);
+            ulPathLen = ulDirPathLen + strlen(dir_entry->d_name);
+            pcPathName = (CHAR *) malloc(ulPathLen);
+            if (NULL != pcPathName)
+            {
+                sprintf(pcPathName, "%s/%s", pcDirPath, dir_entry->d_name);
+                SCAN_DirScan(pcPathName, pstKeyWordsList, pfCallBack);
+                free(pcPathName);
+            }
         }
         else if (dir_entry->d_type & DT_REG)
         {
-            sprintf(szPathName, "%s/%s", pcDirPath, dir_entry->d_name);
-            pfCallBack(0, szPathName, keyWord);
+            ulPathLen = ulDirPathLen + strlen(dir_entry->d_name);
+            pcPathName = (CHAR *) malloc(ulPathLen);
+            if (NULL != pcPathName)
+            {
+                sprintf(pcPathName, "%s/%s", pcDirPath, dir_entry->d_name);
+                pfCallBack(pcPathName, pstKeyWordsList);
+                free(pcPathName);
+            }
         }
     }
 
     closedir(pstDirectory);
+
     return;
 }
 
-/******************************************************************************
- *    Function: ProcPath
- * Description:
- *   Arguments: int iIsDir, const char *pcPathName
- *      Return:
- *****************************************************************************/
-void SearchPath(int iIsDir, char *pathName, const char *keyWord)
+/*
+ |    Function: main
+ |      
+ |        
+ | Description: Main Route, search given keywords frome the path
+ |   Arguments: INT iArgc, CHAR **ppArgv
+ |      Return:
+ |
+ */
+INT main(INT iArgc, CHAR **ppArgv)
 {
-    VTHDOC hDoc;
     DAERR daErr;
-    VTDWORD optionValue;
-    VTDWORD dwXLSChanges;
+    STL_HEAD_S stKeyWordsList;
 
-    if (!iIsDir)
+    if (BOOL_TRUE != SCAN_CheckArgs(iArgc, ppArgv))
     {
-        daErr = DAOpenDocument(&hDoc, IOTYPE_UNIXPATH, pathName, 0);
-        if (daErr != DAERR_OK)
-        {
-            displayError(daErr, "DAOpenDocument");
-            return;
-        }
-
-        dwXLSChanges = (VTDWORD) 1;
-        daErr = DASetOption(hDoc, SCCOPT_GENERATEEXCELREVISIONS, &dwXLSChanges, sizeof(dwXLSChanges));
-        if (daErr != DAERR_OK)
-        {
-            displayError(daErr, "DASetOption");
-            return;
-        }
-
-        VTDWORD dwordOptionValue = SO_ANSI936;
-        DASetOption(hDoc, SCCOPT_DEFAULTINPUTCHARSET, &dwordOptionValue, sizeof(dwordOptionValue));
-        DASetOption(hDoc, SCCOPT_OUTPUTCHARACTERSET, &dwordOptionValue, sizeof(dwordOptionValue));
-
-        daErr = useCA(hDoc, pathName, keyWord);
-        if (daErr != DAERR_OK)
-        {
-            DACloseDocument(hDoc);
-            return;
-        }
-        daErr = DACloseDocument(hDoc);
-        if (daErr != DAERR_OK)
-        {
-            displayError(daErr, "DACloseDocument");
-            return;
-        }
-    }
-    return;
-}
-
-DAERR useCA(VTHDOC const hDoc, char *fileName, const char *keyWord)
-{
-    VTDWORD dwordOptionValue;
-
-    printf("%s%s\n", SCANNING_STR, fileName);
-
-    DAERR daErr;
-    VTHCONTENT hcaContent;
-    SCCCAGETCONTENT caContent;
-    VTBYTE buffer[CONTENT_BUFFER_SIZE];
-
-    dwordOptionValue = SCCEX_IND_GENERATED;
-    daErr = DASetOption(hDoc, SCCOPT_CA_FLAGS, &dwordOptionValue, sizeof(dwordOptionValue));
-    if (daErr != DAERR_OK)
-    {
-        displayError(daErr, "DASetOption");
-    }
-
-    /*  Set the fallback format to the FI_NONE */
-    dwordOptionValue = FI_NONE;
-    daErr = DASetOption(hDoc, SCCOPT_FALLBACKFORMAT, &dwordOptionValue, sizeof(dwordOptionValue));
-    if (daErr != DAERR_OK)
-    {
-        displayError(daErr, "DASetOption");
-    }
-
-    daErr = CAOpenContent(hDoc, &hcaContent);
-    if (daErr != DAERR_OK)
-    {
-        return daErr;
-    }
-
-    caContent.dwStructSize = sizeof(SCCCAGETCONTENT);
-    caContent.dwFlags = 0;
-    caContent.dwMaxBufSize = CONTENT_BUFFER_SIZE;
-    caContent.pDataBuf = buffer;
-    memset(buffer, 0, sizeof(buffer));
-
-    daErr = CAReadFirst(hcaContent, &caContent);
-    if (daErr != DAERR_OK)
-    {
-        displayError(daErr, "CAReadFirst");
-        CACloseContent(hcaContent);
-        return daErr;
-    }
-
-    int flag = 0;
-    while ((daErr == DAERR_OK || daErr == DAERR_MISALIGNMENT) && (0 == flag))
-    {
-        switch (caContent.dwType)
-        {
-            case SCCCA_TEXT:
-            {
-                if (0 != (SCCCA_DOCUMENTTEXT & caContent.dwSubType))
-                {
-                    if (flag == 0 && NULL != strstr((VTBYTE*) (caContent.pDataBuf), keyWord))
-                    {
-                        CNT++;
-                        printf("%s%s\n", fileName, FOUND_STR);
-                        flag = 1;
-                    }
-                }
-
-                break;
-            }
-            default:
-                break;
-        }
-
-        daErr = CAReadNext(hcaContent, &caContent);
-    }
-
-    /*  EOF is normal successful completion.  */
-    if ((daErr != DAERR_EOF) && (0 == flag))
-    {
-        displayError(daErr, "CAReadNext");
-        CACloseContent(hcaContent);
-        return daErr;
-    }
-
-    daErr = CACloseContent(hcaContent);
-    if (daErr != DAERR_OK)
-    {
-        displayError(daErr, "CACloseContent");
-    }
-
-    return daErr;
-}
-
-VTVOID displayError(DAERR const daErr, VTCHAR const * const source)
-{
-    return;
-}
-
-int CAFileScan(char *fileName, const char *keyWord)
-{
-    // init CA
-    VTDWORD optionValue;
-
-    DAERR daErr = DAInitEx(SCCOPT_INIT_NOTHREADS, OI_INIT_DEFAULT);
-    if (daErr != DAERR_OK)
-    {
-        displayError(daErr, "DAInitEx");
-        return daErr;
-    }
-
-    optionValue = SCCUT_FI_EXTENDEDTEST;
-    daErr = DASetOption(0, SCCOPT_FIFLAGS, &optionValue, sizeof(optionValue));
-    if (daErr != DAERR_OK)
-    {
-        displayError(daErr, "DASetOption");
-        DADeInit();
-        return daErr;
-    }
-
-    DirectoryListNest(fileName, keyWord, SearchPath);
-    printf("%s\n%s%d\n", SCAN_SUMMARY, FOUND_CNT, CNT);
-
-    // deinit CA
-    daErr = DADeInit();
-    if (daErr != DAERR_OK)
-    {
-        displayError(daErr, "DADeInit");
-    }
-    return 1;
-}
-
-int main(int argc, char* argv[])
-{
-    iconv_t hConv;
-    long lInLen, lOutLen, i;
-    char *pcGBKBuffer;
-    char *pcIn, *pcOut;
-
-    if (argc < 3)
-    {
-        printf("Arguments is wrong: %s  %s\n", argv[1], argv[2]);
         return -1;
     }
 
-    lInLen = strlen(argv[2]) + 1;
-    lOutLen = lInLen * 4;
-    pcGBKBuffer = (char *) malloc(lOutLen);
-    if (NULL != pcGBKBuffer)
+    STL_InitHead(&stKeyWordsList);
+    SCAN_SaveKeyWords(iArgc, ppArgv, &stKeyWordsList);
+
+    daErr = DAInitEx(SCCOPT_INIT_NOTHREADS, OI_INIT_DEFAULT);
+    if (daErr == DAERR_OK)
     {
-        hConv = iconv_open("GBK", "UTF-8");
-        bzero(pcGBKBuffer, lInLen * 4);
-        pcIn = argv[2];
-        pcOut = pcGBKBuffer;
-        iconv(hConv, &pcIn, (size_t *) &lInLen, &pcOut, (size_t *) &lOutLen);
-        iconv_close(hConv);
+        SCAN_DirScan(ppArgv[1], &stKeyWordsList, CA_FileSearch);
+        printf("%s\n%s%d\n", SCAN_SUMMARY, FOUND_CNT, g_ulFoundCnt);
 
-        CAFileScan(argv[1], pcGBKBuffer);
-
-        free(pcGBKBuffer);
+        (VOID) DADeInit();
     }
+
+    STL_FreeAll(&stKeyWordsList, free);
 
     return 0;
 }
 
-
-
+#ifdef __cpluscplus
+}
+#endif
