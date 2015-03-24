@@ -111,15 +111,15 @@ def analytical_profiles_file(homedir):
         else:
             pass
     return finalpath
-
-def get_mozilla_path():
+def get_all_mozilla_path(app_pathPara):
+    app_path=app_pathPara+"/.mozilla/firefox"
     count = 0
     tmp_pro_section = []
 #     if homedir:
 #         app_path = '%s/.mozilla/firefox' % homedir
 #     else:
 #         app_path = os.path.expanduser('~/.mozilla/firefox')
-    app_path = os.path.expanduser('~/.mozilla/firefox')
+#     app_path = os.path.expanduser('~/.mozilla/firefox')
     flag_pro_section = ''
     finalpath = ''
 
@@ -155,6 +155,33 @@ def get_mozilla_path():
         else:
             pass
     return finalpath
+
+def get_recursive_file_list(pathPara,userListPara):
+    current_files = os.listdir(pathPara)
+    for file_name in current_files:
+        full_file_name = os.path.join(pathPara, file_name) 
+#         print type(full_file_name)
+        if os.path.isdir(full_file_name):
+            full_file_name = full_file_name.encode('utf-8')
+            userListPara.append(full_file_name)
+ 
+    return userListPara
+
+def get_mozilla_path():
+    
+    userList=[]
+    userFinalPathDict={}
+    userList.append('/root')
+    path='/home'
+    userList=get_recursive_file_list(path,userList)
+    print userList
+    temp=''
+    for userTemp in userList:
+        temp=get_all_mozilla_path(userTemp)
+        if temp!='':
+            userFinalPathDict[userTemp]=get_all_mozilla_path(userTemp)   
+    
+    return userFinalPathDict
 
 if __name__ == '__main__':
     print analytical_profiles_file('/home/aya')

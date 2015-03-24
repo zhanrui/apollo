@@ -1,15 +1,11 @@
 #!/usr/bin/env python
 # encoding:utf8
 import os
-import time 
 import re
 import sys
-import json
+import linecache
 sys.path.append(os.path.dirname(os.getcwd()))
-from apollo.commHandler import CommHandler
-from apollo.commHandler import parameters   
-from log import log4py
-from common.enums.enumBusiness import scanType
+from apollo.commHandler import CommHandler 
 
 class ProgressStatistics(CommHandler):
     def __init__(self):
@@ -29,55 +25,54 @@ class ProgressStatistics(CommHandler):
             return str(pro)
 
 # 该方法主要实现扫描指定路径下的所有文件，并组织进度信息
-def  scanFileAndOrgProg(scanTypePara,checkPathPara,logdirPara)   :   
-#     try :
-    scanTypeInfo=scanType[scanTypePara]
+def  scanFileAndOrgProg(checkPathPara,logdirPara) :   
     checkPath=checkPathPara
     logdir=logdirPara
-    checkord = 'cat '+logdir+' |wc -l'
-    foundord = 'cat '+logdir+' |grep  FOUND'
-    objectTemp = ProgressStatistics() 
-    if len(checkPath) > 0: 
-#                 创建日志文件 这个步骤要在fork 之前
-        if not os.path.isfile(logdir): 
-            os.mknod(logdir)
-        filenum = objectTemp.filenum(checkPath)   # 扫描文件个数
-        prors='0' # 进度
-        lastReadrs=None
-        while  1:
-            readrs = ''   # 正在检查的文件
-            if os.path.isfile(logdir): 
-                logrs=open(logdir)  
-                logrscon = logrs.read();
-                logrs.close()
-                scansummary = re.findall("----------- SCAN SUMMARY -----------",logrscon)
-                if  len(scansummary)>0:
-                    foundList=[]
-                    hw = os.popen(foundord)
-                    foundtemp = hw.read()
-                    hw.close()
-                    if foundtemp :
-                        foundList = foundtemp.split("\n")           
-                    return foundList  
-                else:
-                    logrs=open(logdir)  
-                    logrscon = logrs.readlines();
-                    logrs.close()
-                    for readline  in logrscon:
-                        readrs = readline.replace('\n','')
-                    checktemp=os.popen(checkord)
-                    checknumtemp = int (checktemp.read())
-                    checktemp.close()
-                    prors = objectTemp.getProgressStatisticsInfo(filenum, checknumtemp )
-                    if lastReadrs != readrs:  
-                        progReportMsg = objectTemp.orgProgReportMsg(prors, readrs )#
-                        objectTemp.sendMsgToUI(progReportMsg)                    
-                    lastReadrs=readrs
-                    continue
-            else :
-                log4py.error(scanTypeInfo + " 出错： 缺失日志文件"+logdir )
-                break   
-    else:
-        log4py.error(scanTypeInfo + " 出错：未指定扫描路径" )
+    ps = ProgressStatistics() 
+    
+    filenum = ps.filenum(checkPath)   # 扫描文件个数
+    prors='0' # 进度
+    lastNum=1
+    currentNum=1
+    found='FOUND'
+    end='SCAN SUMMARY'
+    foundDict={}
+    foundList=[]
+    while  1:
+        readrs = ''   # 正在检查的文件
+        if os.path.exists(logdir):                
+            logrs=open(logdir)  
+            currentNum=len(logrs.readlines())
+            logrs.close()
+            while lastNum<=currentNum:
+                linecache.clearcache()
+                readrs=linecache.getline(logdir, lastNum)
+                if end in readrs:
+                    return
+                readrs=readrs.replace('\n','')
+                lastNum=lastNum+1
+                prors = ps.getProgressStatisticsInfo(filenum, lastNum )
+                if found  in readrs:
+                    foundDict['found']=readrs
+                    temp=readrs.strip() 
+                    tempFullpath=temp[0:len(temp)-6] 
+                    resultList=[m.start() for m in re.finditer('/', tempFullpath)]
+                    lenTemp=len(resultList)-1
+                    pTemp=resultList[lenTemp]
+                    tempFolderpath=tempFullpath[0:pTemp] 
+                    foundDict['filefullpath']=tempFullpath
+                    foundDict['filefolderpath']=tempFolderpath 
+                    foundList.append(foundDict)
+                    dataReportMsg=ps.orgDataReportMsg(foundList)
+                    ps.sendMsgToUI(dataReportMsg) 
+                    foundDict={}
+                    foundList=[]                        
+                readrs=readrs.strip()
+                if ""==readrs:
+                    continue                        
+                progReportMsg = ps.orgProgReportMsg(prors, readrs )#
+                ps.sendMsgToUI(progReportMsg)  
+        else :
+            continue   
          
  

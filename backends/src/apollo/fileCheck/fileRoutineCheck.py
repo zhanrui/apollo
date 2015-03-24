@@ -8,50 +8,50 @@ sys.path.append(os.path.dirname(os.getcwd()))
 from common.utils.killSubProcess import killSubProcess
 from common.utils.log import log4py
 from common.utils.scanFile import scanFileAndOrgProg
-from apollo.commHandler import CommHandler 
-from apollo.commHandler import parameters   
-checkPath = str(parameters['path'])
-keyword = str(parameters['keyword'])
+from apollo.commHandler import CommHandler,parameters
+checkPathTemp=parameters['path'] 
+keywordTemp=parameters['keyword']
+checkPath = checkPathTemp.encode('utf-8')
+keyword = keywordTemp.encode('utf-8')
+keywordList=re.split(';',keyword)
 logGenDir="/tmp/fileRoutineCheck.log" #日志生成目录
-functionname="fileRoutineCheck"
+
+
 class FileRoutineCheck(CommHandler):
     def __init__(self):
         CommHandler.__init__(self)
         pass 
     def getFileRoutineCheckInfo(self):
+        if os.path.exists(logGenDir): 
+            os.remove(logGenDir)
         libc = ctypes.CDLL('libc.so.6')
+        keywordNum=len(keywordList)
         pid = os.fork()
         if not pid:
             libc.prctl(1, 15) #父进程over的同时随之over 
-#             if os.path.isfile(logGenDir): 
-#                 os.remove(logGenDir)
-#             if os.path.isfile(logGenDir): 
-#                 os.remove(logGenDir)
-#             else:
-#                 os.mknod(logGenDir)
-                            
-            strOrder = './CAFileScan '+checkPath+' '+keyword+' >>'+logGenDir
+            currentNum=0
+            strOrder='./CAFileScan '+checkPath+' '
+            keywordTemp=''
+            while currentNum<keywordNum:
+                keywordTemp = keywordTemp+keywordList[currentNum]+' '
+                print keywordTemp                
+                currentNum=currentNum+1
+            strOrder=strOrder+keywordTemp+'>>'+logGenDir 
             print strOrder
             hw = os.popen(strOrder)#会产生以当前子进程id为父id的'./CAFileScan '+scanPath+' '+keyWord+' >>'+logGenDir进程，和另外一个./CAFileScan '+scanPath+' '+keyWord进程，这两个进程需要另外处理
-            hw.close()
+            hw.close()     
         else: 
             log4py.info('backends创建子进程('+str(pid)+")开始处理..")
-            tempdict={}
-            resultList=[]
-            tempdict['found']=scanFileAndOrgProg(functionname,checkPath,logGenDir) #调用文件检查公共模块，并组织进度信息发送，该模块调用完毕说明文件检查已结束             
+                #调用文件检查公共模块，并组织进度信息发送，该模块调用完毕说明文件检查已结束
+                #调用该方法可实现多个、单个关键词检查秘密
+            scanFileAndOrgProg(checkPath,logGenDir) 
 
-            logrs=open(logGenDir)  
-            logrscon = logrs.read();
-            logrs.close()                
-            filetotal = re.findall("#TOTAL:(.*)",logrscon)    
-            tempdict['filetotal'] = filetotal[0]
-            resultList.append(tempdict)
-            
-            dataReportMsg=objectTemp.orgDataReportMsg(resultList)
-            objectTemp.sendMsgToUI(dataReportMsg)
+            if os.path.exists(logGenDir): 
+                os.remove(logGenDir)
             
             progReportMsg=objectTemp.orgProgReportMsg("100", "文件常规信息检查完毕.")
-            objectTemp.sendMsgToUI(progReportMsg)            
+            objectTemp.sendMsgToUI(progReportMsg) 
+          
             
 if __name__ == "__main__":
     objectTemp=FileRoutineCheck()  
@@ -62,6 +62,6 @@ if __name__ == "__main__":
         log4py.error("文件常规信息检查出错." )
         errReportMsg=objectTemp.orgErrReportMsg("文件常规信息检查出错.")
         objectTemp.sendMsgToUI(errReportMsg)
-        killSubProcess("fileRoutineCheck",checkPath,keyword)
+        killSubProcess("fileRoutineCheck",checkPath,keywordList)
         
         

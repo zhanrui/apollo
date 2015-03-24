@@ -8,7 +8,9 @@ from common.utils.log import log4py
 from common.enums.enumSys import EnumSys
 subPids={} 
 paraDict={}        
-    
+#pythonPath=os.path.dirname(os.getcwd())+'/python2.7.5' 
+#pythonPath=os.path.dirname(os.getcwd())+'/lib'  
+#sys.path.append(pythonPath) 
 def chldhandler(signum , stackframe):
     while 1:
         try:
@@ -28,7 +30,7 @@ def runSubProcess(filePathPara,scenenamePara,functionnamePara,jsonMsgPara):
     signal.signal(signal.SIGCHLD,chldhandler)
     pid = os.fork()
     if not pid: 
-        os.execl("/usr/bin/python2.7", "python", filePathPara, jsonMsgPara) 
+        os.execl("/usr/bin/python", "python", filePathPara, jsonMsgPara) 
     else: 
         log4py.info('backends创建子进程('+str(pid)+")开始处理..")
         key=scenenamePara+functionnamePara+str(pid)
