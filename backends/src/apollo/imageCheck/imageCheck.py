@@ -1,28 +1,42 @@
 #! /usr/bin/python
-#-*-coding:utf-8-*- 
+#-*-coding:utf-8-*-
 import os
-import sys
+import sys 
+import re
+basePath=os.path.dirname(os.getcwd())+'/apollo/imageCheck'
+
+sys.path.append(os.path.dirname(os.getcwd()))
+numpyPath=basePath+'/thirtyMoudle'
+sys.path.append(numpyPath)
+
 import numpy as np  
 import cv2
-sys.path.append(os.path.dirname(os.getcwd()))
 from common.utils.log import log4py
 from apollo.commHandler import CommHandler
 from common.utils.scanFile import ProgressStatistics
 from apollo.commHandler import parameters 
-checkPath = str(parameters['path'])
 
-Const_Image_Format = [".bmp",".png"]
+checkPathTemp=parameters['path'] 
+keywordTemp=parameters['keyword']
+checkPath = checkPathTemp.encode('utf-8')
+keyword = keywordTemp.encode('utf-8')
+keywordList=re.split(';',keyword)
+
+Const_Image_Format = [".png"]
+templateImageDict={"秘密":basePath+'/templateImages/source_mimi.png',
+                         "绝密":basePath+'/templateImages/source_juemi.png',
+                         "机密":basePath+'/templateImages/source_jimi.png'}
+ps = ProgressStatistics()
 class ImageCheck(CommHandler):
     def __init__(self):
         CommHandler.__init__(self)
         self. currentFileNum=0       
         self.resultDict={}
         self.resultList=[]
-        pass 
-            
+        pass             
     
-    def match(self,checkPathPara):
-        img_rgb = cv2.imread('a.png')
+    def match(self,checkPathPara,sourceImagePara):
+        img_rgb = cv2.imread(sourceImagePara)
         img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
         template = cv2.imread(checkPathPara,0) 
         w, h = template.shape[::-1]
@@ -49,31 +63,45 @@ class ImageCheck(CommHandler):
                 progReportMsg=objectTemp.orgProgReportMsg(prors, temp)
                 objectTemp.sendMsgToUI(progReportMsg)  
                 self.walkdir(temp,fileTotalNumPara)  
-            else:                  
-                print(temp)
+            else:            
                 newDir=temp
                 if os.path.isfile(newDir):
                     if newDir and(os.path.splitext(newDir)[1] in Const_Image_Format):
-                        if self.match(newDir):
+                        keywordNum=len(keywordList)            
+                        currentNum=0
+                        while currentNum<keywordNum:
+                            sourceImage=templateImageDict[keywordList[currentNum]]
+                            if self.match(newDir,sourceImage):
     #                         currentFileNum=currentFileNum+1
-                            self.resultDict['found']=temp
-                            self.resultList.append(self.resultDict)
-                            dataReportMsg=objectTemp.orgDataReportMsg(self.resultList)
-                            objectTemp.sendMsgToUI(dataReportMsg) 
-                            self.resultDict={}
-                            self.resultList=[]
+                                self.resultDict['found']=temp
+                                
+                                tempFullpath=temp.strip()  
+                                resultList=[m.start() for m in re.finditer('/', tempFullpath)]
+                                lenTemp=len(resultList)-1
+                                pTemp=resultList[lenTemp]
+                                tempFolderpath=tempFullpath[0:pTemp] 
+                                self.resultDict['filefullpath']=tempFullpath
+                                self.resultDict['filefolderpath']=tempFolderpath
+                                
+                                self.resultList.append(self.resultDict)
+                                dataReportMsg=objectTemp.orgDataReportMsg(self.resultList)
+                                objectTemp.sendMsgToUI(dataReportMsg) 
+                                self.resultDict={}
+                                self.resultList=[]                                         
+                            currentNum=currentNum+1                            
+                        
                 prors = ps.getProgressStatisticsInfo(fileTotalNumPara, self.currentFileNum )                       
                 progReportMsg=objectTemp.orgProgReportMsg(prors, temp)
                 objectTemp.sendMsgToUI(progReportMsg) 
-                    
+    def getImageCheck(self):
+        fileTotalNum=ps.filenum(checkPath) 
+        objectTemp.walkdir(checkPath,fileTotalNum)                    
          
 if __name__ == "__main__":  
     objectTemp=ImageCheck()  
-    try:        
-        ps = ProgressStatistics() 
-        fileTotalNum=ps.filenum(checkPath)
-        objectTemp.walkdir(checkPath,fileTotalNum)
-                            
+    try:  
+        objectTemp.getImageCheck() 
+        
         progReportMsg=objectTemp.orgProgReportMsg("100", "图片信息检查完毕.")
         objectTemp.sendMsgToUI(progReportMsg)
     except Exception,e: 

@@ -31,20 +31,29 @@ def killSubProcess(functionNamePara,pathPara,keywordListPara):
         rc = os.system(cmd1)
         rc = os.system(cmd2)
     elif "fileRoutineCheck"==functionNamePara:
-        keywordNum=len(keywordListPara)    
-        currentNum=0
         keywordNum=len(keywordListPara)
+        currentNum=0        
+        fileRoutineCheck1='./CAFileScan '+pathPara+' '
+        fileRoutineCheck2='sh -c ./CAFileScan '+pathPara+' '
+        keywordTemp=''
         while currentNum<keywordNum:
-            fileRoutineCheck1='./CAFileScan '+pathPara+' '+keywordListPara[currentNum]
-            fileRoutineCheck2='sh -c ./CAFileScan '+pathPara+' '+keywordListPara[currentNum]+' >>/tmp/fileRoutineCheck.log'
-            pid1=getPid(fileRoutineCheck1)
-            pid2=getPid(fileRoutineCheck2)
-            cmd1 = "kill -9 %d" % int(pid1)
-            cmd2 = "kill -9 %d" % int(pid2)
-            rc = os.system(cmd1)
-            rc = os.system(cmd2) 
-            currentNum=currentNum+1 
-              
+            if currentNum+1==keywordNum:
+                keywordTemp=keywordTemp+keywordList[currentNum]                 
+            else:
+                keywordTemp = keywordTemp+keywordList[currentNum]+' '
+            print keywordTemp                
+            currentNum=currentNum+1
+        fileRoutineCheck1=fileRoutineCheck1+keywordTemp 
+        fileRoutineCheck2=fileRoutineCheck2+keywordTemp+' >>/tmp/fileRoutineCheck.log'
+        print fileRoutineCheck1
+        print fileRoutineCheck2
+        pid1=getPid(fileRoutineCheck1)
+        pid2=getPid(fileRoutineCheck2)
+        cmd1 = "kill -9 %d" % int(pid1)
+        cmd2 = "kill -9 %d" % int(pid2)
+        rc = os.system(cmd1)
+        rc = os.system(cmd2) 
+                     
 
 if __name__ == "__main__":
     arguments=sys.argv[1]
@@ -52,7 +61,8 @@ if __name__ == "__main__":
     print args
     functionNameTemp=str(args["functionname"])
     parametersTemp=args['parameters']
-    pathTemp=str(parametersTemp['path'])
+    pathTemp=parametersTemp['path']
+    pathTemp=pathTemp.encode('utf-8')
     keywordList=[]
     if "fileRoutineCheck"==functionNameTemp:
         keywordTemp=parametersTemp['keyword']

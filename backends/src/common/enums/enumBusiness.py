@@ -10,7 +10,3 @@ class ReportType:
     progReportResult={
                       0:"currentcompletion",
                       1:"currentstatus"}  
-
-scanType={"threatDocument":"木马检查",
-           "fileRoutineCheck":"文件常规检查",
-           "imageCheck":"图片检查"}   

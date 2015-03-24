@@ -9,8 +9,8 @@ from common.enums.enumSys import EnumSys
 subPids={} 
 paraDict={}        
 #pythonPath=os.path.dirname(os.getcwd())+'/python2.7.5' 
-pythonPath=os.path.dirname(os.getcwd())+'/lib'  
-sys.path.append(pythonPath) 
+#pythonPath=os.path.dirname(os.getcwd())+'/lib'  
+#sys.path.append(pythonPath) 
 def chldhandler(signum , stackframe):
     while 1:
         try:
