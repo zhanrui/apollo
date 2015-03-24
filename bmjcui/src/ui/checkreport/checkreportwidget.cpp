@@ -148,7 +148,7 @@ void CheckReportWidget::initUI()
     pathLE = new QLineEdit(settings);
     pathLE->setPlaceholderText("请设置路径");
     pathLE->move(51, 326 - y);
-    pathLE->setText("/home");
+    pathLE->setText("/tmp");
 
     QLabel* nameIcon = new QLabel(settings);
     nameIcon->move(53, 403 - y);
@@ -165,7 +165,7 @@ void CheckReportWidget::initUI()
     nameLE = new QLineEdit(settings);
     nameLE->setPlaceholderText("请设置文件名");
     nameLE->move(51, 440 - y);
-    nameLE->setText("bmjc.pdf");
+    nameLE->setText("检测报告yyMMddhhmmss.pdf");
 
     checkResultBtn = new StaticButton(":image/checkreport/checkResultBtn", 3, settings);
     checkResultBtn->move(738, 488 - y);
@@ -245,7 +245,8 @@ void CheckReportWidget::startCheck()
     QString filefullpath;
     filefullpath.append(pathLE->text());
     filefullpath.append("/");
-    filefullpath.append(nameLE->text());
+    QDateTime time = QDateTime::currentDateTime();
+    filefullpath.append( time.toString(nameLE->text()));
     emit startCreateSig(filefullpath, getHtml());
 }
 
@@ -300,7 +301,7 @@ QString CheckReportWidget::getHtml()
         getTableString(mainWindow->okcFileCheckCommonRpt->fileRoutineCheckMod, html, "文件检查信息");
         getSectionTitleString(html, "木马检查");
         getTableString(mainWindow->okcTrojanCheckRpt->threatDocumentMod, html, "威胁文档");
-        getTableString(mainWindow->okcTrojanCheckRpt->networkWeaponMod, html, "网络武器");
+        //getTableString(mainWindow->okcTrojanCheckRpt->networkWeaponMod, html, "网络武器");
         getSectionTitleString(html, "图片检查");
         getTableString(mainWindow->okcImageCheckRpt->imageCheckMod, html, "图片检查信息");
     }
@@ -355,7 +356,7 @@ QString CheckReportWidget::getHtml()
     if (tjCheck->checkState() == Qt::Checked) {
         getSubTitleString(html, "木马检查");
         getTableString(mainWindow->tcTrojanCheckRpt->threatDocumentMod, html, "威胁文档");
-        getTableString(mainWindow->tcTrojanCheckRpt->networkWeaponMod, html, "网络武器");
+        //getTableString(mainWindow->tcTrojanCheckRpt->networkWeaponMod, html, "网络武器");
     }
     if (imageCheck->checkState() == Qt::Checked) {
         getSubTitleString(html, "图片检查");

@@ -12,6 +12,8 @@ class TaskButton;
 class StaticButton;
 class QTableView;
 class QStandardItemModel;
+class QMenu;
+class QAction;
 class BasicInfoRpt : public BaseStyleWidget , public BaseReport{
     Q_OBJECT
 public:
@@ -23,7 +25,7 @@ public:
     void initViewDetail(QTableView* view);
 
 public slots:
-
+    void showFileCheckContextMenu(const QPoint& pos);
 
 
     void addOSInfo(const QVariantList& result);
@@ -75,7 +77,9 @@ public:
     QTableView* graphicsCardInfoView;
 
 
-
+    QMenu*  contextmenu;
+    QAction* openfile;
+    QAction* openfilepath ;
 
 };
 

@@ -8,6 +8,9 @@
 #include <QVariantMap>
 #include <QVariant>
 #include <QLabel>
+#include <QAction>
+#include <QProcess>
+#include <QMenu>
 
 #include "src/ui/common/taskbutton.h"
 #include "src/ui/base/staticbutton.h"
@@ -44,9 +47,56 @@ void ImageCheckRpt::initUI(const QString& titletext)
 
     imageCheckView = new QTableView(this);
     initViewDetail(imageCheckView);
+    imageCheckView->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(imageCheckView, SIGNAL(customContextMenuRequested(const QPoint&)),
+            SLOT(showImageCheckContextMenu(const QPoint&)));
     viewlist << imageCheckView;
+
+    contextmenu = new QMenu(this);
+    openfile = new QAction("打开文件", contextmenu);
+    connect(openfile, &QAction::triggered,
+            [=]() {
+        QStringList argo;
+        QProcess* exec ;
+        exec = new QProcess();
+        argo << "xdg-open"
+             << openfile->data().toString();
+        exec->start("/bin/bash", argo);
+        connect(exec, static_cast<void (QProcess::*)(int)>(&QProcess::finished), this,
+                [=](int exitCode) {
+         delete exec;
+        });
+    });
+    openfilepath = new QAction("打开文件所在文件夹", contextmenu);
+    connect(openfilepath, &QAction::triggered,
+            [=]() {
+        QStringList argo;
+        QProcess* exec ;
+        exec = new QProcess();
+        argo << "xdg-open"
+             << openfilepath->data().toString();
+        exec->start("/bin/bash", argo);
+        connect(exec, static_cast<void (QProcess::*)(int)>(&QProcess::finished), this,
+                [=](int exitCode) {
+         delete exec;
+        });
+    });
+    contextmenu->addAction(openfile);
+    contextmenu->addAction(openfilepath);
+
 }
 
+void ImageCheckRpt::showImageCheckContextMenu(const QPoint& pos)
+{
+    QModelIndex index = imageCheckView->indexAt(pos);
+    //openfile->setData("/tmp");
+    openfile->setData(index.data(FILEFULLPATH));
+    //openfilepath->setData("/tmp");
+    openfilepath->setData(index.data(FILEFOLDERPATH));
+    qDebug()<<index.data().toString();
+    contextmenu->popup(imageCheckView->viewport()->mapToGlobal(pos));
+
+}
 void ImageCheckRpt::initModel()
 {
 

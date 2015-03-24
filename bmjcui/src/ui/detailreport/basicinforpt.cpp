@@ -6,6 +6,9 @@
 #include <QVariantMap>
 #include <QVariant>
 #include <QLabel>
+#include <QAction>
+#include <QProcess>
+#include <QMenu>
 
 #include "src/ui/common/taskbutton.h"
 #include "src/ui/base/staticbutton.h"
@@ -14,7 +17,8 @@
 #include "src/ui/detailreport/basereport.h"
 
 BasicInfoRpt::BasicInfoRpt(QWidget* parent, const QString& title)
-    : BaseStyleWidget(parent),BaseReport()
+    : BaseStyleWidget(parent)
+    , BaseReport()
 {
     initUI(title);
     initModel();
@@ -83,9 +87,58 @@ void BasicInfoRpt::initUI(const QString& titletext)
     graphicsCardInfoView = new QTableView(this);
     //blueToothDeviceView->setModel(blueToothDeviceMod);
     initViewDetail(graphicsCardInfoView);
-
+    //osView->setContextMenuPolicy(Qt::CustomContextMenu);
+    //connect(osView, SIGNAL(customContextMenuRequested(const QPoint&)),
+    //        SLOT(showFileCheckContextMenu(const QPoint&)));
     viewlist << osView << cpuInfoView << biosInfoView
              << motherBoardInfoView << memoryInfoView << graphicsCardInfoView;
+
+    contextmenu = new QMenu(this);
+    openfile = new QAction("打开文件", contextmenu);
+    connect(openfile, &QAction::triggered,
+            [=]() {
+        QStringList argo;
+        QProcess* exec ;
+        exec = new QProcess();
+        argo << "xdg-open"
+             << openfile->data().toString();
+        exec->start("/bin/bash", argo);
+        connect(exec, static_cast<void (QProcess::*)(int)>(&QProcess::finished), this,
+                [=](int exitCode) {
+            qDebug()<<exitCode;
+         delete exec;
+
+        });
+    });
+    openfilepath = new QAction("打开文件所在文件夹", contextmenu);
+    connect(openfilepath, &QAction::triggered,
+            [=]() {
+        QStringList argo;
+        QProcess* exec ;
+        exec = new QProcess();
+        argo << "xdg-open"
+             << openfilepath->data().toString();
+        exec->start("/bin/bash", argo);
+        connect(exec, static_cast<void (QProcess::*)(int)>(&QProcess::finished), this,
+                [=](int exitCode) {
+         delete exec;
+         qDebug()<<exitCode;
+        });
+    });
+    contextmenu->addAction(openfile);
+    contextmenu->addAction(openfilepath);
+
+}
+
+void BasicInfoRpt::showFileCheckContextMenu(const QPoint& pos)
+{
+    QModelIndex index = osView->indexAt(pos);
+    openfile->setData("/tmp");
+    //openfile->setData(index.data(FILEFULLPATH));
+    openfilepath->setData("/tmp");
+    //openfilepath->setData(index.data(FILEFOLDERPATH));
+    qDebug()<<index.data().toString();
+    contextmenu->popup(osView->viewport()->mapToGlobal(pos));
 }
 
 void BasicInfoRpt::initViewDetail(QTableView* view)
@@ -98,7 +151,7 @@ void BasicInfoRpt::initViewDetail(QTableView* view)
 
 void BasicInfoRpt::initModel()
 {
-     osInfoMod = new QStandardItemModel(this);
+    osInfoMod = new QStandardItemModel(this);
     ModelUtil::initOSModel(osInfoMod, osView);
     cpuInfoMod = new QStandardItemModel(this);
     ModelUtil::initCPUModel(cpuInfoMod, cpuInfoView);

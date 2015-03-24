@@ -54,7 +54,7 @@ class MainWindow : public ShadowWidget {
     Q_OBJECT
 public:
     explicit MainWindow(QWidget* parent = 0);
-
+    ~MainWindow();
 private:
     void initUI();
     void initDBus();

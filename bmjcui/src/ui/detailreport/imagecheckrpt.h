@@ -13,6 +13,8 @@ class TaskButton;
 class StaticButton;
 class QTableView;
 class QStandardItemModel;
+class QAction;
+class QMenu;
 
 class ImageCheckRpt: public BaseStyleWidget , public BaseReport{
     Q_OBJECT
@@ -26,11 +28,16 @@ public:
     void initViewDetail(QTableView* view);
 
 public slots:
+    void showImageCheckContextMenu(const QPoint& pos);
     void addImageCheckInfo(const QVariantList& result);
 
 public:
     QStandardItemModel* imageCheckMod;
     QTableView* imageCheckView;
+
+    QMenu*  contextmenu;
+    QAction* openfile;
+    QAction* openfilepath ;
 };
 
 

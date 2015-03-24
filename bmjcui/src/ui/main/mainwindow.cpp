@@ -61,6 +61,8 @@
 #include <QPushButton>
 #include <QStandardItemModel>
 
+
+
 MainWindow::MainWindow(QWidget* parent)
     : ShadowWidget(parent)
 {
@@ -71,7 +73,16 @@ MainWindow::MainWindow(QWidget* parent)
     this->initConnect();
     this->initDBus();
 }
-
+MainWindow::~MainWindow()
+{
+   delete  oneKeyCheckState;
+   delete commonCheckState;
+   delete fileCheckState;
+   delete trojanCheckState;
+   delete netRecordDeepCheckState;
+   delete usbDeepCheckState;
+   delete rptCreator;
+}
 void MainWindow::initUI()
 {
     //this->setFixedSize(900, 600);

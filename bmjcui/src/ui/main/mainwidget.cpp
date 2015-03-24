@@ -58,7 +58,7 @@ void MainWidget::initUI()
 
     version = new QLabel(this);
     //version->setPixmap(QPixmap(":image/main/version"));
-    version->setText("Linux保密技术检查专用系统 V1.0.0");
+    version->setText("Linux保密技术检查专用系统 V2.1.8");
     version->setObjectName("version");
     version->move(26, 575);
 

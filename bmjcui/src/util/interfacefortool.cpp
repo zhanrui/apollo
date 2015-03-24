@@ -55,7 +55,7 @@ void InterfaceForTool::updateFromTool(const QString& messages)
                 emit o_na_progress(currentcompletion, currentstatus);
             if (functionname.compare(FUNC_PRIDEV) == 0)
                 emit o_print_progress(currentcompletion, currentstatus);
-            if (functionname.compare(FUNC_PRIDEV) == 0)
+            if (functionname.compare(FUNC_BTDEV) == 0)
                 emit o_bt_progress(currentcompletion, currentstatus);
             //系统安全信息
             if (functionname.compare(FUNC_PATCH) == 0)
@@ -132,7 +132,7 @@ void InterfaceForTool::updateFromTool(const QString& messages)
                 emit o_na_error(errordescrition);
             if (functionname.compare(FUNC_PRIDEV) == 0)
                 emit o_print_error(errordescrition);
-            if (functionname.compare(FUNC_PRIDEV) == 0)
+            if (functionname.compare(FUNC_BTDEV) == 0)
                 emit o_bt_error(errordescrition);
             //系统安全信息
             if (functionname.compare(FUNC_PATCH) == 0)
@@ -217,7 +217,7 @@ void InterfaceForTool::updateFromTool(const QString& messages)
             }
             if (functionname.compare(FUNC_PRIDEV) == 0)
                 emit o_print_data(data);
-            if (functionname.compare(FUNC_PRIDEV) == 0)
+            if (functionname.compare(FUNC_BTDEV) == 0)
                 emit o_bt_data(data);
             //系统安全信息
             if (functionname.compare(FUNC_PATCH) == 0)
@@ -286,7 +286,7 @@ void InterfaceForTool::updateFromTool(const QString& messages)
                 emit f_filecomcheck_error(errordescrition);
         }
         if (resulttype.compare(RPT_DATA) == 0) {
-
+            qDebug()<<messages;
             QList<QVariant> data = result["result"].toList();
             // i=i+data.size();
             //qDebug()<<i<<" "<<functionname;
@@ -416,7 +416,7 @@ void InterfaceForTool::updateFromTool(const QString& messages)
                 emit okc_na_progress(currentcompletion, currentstatus);
             if (functionname.compare(FUNC_PRIDEV) == 0)
                 emit okc_print_progress(currentcompletion, currentstatus);
-            if (functionname.compare(FUNC_PRIDEV) == 0)
+            if (functionname.compare(FUNC_BTDEV) == 0)
                 emit okc_bt_progress(currentcompletion, currentstatus);
             //系统安全信息
             if (functionname.compare(FUNC_PATCH) == 0)
@@ -499,7 +499,7 @@ void InterfaceForTool::updateFromTool(const QString& messages)
                 emit okc_na_error(errordescrition);
             if (functionname.compare(FUNC_PRIDEV) == 0)
                 emit okc_print_error(errordescrition);
-            if (functionname.compare(FUNC_PRIDEV) == 0)
+            if (functionname.compare(FUNC_BTDEV) == 0)
                 emit okc_bt_error(errordescrition);
             //系统安全信息
             if (functionname.compare(FUNC_PATCH) == 0)
@@ -590,7 +590,7 @@ void InterfaceForTool::updateFromTool(const QString& messages)
             }
             if (functionname.compare(FUNC_PRIDEV) == 0)
                 emit okc_print_data(data);
-            if (functionname.compare(FUNC_PRIDEV) == 0)
+            if (functionname.compare(FUNC_BTDEV) == 0)
                 emit okc_bt_data(data);
             //系统安全信息
             if (functionname.compare(FUNC_PATCH) == 0)

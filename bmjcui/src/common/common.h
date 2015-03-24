@@ -38,4 +38,9 @@ typedef enum {
     SCORE_NUMBERS
 } SCORESTATUS;
 
+typedef enum {
+    FILEFULLPATH=110,
+    FILEFOLDERPATH=120
+} CUSTOMDATAROLE;
+
 #endif // COMMON_H

@@ -16,6 +16,12 @@ MainWidget > QLabel#textLabel{
       font-weight: 900;
 }
 
+QMenu{
+    font-family: "方正兰亭细黑_GBK";
+    font-size: 13px ;
+    font-weight: 900;
+}
+
 MainWidget > QLabel#statusLabel{
       font-family: "方正兰亭细黑_GBK";
       font-size: 38px ;

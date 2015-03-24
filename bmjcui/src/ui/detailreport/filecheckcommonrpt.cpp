@@ -6,6 +6,10 @@
 #include <QVariantMap>
 #include <QVariant>
 #include <QLabel>
+#include <QAction>
+#include <QProcess>
+#include <QMenu>
+
 
 #include "src/ui/common/taskbutton.h"
 #include "src/ui/base/staticbutton.h"
@@ -17,7 +21,8 @@ FileCheckCommonRpt::~FileCheckCommonRpt()
 }
 
 FileCheckCommonRpt::FileCheckCommonRpt(QWidget* parent, const QString& title)
-    : BaseStyleWidget(parent)  , BaseReport()
+    : BaseStyleWidget(parent)
+    , BaseReport()
 {
     initUI(title);
     initModel();
@@ -42,7 +47,54 @@ void FileCheckCommonRpt::initUI(const QString& titletext)
 
     fileRoutineCheckView = new QTableView(this);
     initViewDetail(fileRoutineCheckView);
+    fileRoutineCheckView->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(fileRoutineCheckView, SIGNAL(customContextMenuRequested(const QPoint&)),
+            SLOT(showFileCheckContextMenu(const QPoint&)));
     viewlist << fileRoutineCheckView;
+
+    contextmenu = new QMenu(this);
+    openfile = new QAction("打开文件", contextmenu);
+    connect(openfile, &QAction::triggered,
+            [=]() {
+        QStringList argo;
+        QProcess* exec ;
+        exec = new QProcess();
+        argo << "xdg-open"
+             << openfile->data().toString();
+        exec->start("/bin/bash", argo);
+        connect(exec, static_cast<void (QProcess::*)(int)>(&QProcess::finished), this,
+                [=](int exitCode) {
+         delete exec;
+        });
+    });
+    openfilepath = new QAction("打开文件所在文件夹", contextmenu);
+    connect(openfilepath, &QAction::triggered,
+            [=]() {
+        QStringList argo;
+        QProcess* exec ;
+        exec = new QProcess();
+        argo << "xdg-open"
+             << openfilepath->data().toString();
+        exec->start("/bin/bash", argo);
+        connect(exec, static_cast<void (QProcess::*)(int)>(&QProcess::finished), this,
+                [=](int exitCode) {
+         delete exec;
+        });
+    });
+    contextmenu->addAction(openfile);
+    contextmenu->addAction(openfilepath);
+}
+
+void FileCheckCommonRpt::showFileCheckContextMenu(const QPoint& pos)
+{
+    QModelIndex index = fileRoutineCheckView->indexAt(pos);
+    //openfile->setData("/home/arthur/backends/src/apollo/fileCheck/fileRoutineCheck.py");
+    openfile->setData(index.data(FILEFULLPATH));
+    //openfilepath->setData("/tmp");
+    openfilepath->setData(index.data(FILEFOLDERPATH));
+    qDebug()<<index.data(FILEFULLPATH);
+    qDebug()<<index.data(FILEFOLDERPATH);
+    contextmenu->popup(fileRoutineCheckView->viewport()->mapToGlobal(pos));
 }
 
 void FileCheckCommonRpt::initModel()
@@ -65,4 +117,3 @@ void FileCheckCommonRpt::addFileRoutineCheckInfo(const QVariantList& result)
 {
     ModelUtil::addFileCheckModel(fileRoutineCheckMod, result);
 }
-

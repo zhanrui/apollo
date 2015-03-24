@@ -3,6 +3,7 @@
 #include <QStandardItem>
 #include <QTableView>
 #include <QDebug>
+#include "src/common/common.h"
 
 ModelUtil::ModelUtil()
 {
@@ -290,23 +291,32 @@ void ModelUtil::initNetConfigModel(QStandardItemModel* model, QTableView* view)
     model->setHorizontalHeaderItem(0, id);
     QStandardItem* connectionname = new QStandardItem("连接名称");
     model->setHorizontalHeaderItem(1, connectionname);
-    QStandardItem* devicename = new QStandardItem("设备名称");
-    model->setHorizontalHeaderItem(2, devicename);
+    QStandardItem* ipaddress = new QStandardItem("IP地址");
+    model->setHorizontalHeaderItem(2, ipaddress);
     QStandardItem* mac = new QStandardItem("MAC");
     model->setHorizontalHeaderItem(3, mac);
-    QStandardItem* ipaddress = new QStandardItem("IP地址");
-    model->setHorizontalHeaderItem(4, ipaddress);
     QStandardItem* subnet = new QStandardItem("子网掩码");
-    model->setHorizontalHeaderItem(5, subnet);
+    model->setHorizontalHeaderItem(4, subnet);
     QStandardItem* dns = new QStandardItem("DNS");
-    model->setHorizontalHeaderItem(6, dns);
+    model->setHorizontalHeaderItem(5, dns);
 }
 void ModelUtil::addNetConfig(QStandardItemModel* model, const QVariantList& result)
 {
+//#   netmask              子网掩码
+//#   netname              连接名称
+//#   macaddr               mac地址
+//#   dns                   dns
+    // IpAddr
     for (QVariant var : result) {
         QVariantMap map = var.toMap();
-        QStandardItem* test = new QStandardItem(map["test"].toString());
-        model->appendRow(QList<QStandardItem*>() << test);
+        QStandardItem* id = new QStandardItem(QString::number(model->rowCount()));
+        QStandardItem* netname = new QStandardItem(map["netname"].toString());
+        QStandardItem* IpAddr = new QStandardItem(map["IpAddr"].toString());
+        QStandardItem* macaddr = new QStandardItem(map["macaddr"].toString());
+        QStandardItem* netmask = new QStandardItem(map["netmask"].toString());
+        QStandardItem* dns = new QStandardItem(map["dns"].toString());
+        model->appendRow(QList<QStandardItem*>() << id << netname << IpAddr << macaddr
+                                                 << netmask << dns);
     }
 }
 void ModelUtil::initNetworkAdapterModel(QStandardItemModel* model, QTableView* view)
@@ -342,38 +352,73 @@ void ModelUtil::addNetworkAdapterDevice(QStandardItemModel* model, const QVarian
 }
 void ModelUtil::initPrinterModel(QStandardItemModel* model, QTableView* view)
 {
+   // Info           打印机信息
+    //                Shared         共享
+   //                 State          状态
+    //                Accepting      是否接受打印任务
+    //                DefaultPrinter 打印机伫列名称
+    //                DeviceURI      打印机装置所在的位置
+    //                QuotaPeriod    配额期
+    //                MakeModel      型号
+    //                StateTime      使用的时间
+    //                JobSheets      打印的页数
+    //                PageLimit      做多打印的页数
+   //                 ErrorPolicy    打印机有故障时
+   //                 Type           型号
+
     view->setModel(model);
     QStandardItem* id = new QStandardItem("ID");
     model->setHorizontalHeaderItem(0, id);
-    QStandardItem* name = new QStandardItem("名称");
-    model->setHorizontalHeaderItem(1, name);
-    QStandardItem* port = new QStandardItem("打印端口");
-    model->setHorizontalHeaderItem(2, port);
+    QStandardItem* Info = new QStandardItem("名称");
+    model->setHorizontalHeaderItem(1, Info);
+    QStandardItem* DeviceURI = new QStandardItem("位置");
+    model->setHorizontalHeaderItem(2, DeviceURI);
 }
 void ModelUtil::addPrinterDevice(QStandardItemModel* model, const QVariantList& result)
 {
     for (QVariant var : result) {
         QVariantMap map = var.toMap();
-        QStandardItem* test = new QStandardItem(map["test"].toString());
-        model->appendRow(QList<QStandardItem*>() << test);
+        QStandardItem* id = new QStandardItem(QString::number(model->rowCount()));
+        QStandardItem* Info = new QStandardItem(map["Info"].toString());
+        QStandardItem* DeviceURI = new QStandardItem(map["DeviceURI"].toString());
+
+        model->appendRow(QList<QStandardItem*>() << id<< Info << DeviceURI);
     }
 }
 void ModelUtil::initBlueToothModel(QStandardItemModel* model, QTableView* view)
 {
+    //	#	bluerun					命令状态(UP RUNNING- 激活,DOWN-未激活 )
+    //  	bluetype				蓝牙的接口类型
+    //  #	blueaddr				蓝牙地址
+    //  #	bluepacket			支持数据包
+    //                #	bluename				蓝牙名称
     view->setModel(model);
     QStandardItem* id = new QStandardItem("ID");
     model->setHorizontalHeaderItem(0, id);
-    QStandardItem* name = new QStandardItem("名称");
-    model->setHorizontalHeaderItem(1, name);
-    QStandardItem* provider = new QStandardItem("供应商");
-    model->setHorizontalHeaderItem(2, provider);
+    QStandardItem* bluename = new QStandardItem("名称");
+    model->setHorizontalHeaderItem(1, bluename);
+    QStandardItem* blueaddr = new QStandardItem("地址");
+    model->setHorizontalHeaderItem(2, blueaddr);
+    QStandardItem* bluetype = new QStandardItem("接口类型");
+    model->setHorizontalHeaderItem(3, bluetype);
+    QStandardItem* bluepacket = new QStandardItem("支持数据包");
+    model->setHorizontalHeaderItem(4, bluepacket);
+    QStandardItem* bluerun = new QStandardItem("状态");
+    model->setHorizontalHeaderItem(5, bluerun);
 }
 void ModelUtil::addBlueToothDevice(QStandardItemModel* model, const QVariantList& result)
 {
     for (QVariant var : result) {
         QVariantMap map = var.toMap();
-        QStandardItem* test = new QStandardItem(map["test"].toString());
-        model->appendRow(QList<QStandardItem*>() << test);
+        QStandardItem* id = new QStandardItem(QString::number(model->rowCount()));
+        QStandardItem* bluename = new QStandardItem(map["bluename"].toString());
+        QStandardItem* blueaddr = new QStandardItem(map["blueaddr"].toString());
+        QStandardItem* bluetype = new QStandardItem(map["bluetype"].toString());
+        QStandardItem* bluepacket = new QStandardItem(map["bluepacket"].toString());
+        QStandardItem* bluerun = new QStandardItem(map["bluerun"].toString());
+        model->appendRow(QList<QStandardItem*>() << id << bluename << blueaddr
+                         <<bluetype<<bluepacket<<bluerun
+                         );
     }
 }
 //System Security Info
@@ -618,11 +663,13 @@ void ModelUtil::addUserInfo(QStandardItemModel* model, const QVariantList& resul
     for (QVariant var : result) {
         QVariantMap map = var.toMap();
         QStandardItem* id = new QStandardItem(QString::number(model->rowCount()));
-        QStandardItem* username = new QStandardItem( map["username"].toString());
-        QStandardItem* uid = new QStandardItem( map["uid"].toString());;
-        QStandardItem* direct = new QStandardItem( map["direct"].toString());;
-        QStandardItem* groupid = new QStandardItem( map["groupid"].toString());;
-
+        QStandardItem* username = new QStandardItem(map["username"].toString());
+        QStandardItem* uid = new QStandardItem(map["uid"].toString());
+        ;
+        QStandardItem* direct = new QStandardItem(map["direct"].toString());
+        ;
+        QStandardItem* groupid = new QStandardItem(map["groupid"].toString());
+        ;
 
         model->appendRow(QList<QStandardItem*>() << id << username << uid << direct << groupid);
     }
@@ -692,16 +739,17 @@ void ModelUtil::addUsbCheckModel(QStandardItemModel* model, const QVariantList& 
 //System Usb Check Info
 void ModelUtil::initIntenetHistoryCheckModel(QStandardItemModel* model, QTableView* view)
 {
-
     view->setModel(model);
     QStandardItem* id = new QStandardItem("ID");
     model->setHorizontalHeaderItem(0, id);
+    QStandardItem* user = new QStandardItem("用户");
+    model->setHorizontalHeaderItem(1, user);
     QStandardItem* title = new QStandardItem("标签内容");
-    model->setHorizontalHeaderItem(1, title);
+    model->setHorizontalHeaderItem(2, title);
     QStandardItem* visitDate = new QStandardItem("访问时间");
-    model->setHorizontalHeaderItem(2, visitDate);
+    model->setHorizontalHeaderItem(3, visitDate);
     QStandardItem* url = new QStandardItem("URL地址");
-    model->setHorizontalHeaderItem(3, url);
+    model->setHorizontalHeaderItem(4, url);
 }
 
 void ModelUtil::addIntenetHistoryCheckModel(QStandardItemModel* model, const QVariantList& result)
@@ -713,11 +761,12 @@ void ModelUtil::addIntenetHistoryCheckModel(QStandardItemModel* model, const QVa
     for (QVariant var : result) {
         QVariantMap map = var.toMap();
         QStandardItem* id = new QStandardItem(QString::number(model->rowCount()));
+        QStandardItem* user = new QStandardItem(map["user"].toString());
         QStandardItem* title = new QStandardItem(map["title"].toString());
         QStandardItem* visitDate = new QStandardItem(map["visitDate"].toString());
         QStandardItem* url = new QStandardItem(map["url"].toString());
 
-        model->appendRow(QList<QStandardItem*>() << id << title << visitDate << url);
+        model->appendRow(QList<QStandardItem*>() << id << user<< title << visitDate << url);
     }
 }
 //File Check Info
@@ -726,17 +775,24 @@ void ModelUtil::initFileCheckModel(QStandardItemModel* model, QTableView* view)
     view->setModel(model);
     QStandardItem* id = new QStandardItem("ID");
     model->setHorizontalHeaderItem(0, id);
-    QStandardItem* name = new QStandardItem("名称");
-    model->setHorizontalHeaderItem(1, name);
-    QStandardItem* provider = new QStandardItem("供应商");
-    model->setHorizontalHeaderItem(2, provider);
+    QStandardItem* found = new QStandardItem("文件路径");
+    model->setHorizontalHeaderItem(1, found);
+    //QStandardItem* provider = new QStandardItem("供应商");
+    //model->setHorizontalHeaderItem(2, provider);
 }
 void ModelUtil::addFileCheckModel(QStandardItemModel* model, const QVariantList& result)
 {
     for (QVariant var : result) {
         QVariantMap map = var.toMap();
-        QStandardItem* test = new QStandardItem(map["test"].toString());
-        model->appendRow(QList<QStandardItem*>() << test);
+        QStandardItem* id = new QStandardItem(QString::number(model->rowCount()));
+        QStandardItem* found = new QStandardItem(map["found"].toString());
+        id->setData(map["filefullpath"].toString(),FILEFULLPATH);
+        id->setData(map["filefolderpath"].toString(),FILEFOLDERPATH);
+        found->setData(map["filefullpath"].toString(),FILEFULLPATH);
+        found->setData(map["filefolderpath"].toString(),FILEFOLDERPATH);
+        //QStandardItem* visitDate = new QStandardItem(map["visitDate"].toString());
+        //QStandardItem* url = new QStandardItem(map["url"].toString());
+        model->appendRow(QList<QStandardItem*>() << id<<found);
     }
 }
 void ModelUtil::initFileFragmentCheckModel(QStandardItemModel* model, QTableView* view)
@@ -801,34 +857,47 @@ void ModelUtil::initVirusCheckModel(QStandardItemModel* model, QTableView* view)
     view->setModel(model);
     QStandardItem* id = new QStandardItem("ID");
     model->setHorizontalHeaderItem(0, id);
-    QStandardItem* name = new QStandardItem("名称");
+    QStandardItem* name = new QStandardItem("文件路径");
     model->setHorizontalHeaderItem(1, name);
-    QStandardItem* provider = new QStandardItem("供应商");
-    model->setHorizontalHeaderItem(2, provider);
+    //QStandardItem* provider = new QStandardItem("供应商");
+    //model->setHorizontalHeaderItem(2, provider);
 }
 void ModelUtil::addVirusCheckModel(QStandardItemModel* model, const QVariantList& result)
 {
     for (QVariant var : result) {
         QVariantMap map = var.toMap();
-        QStandardItem* test = new QStandardItem(map["test"].toString());
-        model->appendRow(QList<QStandardItem*>() << test);
+        QStandardItem* id = new QStandardItem(QString::number(model->rowCount()));
+        QStandardItem* found = new QStandardItem(map["found"].toString());
+        //QStandardItem* visitDate = new QStandardItem(map["visitDate"].toString());
+        //QStandardItem* url = new QStandardItem(map["url"].toString());
+        id->setData(map["filefullpath"].toString(),FILEFULLPATH);
+        id->setData(map["filefolderpath"].toString(),FILEFOLDERPATH);
+        found->setData(map["filefullpath"].toString(),FILEFULLPATH);
+        found->setData(map["filefolderpath"].toString(),FILEFOLDERPATH);
+        model->appendRow(QList<QStandardItem*>() << id<<found);
     }
 }
 void ModelUtil::initImageCheckModel(QStandardItemModel* model, QTableView* view)
 {
     view->setModel(model);
+    view->setModel(model);
     QStandardItem* id = new QStandardItem("ID");
     model->setHorizontalHeaderItem(0, id);
-    QStandardItem* name = new QStandardItem("名称");
+    QStandardItem* name = new QStandardItem("文件路径");
     model->setHorizontalHeaderItem(1, name);
-    QStandardItem* provider = new QStandardItem("供应商");
-    model->setHorizontalHeaderItem(2, provider);
 }
 void ModelUtil::addImageCheckModel(QStandardItemModel* model, const QVariantList& result)
 {
     for (QVariant var : result) {
         QVariantMap map = var.toMap();
-        QStandardItem* test = new QStandardItem(map["test"].toString());
-        model->appendRow(QList<QStandardItem*>() << test);
+        QStandardItem* id = new QStandardItem(QString::number(model->rowCount()));
+        QStandardItem* found = new QStandardItem(map["found"].toString());
+        //QStandardItem* visitDate = new QStandardItem(map["visitDate"].toString());
+        //QStandardItem* url = new QStandardItem(map["url"].toString());
+        id->setData(map["filefullpath"].toString(),FILEFULLPATH);
+        id->setData(map["filefolderpath"].toString(),FILEFOLDERPATH);
+        found->setData(map["filefullpath"].toString(),FILEFULLPATH);
+        found->setData(map["filefolderpath"].toString(),FILEFOLDERPATH);
+        model->appendRow(QList<QStandardItem*>() << id<<found);
     }
 }

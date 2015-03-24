@@ -8,25 +8,24 @@
 #include <QProcess>
 #include <QDebug>
 
-
 #include "src/ui/main/mainwindow.h"
 #include "src/ui/checkreport/checkreportwidget.h"
 
-RptCreator::RptCreator(QObject *parent, MainWindow * mainWindow) : QObject(parent)
+RptCreator::RptCreator(QObject* parent, MainWindow* mainWindow)
+    : QObject(parent)
 {
     CheckReportWidget* checkReportWidget = mainWindow->checkReportWidget;
     connect(checkReportWidget, &CheckReportWidget::startCreateSig, this, &RptCreator::createReport);
-    connect(this, &RptCreator::createCompleteSig, checkReportWidget,&CheckReportWidget::completerateUpdate);
-
+    connect(this, &RptCreator::createCompleteSig, checkReportWidget, &CheckReportWidget::completerateUpdate);
 }
 
 RptCreator::~RptCreator()
 {
-
 }
-void RptCreator::createReport(const QString & filename , const QString & html){
-    qDebug()<<filename;
-    qDebug()<<html;
+void RptCreator::createReport(const QString& filename, const QString& html)
+{
+    qDebug() << filename;
+    qDebug() << html;
     QPrinter printer(QPrinter::HighResolution);
     printer.setPageSize(QPrinter::A4);
     printer.setOutputFormat(QPrinter::PdfFormat);
@@ -40,7 +39,7 @@ void RptCreator::createReport(const QString & filename , const QString & html){
     text_document.end();
 
     QStringList argo;
-    QProcess* exec ;
+    QProcess* exec;
     exec = new QProcess();
     argo << "xdg-open"
          << filename;
@@ -48,6 +47,9 @@ void RptCreator::createReport(const QString & filename , const QString & html){
     //exec->setEnvironment(list);
 
     exec->start("/bin/bash", argo);
-    emit createCompleteSig(100,"报告创建已完成,请查看");
+    connect(exec, static_cast<void (QProcess::*)(int)>(&QProcess::finished), this,
+            [=](int exitCode) {
+     delete exec;
+    });
+    emit createCompleteSig(100, "报告创建已完成,请查看");
 }
-
