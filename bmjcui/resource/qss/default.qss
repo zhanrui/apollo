@@ -30,7 +30,7 @@ MainWidget > QLabel#statusLabel{
 
 MainWidget > QLabel#statusLabel2{
       font-family: "方正兰亭细黑_GBK";
-      font-size: 14.5px ;
+      font-size: 14px ;
       color:#FFFFFF;
 
 }
@@ -70,7 +70,7 @@ CommonCheckWidget > QLabel#destitle{
 OneKeyCheckMainWidget > QLabel#desdetail,
 CommonCheckWidget > QLabel#desdetail{
     font-family: "方正兰亭细黑_GBK";
-    font-size: 12.28px ;
+    font-size: 12px ;
     color:#6F6F6F;
     font-weight: 600;
     width:300px;
@@ -82,7 +82,7 @@ ImageCheckWidget> CommonWidget#imagechecksetting > QLabel,
 CheckReportWidget> CommonWidget#checkreportsetting > QLabel
 {
     font-family: "方正兰亭细黑_GBK";
-    font-size: 12.28px ;
+    font-size: 12px ;
     color:#6F6F6F;
     font-weight: 600;
 }
@@ -92,7 +92,7 @@ ImageCheckSettingPart>QLabel,
 CommonCheckSettingPart >QLabel
 {
     font-family: "方正兰亭细黑_GBK";
-    font-size: 12.28px ;
+    font-size: 12px ;
     color:#6F6F6F;
     font-weight: 600;
 }
@@ -166,6 +166,8 @@ CheckReportWidget> CommonWidget#checkreportsetting > QLineEdit
 {
    width:797px;
    height:31px;
+   font-family: "方正兰亭细黑_GBK";
+   font-size: 12px ;
 }
 
 FileCheckSettingPart> QLineEdit,
@@ -174,6 +176,8 @@ ImageCheckSettingPart>QLineEdit
 {
     width:600px;
     height:31px;
+    font-family: "方正兰亭细黑_GBK";
+    font-size: 12px ;
 }
 
 FileCheckWidget > CommonWidget#filechecksetting > QComboBox,
@@ -181,6 +185,8 @@ ImageCheckWidget > CommonWidget#imagechecksetting > QComboBox
 {
    width:767px;
    height:31px;
+   font-family: "方正兰亭细黑_GBK";
+   font-size: 12px ;
 }
 
 FileCheckSettingPart> QComboBox,
@@ -189,6 +195,8 @@ ImageCheckSettingPart>QComboBox
 {
 width:570px;
 height:31px;
+font-family: "方正兰亭细黑_GBK";
+font-size: 12px ;
 }
 
 MainWindow >DeviceConnectRpt,
@@ -218,7 +226,7 @@ TrojanCheckRpt>QLabel,
 ImageCheckRpt>QLabel
 {
       font-family: "方正兰亭细黑_GBK";
-      font-size: 14.5px ;
+      font-size: 14px ;
       color:#FFFFFF;
        font-weight: 900;
 }
@@ -233,7 +241,7 @@ OneKeyCheckSettingWidget
 OneKeyCheckSettingWidget > QLabel
 {
       font-family: "方正兰亭细黑_GBK";
-      font-size: 14.5px ;
+      font-size: 14px ;
       color:#FFFFFF;
        font-weight: 900;
 }
@@ -273,7 +281,7 @@ ImageCheckWidget > QLabel#ic_description,
 CheckReportWidget > QLabel#cr_description
 {
       font-family: "方正兰亭细黑_GBK";
-      font-size: 14.45px ;
+      font-size: 14px ;
       color:#FFFFFF
 }
 OneKeyCheckMainWidget > QLabel#okc_checkingelapsedtime,
@@ -284,7 +292,7 @@ ImageCheckWidget > QLabel#ic_checkingelapsedtime,
 CheckReportWidget > QLabel#cr_checkingelapsedtime
 {
       font-family: "方正兰亭细黑_GBK";
-      font-size: 14.45px ;
+      font-size: 14px ;
       color:#FFFFFF
 }
 

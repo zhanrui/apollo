@@ -47,7 +47,7 @@ void ModelUtil::addCpuInfo(QStandardItemModel* model, const QVariantList& result
         QStandardItem* modelName = new QStandardItem(map["modelName"].toString());
         QStandardItem* vendorId = new QStandardItem(map["vendorId"].toString());
         QStandardItem* cacheSize = new QStandardItem(map["cacheSize"].toString());
-        QStandardItem* CPUMHz = new QStandardItem(map["CPU MHz"].toString());
+        QStandardItem* CPUMHz = new QStandardItem(map["cpuMHz"].toString());
         model->appendRow(QList<QStandardItem*>() << id << modelName << vendorId
                                                  << cacheSize << CPUMHz);
     }
@@ -189,11 +189,10 @@ void ModelUtil::addMemoryInfo(QStandardItemModel* model, const QVariantList& res
         QStandardItem* MemSlot = new QStandardItem(map["MemSlot"].toString());
         QStandardItem* MemProduct = new QStandardItem(map["MemProduct"].toString());
         QStandardItem* MemVendor = new QStandardItem(map["MemVendor"].toString());
-        QStandardItem* MemSerial = new QStandardItem(map["MemSerial"].toString());
         QStandardItem* MemSize = new QStandardItem(map["MemSize"].toString());
 
         model->appendRow(QList<QStandardItem*>() << id << MemInfo << MemWidth
-                                                 << MemSlot << MemProduct << MemVendor << MemSerial << MemSize);
+                                                 << MemSlot << MemProduct << MemVendor << MemSize);
     }
 }
 void ModelUtil::initVideoCardModel(QStandardItemModel* model, QTableView* view)

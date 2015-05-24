@@ -160,6 +160,7 @@ bool TrojanCheckSettingPart::validateParameter()
         pathLE->setFocus();
         return false;
     }
+    return true;
 }
 
 void TrojanCheckSettingPart::setFolderPath()

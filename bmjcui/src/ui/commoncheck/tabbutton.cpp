@@ -26,9 +26,13 @@ void TabButton::changeToProblem()
 }
 void TabButton::changeToNoProblem()
 {
+ if(taskstaus != TASK_PROBLEM)
+ {
     taskstaus = TASK_NOPROBLEM;
     this->setOneButtonInfo(iconname + "_noproblem", 3);
     this->update();
+ }
+
 }
 void TabButton::changeToDefault()
 {

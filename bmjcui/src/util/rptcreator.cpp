@@ -49,6 +49,7 @@ void RptCreator::createReport(const QString& filename, const QString& html)
     exec->start("/bin/bash", argo);
     connect(exec, static_cast<void (QProcess::*)(int)>(&QProcess::finished), this,
             [=](int exitCode) {
+
      delete exec;
     });
     emit createCompleteSig(100, "报告创建已完成,请查看");

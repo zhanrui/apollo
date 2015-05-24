@@ -138,7 +138,7 @@ SOURCES += \
     src/ui/onekeycheck/checkbutton.cpp
 
 copyotherfile.commands = $(COPY_DIR) $$PWD/otherfile $$OUT_PWD
-first.depends = $(first) copyotherfile
+first.depends = $(first) 
 export(first.depends)
 export(copyotherfile.commands)
 QMAKE_EXTRA_TARGETS += first copyotherfile

@@ -165,7 +165,7 @@ void CheckReportWidget::initUI()
     nameLE = new QLineEdit(settings);
     nameLE->setPlaceholderText("请设置文件名");
     nameLE->move(51, 440 - y);
-    nameLE->setText("检测报告yyMMddhhmmss.pdf");
+    nameLE->setText("检测报告yyMMddhhmmss");
 
     checkResultBtn = new StaticButton(":image/checkreport/checkResultBtn", 3, settings);
     checkResultBtn->move(738, 488 - y);
@@ -246,7 +246,8 @@ void CheckReportWidget::startCheck()
     filefullpath.append(pathLE->text());
     filefullpath.append("/");
     QDateTime time = QDateTime::currentDateTime();
-    filefullpath.append( time.toString(nameLE->text()));
+    filefullpath.append( time.toString(nameLE->text().trimmed()));
+    filefullpath.append( ".pdf");
     emit startCreateSig(filefullpath, getHtml());
 }
 
@@ -258,13 +259,14 @@ QString CheckReportWidget::getHtml()
     getCssString(html);
     html += "</head>";
     html += "<body>";
-    html += "<div  align='center' class ='title'>LINUX保密检查报告</div>";
+    html += "<div  align='center' style='font-weight:bold;font-size:250px' >LINUX保密检查报告</div>";
     html += "<p/><p/><p/>";
 
     if (onekeyCheck->checkState() == Qt::Checked) {
         getSubTitleString(html, "一键检查");
         getSectionTitleString(html, "基本信息");
         getTableString(mainWindow->okcBasicInfoRpt->osInfoMod, html, "操作系统");
+        getTableString(mainWindow->okcBasicInfoRpt->cpuInfoMod, html, "CPU信息");
         getTableString(mainWindow->okcBasicInfoRpt->biosInfoMod, html, "BIOS信息");
         getTableString(mainWindow->okcBasicInfoRpt->motherBoardInfoMod, html, "主板信息");
         getTableString(mainWindow->okcBasicInfoRpt->memoryInfoMod, html, "内存信息");
@@ -310,6 +312,7 @@ QString CheckReportWidget::getHtml()
         getSubTitleString(html, "常规检查");
         getSectionTitleString(html, "基本信息");
         getTableString(mainWindow->ccBasicInfoRpt->osInfoMod, html, "操作系统");
+        getTableString(mainWindow->ccBasicInfoRpt->cpuInfoMod, html, "CPU信息");
         getTableString(mainWindow->ccBasicInfoRpt->biosInfoMod, html, "BIOS信息");
         getTableString(mainWindow->ccBasicInfoRpt->motherBoardInfoMod, html, "主板信息");
         getTableString(mainWindow->ccBasicInfoRpt->memoryInfoMod, html, "内存信息");
@@ -435,7 +438,7 @@ void CheckReportWidget::getTableString(QStandardItemModel* model, QString& html,
     int rownumber = model->rowCount();
 
     html += "<br><table   width='100%'   >";
-    html += "      <caption>" + tablename + "</caption>";
+    html += "      <caption style='font-size:170px' >" + tablename + "</caption>";
     html += "      <thead>";
     html += "        <tr>";
     for (int i = 0; i < columnnumber; i++) {
@@ -447,7 +450,7 @@ void CheckReportWidget::getTableString(QStandardItemModel* model, QString& html,
     for (int i = 0; i < rownumber; i++) {
         html += "      <tr>";
         for (int j = 0; j < columnnumber; j++) {
-            html += "         <td >" + model->takeItem(i, j)->text() + "</td>";
+            html += "         <td >" + model->item(i, j)->text() + "</td>";
         }
         html += "      </tr>";
     }
@@ -462,7 +465,7 @@ void CheckReportWidget::getSubTitleString(QString& html, const QString& subtitle
 
 void CheckReportWidget::getSectionTitleString(QString& html, const QString& sectiontitle)
 {
-    html += "<div class='sectiontitle' style='TEXT-DECORATION: underline' align='center'><br>" + sectiontitle + "</div>";
+    html += "<div class='sectiontitle' style='TEXT-DECORATION: underline;font-size:180px' align='center'><br>" + sectiontitle + "</div>";
 }
 void CheckReportWidget::getCssString(QString& html)
 {
@@ -475,7 +478,7 @@ void CheckReportWidget::getCssString(QString& html)
     html += " table{border:none;background:#ffffff;}";
     html += " th,td{border:none;padding:5px 15px;}";
     html += " th{font-weight:normal;background:#cfcfcf;;}";
-    html += " td{background:#efefef;}";
+    html += " td{background:#efefef;font-family: 宋体,Microsoft YaHei,Verdana;font-size:140px}}";
     html += " div.title{font-weight:bold;font-size:250px;}";
     html += " div.sectiontitle{}";
     html += " </style>";
